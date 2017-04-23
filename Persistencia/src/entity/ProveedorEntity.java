@@ -15,7 +15,7 @@ public class ProveedorEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private int proveedor_id;
 	
 	private String telefono;
 	private String nombre;
