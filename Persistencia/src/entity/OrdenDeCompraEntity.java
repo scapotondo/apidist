@@ -40,4 +40,5 @@ public class OrdenDeCompraEntity implements Serializable{
 	@JoinColumn(name="id")
 	private ProveedorEntity proveedor;
 
+	public OrdenDeCompraEntity(){}
 }
