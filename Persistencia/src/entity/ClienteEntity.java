@@ -1,11 +1,12 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.persistence.*;
 
 @Entity
 @Table(name="Cliente")
-public class ClienteEntity {
+public class ClienteEntity implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int legajo;
@@ -30,13 +31,17 @@ public class ClienteEntity {
 	
 	@Column(nullable=false)
 	private String direccionFacturacion;
-//	private ArrayList<PedidoPrendasEntity> pedidosAceptados;
-//	private SucursalEntity sucursal;
-//	
+	
+	@OneToMany(mappedBy = "cliente")
+	private ArrayList<PedidoPrendasEntity> pedidosAceptados;
+	
+	@ManyToOne(targetEntity=SucursalEntity.class)
+	private SucursalEntity sucursal;
+	
 	public ClienteEntity(){}
 	public ClienteEntity(float limiteCredito,String formaPago, float cuentaCorriente, String cuit, String nombre, String razonSocial,
-						String telefono, String direccionEnvio,String direccionFacturacion, int legajo){
-//						ArrayList<PedidoPrendasEntity> pedidosAceptados, SucursalEntity sucursal ){
+						String telefono, String direccionEnvio,String direccionFacturacion, int legajo,
+						ArrayList<PedidoPrendasEntity> pedidosAceptados, SucursalEntity sucursal ){
 		
 		this.limiteCredito=limiteCredito;
 		this.formaPago=formaPago;
@@ -48,7 +53,7 @@ public class ClienteEntity {
 		this.direccionEnvio=direccionEnvio;
 		this.direccionFacturacion=direccionFacturacion;
 		this.legajo=legajo;
-//		this.sucursal=sucursal;
-//		this.pedidosAceptados= pedidosAceptados;
+		this.sucursal=sucursal;
+		this.pedidosAceptados= pedidosAceptados;
 	}
 }

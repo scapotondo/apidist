@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="lib/jboss-logging-3.3.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/jboss-transaction-api_1.2_spec-1.0.1.Final.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.41-bin.jar"/>
+	<classpathentry kind="src" path="/Servidor"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
