@@ -23,19 +23,20 @@ public class OrdenDeProduccionEntity implements Serializable{
 	private int confeccionesTerminadas;
 	
 	@OneToMany(mappedBy="ordenDeProduccion")
-	private List<PrendaEntity> prenda;
+	@Embedded
+	private List<PrendaEntity> prendas;
 	
 	@OneToOne
 	@Embedded
 	private PedidoPrendasEntity pedidoPrenda;
 	
 	public OrdenDeProduccionEntity(){}
-	public OrdenDeProduccionEntity(String estado, List<MateriaPrimaEntity> materiaPrimaReservada, PedidoPrendasEntity pedidoPrenda, PrendaEntity prenda){
+	public OrdenDeProduccionEntity(String estado, List<MateriaPrimaEntity> materiaPrimaReservada, PedidoPrendasEntity pedidoPrenda, List<PrendaEntity> prendas){
 		this.estado=estado;
 		this.materiaPrimaReservada=materiaPrimaReservada;
 		this.confeccionesTerminadas=0;
 		this.pedidoPrenda=pedidoPrenda;
-		this.prenda=prenda;
+		this.prendas=prendas;
 	}
 
 }

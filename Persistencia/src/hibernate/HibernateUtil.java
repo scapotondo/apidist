@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import entity.ClienteEntity;
+import entity.EmpleadoEntity;
 import entity.ItemPrendaEntity;
 import entity.MateriaPrimaEntity;
 import entity.OrdenDeProduccionEntity;
@@ -28,6 +29,7 @@ public class HibernateUtil{
         	 config.addAnnotatedClass(ItemPrendaEntity.class);
         	 config.addAnnotatedClass(PrendaEntity.class);
         	 config.addAnnotatedClass(MateriaPrimaEntity.class);
+        	 config.addAnnotatedClass(EmpleadoEntity.class);
         	 
              sessionFactory = config.buildSessionFactory();
              
