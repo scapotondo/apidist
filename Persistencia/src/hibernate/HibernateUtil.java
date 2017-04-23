@@ -12,6 +12,7 @@ import entity.MateriaPrimaEntity;
 import entity.OrdenDeProduccionEntity;
 import entity.PedidoPrendasEntity;
 import entity.PrendaEntity;
+import entity.StockMateriaPrimaEntity;
 import entity.StockPrendaEntity;
 import entity.SucursalEntity;
 
@@ -34,6 +35,7 @@ public class HibernateUtil{
         	 config.addAnnotatedClass(EmpleadoEntity.class);
         	 config.addAnnotatedClass(ConfeccionEntity.class);
         	 config.addAnnotatedClass(StockPrendaEntity.class);
+        	 config.addAnnotatedClass(StockMateriaPrimaEntity.class);
         	 
              sessionFactory = config.buildSessionFactory();
              
