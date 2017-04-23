@@ -32,8 +32,7 @@ public class PedidoPrendasEntity implements Serializable{
 	@Embedded
 	private ClienteEntity cliente;
 	
-	@OneToOne
-	@Embedded
+	@OneToOne()
 	private OrdenDeProduccionEntity ordenProduccion;
 	
 	@OneToMany(mappedBy="pedidoPrenda")
