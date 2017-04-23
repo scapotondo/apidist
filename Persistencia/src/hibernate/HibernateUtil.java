@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import entity.AdministracionEntity;
 import entity.AreaComprasEntity;
 import entity.AreaProduccionEntity;
 import entity.ClienteEntity;
@@ -48,6 +49,7 @@ public class HibernateUtil{
         	 config.addAnnotatedClass(AreaComprasEntity.class);
         	 config.addAnnotatedClass(ProveedorEntity.class);
         	 config.addAnnotatedClass(LineaProduccionEntity.class);
+        	 config.addAnnotatedClass(AdministracionEntity.class);
         	 
              sessionFactory = config.buildSessionFactory();
              

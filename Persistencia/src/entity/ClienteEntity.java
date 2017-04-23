@@ -42,6 +42,9 @@ public class ClienteEntity implements Serializable{
 	@Embedded
 	private SucursalEntity sucursal;
 	
+	@ManyToOne(targetEntity=AdministracionEntity.class)
+	private AdministracionEntity administracion;
+	
 	public ClienteEntity(){}
 	public ClienteEntity(float limiteCredito,String formaPago, float cuentaCorriente, String cuit, String nombre, String razonSocial,
 						String telefono, String direccionEnvio,String direccionFacturacion, int legajo,
