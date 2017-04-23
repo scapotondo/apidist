@@ -23,12 +23,10 @@ public class AdministracionEntity implements Serializable{
 	
 	@OneToMany()
 	@JoinColumn(name="legajo")
-	@Embedded
 	private List<ClienteEntity> clientes;
 	
 	@OneToMany()
 	@JoinColumn(name="codigo")
-	@Embedded
 	private List<PrendaEntity> prendas;
 	
 	public AdministracionEntity(){}

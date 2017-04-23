@@ -18,7 +18,7 @@ public class InsumoEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int codigo;
+	private int id;
 	
 	@ManyToOne(targetEntity=ConfeccionEntity.class)
 	private ConfeccionEntity confeccion;
