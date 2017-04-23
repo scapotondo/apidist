@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +21,9 @@ public class EmpleadoEntity implements Serializable{
 	private String nombre;
 	private String domicilio;
 	private String telefono;
+	
+	@ManyToOne(targetEntity=SucursalEntity.class)
+	private SucursalEntity sucursal;
 	
 	public EmpleadoEntity(){}
 	public EmpleadoEntity(String nombre, String domicilio, String telefono, int legajo){
