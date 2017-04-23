@@ -36,6 +36,7 @@ public class HibernateUtil{
         	 config.addAnnotatedClass(ConfeccionEntity.class);
         	 config.addAnnotatedClass(StockPrendaEntity.class);
         	 config.addAnnotatedClass(StockMateriaPrimaEntity.class);
+        	 config.addAnnotatedClass(OrdenDeCompraEntity.class);
         	 
              sessionFactory = config.buildSessionFactory();
              
