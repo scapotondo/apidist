@@ -13,6 +13,6 @@ public class PrendaEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int nroPedido;
 	
-	@OneToMany(mappedBy="prenda")
+	@ManyToOne(targetEntity=OrdenDeProduccionEntity.class)
 	private OrdenDeProduccionEntity ordenDeProduccion;
 }

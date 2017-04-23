@@ -22,7 +22,7 @@ public class OrdenDeProduccionEntity implements Serializable{
 	
 	private int confeccionesTerminadas;
 	
-	@ManyToOne(targetEntity=PrendaEntity.class)
+	@OneToMany(mappedBy="ordenDeProduccion")
 	@Embedded
 	private PrendaEntity prenda;
 	
