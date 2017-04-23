@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="OrdenDeProduccion")
+@Table(name="Administracion")
 public class AdministracionEntity implements Serializable{
 	
 	@Id
