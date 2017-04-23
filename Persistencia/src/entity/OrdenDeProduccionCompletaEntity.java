@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="OrdenDeProduccionParcial")
+@Table(name="OrdenDeProduccionCompleta")
 public class OrdenDeProduccionCompletaEntity extends OrdenDeProduccionEntity{
 	public OrdenDeProduccionCompletaEntity(){}
 }
