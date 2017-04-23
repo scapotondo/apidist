@@ -4,9 +4,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import entity.AreaProduccionEntity;
 import entity.ClienteEntity;
 import entity.ConfeccionEntity;
 import entity.EmpleadoEntity;
+import entity.InsumoEntity;
 import entity.ItemPrendaEntity;
 import entity.MateriaPrimaEntity;
 import entity.OrdenDeCompraEntity;
@@ -38,6 +40,8 @@ public class HibernateUtil{
         	 config.addAnnotatedClass(StockPrendaEntity.class);
         	 config.addAnnotatedClass(StockMateriaPrimaEntity.class);
         	 config.addAnnotatedClass(OrdenDeCompraEntity.class);
+        	 config.addAnnotatedClass(AreaProduccionEntity.class);
+        	 config.addAnnotatedClass(InsumoEntity.class);
         	 
              sessionFactory = config.buildSessionFactory();
              

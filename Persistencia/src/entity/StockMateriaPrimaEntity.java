@@ -26,4 +26,6 @@ public class StockMateriaPrimaEntity implements Serializable{
 	private float precioFinalCompra;
 	private int cantidad;
 	private String ubicacion;
+	
+	public StockMateriaPrimaEntity(){}
 }
