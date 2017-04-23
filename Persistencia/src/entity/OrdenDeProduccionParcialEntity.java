@@ -1,5 +1,6 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -11,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="OrdenDeProduccionParcial")
-public class OrdenDeProduccionParcialEntity extends OrdenDeProduccionEntity{
+public class OrdenDeProduccionParcialEntity extends OrdenDeProduccionEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

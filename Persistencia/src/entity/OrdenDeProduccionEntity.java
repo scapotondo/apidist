@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import javax.persistence.*;
 
 @MappedSuperclass
-public abstract class OrdenDeProduccionEntity implements Serializable{
+public abstract class OrdenDeProduccionEntity{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
