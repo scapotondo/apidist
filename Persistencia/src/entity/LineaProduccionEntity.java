@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,5 +20,9 @@ public class LineaProduccionEntity implements Serializable{
 	
 	@ManyToOne(targetEntity=AreaProduccionEntity.class)
 	private AreaProduccionEntity areaProduccion;
+	
+	private String estado;
+	private Date tiempoLiberarse;
+	private String trabajo;
 	
 }
