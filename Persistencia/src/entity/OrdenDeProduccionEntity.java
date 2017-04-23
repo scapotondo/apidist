@@ -15,6 +15,7 @@ import javax.persistence.Table;
 public class OrdenDeProduccionEntity implements Serializable{
 	
 	@OneToOne
+	@Embedded
 	private PedidoPrendasEntity pedidoPrenda;
 
 }
