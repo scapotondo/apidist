@@ -2,32 +2,24 @@ package entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="OrdenDeProduccion")
-public class AdministracionEntity implements Serializable{
+public class AlmacenEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@OneToMany()
-	@JoinColumn(name="legajo")
-	private List<ClienteEntity> clientes;
-	
-	@OneToMany()
-	@JoinColumn(name="codigo")
-	private List<PrendaEntity> prendas;
-	
-	public AdministracionEntity(){}
-
+//	private ArrayList<MovimientoPrenda> movimientosPrendas;
+//	private ArrayList<MovimientoMateriaPrima> movimientosMateriaPrima;
+//	private ArrayList<StockPrendaEntity> stockPrendas;
+//	private ArrayList<StockMateriaPrimaEntity> stockMateriaPrima;
 }
