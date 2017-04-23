@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 import javax.persistence.*;
 
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class OrdenDeProduccionEntity{
 	
 	@Id
