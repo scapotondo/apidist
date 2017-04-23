@@ -10,6 +10,7 @@ import entity.AreaComprasEntity;
 import entity.AreaProduccionEntity;
 import entity.ClienteEntity;
 import entity.ConfeccionEntity;
+import entity.DespachoEntity;
 import entity.EmpleadoEntity;
 import entity.InsumoEntity;
 import entity.ItemPrendaEntity;
@@ -56,6 +57,7 @@ public class HibernateUtil{
         	 config.addAnnotatedClass(AlmacenEntity.class);
         	 config.addAnnotatedClass(MovimientoPrendaEntity.class);
         	 config.addAnnotatedClass(MovimientoMateriaPrimaEntity.class);
+        	 config.addAnnotatedClass(DespachoEntity.class);
         	 
              sessionFactory = config.buildSessionFactory();
              
