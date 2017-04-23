@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,10 +31,12 @@ public class ItemPrendaEntity implements Serializable{
 	private String color;
 	private float importe;
 	
-	@Embedded
+	@OneToOne()
+	@JoinColumn(name="codigo")
 	private PrendaEntity prenda;
 	
-	@Embedded
+	@OneToOne()
+	@JoinColumn(name="nroOrden")
 	private OrdenDeProduccionEntity lote;
 	
 	public ItemPrendaEntity(){}
@@ -42,6 +46,7 @@ public class ItemPrendaEntity implements Serializable{
 		this.color=color;
 		this.importe=importe;
 		this.prenda=prenda;
+		this.lote = lote;
 	}
 	
 }
