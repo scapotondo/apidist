@@ -24,8 +24,7 @@ public class OrdenDeProduccionEntity implements Serializable{
 	@Embedded
 	private List<PrendaEntity> prendas;
 	
-	@OneToOne
-	@Embedded
+	@OneToOne()
 	private PedidoPrendasEntity pedidoPrenda;
 	
 	@ManyToOne(targetEntity=AreaProduccionEntity.class)
