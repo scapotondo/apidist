@@ -3,6 +3,7 @@ package entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -31,18 +32,21 @@ public class PedidoPrendasEntity implements Serializable{
 	@Embedded
 	private ClienteEntity cliente;
 	
-	//private OrdenDeProduccion ordenProduccion;
-	//private ArrayList<ItemPrenda> items;
+	@OneToOne
+	private OrdenDeProduccionEntity ordenProduccion;
+	
+	@OneToMany(mappedBy="pedidoPrenda")
+	private List<ItemPrendaEntity> items;
 	
 	public PedidoPrendasEntity(int nroPedido, Date fechaProbableDespacho, String estado, Date fechaGeneracion,
-			Date fechaRealDespacho, /* OrdenDeProduccion ordenProduccion */ ClienteEntity cliente /* ArrayList<ItemPrenda> items*/){
+			Date fechaRealDespacho, OrdenDeProduccionEntity ordenProduccion, ClienteEntity cliente, List<ItemPrendaEntity> items){
 		this.nroPedido=nroPedido;
 		this.fechaProbableDespacho=fechaProbableDespacho;
 		this.estado=estado;
 		this.fechaGeneracion=fechaGeneracion;
 		this.fechaRealDespacho=fechaRealDespacho;
 		this.cliente=cliente;
-		//this.ordenProduccion=ordenProduccion;
-		//this.items=items;
+		this.ordenProduccion=ordenProduccion;
+		this.items=items;
 	}
 }
