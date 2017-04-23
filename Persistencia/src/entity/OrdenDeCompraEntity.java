@@ -3,7 +3,6 @@ package entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,7 +36,8 @@ public class OrdenDeCompraEntity implements Serializable{
 	@JoinColumn(name="nroOrden")
 	private OrdenDeProduccionEntity ordenProduccion;
 	
-	@Embedded
+	@OneToOne()
+	@JoinColumn(name="id")
 	private ProveedorEntity proveedor;
 
 	public OrdenDeCompraEntity(){}
