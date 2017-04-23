@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import javax.persistence.*;
 
 @Entity
-@Embeddable
 @Table(name="OrdenDeProduccion")
 public class OrdenDeProduccionEntity implements Serializable{
 	
