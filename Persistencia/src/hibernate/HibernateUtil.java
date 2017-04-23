@@ -9,6 +9,7 @@ import entity.ConfeccionEntity;
 import entity.EmpleadoEntity;
 import entity.ItemPrendaEntity;
 import entity.MateriaPrimaEntity;
+import entity.OrdenDeCompraEntity;
 import entity.OrdenDeProduccionEntity;
 import entity.PedidoPrendasEntity;
 import entity.PrendaEntity;
