@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import entity.AreaComprasEntity;
 import entity.AreaProduccionEntity;
 import entity.ClienteEntity;
 import entity.ConfeccionEntity;
@@ -15,6 +16,7 @@ import entity.OrdenDeCompraEntity;
 import entity.OrdenDeProduccionEntity;
 import entity.PedidoPrendasEntity;
 import entity.PrendaEntity;
+import entity.ProveedorEntity;
 import entity.StockMateriaPrimaEntity;
 import entity.StockPrendaEntity;
 import entity.SucursalEntity;
@@ -42,6 +44,8 @@ public class HibernateUtil{
         	 config.addAnnotatedClass(OrdenDeCompraEntity.class);
         	 config.addAnnotatedClass(AreaProduccionEntity.class);
         	 config.addAnnotatedClass(InsumoEntity.class);
+        	 config.addAnnotatedClass(AreaComprasEntity.class);
+        	 config.addAnnotatedClass(ProveedorEntity.class);
         	 
              sessionFactory = config.buildSessionFactory();
              
