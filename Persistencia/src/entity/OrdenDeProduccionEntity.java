@@ -29,6 +29,9 @@ public class OrdenDeProduccionEntity implements Serializable{
 	@Embedded
 	private PedidoPrendasEntity pedidoPrenda;
 	
+	@ManyToOne(targetEntity=AreaProduccionEntity.class)
+	private AreaProduccionEntity areaProduccion;
+	
 	public OrdenDeProduccionEntity(){}
 	public OrdenDeProduccionEntity(int nroOrden, String estado, List<MateriaPrimaEntity> materiaPrimaReservada, PedidoPrendasEntity pedidoPrenda, List<PrendaEntity> prendas){
 		this.estado=estado;
