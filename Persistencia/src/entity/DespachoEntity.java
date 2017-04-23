@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class DespachoEntity implements Serializable{
 	
 	@OneToMany()
 	@JoinColumn(name="nroPedido")
-	private ArrayList<PedidoPrendasEntity> pedidosPrenda;
+	private List<PedidoPrendasEntity> pedidosPrenda;
 	
 	@OneToOne()
 	@JoinColumn(name="id")
