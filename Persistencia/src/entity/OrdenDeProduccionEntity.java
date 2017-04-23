@@ -20,10 +20,10 @@ public class OrdenDeProduccionEntity implements Serializable{
 	@OneToMany(mappedBy="ordenDeProduccion")
 	private List<MateriaPrimaEntity> materiaPrimaReservada;
 	
-	
 	private int confeccionesTerminadas;
 	
 	@ManyToOne(targetEntity=PrendaEntity.class)
+	@Embedded
 	private PrendaEntity prenda;
 	
 	@OneToOne
