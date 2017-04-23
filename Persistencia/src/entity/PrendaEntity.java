@@ -38,5 +38,8 @@ public class PrendaEntity implements Serializable{
 	@Embedded
 	private List<StockPrendaEntity> stock;
 	
+	@ManyToOne(targetEntity=AdministracionEntity.class)
+	private AdministracionEntity administracion;
+	
 	public PrendaEntity(){}
 }
