@@ -18,10 +18,30 @@ public class ItemPrendaEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int nroPedido;
+	private int id;
 	
 	@ManyToOne(targetEntity=PedidoPrendasEntity.class)
 	@Embedded
 	private PedidoPrendasEntity pedidoPrenda;
+	
+	private int cantidad;
+	private String talle;
+	private String color;
+	private float importe;
+	
+	@Embedded
+	private PrendaEntity prenda;
+	
+	@Embedded
+	private OrdenDeProduccionEntity lote;
+	
+	public ItemPrendaEntity(){}
+	public ItemPrendaEntity(int cantidad, String talle, String color,float importe, PrendaEntity prenda, OrdenDeProduccionEntity lote ){
+		this.cantidad=cantidad;
+		this.talle=talle;
+		this.color=color;
+		this.importe=importe;
+		this.prenda=prenda;
+	}
 	
 }
