@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,6 +28,7 @@ public class InsumoEntity implements Serializable{
 	
 	@OneToOne()
 	@JoinColumn(name="codigo")
+	@Embedded
 	private MateriaPrimaEntity materiaPrima;
 
 }

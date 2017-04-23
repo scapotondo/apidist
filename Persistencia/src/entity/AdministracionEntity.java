@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,10 +23,12 @@ public class AdministracionEntity implements Serializable{
 	
 	@OneToMany()
 	@JoinColumn(name="legajo")
+	@Embedded
 	private List<ClienteEntity> clientes;
 	
 	@OneToMany()
 	@JoinColumn(name="codigo")
+	@Embedded
 	private List<PrendaEntity> prendas;
 	
 	public AdministracionEntity(){}
