@@ -5,12 +5,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import entity.ClienteEntity;
+import entity.ConfeccionEntity;
 import entity.EmpleadoEntity;
 import entity.ItemPrendaEntity;
 import entity.MateriaPrimaEntity;
 import entity.OrdenDeProduccionEntity;
 import entity.PedidoPrendasEntity;
 import entity.PrendaEntity;
+import entity.StockPrendaEntity;
 import entity.SucursalEntity;
 
  
