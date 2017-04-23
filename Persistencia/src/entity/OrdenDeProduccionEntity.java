@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import javax.persistence.*;
 
-@MappedSuperclass
+@Entity
 public class OrdenDeProduccionEntity implements Serializable{
 	
 	@Id
