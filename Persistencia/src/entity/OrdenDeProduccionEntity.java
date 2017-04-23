@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 import javax.persistence.*;
 
-@Entity
-public class OrdenDeProduccionEntity implements Serializable{
+@MappedSuperclass
+public abstract class OrdenDeProduccionEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
