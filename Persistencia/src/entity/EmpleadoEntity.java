@@ -26,11 +26,12 @@ public class EmpleadoEntity implements Serializable{
 	private SucursalEntity sucursal;
 	
 	public EmpleadoEntity(){}
-	public EmpleadoEntity(String nombre, String domicilio, String telefono, int legajo){
+	public EmpleadoEntity(String nombre, String domicilio, String telefono, int legajo, SucursalEntity sucursal){
 		this.nombre=nombre;
 		this.domicilio=domicilio;
 		this.telefono=telefono;
 		this.legajo=legajo;
+		this.sucursal = sucursal;
 	}
 
 }
