@@ -6,12 +6,9 @@ import java.util.Date;
 
 import javax.persistence.*;
 
-import negocio.Cliente;
-import negocio.ItemPrenda;
-import negocio.OrdenDeProduccion;
-
 @Entity
 @Table(name="PedidoPrendas")
+@Embeddable
 public class PedidoPrendasEntity implements Serializable{
 	
 	@Id
@@ -30,23 +27,22 @@ public class PedidoPrendasEntity implements Serializable{
 	@Column(nullable=false)
 	private Date fechaRealDespacho;
 	
+	@ManyToOne(targetEntity=ClienteEntity.class)
+	@Embedded
+	private ClienteEntity cliente;
 	
 	//private OrdenDeProduccion ordenProduccion;
-	
-	@ManyToOne(targetEntity=ClienteEntity.class)
-	private Cliente cliente;
-	
 	//private ArrayList<ItemPrenda> items;
 	
 	public PedidoPrendasEntity(int nroPedido, Date fechaProbableDespacho, String estado, Date fechaGeneracion,
-			Date fechaRealDespacho, /* OrdenDeProduccion ordenProduccion */ Cliente cliente /* ArrayList<ItemPrenda> items*/){
+			Date fechaRealDespacho, /* OrdenDeProduccion ordenProduccion */ ClienteEntity cliente /* ArrayList<ItemPrenda> items*/){
 		this.nroPedido=nroPedido;
 		this.fechaProbableDespacho=fechaProbableDespacho;
 		this.estado=estado;
 		this.fechaGeneracion=fechaGeneracion;
 		this.fechaRealDespacho=fechaRealDespacho;
-		//this.ordenProduccion=ordenProduccion;
 		this.cliente=cliente;
+		//this.ordenProduccion=ordenProduccion;
 		//this.items=items;
 	}
 }

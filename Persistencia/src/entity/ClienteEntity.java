@@ -2,10 +2,13 @@ package entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name="Cliente")
+@Embeddable
 public class ClienteEntity implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -33,9 +36,10 @@ public class ClienteEntity implements Serializable{
 	private String direccionFacturacion;
 	
 	@OneToMany(mappedBy = "cliente")
-	private ArrayList<PedidoPrendasEntity> pedidosAceptados;
+	private List<PedidoPrendasEntity> pedidosAceptados;
 	
 	@ManyToOne(targetEntity=SucursalEntity.class)
+	@Embedded
 	private SucursalEntity sucursal;
 	
 	public ClienteEntity(){}

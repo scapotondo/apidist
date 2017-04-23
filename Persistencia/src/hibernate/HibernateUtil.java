@@ -5,6 +5,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import entity.ClienteEntity;
+import entity.PedidoPrendasEntity;
+import entity.SucursalEntity;
 
  
 public class HibernateUtil{
@@ -16,6 +18,8 @@ public class HibernateUtil{
         	
         	 Configuration config = new Configuration();
         	 config.addAnnotatedClass(ClienteEntity.class);
+        	 config.addAnnotatedClass(PedidoPrendasEntity.class);
+        	 config.addAnnotatedClass(SucursalEntity.class);
         	 
              sessionFactory = config.buildSessionFactory();
              
@@ -29,6 +33,9 @@ public class HibernateUtil{
     	
         return sessionFactory;
     }
-    
+    public static void main(String[] args) {
+    	SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+	}
 
 }

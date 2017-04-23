@@ -2,18 +2,12 @@ package entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import negocio.Empleado;
-import negocio.PedidoPrendas;
+import javax.persistence.*;
 
 @Entity
+@Embeddable
 @Table(name="Sucursal")
 public class SucursalEntity implements Serializable{
 	
@@ -27,22 +21,26 @@ public class SucursalEntity implements Serializable{
 	@Column(nullable=false)
 	private String direccion;
 	
+	@ElementCollection
+	private List<String> horarios;
 	
-	private ArrayList<String> horarios;
+	@OneToMany(mappedBy="sucursal")
+	private List<ClienteEntity> cliente;
 	
+	@ManyToOne(targetEntity=PedidoPrendasEntity.class)
+	private List<PedidoPrendasEntity> pedidos;
 	
 //	private Empleado gerente;
 //	private ArrayList<EmpleadoEntity> empleados;
-	private ArrayList<PedidoPrendasEntity> pedidos;
 	
-	public SucursalEntity(int numero, String nombre, String direccion, ArrayList<String> horarios, Empleado gerente,
+	public SucursalEntity(int numero, String nombre, String direccion, ArrayList<String> horarios,/* Empleado gerente,*/
 			/*ArrayList<EmpleadoEntity> empleados */ ArrayList<PedidoPrendasEntity> pedidos){
 		this.numero = numero;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.horarios = horarios;
-		this.gerente = gerente;
-//		this.empleados = empleados;
 		this.pedidos = pedidos;
+//		this.gerente = gerente;
+//		this.empleados = empleados;
 	}
 }
