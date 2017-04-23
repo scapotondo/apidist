@@ -19,7 +19,9 @@ import entity.MateriaPrimaEntity;
 import entity.MovimientoMateriaPrimaEntity;
 import entity.MovimientoPrendaEntity;
 import entity.OrdenDeCompraEntity;
+import entity.OrdenDeProduccionCompletaEntity;
 import entity.OrdenDeProduccionEntity;
+import entity.OrdenDeProduccionParcialEntity;
 import entity.PedidoPrendasEntity;
 import entity.PrendaEntity;
 import entity.ProveedorEntity;
@@ -40,6 +42,8 @@ public class HibernateUtil{
         	 config.addAnnotatedClass(PedidoPrendasEntity.class);
         	 config.addAnnotatedClass(SucursalEntity.class);
         	 config.addAnnotatedClass(OrdenDeProduccionEntity.class);
+        	 config.addAnnotatedClass(OrdenDeProduccionParcialEntity.class);
+        	 config.addAnnotatedClass(OrdenDeProduccionCompletaEntity.class);
         	 config.addAnnotatedClass(ItemPrendaEntity.class);
         	 config.addAnnotatedClass(PrendaEntity.class);
         	 config.addAnnotatedClass(MateriaPrimaEntity.class);
