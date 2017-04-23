@@ -37,8 +37,6 @@ public class OrdenDeCompraEntity implements Serializable{
 	@JoinColumn(name="nroOrden")
 	private OrdenDeProduccionEntity ordenProduccion;
 	
-	@OneToOne()
-	@JoinColumn(name="id")
 	@Embedded
 	private ProveedorEntity proveedor;
 
