@@ -39,6 +39,7 @@ public class PedidoPrendasEntity implements Serializable{
 	@OneToMany(mappedBy="pedidoPrenda")
 	private List<ItemPrendaEntity> items;
 	
+	public PedidoPrendasEntity(){}
 	public PedidoPrendasEntity(int nroPedido, Date fechaProbableDespacho, String estado, Date fechaGeneracion,
 			Date fechaRealDespacho, OrdenDeProduccionEntity ordenProduccion, ClienteEntity cliente, List<ItemPrendaEntity> items){
 		this.nroPedido=nroPedido;

@@ -1,16 +1,10 @@
 package entity;
 
+import java.util.List;
 import java.io.Serializable;
+import java.util.ArrayList;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Embeddable
@@ -19,10 +13,30 @@ public class OrdenDeProduccionEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int nroPedido;
+	private int nroOrden;
+	
+	private String estado;
+	
+	@OneToMany(mappedBy="ordenDeProduccion")
+	private List<MateriaPrimaEntity> materiaPrimaReservada;
+	
+	
+	private int confeccionesTerminadas;
+	
+	@ManyToOne(targetEntity=PrendaEntity.class)
+	private PrendaEntity prenda;
 	
 	@OneToOne
 	@Embedded
 	private PedidoPrendasEntity pedidoPrenda;
+	
+	public OrdenDeProduccionEntity(){}
+	public OrdenDeProduccionEntity(String estado, List<MateriaPrimaEntity> materiaPrimaReservada, PedidoPrendasEntity pedidoPrenda, PrendaEntity prenda){
+		this.estado=estado;
+		this.materiaPrimaReservada=materiaPrimaReservada;
+		this.confeccionesTerminadas=0;
+		this.pedidoPrenda=pedidoPrenda;
+		this.prenda=prenda;
+	}
 
 }

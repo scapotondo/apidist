@@ -30,17 +30,18 @@ public class SucursalEntity implements Serializable{
 	@ManyToOne(targetEntity=PedidoPrendasEntity.class)
 	private List<PedidoPrendasEntity> pedidos;
 	
-//	private Empleado gerente;
-//	private ArrayList<EmpleadoEntity> empleados;
+	@OneToMany(mappedBy="sucursal")
+	@Embedded
+	private List<EmpleadoEntity> empleados;
 	
-	public SucursalEntity(int numero, String nombre, String direccion, ArrayList<String> horarios,/* Empleado gerente,*/
-			/*ArrayList<EmpleadoEntity> empleados */ ArrayList<PedidoPrendasEntity> pedidos){
+	public SucursalEntity(){}
+	public SucursalEntity(int numero, String nombre, String direccion, List<String> horarios,
+			List<EmpleadoEntity> empleados, List<PedidoPrendasEntity> pedidos){
 		this.numero = numero;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.horarios = horarios;
 		this.pedidos = pedidos;
-//		this.gerente = gerente;
-//		this.empleados = empleados;
+		this.empleados = empleados;
 	}
 }

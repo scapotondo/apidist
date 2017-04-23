@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class OrdenProduccionCompleta extends OrdenDeProduccion{
 
-	public OrdenProduccionCompleta(String estadoo,ArrayList<MateriaPrima> materiaPrimaReservada, PedidoPrendas pedido, Prenda prenda) {
-		super(estadoo,materiaPrimaReservada,pedido,prenda);
+	public OrdenProduccionCompleta(int nroOrden, String estadoo,ArrayList<MateriaPrima> materiaPrimaReservada, PedidoPrendas pedido, Prenda prenda) {
+		super(nroOrden, estadoo,materiaPrimaReservada,pedido,prenda);
 	}
 	@Override
 	public int getCantidad() {
