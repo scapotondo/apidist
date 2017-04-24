@@ -17,14 +17,14 @@ public class MovimientoMateriaPrimaEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int mmp_id;
+	private int id;
 	
 	private String estado;
 	private int cantidad;
 	private Date fecha;
 	
 	@ManyToOne()
-	@JoinColumn(name="codigo")
+	@JoinColumn(name="codigoMP")
 	private MateriaPrimaEntity materiaPrima;
 	
 	public MovimientoMateriaPrimaEntity(){}

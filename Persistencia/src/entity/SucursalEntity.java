@@ -27,11 +27,12 @@ public class SucursalEntity implements Serializable{
 	@OneToMany(mappedBy="sucursal")
 	private List<ClienteEntity> cliente;
 	
-	@ManyToOne(targetEntity=PedidoPrendasEntity.class)
+	@OneToMany()
+	@JoinColumn(name="sucursal_id")
 	private List<PedidoPrendasEntity> pedidos;
 	
-	@OneToMany(mappedBy="sucursal")
-	@Embedded
+	@OneToMany()
+	@JoinColumn(name="sucursal_id")
 	private List<EmpleadoEntity> empleados;
 	
 	public SucursalEntity(){}

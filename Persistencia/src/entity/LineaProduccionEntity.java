@@ -16,13 +16,8 @@ public class LineaProduccionEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int numero;
-	
-	@ManyToOne(targetEntity=AreaProduccionEntity.class)
-	private AreaProduccionEntity areaProduccion;
-	
+	private int numero;	
 	private String estado;
 	private Date tiempoLiberarse;
 	private String trabajo;
-	
 }

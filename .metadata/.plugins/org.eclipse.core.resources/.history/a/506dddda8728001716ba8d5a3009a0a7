@@ -1,0 +1,34 @@
+package entity;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="Almacen")
+public class AlmacenEntity implements Serializable{
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int almacen_id;
+	
+//	@OneToMany()
+	@ManyToOne()
+	@JoinColumn(name="mp_id")
+	private List<MovimientoPrendaEntity> movimientosPrendas;
+	
+	@OneToMany()
+	@JoinColumn(name="mmp_id")
+	private List<MovimientoMateriaPrimaEntity> movimientosMateriaPrima;
+	
+	@OneToMany()
+	@JoinColumn(name="codigo")
+	private List<StockPrendaEntity> stockPrendas;
+	
+	@OneToMany()
+	@JoinColumn(name="id")
+	@Column(name="stockMateriaPrima")
+	private List<StockMateriaPrimaEntity> stockMateriaPrima;
+}

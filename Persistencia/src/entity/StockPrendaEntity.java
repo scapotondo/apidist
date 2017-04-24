@@ -33,7 +33,6 @@ public class StockPrendaEntity implements Serializable{
 	private PrendaEntity prenda;
 	
 	@OneToOne()
-	@JoinColumn(name="nroOrden")
 	private OrdenDeProduccionEntity lote;
 	
 	public StockPrendaEntity(){}

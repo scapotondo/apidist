@@ -20,20 +20,18 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	
 	private String estado;
 	
-	@OneToMany(mappedBy="ordenDeProduccion")
+	@OneToMany()
+	@JoinColumn(name="ordenDeProduccion_id")
 	private List<MateriaPrimaEntity> materiaPrimaReservada;
 	
 	private int confeccionesTerminadas;
 	
-	@OneToMany(mappedBy="ordenDeProduccion")
-	@Embedded
+	@OneToMany()
+	@JoinColumn(name="ordenDeProduccion_id")
 	private List<PrendaEntity> prendas;
 	
 	@OneToOne()
 	private PedidoPrendasEntity pedidoPrenda;
-	
-	@ManyToOne(targetEntity=AreaProduccionEntity.class)
-	private AreaProduccionEntity areaProduccion;
 	
 	public OrdenDeProduccionEntity(){}
 	public OrdenDeProduccionEntity(int nroOrden, String estado, List<MateriaPrimaEntity> materiaPrimaReservada, PedidoPrendasEntity pedidoPrenda, List<PrendaEntity> prendas){

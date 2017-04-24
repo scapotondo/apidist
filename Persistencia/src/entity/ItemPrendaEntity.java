@@ -21,11 +21,6 @@ public class ItemPrendaEntity implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	
-	@ManyToOne(targetEntity=PedidoPrendasEntity.class)
-	@Embedded
-	private PedidoPrendasEntity pedidoPrenda;
-	
 	private int cantidad;
 	private String talle;
 	private String color;

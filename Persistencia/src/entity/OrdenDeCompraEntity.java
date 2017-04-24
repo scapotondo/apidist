@@ -29,9 +29,6 @@ public class OrdenDeCompraEntity implements Serializable{
 	private int cantidad;
 	private float precioUnitario;
 	
-	@ManyToOne(targetEntity=AreaComprasEntity.class)
-	private AreaComprasEntity areaCompras;
-	
 	@OneToOne()
 	@JoinColumn(name="nroOrden")
 	private OrdenDeProduccionEntity ordenProduccion;

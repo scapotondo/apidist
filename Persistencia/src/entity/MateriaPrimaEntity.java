@@ -22,10 +22,6 @@ public class MateriaPrimaEntity implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int codigo;
-	
-	@ManyToOne(targetEntity=OrdenDeProduccionEntity.class)
-	private OrdenDeProduccionEntity ordenDeProduccion;
-	
 	private String nombre;
 	private int minimo;
 	

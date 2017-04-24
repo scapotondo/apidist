@@ -19,16 +19,11 @@ public class InsumoEntity implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	
-	@ManyToOne(targetEntity=ConfeccionEntity.class)
-	private ConfeccionEntity confeccion;
-	
 	private int cantidad;
 	private int desperdicio;
 	
 	@OneToOne()
 	@JoinColumn(name="codigo")
-	@Embedded
 	private MateriaPrimaEntity materiaPrima;
 
 }

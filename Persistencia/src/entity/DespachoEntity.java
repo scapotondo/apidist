@@ -19,18 +19,18 @@ public class DespachoEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int despacho_id;
+	private int id;
 	
 	@OneToOne()
 	@JoinColumn(name="almacen_id")
 	private AlmacenEntity almacen;
 	
 	@OneToMany()
-	@JoinColumn(name="nroPedido")
+	@JoinColumn(name="despacho_id")
 	private List<PedidoPrendasEntity> pedidosPrenda;
 	
 	@OneToOne()
-	@JoinColumn(name="id")
+	@JoinColumn(name="administracion_id")
 	private AdministracionEntity administracion;
 	
 	public DespachoEntity(){}

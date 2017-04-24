@@ -4,14 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="Confeccion")
@@ -21,18 +14,16 @@ public class ConfeccionEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@ManyToOne(targetEntity=PrendaEntity.class)
-	private PrendaEntity prenda;
-	
 	private int tiempoProd;
 	private String detalle;
 	
-	@OneToMany(mappedBy="confeccion")
+	@OneToMany()
+	@JoinColumn(name="confeccion_id")
 	private List<AreaProduccionEntity> areaProduccion;
 	
-	@OneToMany(mappedBy="confeccion")
+	@OneToMany()
+	@JoinColumn(name="confeccion_id")
 	private List<InsumoEntity> insumos;
 	
 	public ConfeccionEntity(){}
-
 }

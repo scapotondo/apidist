@@ -21,21 +21,17 @@ public class PrendaEntity implements Serializable{
 	private String descripcion;
 	private float porsentajeGanancia;
 	
-	@ManyToOne(targetEntity=OrdenDeProduccionEntity.class)
-	private OrdenDeProduccionEntity ordenDeProduccion;
-	
 	@ElementCollection
 	private List<String> tallesValidos;
 	
 	@ElementCollection
 	private List<String> coloresValidos;
 
-	@OneToMany(mappedBy="prenda")
-	@Embedded
+	@OneToMany()
+	@JoinColumn(name="prenda_id")
 	private List<ConfeccionEntity> confecciones;
 	
 	@OneToMany(mappedBy="prenda")
-	@Embedded
 	private List<StockPrendaEntity> stock;
 	
 	public PrendaEntity(){}

@@ -22,11 +22,11 @@ public class AdministracionEntity implements Serializable{
 	private int id;
 	
 	@OneToMany()
-	@JoinColumn(name="legajo")
+	@JoinColumn(name="administraction_id")
 	private List<ClienteEntity> clientes;
 	
 	@OneToMany()
-	@JoinColumn(name="codigo")
+	@JoinColumn(name="administraction_id")
 	private List<PrendaEntity> prendas;
 	
 	public AdministracionEntity(){}

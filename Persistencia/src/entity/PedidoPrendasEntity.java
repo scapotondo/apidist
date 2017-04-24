@@ -29,13 +29,13 @@ public class PedidoPrendasEntity implements Serializable{
 	private Date fechaRealDespacho;
 	
 	@ManyToOne(targetEntity=ClienteEntity.class)
-	@Embedded
 	private ClienteEntity cliente;
 	
 	@OneToOne()
 	private OrdenDeProduccionEntity ordenProduccion;
 	
-	@OneToMany(mappedBy="pedidoPrenda")
+	@OneToMany()
+	@JoinColumn(name="pedidoPrenda_id")
 	private List<ItemPrendaEntity> items;
 	
 	public PedidoPrendasEntity(){}

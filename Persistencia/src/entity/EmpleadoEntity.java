@@ -22,16 +22,12 @@ public class EmpleadoEntity implements Serializable{
 	private String domicilio;
 	private String telefono;
 	
-	@ManyToOne(targetEntity=SucursalEntity.class)
-	private SucursalEntity sucursal;
-	
 	public EmpleadoEntity(){}
-	public EmpleadoEntity(String nombre, String domicilio, String telefono, int legajo, SucursalEntity sucursal){
+	public EmpleadoEntity(String nombre, String domicilio, String telefono, int legajo){
 		this.nombre=nombre;
 		this.domicilio=domicilio;
 		this.telefono=telefono;
 		this.legajo=legajo;
-		this.sucursal = sucursal;
 	}
 
 }

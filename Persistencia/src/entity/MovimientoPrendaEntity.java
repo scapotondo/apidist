@@ -17,7 +17,7 @@ public class MovimientoPrendaEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int mp_id;
+	private int id;
 	
 	private int cantidad;
 	private Date fecha;
@@ -28,7 +28,7 @@ public class MovimientoPrendaEntity implements Serializable{
 	private String destino;
 	
 	@ManyToOne()
-	@JoinColumn(name="codigo")
+	@JoinColumn(name="codigoPrenda")
 	private PrendaEntity prenda;
 
 }

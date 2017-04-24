@@ -20,22 +20,21 @@ public class AlmacenEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int almacen_id;
+	private int id;
 	
 	@OneToMany()
-	@JoinColumn(name="mp_id")
+	@JoinColumn(name="almacen_Id")
 	private List<MovimientoPrendaEntity> movimientosPrendas;
 	
 	@OneToMany()
-	@JoinColumn(name="mmp_id")
+	@JoinColumn(name="almacen_Id")
 	private List<MovimientoMateriaPrimaEntity> movimientosMateriaPrima;
 	
 	@OneToMany()
-	@JoinColumn(name="codigo")
+	@JoinColumn(name="almacen_Id")
 	private List<StockPrendaEntity> stockPrendas;
 	
 	@OneToMany()
-	@JoinColumn(name="id")
-	@Column(name="stockMateriaPrima")
+	@JoinColumn(name="almacen_Id")
 	private List<StockMateriaPrimaEntity> stockMateriaPrima;
 }

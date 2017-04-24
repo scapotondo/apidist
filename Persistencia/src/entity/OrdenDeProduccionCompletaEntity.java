@@ -13,11 +13,9 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
-
 @Entity 
 @Table(name="OrdenDeProduccion")
 @DiscriminatorValue(value="completa")
 public class OrdenDeProduccionCompletaEntity extends OrdenDeProduccionEntity {
-	
 	public OrdenDeProduccionCompletaEntity(){}
 }
