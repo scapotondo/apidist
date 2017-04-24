@@ -36,7 +36,6 @@ public class HibernateUtil{
 
     static{
         try{
-        	
         	 Configuration config = new Configuration();
         	 config.addAnnotatedClass(ClienteEntity.class);
         	 config.addAnnotatedClass(PedidoPrendasEntity.class);

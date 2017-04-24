@@ -6,9 +6,13 @@ import java.util.ArrayList;
 
 import javax.persistence.*;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class OrdenDeProduccionEntity{
+
+@Entity 
+@Table(name="OrdenDeProduccion") 
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE) 
+@DiscriminatorColumn(name="discriminator",discriminatorType=DiscriminatorType.STRING) 
+@DiscriminatorValue(value="default")
+public abstract class OrdenDeProduccionEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
