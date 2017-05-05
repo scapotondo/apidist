@@ -1,10 +1,9 @@
-package negocio;
+package dto;
 
 import java.util.Date;
 
-import dto.MovimientoPrendaDto;
 
-public class MovimientoPrenda {
+public class MovimientoPrendaDto {
 
 	private int cantidad;
 	private Date fecha;
@@ -13,10 +12,10 @@ public class MovimientoPrenda {
 	private String encargado;
 	private String quienAutorizo;
 	private String destino;
-	private Prenda prenda;
+	private PrendaDto prenda;
 	
-	public MovimientoPrenda(int cantidad, Date fecha, String talle, String color, String encargado, String quienAutorizo,
-			String destino, Prenda prenda){
+	public MovimientoPrendaDto(int cantidad, Date fecha, String talle, String color, String encargado, String quienAutorizo,
+			String destino, PrendaDto prenda){
 		this.cantidad=cantidad;
 		this.fecha=fecha;
 		this.talle=talle;
@@ -83,16 +82,12 @@ public class MovimientoPrenda {
 		this.destino = destino;
 	}
 
-	public Prenda getPrenda() {
+	public PrendaDto getPrenda() {
 		return prenda;
 	}
 
-	public void setPrenda(Prenda prenda) {
+	public void setPrenda(PrendaDto prenda) {
 		this.prenda = prenda;
-	}
-	
-	public MovimientoPrendaDto toDto(){
-		return new MovimientoPrendaDto(cantidad, fecha, talle, color, encargado, quienAutorizo, destino, prenda.toDto());
 	}
 	
 }

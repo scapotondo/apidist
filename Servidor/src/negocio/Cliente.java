@@ -2,6 +2,10 @@ package negocio;
 
 import java.util.ArrayList;
 
+import dto.ClienteDto;
+import dto.PedidoPrendasDto;
+import dto.SucursalDto;
+
 public class Cliente {
 	
 	private float limiteCredito;
@@ -17,7 +21,7 @@ public class Cliente {
 	private ArrayList<PedidoPrendas> pedidosAceptados;
 	private Sucursal sucursal;
 	
-	public Cliente(float limiteCredito,String formaPago, float cuentaCorriente, String cuit, String nombre, String razonSocial,
+	public Cliente(float limiteCredito,String formaPago,float cuentaCorriente,String cuit,String nombre, String razonSocial,
 			String telefono, String direccionEnvio,String direccionFacturacion, int legajo, Sucursal sucursal ){
 		
 		this.limiteCredito=limiteCredito;
@@ -41,6 +45,17 @@ public class Cliente {
 	public void addNuevoPedidoRechazado(PedidoPrendas pedido, String descripcion){
 		//ver como manejar la descripcion en el pedido rechazado. puede ser agregar un campo en
 		// PedidoPrendas y que si es aceptado diga "Aceptado"
+	}
+	
+	public ClienteDto toDto(){
+		SucursalDto sucursalDto = sucursal.toDto();
+		ArrayList<PedidoPrendasDto> pedidosAceptadosDto= new ArrayList<PedidoPrendasDto>();
+		
+		for (PedidoPrendas pedidoPrendas : pedidosAceptados) {
+			pedidosAceptadosDto.add(pedidoPrendas.toDto());
+		}
+		return new ClienteDto(limiteCredito, formaPago, cuentaCorriente, cuit, nombre, razonSocial, telefono, direccionEnvio,
+				direccionFacturacion, legajo, sucursalDto,pedidosAceptadosDto);
 	}
 
 }

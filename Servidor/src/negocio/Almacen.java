@@ -16,6 +16,38 @@ public class Almacen {
 		stockMateriaPrima=new ArrayList<StockMateriaPrima>();
 	}
 	
+	public ArrayList<MovimientoPrenda> getMovimientosPrendas() {
+		return movimientosPrendas;
+	}
+
+	public void setMovimientosPrendas(ArrayList<MovimientoPrenda> movimientosPrendas) {
+		this.movimientosPrendas = movimientosPrendas;
+	}
+
+	public ArrayList<MovimientoMateriaPrima> getMovimientosMateriaPrima() {
+		return movimientosMateriaPrima;
+	}
+
+	public void setMovimientosMateriaPrima(ArrayList<MovimientoMateriaPrima> movimientosMateriaPrima) {
+		this.movimientosMateriaPrima = movimientosMateriaPrima;
+	}
+
+	public ArrayList<StockPrenda> getStockPrendas() {
+		return stockPrendas;
+	}
+
+	public void setStockPrendas(ArrayList<StockPrenda> stockPrendas) {
+		this.stockPrendas = stockPrendas;
+	}
+
+	public ArrayList<StockMateriaPrima> getStockMateriaPrima() {
+		return stockMateriaPrima;
+	}
+
+	public void setStockMateriaPrima(ArrayList<StockMateriaPrima> stockMateriaPrima) {
+		this.stockMateriaPrima = stockMateriaPrima;
+	}
+
 	public void getStockPrendaDto( Prenda prenda,  String talle,  String color){
 		
 	}

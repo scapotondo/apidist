@@ -1,13 +1,9 @@
-package negocio;
+package dto;
 
 import java.util.ArrayList;
 
-import dto.ConfeccionDto;
-import dto.PrendaDto;
-import dto.StockPrendaDto;
 
-public class Prenda {
-
+public class PrendaDto {
 	private ArrayList<String> tallesValidos;
 	private ArrayList<String> coloresValidos;
 	private int codigo;
@@ -16,12 +12,12 @@ public class Prenda {
 	private String nombre;
 	private String descripcion;
 	private float porsentajeGanancia;
-	private ArrayList<Confeccion> confecciones;
-	private ArrayList<StockPrenda> stock;
+	private ArrayList<ConfeccionDto> confecciones;
+	private ArrayList<StockPrendaDto> stock;
 	
-	public Prenda(ArrayList<String> tallesValidos,ArrayList<String> coloresValidos,int codigo,boolean esDiscontinuo,
-			int cantidadAProducir,String nombre,String descripcion,float porsentajeGanancia,ArrayList<Confeccion> confecciones,
-			ArrayList<StockPrenda> stock){
+	public PrendaDto(ArrayList<String> tallesValidos,ArrayList<String> coloresValidos,int codigo,boolean esDiscontinuo,
+			int cantidadAProducir,String nombre,String descripcion,float porsentajeGanancia,ArrayList<ConfeccionDto> confecciones,
+			ArrayList<StockPrendaDto> stock){
 		
 		this.tallesValidos=tallesValidos;
 		this.coloresValidos=coloresValidos;
@@ -34,7 +30,7 @@ public class Prenda {
 		this.confecciones=confecciones;
 		this.stock=stock;
 	}
-	
+
 	public ArrayList<String> getTallesValidos() {
 		return tallesValidos;
 	}
@@ -99,48 +95,20 @@ public class Prenda {
 		this.porsentajeGanancia = porsentajeGanancia;
 	}
 
-	public ArrayList<Confeccion> getConfecciones() {
+	public ArrayList<ConfeccionDto> getConfecciones() {
 		return confecciones;
 	}
 
-	public void setConfecciones(ArrayList<Confeccion> confecciones) {
+	public void setConfecciones(ArrayList<ConfeccionDto> confecciones) {
 		this.confecciones = confecciones;
 	}
 
-	public ArrayList<StockPrenda> getStock() {
+	public ArrayList<StockPrendaDto> getStock() {
 		return stock;
 	}
 
-	public void setStock(ArrayList<StockPrenda> stock) {
+	public void setStock(ArrayList<StockPrendaDto> stock) {
 		this.stock = stock;
 	}
-
-	public float calcularCostoActual(){
-		return 0;
-	}
-	public void getPrendasDto(){
-		
-	}
 	
-	public ArrayList<Insumo> CalcularCantidadMateriaPrimaTotal(){
-		return null;
-	}
-	
-	public boolean hayStockSuficiente(int cantidad){
-		return true;
-	}
-	
-	public PrendaDto toDto(){
-		ArrayList<ConfeccionDto> confeccionesDto =new ArrayList<>();
-		ArrayList<StockPrendaDto> stockDto = new ArrayList<>();
-		
-		for (StockPrenda stockPrenda : stock) {
-			stockDto.add(stockPrenda.toDto());
-		}
-		for (Confeccion confeccion : confecciones) {
-			confeccionesDto.add(confeccion.toDto());
-		}
-		return new PrendaDto(tallesValidos, coloresValidos, codigo, esDiscontinuo, cantidadAProducir, nombre, descripcion,
-				porsentajeGanancia, confeccionesDto, stockDto);
-	}
 }

@@ -1,15 +1,13 @@
-package negocio;
+package dto;
 
-import dto.EmpleadoDto;
-
-public class Empleado {
+public class EmpleadoDto {
 
 	private String nombre;
 	private String domicilio;
 	private String telefono;
 	private int legajo;
 	
-	public Empleado(String nombre, String domicilio, String telefono, int legajo){
+	public EmpleadoDto(String nombre, String domicilio, String telefono, int legajo){
 		this.nombre=nombre;
 		this.domicilio=domicilio;
 		this.telefono=telefono;
@@ -47,8 +45,6 @@ public class Empleado {
 	public void setLegajo(int legajo) {
 		this.legajo = legajo;
 	}
-	public EmpleadoDto toDto(){
-		return new EmpleadoDto(nombre, domicilio, telefono, legajo);
-	}
 	
+
 }

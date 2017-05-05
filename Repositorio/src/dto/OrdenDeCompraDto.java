@@ -1,21 +1,20 @@
-package negocio;
+package dto;
 
 import java.util.Date;
 
-import dto.OrdenDeCompraDto;
 
-public class OrdenDeCompra {
+public class OrdenDeCompraDto {
 
 	private Date fechaGeneracion;
 	private Date fechaProbableDespacho;
 	private Date fechaRealDespacho;
 	private int cantidad;
 	private float precioUnitario;
-	private OrdenDeProduccion ordenProduccion;
-	private Proveedor proveedor;
+	private OrdenDeProduccionDto ordenProduccion;
+	private ProveedorDto proveedor;
 	
-	public OrdenDeCompra(Date fechaGeneracion,Date fechaProbableDespacho,Date fechaRealDespacho,int cantidad,
-			float precioUnitario,OrdenDeProduccion ordenProduccion,Proveedor proveedor){
+	public OrdenDeCompraDto(Date fechaGeneracion,Date fechaProbableDespacho,Date fechaRealDespacho,int cantidad,
+			float precioUnitario,OrdenDeProduccionDto ordenProduccion,ProveedorDto proveedor){
 		this.fechaGeneracion=fechaGeneracion;
 		this.fechaProbableDespacho=fechaProbableDespacho;
 		this.fechaRealDespacho=fechaRealDespacho;
@@ -24,7 +23,7 @@ public class OrdenDeCompra {
 		this.ordenProduccion=ordenProduccion;
 		this.proveedor=proveedor;
 	}
-	
+
 	public Date getFechaGeneracion() {
 		return fechaGeneracion;
 	}
@@ -65,28 +64,20 @@ public class OrdenDeCompra {
 		this.precioUnitario = precioUnitario;
 	}
 
-	public OrdenDeProduccion getOrdenProduccion() {
+	public OrdenDeProduccionDto getOrdenProduccion() {
 		return ordenProduccion;
 	}
 
-	public void setOrdenProduccion(OrdenDeProduccion ordenProduccion) {
+	public void setOrdenProduccion(OrdenDeProduccionDto ordenProduccion) {
 		this.ordenProduccion = ordenProduccion;
 	}
 
-	public Proveedor getProveedor() {
+	public ProveedorDto getProveedor() {
 		return proveedor;
 	}
 
-	public void setProveedor(Proveedor proveedor) {
+	public void setProveedor(ProveedorDto proveedor) {
 		this.proveedor = proveedor;
 	}
-
-	public float calcularPrecioFinal(){
-		return this.precioUnitario*this.cantidad;
-	}
 	
-	public OrdenDeCompraDto toDto(){
-		return new OrdenDeCompraDto(fechaGeneracion, fechaProbableDespacho, fechaRealDespacho, cantidad, precioUnitario,
-				ordenProduccion.toDto(), proveedor.toDto());
-	}
 }

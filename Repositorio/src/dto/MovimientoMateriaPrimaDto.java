@@ -1,17 +1,16 @@
-package negocio;
+package dto;
 
 import java.util.Date;
 
-import dto.MovimientoMateriaPrimaDto;
 
-public class MovimientoMateriaPrima {
-
+public class MovimientoMateriaPrimaDto {
+	
 	private String estado;
 	private int cantidad;
 	private Date fecha;
-	private MateriaPrima materiaPrima;
+	private MateriaPrimaDto materiaPrima;
 	
-	public MovimientoMateriaPrima(String estado, int cantidad, Date fecha, MateriaPrima materiaPrima){
+	public MovimientoMateriaPrimaDto(String estado, int cantidad, Date fecha, MateriaPrimaDto materiaPrima){
 		this.estado=estado;
 		this.cantidad=cantidad;
 		this.fecha=fecha;
@@ -42,16 +41,12 @@ public class MovimientoMateriaPrima {
 		this.fecha = fecha;
 	}
 
-	public MateriaPrima getMateriaPrima() {
+	public MateriaPrimaDto getMateriaPrima() {
 		return materiaPrima;
 	}
 
-	public void setMateriaPrima(MateriaPrima materiaPrima) {
+	public void setMateriaPrima(MateriaPrimaDto materiaPrima) {
 		this.materiaPrima = materiaPrima;
-	}
-	
-	public MovimientoMateriaPrimaDto toDto(){
-		return new MovimientoMateriaPrimaDto(estado, cantidad, fecha, materiaPrima.toDto());
 	}
 	
 }

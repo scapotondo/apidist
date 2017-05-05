@@ -8,6 +8,12 @@ public class Despacho {
 	private ArrayList<PedidoPrendas> pedidosPrenda;
 	private Administracion administracion;
 	
+	public Despacho(Almacen almacen,ArrayList<PedidoPrendas> pedidosPrenda,Administracion administracion){
+		this.almacen=almacen;
+		this.pedidosPrenda=pedidosPrenda;
+		this.administracion=administracion;
+	}
+	
 	public void completarPedidos(ArrayList<StockPrenda> prendas, PedidoPrendas pedido){
 		
 	}

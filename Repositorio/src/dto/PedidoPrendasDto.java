@@ -1,24 +1,23 @@
-package negocio;
+package dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-import dto.ItemPrendaDto;
-import dto.PedidoPrendasDto;
 
-public class PedidoPrendas {
+public class PedidoPrendasDto implements Serializable{
 	
 	private int nroPedido;
 	private Date fechaProbableDespacho;
 	private String estado;
 	private Date fechaGeneracion;
 	private Date fechaRealDespacho;
-	private OrdenDeProduccion ordenProduccion;
-	private Cliente cliente;
-	private ArrayList<ItemPrenda> items;
+	private OrdenDeProduccionDto ordenProduccion;
+	private ClienteDto cliente;
+	private ArrayList<ItemPrendaDto> items;
 	
-	public PedidoPrendas(int nroPedido, Date fechaProbableDespacho, String estado, Date fechaGeneracion,
-			Date fechaRealDespacho, OrdenDeProduccion ordenProduccion, Cliente cliente, ArrayList<ItemPrenda> items){
+	public PedidoPrendasDto(int nroPedido, Date fechaProbableDespacho, String estado, Date fechaGeneracion,
+			Date fechaRealDespacho, OrdenDeProduccionDto ordenProduccion, ClienteDto cliente, ArrayList<ItemPrendaDto> items){
 		this.nroPedido=nroPedido;
 		this.fechaProbableDespacho=fechaProbableDespacho;
 		this.estado=estado;
@@ -28,7 +27,7 @@ public class PedidoPrendas {
 		this.cliente=cliente;
 		this.items=items;
 	}
-	
+
 	public int getNroPedido() {
 		return nroPedido;
 	}
@@ -69,49 +68,29 @@ public class PedidoPrendas {
 		this.fechaRealDespacho = fechaRealDespacho;
 	}
 
-	public OrdenDeProduccion getOrdenProduccion() {
+	public OrdenDeProduccionDto getOrdenProduccion() {
 		return ordenProduccion;
 	}
 
-	public void setOrdenProduccion(OrdenDeProduccion ordenProduccion) {
+	public void setOrdenProduccion(OrdenDeProduccionDto ordenProduccion) {
 		this.ordenProduccion = ordenProduccion;
 	}
 
-	public Cliente getCliente() {
+	public ClienteDto getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(ClienteDto cliente) {
 		this.cliente = cliente;
 	}
 
-	public ArrayList<ItemPrenda> getItems() {
+	public ArrayList<ItemPrendaDto> getItems() {
 		return items;
 	}
 
-	public void setItems(ArrayList<ItemPrenda> items) {
+	public void setItems(ArrayList<ItemPrendaDto> items) {
 		this.items = items;
 	}
+	
 
-	public void calcularTotal(){
-		
-	}
-	//cambiar el void a PedidoPrendasDto
-	public void getPedidoPrendasDto(){
-		
-	}
-	public void aprobarPedido(){
-		
-	}
-	
-	public PedidoPrendasDto toDto(){
-		ArrayList<ItemPrendaDto> itemsDto = new ArrayList<>();
-		
-		for (ItemPrenda itemPrenda : items) {
-			itemsDto.add(itemPrenda.toDto());
-		}
-		return new PedidoPrendasDto(nroPedido, fechaProbableDespacho, estado, fechaGeneracion, fechaRealDespacho, 
-				ordenProduccion.toDto(), cliente.toDto(), itemsDto);
-	}
-	
 }

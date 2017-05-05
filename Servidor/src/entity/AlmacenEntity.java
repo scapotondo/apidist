@@ -18,6 +18,7 @@ import javax.persistence.Table;
 @Table(name="Almacen")
 public class AlmacenEntity implements Serializable{
 	
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;

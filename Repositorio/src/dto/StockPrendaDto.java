@@ -1,24 +1,23 @@
-package negocio;
+package dto;
 
 import java.util.Date;
 
-import dto.StockMateriaPrimaDto;
-import dto.StockPrendaDto;
 
-public class StockPrenda {
+public class StockPrendaDto {
+
 	private String color;
 	private String talle;
-	private OrdenDeProduccion lote;
+	private OrdenDeProduccionDto lote;
 	private Date fecha;
 	private float costoProduccion;
 	private int cantidad;
 	private String ubicacion;
 	private String estado;
-	private Prenda prenda;
-	private OrdenDeProduccion ordenProduccion;
+	private PrendaDto prenda;
+	private OrdenDeProduccionDto ordenProduccion;
 	
-	public StockPrenda(String color,String talle,OrdenDeProduccion lote,Date fecha,float costoProduccion,int cantidad,
-			String ubicacion,String estado,Prenda prenda,OrdenDeProduccion ordenProduccion){
+	public StockPrendaDto(String color,String talle,OrdenDeProduccionDto lote,Date fecha,float costoProduccion,int cantidad,
+			String ubicacion,String estado,PrendaDto prenda,OrdenDeProduccionDto ordenProduccion){
 		this.color=color;
 		this.talle=talle;
 		this.lote=lote;
@@ -47,11 +46,11 @@ public class StockPrenda {
 		this.talle = talle;
 	}
 
-	public OrdenDeProduccion getLote() {
+	public OrdenDeProduccionDto getLote() {
 		return lote;
 	}
 
-	public void setLote(OrdenDeProduccion lote) {
+	public void setLote(OrdenDeProduccionDto lote) {
 		this.lote = lote;
 	}
 
@@ -95,25 +94,20 @@ public class StockPrenda {
 		this.estado = estado;
 	}
 
-	public Prenda getPrenda() {
+	public PrendaDto getPrenda() {
 		return prenda;
 	}
 
-	public void setPrenda(Prenda prenda) {
+	public void setPrenda(PrendaDto prenda) {
 		this.prenda = prenda;
 	}
 
-	public OrdenDeProduccion getOrdenProduccion() {
+	public OrdenDeProduccionDto getOrdenProduccion() {
 		return ordenProduccion;
 	}
 
-	public void setOrdenProduccion(OrdenDeProduccion ordenProduccion) {
+	public void setOrdenProduccion(OrdenDeProduccionDto ordenProduccion) {
 		this.ordenProduccion = ordenProduccion;
 	}
 	
-	public StockPrendaDto toDto(){
-		return new StockPrendaDto(color, talle, lote.toDto(), fecha, costoProduccion, cantidad, ubicacion, estado,
-				prenda.toDto(),ordenProduccion.toDto());
-	}
-
 }

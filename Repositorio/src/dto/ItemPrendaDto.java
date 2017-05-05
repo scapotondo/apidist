@@ -1,18 +1,16 @@
-package negocio;
+package dto;
 
-import dto.ItemPrendaDto;
-import entity.OrdenDeProduccionEntity;
 
-public class ItemPrenda {
+public class ItemPrendaDto {
 
 	private int cantidad;
 	private String talle;
 	private String color;
 	private float importe;
-	private Prenda prenda;
-	private OrdenDeProduccion lote;
+	private PrendaDto prenda;
+	private OrdenDeProduccionDto lote;
 	
-	public ItemPrenda(int cantidad, String talle, String color,float importe, Prenda prenda, OrdenDeProduccion lote ){
+	public ItemPrendaDto(int cantidad, String talle, String color,float importe, PrendaDto prenda, OrdenDeProduccionDto lote ){
 		this.cantidad=cantidad;
 		this.talle=talle;
 		this.color=color;
@@ -20,7 +18,7 @@ public class ItemPrenda {
 		this.prenda=prenda;
 		this.lote = lote;
 	}
-	
+
 	public int getCantidad() {
 		return cantidad;
 	}
@@ -53,27 +51,20 @@ public class ItemPrenda {
 		this.importe = importe;
 	}
 
-	public Prenda getPrenda() {
+	public PrendaDto getPrenda() {
 		return prenda;
 	}
 
-	public void setPrenda(Prenda prenda) {
+	public void setPrenda(PrendaDto prenda) {
 		this.prenda = prenda;
 	}
 
-	public OrdenDeProduccion getLote() {
+	public OrdenDeProduccionDto getLote() {
 		return lote;
 	}
 
-	public void setLote(OrdenDeProduccion lote) {
+	public void setLote(OrdenDeProduccionDto lote) {
 		this.lote = lote;
 	}
-
-	public boolean hayStocksuficiente(){
-		return true;
-	}
 	
-	public ItemPrendaDto toDto(){
-		return new ItemPrendaDto(cantidad, talle, color, importe, prenda.toDto(), lote.toDto());
-	}
 }

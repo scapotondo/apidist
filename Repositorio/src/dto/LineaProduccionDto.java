@@ -1,22 +1,21 @@
-package negocio;
+package dto;
 
 import java.util.Date;
 
-import dto.LineaProduccionDto;
+public class LineaProduccionDto {
 
-public class LineaProduccion {
 	private int numero;
 	private String estado;
 	private Date tiempoLiberarse;
 	private String trabajo;
 	
-	public LineaProduccion(int numero, String estado, Date tiempoLiberarse, String trabajo){
+	public LineaProduccionDto(int numero, String estado, Date tiempoLiberarse, String trabajo){
 		this.numero=numero;
 		this.estado= estado;
 		this.tiempoLiberarse=tiempoLiberarse;
 		this.trabajo=trabajo;
 	}
-	
+
 	public int getNumero() {
 		return numero;
 	}
@@ -48,13 +47,5 @@ public class LineaProduccion {
 	public void setTrabajo(String trabajo) {
 		this.trabajo = trabajo;
 	}
-
-	public void asignarTrabajo(String trabajo, Date tiempo){
-		
-	}
 	
-	public LineaProduccionDto toDto(){
-		return new LineaProduccionDto(numero, estado, tiempoLiberarse, trabajo);
-	}
-
 }

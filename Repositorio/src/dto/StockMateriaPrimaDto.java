@@ -1,18 +1,17 @@
-package negocio;
+package dto;
 
 import java.util.Date;
 
-import dto.StockMateriaPrimaDto;
 
-public class StockMateriaPrima {
-	
-	private OrdenDeCompra lote;
+public class StockMateriaPrimaDto {
+
+	private OrdenDeCompraDto lote;
 	private Date fechaRecepcion;
 	private float precioFinalCompra;
 	private int cantidad;
 	private String ubicacion;
 	
-	public StockMateriaPrima(OrdenDeCompra lote,Date fechaRecepcion,float precioFinalCompra,int cantidad,String ubicacion){
+	public StockMateriaPrimaDto(OrdenDeCompraDto lote,Date fechaRecepcion,float precioFinalCompra,int cantidad,String ubicacion){
 		this.lote=lote;
 		this.fechaRecepcion=fechaRecepcion;
 		this.precioFinalCompra=precioFinalCompra;
@@ -20,11 +19,11 @@ public class StockMateriaPrima {
 		this.ubicacion=ubicacion;
 	}
 
-	public OrdenDeCompra getLote() {
+	public OrdenDeCompraDto getLote() {
 		return lote;
 	}
 
-	public void setLote(OrdenDeCompra lote) {
+	public void setLote(OrdenDeCompraDto lote) {
 		this.lote = lote;
 	}
 
@@ -58,10 +57,6 @@ public class StockMateriaPrima {
 
 	public void setUbicacion(String ubicacion) {
 		this.ubicacion = ubicacion;
-	}
-	
-	public StockMateriaPrimaDto toDto(){
-		return new StockMateriaPrimaDto(lote.toDto(), fechaRecepcion, precioFinalCompra, cantidad, ubicacion);
 	}
 	
 }

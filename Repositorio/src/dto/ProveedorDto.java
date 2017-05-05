@@ -1,8 +1,6 @@
-package negocio;
+package dto;
 
-import dto.ProveedorDto;
-
-public class Proveedor {
+public class ProveedorDto {
 
 	private String telefono;
 	private String nombre;
@@ -10,7 +8,7 @@ public class Proveedor {
 	private String cuit;
 	private String cbu;
 	
-	public Proveedor(String telefono, String nombre, String domicilio, String cuit, String cbu){
+	public ProveedorDto(String telefono, String nombre, String domicilio, String cuit, String cbu){
 		this.telefono=telefono;
 		this.nombre=nombre;
 		this.domicilio=domicilio;
@@ -56,10 +54,6 @@ public class Proveedor {
 
 	public void setCbu(String cbu) {
 		this.cbu = cbu;
-	}
-	
-	public ProveedorDto toDto(){
-		return new ProveedorDto(telefono, nombre, domicilio, cuit, cbu);
 	}
 	
 }

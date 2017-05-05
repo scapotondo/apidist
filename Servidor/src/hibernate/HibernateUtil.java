@@ -74,9 +74,5 @@ public class HibernateUtil{
     	
         return sessionFactory;
     }
-    public static void main(String[] args) {
-    	SessionFactory sf = HibernateUtil.getSessionFactory();
-		Session session = sf.openSession();
-	}
 
 }
