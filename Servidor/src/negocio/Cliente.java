@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.ArrayList;
 
+import dao.ClienteDao;
 import dto.ClienteDto;
 import dto.PedidoPrendasDto;
 import dto.SucursalDto;
@@ -22,7 +23,7 @@ public class Cliente {
 	private Sucursal sucursal;
 	
 	public Cliente(float limiteCredito,String formaPago,float cuentaCorriente,String cuit,String nombre, String razonSocial,
-			String telefono, String direccionEnvio,String direccionFacturacion, int legajo, Sucursal sucursal ){
+			String telefono, String direccionEnvio,String direccionFacturacion, Sucursal sucursal ){
 		
 		this.limiteCredito=limiteCredito;
 		this.formaPago=formaPago;
@@ -33,7 +34,6 @@ public class Cliente {
 		this.telefono=telefono;
 		this.direccionEnvio=direccionEnvio;
 		this.direccionFacturacion=direccionFacturacion;
-		this.legajo=legajo;
 		this.sucursal=sucursal;
 		this.pedidosAceptados= new ArrayList<PedidoPrendas>();
 	}
@@ -58,4 +58,7 @@ public class Cliente {
 				direccionFacturacion, legajo, sucursalDto,pedidosAceptadosDto);
 	}
 
+	public void saveMe(){
+		ClienteDao.getInstance().crearCliente(this);
+	}
 }

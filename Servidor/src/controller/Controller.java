@@ -2,14 +2,10 @@ package controller;
 
 import java.util.ArrayList;
 
-import negocio.Almacen;
-import negocio.AreaCompras;
-import negocio.AreaProduccion;
-import negocio.Despacho;
-import negocio.MateriaPrima;
-import negocio.OrdenDeProduccion;
-import negocio.PedidoPrendas;
-import negocio.Sucursal;
+import dao.ClienteDao;
+import dao.SucursalDao;
+import dto.*;
+import negocio.*;
 
 public class Controller {
 	
@@ -22,4 +18,7 @@ public class Controller {
 	private Almacen almacen;
 	private Despacho despacho;
 	
+	public void AltaCliente(ClienteDto cliente) {
+		Administracion.getInstance().AltaCliente(cliente, SucursalDao.getInstance().getSucursalById(cliente.getSucursal().getNumero()));
+	}
 }
