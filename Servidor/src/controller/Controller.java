@@ -18,6 +18,15 @@ public class Controller {
 	private Almacen almacen;
 	private Despacho despacho;
 	
+	private static Controller instance;
+	private Controller(){}
+	
+	public static Controller getInstance(){
+		if(instance==null)
+			instance=new Controller();
+		return instance;
+	}
+	
 	public void AltaCliente(ClienteDto cliente) {
 		Administracion.getInstance().AltaCliente(cliente, SucursalDao.getInstance().getSucursalById(cliente.getSucursal().getNumero()));
 	}

@@ -6,10 +6,10 @@ import java.util.ArrayList;
 public class ConfeccionDto {
 	private int tiempoProd;
 	private String detalle;
-	private AreaProduccionDto areaProduccion;
+	private ArrayList<AreaProduccionDto> areaProduccion;
 	private ArrayList<InsumoDto> insumos;
 	
-	public ConfeccionDto(int tiempoProd,String detalle,AreaProduccionDto areaProduccion, ArrayList<InsumoDto> insumos){
+	public ConfeccionDto(int tiempoProd,String detalle,ArrayList<AreaProduccionDto> areaProduccion, ArrayList<InsumoDto> insumos){
 		this.tiempoProd=tiempoProd;
 		this.detalle=detalle;
 		this.areaProduccion=areaProduccion;
@@ -32,11 +32,11 @@ public class ConfeccionDto {
 		this.detalle = detalle;
 	}
 
-	public AreaProduccionDto getAreaProduccion() {
+	public ArrayList<AreaProduccionDto> getAreaProduccion() {
 		return areaProduccion;
 	}
 
-	public void setAreaProduccion(AreaProduccionDto areaProduccion) {
+	public void setAreaProduccion(ArrayList<AreaProduccionDto> areaProduccion) {
 		this.areaProduccion = areaProduccion;
 	}
 

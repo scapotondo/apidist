@@ -20,4 +20,30 @@ public class LineaProduccionEntity implements Serializable{
 	private String estado;
 	private Date tiempoLiberarse;
 	private String trabajo;
+	public int getNumero() {
+		return numero;
+	}
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	public Date getTiempoLiberarse() {
+		return tiempoLiberarse;
+	}
+	public void setTiempoLiberarse(Date tiempoLiberarse) {
+		this.tiempoLiberarse = tiempoLiberarse;
+	}
+	public String getTrabajo() {
+		return trabajo;
+	}
+	public void setTrabajo(String trabajo) {
+		this.trabajo = trabajo;
+	}
+	
+	
 }

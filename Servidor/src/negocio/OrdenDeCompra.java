@@ -3,6 +3,7 @@ package negocio;
 import java.util.Date;
 
 import dto.OrdenDeCompraDto;
+import entity.OrdenDeCompraEntity;
 
 public class OrdenDeCompra {
 
@@ -13,6 +14,18 @@ public class OrdenDeCompra {
 	private float precioUnitario;
 	private OrdenDeProduccion ordenProduccion;
 	private Proveedor proveedor;
+	
+	
+	public OrdenDeCompra(OrdenDeCompraEntity oc){
+		this.fechaGeneracion=oc.getFechaGeneracion();
+		this.fechaProbableDespacho=oc.getFechaProbableDespacho();
+		this.fechaRealDespacho=oc.getFechaRealDespacho();
+		this.cantidad=oc.getCantidad();
+		this.precioUnitario=oc.getPrecioUnitario();
+		//TODO: ver como manejar las ordenes de produccion
+		//this.ordenProduccion=new ;
+		this.proveedor=new Proveedor(oc.getProveedor());
+	}
 	
 	public OrdenDeCompra(Date fechaGeneracion,Date fechaProbableDespacho,Date fechaRealDespacho,int cantidad,
 			float precioUnitario,OrdenDeProduccion ordenProduccion,Proveedor proveedor){

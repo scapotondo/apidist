@@ -1,6 +1,7 @@
 package negocio;
 
 import dto.EmpleadoDto;
+import entity.EmpleadoEntity;
 
 public class Empleado {
 
@@ -8,6 +9,13 @@ public class Empleado {
 	private String domicilio;
 	private String telefono;
 	private int legajo;
+	
+	public Empleado (EmpleadoEntity empleado){
+		this.nombre=empleado.getNombre();
+		this.domicilio=empleado.getDomicilio();
+		this.telefono=empleado.getTelefono();
+		this.legajo=empleado.getLegajo();
+	}
 	
 	public Empleado(String nombre, String domicilio, String telefono, int legajo){
 		this.nombre=nombre;

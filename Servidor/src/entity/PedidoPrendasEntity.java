@@ -50,4 +50,53 @@ public class PedidoPrendasEntity implements Serializable{
 		this.ordenProduccion=ordenProduccion;
 		this.items=items;
 	}
+	public int getNroPedido() {
+		return nroPedido;
+	}
+	public void setNroPedido(int nroPedido) {
+		this.nroPedido = nroPedido;
+	}
+	public Date getFechaProbableDespacho() {
+		return fechaProbableDespacho;
+	}
+	public void setFechaProbableDespacho(Date fechaProbableDespacho) {
+		this.fechaProbableDespacho = fechaProbableDespacho;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	public Date getFechaGeneracion() {
+		return fechaGeneracion;
+	}
+	public void setFechaGeneracion(Date fechaGeneracion) {
+		this.fechaGeneracion = fechaGeneracion;
+	}
+	public Date getFechaRealDespacho() {
+		return fechaRealDespacho;
+	}
+	public void setFechaRealDespacho(Date fechaRealDespacho) {
+		this.fechaRealDespacho = fechaRealDespacho;
+	}
+	public ClienteEntity getCliente() {
+		return cliente;
+	}
+	public void setCliente(ClienteEntity cliente) {
+		this.cliente = cliente;
+	}
+	public OrdenDeProduccionEntity getOrdenProduccion() {
+		return ordenProduccion;
+	}
+	public void setOrdenProduccion(OrdenDeProduccionEntity ordenProduccion) {
+		this.ordenProduccion = ordenProduccion;
+	}
+	public List<ItemPrendaEntity> getItems() {
+		return items;
+	}
+	public void setItems(List<ItemPrendaEntity> items) {
+		this.items = items;
+	}
+	
 }

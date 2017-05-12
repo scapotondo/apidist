@@ -1,6 +1,7 @@
 package negocio;
 
 import dto.ProveedorDto;
+import entity.ProveedorEntity;
 
 public class Proveedor {
 
@@ -10,6 +11,14 @@ public class Proveedor {
 	private String cuit;
 	private String cbu;
 	
+	
+	public Proveedor(ProveedorEntity proveedor){
+		this.telefono=proveedor.getTelefono();
+		this.nombre=proveedor.getNombre();
+		this.domicilio=proveedor.getDomicilio();
+		this.cuit=proveedor.getCuit();
+		this.cbu=proveedor.getCbu();
+	}
 	public Proveedor(String telefono, String nombre, String domicilio, String cuit, String cbu){
 		this.telefono=telefono;
 		this.nombre=nombre;

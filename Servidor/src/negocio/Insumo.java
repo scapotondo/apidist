@@ -3,11 +3,19 @@ package negocio;
 import java.util.ArrayList;
 
 import dto.InsumoDto;
+import entity.InsumoEntity;
 
 public class Insumo {
 	private int cantidad;
 	private int desperdicio;
 	private MateriaPrima materiaPrima;
+	
+	
+	public Insumo(InsumoEntity insumo){
+		this.cantidad=insumo.getCantidad();
+		this.desperdicio=insumo.getDesperdicio();
+		this.materiaPrima=new MateriaPrima(insumo.getMateriaPrima());
+	}
 	
 	public Insumo(int cantidad, int desperdicio, MateriaPrima materiaPrima){
 		this.cantidad=cantidad;

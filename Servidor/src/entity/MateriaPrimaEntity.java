@@ -32,5 +32,45 @@ public class MateriaPrimaEntity implements Serializable{
 	private List<StockMateriaPrimaEntity> stock;
 	
 	public MateriaPrimaEntity(){}
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public int getMinimo() {
+		return minimo;
+	}
+
+	public void setMinimo(int minimo) {
+		this.minimo = minimo;
+	}
+
+	public OrdenDeCompraEntity getOrdenDeCompra() {
+		return ordenDeCompra;
+	}
+
+	public void setOrdenDeCompra(OrdenDeCompraEntity ordenDeCompra) {
+		this.ordenDeCompra = ordenDeCompra;
+	}
+
+	public List<StockMateriaPrimaEntity> getStock() {
+		return stock;
+	}
+
+	public void setStock(List<StockMateriaPrimaEntity> stock) {
+		this.stock = stock;
+	}
 	
 }

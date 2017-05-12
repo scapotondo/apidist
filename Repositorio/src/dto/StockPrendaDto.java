@@ -14,10 +14,9 @@ public class StockPrendaDto {
 	private String ubicacion;
 	private String estado;
 	private PrendaDto prenda;
-	private OrdenDeProduccionDto ordenProduccion;
 	
 	public StockPrendaDto(String color,String talle,OrdenDeProduccionDto lote,Date fecha,float costoProduccion,int cantidad,
-			String ubicacion,String estado,PrendaDto prenda,OrdenDeProduccionDto ordenProduccion){
+			String ubicacion,String estado,PrendaDto prenda){
 		this.color=color;
 		this.talle=talle;
 		this.lote=lote;
@@ -27,7 +26,6 @@ public class StockPrendaDto {
 		this.ubicacion=ubicacion;
 		this.estado=estado;
 		this.prenda=prenda;
-		this.ordenProduccion=ordenProduccion;
 	}
 
 	public String getColor() {
@@ -102,12 +100,5 @@ public class StockPrendaDto {
 		this.prenda = prenda;
 	}
 
-	public OrdenDeProduccionDto getOrdenProduccion() {
-		return ordenProduccion;
-	}
-
-	public void setOrdenProduccion(OrdenDeProduccionDto ordenProduccion) {
-		this.ordenProduccion = ordenProduccion;
-	}
 	
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import dto.MateriaPrimaDto;
 import dto.StockMateriaPrimaDto;
+import entity.MateriaPrimaEntity;
+import entity.StockMateriaPrimaEntity;
 
 public class MateriaPrima {
 
@@ -11,6 +13,17 @@ public class MateriaPrima {
 	private int codigo;
 	private int minimo;
 	private ArrayList<StockMateriaPrima> stock;
+	
+	public MateriaPrima( MateriaPrimaEntity materia){
+		ArrayList<StockMateriaPrima> stockMateria = new ArrayList<StockMateriaPrima>();
+		for (StockMateriaPrimaEntity stockMateriaPrimaEntity : materia.getStock()) {
+			stockMateria.add(new StockMateriaPrima(stockMateriaPrimaEntity));
+		}
+		this.stock=stockMateria;
+		this.nombre=materia.getNombre();
+		this.codigo=materia.getCodigo();
+		this.minimo=materia.getMinimo();
+	}
 	
 	public MateriaPrima( String nombre, int codigo, int minimo){
 		this.stock=new ArrayList<StockMateriaPrima>();

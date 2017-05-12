@@ -29,5 +29,30 @@ public class EmpleadoEntity implements Serializable{
 		this.telefono=telefono;
 		this.legajo=legajo;
 	}
+	public int getLegajo() {
+		return legajo;
+	}
+	public void setLegajo(int legajo) {
+		this.legajo = legajo;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getDomicilio() {
+		return domicilio;
+	}
+	public void setDomicilio(String domicilio) {
+		this.domicilio = domicilio;
+	}
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
 
+	
 }

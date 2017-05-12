@@ -26,21 +26,59 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	
 	private int confeccionesTerminadas;
 	
-	@OneToMany()
+	@ManyToOne()
 	@JoinColumn(name="ordenDeProduccion_id")
-	private List<PrendaEntity> prendas;
+	private PrendaEntity prenda;
 	
 	@OneToOne()
 	private PedidoPrendasEntity pedidoPrenda;
 	
 	public OrdenDeProduccionEntity(){}
-	public OrdenDeProduccionEntity(int nroOrden, String estado, List<MateriaPrimaEntity> materiaPrimaReservada, PedidoPrendasEntity pedidoPrenda, List<PrendaEntity> prendas){
+	public OrdenDeProduccionEntity(int nroOrden, String estado, List<MateriaPrimaEntity> materiaPrimaReservada, PedidoPrendasEntity pedidoPrenda, PrendaEntity prenda){
 		this.estado=estado;
 		this.materiaPrimaReservada=materiaPrimaReservada;
 		this.confeccionesTerminadas=0;
 		this.pedidoPrenda=pedidoPrenda;
-		this.prendas=prendas;
+		this.prenda=prenda;
 		this.nroOrden = nroOrden;
 	}
+	public int getNroOrden() {
+		return nroOrden;
+	}
+	public void setNroOrden(int nroOrden) {
+		this.nroOrden = nroOrden;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	public List<MateriaPrimaEntity> getMateriaPrimaReservada() {
+		return materiaPrimaReservada;
+	}
+	public void setMateriaPrimaReservada(List<MateriaPrimaEntity> materiaPrimaReservada) {
+		this.materiaPrimaReservada = materiaPrimaReservada;
+	}
+	public int getConfeccionesTerminadas() {
+		return confeccionesTerminadas;
+	}
+	public void setConfeccionesTerminadas(int confeccionesTerminadas) {
+		this.confeccionesTerminadas = confeccionesTerminadas;
+	}
+	public PrendaEntity getPrenda() {
+		return prenda;
+	}
+	public void setPrendas(PrendaEntity prenda) {
+		this.prenda = prenda;
+	}
+	public PedidoPrendasEntity getPedidoPrenda() {
+		return pedidoPrenda;
+	}
+	public void setPedidoPrenda(PedidoPrendasEntity pedidoPrenda) {
+		this.pedidoPrenda = pedidoPrenda;
+	}
+	
+	
 
 }

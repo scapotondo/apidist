@@ -3,6 +3,7 @@ package negocio;
 import java.util.Date;
 
 import dto.StockMateriaPrimaDto;
+import entity.StockMateriaPrimaEntity;
 
 public class StockMateriaPrima {
 	
@@ -11,6 +12,14 @@ public class StockMateriaPrima {
 	private float precioFinalCompra;
 	private int cantidad;
 	private String ubicacion;
+	
+	public StockMateriaPrima(StockMateriaPrimaEntity stock){
+		this.lote=new OrdenDeCompra(stock.getLote());
+		this.fechaRecepcion=stock.getFechaRecepcion();
+		this.precioFinalCompra=stock.getPrecioFinalCompra();
+		this.cantidad=stock.getCantidad();
+		this.ubicacion=stock.getUbicacion();
+	}
 	
 	public StockMateriaPrima(OrdenDeCompra lote,Date fechaRecepcion,float precioFinalCompra,int cantidad,String ubicacion){
 		this.lote=lote;

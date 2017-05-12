@@ -26,4 +26,46 @@ public class ConfeccionEntity implements Serializable{
 	private List<InsumoEntity> insumos;
 	
 	public ConfeccionEntity(){}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getTiempoProd() {
+		return tiempoProd;
+	}
+
+	public void setTiempoProd(int tiempoProd) {
+		this.tiempoProd = tiempoProd;
+	}
+
+	public String getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(String detalle) {
+		this.detalle = detalle;
+	}
+
+	public List<AreaProduccionEntity> getAreaProduccion() {
+		return areaProduccion;
+	}
+
+	public void setAreaProduccion(List<AreaProduccionEntity> areaProduccion) {
+		this.areaProduccion = areaProduccion;
+	}
+
+	public List<InsumoEntity> getInsumos() {
+		return insumos;
+	}
+
+	public void setInsumos(List<InsumoEntity> insumos) {
+		this.insumos = insumos;
+	}
+	
+	
 }

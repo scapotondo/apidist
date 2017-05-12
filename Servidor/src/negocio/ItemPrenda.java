@@ -1,7 +1,7 @@
 package negocio;
 
 import dto.ItemPrendaDto;
-import entity.OrdenDeProduccionEntity;
+import entity.ItemPrendaEntity;
 
 public class ItemPrenda {
 
@@ -11,6 +11,16 @@ public class ItemPrenda {
 	private float importe;
 	private Prenda prenda;
 	private OrdenDeProduccion lote;
+	
+	public ItemPrenda(ItemPrendaEntity item){
+		this.cantidad=item.getCantidad();
+		this.talle=item.getTalle();
+		this.color=item.getColor();
+		this.importe=item.getImporte();
+		this.prenda=new Prenda(item.getPrenda());
+		//TODO: ver como manejar por ser clase abstracta
+		//this.lote = new OrdenDeProduccion(item.getLote());
+	}
 	
 	public ItemPrenda(int cantidad, String talle, String color,float importe, Prenda prenda, OrdenDeProduccion lote ){
 		this.cantidad=cantidad;

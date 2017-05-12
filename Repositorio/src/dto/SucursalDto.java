@@ -12,6 +12,8 @@ public class SucursalDto {
 	private ArrayList<EmpleadoDto> empleados;
 	private ArrayList<PedidoPrendasDto> pedidos;
 	
+	public SucursalDto(){}
+	
 	public SucursalDto(int numero, String nombre, String direccion, ArrayList<String> horarios, EmpleadoDto gerente,
 			ArrayList<EmpleadoDto> empleados,ArrayList<PedidoPrendasDto> pedidos){
 		this.numero = numero;

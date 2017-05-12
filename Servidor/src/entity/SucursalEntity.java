@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Table(name="Sucursal")
 public class SucursalEntity implements Serializable{
 	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int numero;
@@ -43,6 +44,48 @@ public class SucursalEntity implements Serializable{
 		this.direccion = direccion;
 		this.horarios = horarios;
 		this.pedidos = pedidos;
+		this.empleados = empleados;
+	}
+	public int getNumero() {
+		return numero;
+	}
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getDireccion() {
+		return direccion;
+	}
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	public List<String> getHorarios() {
+		return horarios;
+	}
+	public void setHorarios(List<String> horarios) {
+		this.horarios = horarios;
+	}
+	public List<ClienteEntity> getCliente() {
+		return cliente;
+	}
+	public void setCliente(List<ClienteEntity> cliente) {
+		this.cliente = cliente;
+	}
+	public List<PedidoPrendasEntity> getPedidos() {
+		return pedidos;
+	}
+	public void setPedidos(List<PedidoPrendasEntity> pedidos) {
+		this.pedidos = pedidos;
+	}
+	public List<EmpleadoEntity> getEmpleados() {
+		return empleados;
+	}
+	public void setEmpleados(List<EmpleadoEntity> empleados) {
 		this.empleados = empleados;
 	}
 }

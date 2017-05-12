@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import dto.EmpleadoDto;
 import dto.PedidoPrendasDto;
 import dto.SucursalDto;
+import entity.EmpleadoEntity;
+import entity.PedidoPrendasEntity;
+import entity.SucursalEntity;
 
 public class Sucursal {
 	
@@ -15,6 +18,27 @@ public class Sucursal {
 	private Empleado gerente;
 	private ArrayList<Empleado> empleados;
 	private ArrayList<PedidoPrendas> pedidos;
+	
+	public Sucursal(SucursalEntity sucursal){
+		ArrayList<Empleado> emp = new ArrayList<>();
+		for (EmpleadoEntity empleado : sucursal.getEmpleados()) {
+			emp.add(new Empleado(empleado));
+		}
+		ArrayList<PedidoPrendas> ped = new ArrayList<>();
+		for (PedidoPrendasEntity pedido : sucursal.getPedidos()) {
+			ped.add(new PedidoPrendas(pedido));
+		}
+		this.numero = sucursal.getNumero();
+		this.nombre = sucursal.getNombre();
+		this.direccion = sucursal.getDireccion();
+		ArrayList<String> hor=new ArrayList<>();
+		for (String horario : sucursal.getHorarios()) {
+			hor.add(horario);
+		}
+		this.horarios = hor;
+		this.empleados = emp;
+		this.pedidos = pedidos;
+	}
 	
 	public Sucursal(int numero, String nombre, String direccion, ArrayList<String> horarios, Empleado gerente,
 			ArrayList<Empleado> empleados,ArrayList<PedidoPrendas> pedidos){

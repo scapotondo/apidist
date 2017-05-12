@@ -3,12 +3,20 @@ package negocio;
 import java.util.Date;
 
 import dto.LineaProduccionDto;
+import entity.LineaProduccionEntity;
 
 public class LineaProduccion {
 	private int numero;
 	private String estado;
 	private Date tiempoLiberarse;
 	private String trabajo;
+	
+	public LineaProduccion(LineaProduccionEntity linea){
+		this.numero=linea.getNumero();
+		this.estado= linea.getEstado();
+		this.tiempoLiberarse=linea.getTiempoLiberarse();
+		this.trabajo=linea.getTrabajo();
+	}
 	
 	public LineaProduccion(int numero, String estado, Date tiempoLiberarse, String trabajo){
 		this.numero=numero;

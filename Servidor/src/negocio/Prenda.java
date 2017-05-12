@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import dto.ConfeccionDto;
 import dto.PrendaDto;
 import dto.StockPrendaDto;
+import entity.ConfeccionEntity;
+import entity.PrendaEntity;
+import entity.StockPrendaEntity;
 
 public class Prenda {
 
@@ -18,6 +21,34 @@ public class Prenda {
 	private float porsentajeGanancia;
 	private ArrayList<Confeccion> confecciones;
 	private ArrayList<StockPrenda> stock;
+	
+	public Prenda(PrendaEntity prenda){
+		ArrayList<String> tvalidos=new ArrayList<>();
+		for (String talle : prenda.getTallesValidos()) {
+			tvalidos.add(talle);
+		}
+		ArrayList<String> cValidos=new ArrayList<>();
+		for (String color : prenda.getColoresValidos()) {
+			cValidos.add(color);
+		}
+		this.tallesValidos=tvalidos;
+		this.coloresValidos=cValidos;
+		this.codigo=prenda.getCodigo();
+		this.esDiscontinuo=prenda.getEsDiscontinuo();
+		this.cantidadAProducir=prenda.getCantidadAProducir();
+		this.nombre=prenda.getNombre();
+		this.descripcion=prenda.getDescripcion();
+		this.porsentajeGanancia=prenda.getPorsentajeGanancia();
+		this.confecciones = new ArrayList<Confeccion>();
+		for (ConfeccionEntity confeccionEntity : prenda.getConfecciones()) {
+			this.confecciones.add(new Confeccion(confeccionEntity));
+		}
+		this.stock=new ArrayList<StockPrenda>();
+		for (StockPrendaEntity stockPrendaEntity : prenda.getStock()) {
+			this.stock.add(new StockPrenda(stockPrendaEntity));
+		}
+	}
+	
 	
 	public Prenda(ArrayList<String> tallesValidos,ArrayList<String> coloresValidos,int codigo,boolean esDiscontinuo,
 			int cantidadAProducir,String nombre,String descripcion,float porsentajeGanancia,ArrayList<Confeccion> confecciones,

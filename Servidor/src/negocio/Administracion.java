@@ -13,10 +13,8 @@ public class Administracion {
 	public static Administracion getInstance(){
 		if (instance == null)
 			instance = new Administracion();
-		
 		return instance;
 	}
-
 	private Administracion() {}
 	
 	private ArrayList<Cliente> clientes;
@@ -26,22 +24,6 @@ public class Administracion {
 		
 	}
 	
-	public void altaCliente(float limiteCredito,String formaPago, float cuentaCorriente, String cuit, String nombre, String razonSocial,
-						String telefono, String direccionEnvio,String direccionFacturacion, int legajo,
-						ArrayList<PedidoPrendasDto> pedidosAceptados, Sucursal sucursal ){
-	}
-	
-	public AdministracionDto toDto(){
-		ArrayList<ClienteDto> clientesDto = new ArrayList<>();
-		ArrayList<PrendaDto> prendasDto = new ArrayList<>();
-		for (Prenda prenda : prendas) {
-			prendasDto.add(prenda.toDto());
-		}
-		for (Cliente cliente : clientes) {
-			clientesDto.add(cliente.toDto());
-		}
-		return new AdministracionDto(clientesDto, prendasDto);
-	}
 	
 	public void AltaCliente(ClienteDto clienteDto, Sucursal sucursal) {
 		Cliente cliente = new Cliente(
@@ -58,5 +40,18 @@ public class Administracion {
 				);
 		
 		cliente.saveMe();
+	}
+	
+	
+	public AdministracionDto toDto(){
+		ArrayList<ClienteDto> clientesDto = new ArrayList<>();
+		ArrayList<PrendaDto> prendasDto = new ArrayList<>();
+		for (Prenda prenda : prendas) {
+			prendasDto.add(prenda.toDto());
+		}
+		for (Cliente cliente : clientes) {
+			clientesDto.add(cliente.toDto());
+		}
+		return new AdministracionDto(clientesDto, prendasDto);
 	}
 }

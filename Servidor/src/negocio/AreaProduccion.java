@@ -5,12 +5,29 @@ import java.util.ArrayList;
 import dto.AreaProduccionDto;
 import dto.LineaProduccionDto;
 import dto.OrdenDeProduccionDto;
+import entity.AreaProduccionEntity;
+import entity.LineaProduccionEntity;
+import entity.OrdenDeProduccionEntity;
 
 public class AreaProduccion {
 
 	private String nombre;
 	private ArrayList<LineaProduccion> lineasProduccion;
 	private ArrayList<OrdenDeProduccion> ordenesProduccion;
+	
+	public AreaProduccion(AreaProduccionEntity area){
+		this.nombre=area.getNombre();
+		this.lineasProduccion=new ArrayList<>();
+		for (LineaProduccionEntity lineaProduccionEntity : area.getLineasProduccion()) {
+			this.lineasProduccion.add(new LineaProduccion(lineaProduccionEntity));
+		}
+		//falta
+		this.ordenesProduccion=new ArrayList<>();
+		for (OrdenDeProduccionEntity OrdenDeProduccionEntity : area.getOrdenesProduccion()) {
+			//TODO: ver esto, falla por ser abstracta la clase
+			//this.ordenesProduccion.add(new OrdenDeProduccion(OrdenDeProduccionEntity);
+		}
+	}
 	
 	public AreaProduccion(String nombre,ArrayList<LineaProduccion> lineasProduccion,ArrayList<OrdenDeProduccion> ordenesProduccion){
 		this.nombre=nombre;

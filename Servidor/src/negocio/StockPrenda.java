@@ -2,8 +2,8 @@ package negocio;
 
 import java.util.Date;
 
-import dto.StockMateriaPrimaDto;
 import dto.StockPrendaDto;
+import entity.StockPrendaEntity;
 
 public class StockPrenda {
 	private String color;
@@ -15,10 +15,22 @@ public class StockPrenda {
 	private String ubicacion;
 	private String estado;
 	private Prenda prenda;
-	private OrdenDeProduccion ordenProduccion;
+	
+	public StockPrenda(StockPrendaEntity stock){
+		this.color=stock.getColor();
+		this.talle=stock.getTalle();
+		//TODO: ver aca tambien la orden como hacer por ser abstracta
+		//this.lote=new OrdenDeProduccion(stock.getLote());
+		this.fecha=stock.getFecha();
+		this.costoProduccion=stock.getCostoProduccion();
+		this.cantidad=stock.getCantidad();
+		this.ubicacion=stock.getUbicacion();
+		this.estado=stock.getEstado();
+		this.prenda=new Prenda(stock.getPrenda());
+	}
 	
 	public StockPrenda(String color,String talle,OrdenDeProduccion lote,Date fecha,float costoProduccion,int cantidad,
-			String ubicacion,String estado,Prenda prenda,OrdenDeProduccion ordenProduccion){
+			String ubicacion,String estado,Prenda prenda){
 		this.color=color;
 		this.talle=talle;
 		this.lote=lote;
@@ -28,7 +40,6 @@ public class StockPrenda {
 		this.ubicacion=ubicacion;
 		this.estado=estado;
 		this.prenda=prenda;
-		this.ordenProduccion=ordenProduccion;
 	}
 
 	public String getColor() {
@@ -103,17 +114,11 @@ public class StockPrenda {
 		this.prenda = prenda;
 	}
 
-	public OrdenDeProduccion getOrdenProduccion() {
-		return ordenProduccion;
-	}
-
-	public void setOrdenProduccion(OrdenDeProduccion ordenProduccion) {
-		this.ordenProduccion = ordenProduccion;
-	}
+	
 	
 	public StockPrendaDto toDto(){
 		return new StockPrendaDto(color, talle, lote.toDto(), fecha, costoProduccion, cantidad, ubicacion, estado,
-				prenda.toDto(),ordenProduccion.toDto());
+				prenda.toDto());
 	}
 
 }

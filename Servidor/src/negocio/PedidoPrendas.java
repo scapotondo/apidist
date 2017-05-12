@@ -5,6 +5,8 @@ import java.util.Date;
 
 import dto.ItemPrendaDto;
 import dto.PedidoPrendasDto;
+import entity.ItemPrendaEntity;
+import entity.PedidoPrendasEntity;
 
 public class PedidoPrendas {
 	
@@ -16,6 +18,22 @@ public class PedidoPrendas {
 	private OrdenDeProduccion ordenProduccion;
 	private Cliente cliente;
 	private ArrayList<ItemPrenda> items;
+	
+	public PedidoPrendas(PedidoPrendasEntity pedido){
+		this.nroPedido=pedido.getNroPedido();
+		this.fechaProbableDespacho=pedido.getFechaProbableDespacho();
+		this.estado=pedido.getEstado();
+		this.fechaGeneracion=pedido.getFechaGeneracion();
+		this.fechaRealDespacho=pedido.getFechaRealDespacho();
+		this.cliente=new Cliente(pedido.getCliente());
+		this.items=new ArrayList<ItemPrenda>();
+		for (ItemPrendaEntity itemPrendaEntity : pedido.getItems()) {
+			this.items.add(new ItemPrenda(itemPrendaEntity));
+		}
+		
+		//TODO: ver como manejar esto ya que op es abstracto
+		//this.ordenProduccion=new OrdenDeProduccion(pedido.getOrdenProduccion());
+	}
 	
 	public PedidoPrendas(int nroPedido, Date fechaProbableDespacho, String estado, Date fechaGeneracion,
 			Date fechaRealDespacho, OrdenDeProduccion ordenProduccion, Cliente cliente, ArrayList<ItemPrenda> items){

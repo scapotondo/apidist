@@ -22,9 +22,8 @@ public class Servidor {
     public void iniciar() {
     	try {
     		LocateRegistry.createRegistry(1099);	
-    		clienteOR =new ClienteRemoto();
 
-            Naming.rebind ("//localhost/sucursal/clientes", clienteOR);
+            //Naming.rebind ("//localhost/sucursal/clientes", clienteOR);
             System.out.println("Fijado en //localhost/sucursal/clientes");
 
 		} catch (Exception e) {

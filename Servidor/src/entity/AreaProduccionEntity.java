@@ -25,4 +25,38 @@ public class AreaProduccionEntity implements Serializable{
 	private List<OrdenDeProduccionEntity> ordenesProduccion;
 	
 	public AreaProduccionEntity(){}
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public List<LineaProduccionEntity> getLineasProduccion() {
+		return lineasProduccion;
+	}
+
+	public void setLineasProduccion(List<LineaProduccionEntity> lineasProduccion) {
+		this.lineasProduccion = lineasProduccion;
+	}
+
+	public List<OrdenDeProduccionEntity> getOrdenesProduccion() {
+		return ordenesProduccion;
+	}
+
+	public void setOrdenesProduccion(List<OrdenDeProduccionEntity> ordenesProduccion) {
+		this.ordenesProduccion = ordenesProduccion;
+	}
+	
+	
 }
