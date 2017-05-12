@@ -1,5 +1,7 @@
 package objetosRemotos;
 
+import java.util.ArrayList;
+
 import controller.Controller;
 import dto.ClienteDto;
 
@@ -17,4 +19,11 @@ public class ClienteRemoto {
 		Controller.getInstance().AltaCliente(cliente);
 	}
 	
+	public ClienteDto BuscarClientePorId(ClienteDto cliente){
+		return null;
+	}
+	
+	public ArrayList<ClienteDto> BuscarClientes(){
+		return Controller.getInstance().BuscarClientes();
+	}
 }

@@ -18,11 +18,16 @@ public class ControllerSwing {
 	
 	public void AltaCliente(float limiteCredito,String formaPago,float cuentaCorriente,String cuit,String nombre, 
 			String razonSocial,String telefono, String direccionEnvio,String direccionFacturacion, int nroSucursal ){
+		
 		SucursalDto sucursal = new SucursalDto();
 		sucursal.setNumero(nroSucursal);
 		ClienteDto cliente = new ClienteDto(limiteCredito, formaPago, cuentaCorriente, cuit, nombre,
-				razonSocial, telefono, direccionEnvio, direccionFacturacion, sucursal, new ArrayList());
+				razonSocial, telefono, direccionEnvio, direccionFacturacion, sucursal, new ArrayList<>(),0);
+		
 		ClienteRemoto.getInstance().altaCliente(cliente);
 	}
+	
+	public ArrayList<ClienteDto> BuscarClientes(){
+		return ClienteRemoto.getInstance().BuscarClientes();
+	}
 }
-

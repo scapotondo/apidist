@@ -1,5 +1,5 @@
 
-package clientes;
+package administracion;
 
 import controller.ControllerSwing;
 
@@ -174,15 +174,18 @@ public class AltaCliente extends javax.swing.JFrame {
         		Float.parseFloat(cuentaCorrienteField.getText()), cuitField.getText(),nombreField.getText(),
         		razonSocialField.getText(), telefonoField.getText(), direccionEnvioField.getText(), 
         		direccionFacturacionField.getText(), Integer.parseInt(nroSucursalField.getText()));
+        atras();
     }
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {
-        MainClientes mc=new MainClientes();
+        atras();
+    }
+    private void atras(){
+    	MainClientes mc=new MainClientes();
         mc.setLocationRelativeTo(null);
         mc.setVisible(true);
         setVisible(false);
     }
-
 
     private javax.swing.JButton aceptar;
     private javax.swing.JButton cancelar;

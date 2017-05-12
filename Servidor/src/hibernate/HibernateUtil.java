@@ -1,9 +1,13 @@
 package hibernate;
 
-import org.hibernate.Session;
+import java.util.ArrayList;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import dao.SucursalDao;
+import dto.EmpleadoDto;
+import dto.SucursalDto;
 import entity.AdministracionEntity;
 import entity.AlmacenEntity;
 import entity.AreaComprasEntity;
@@ -78,6 +82,12 @@ public class HibernateUtil{
 //    	SessionFactory sf = HibernateUtil.getSessionFactory();
 //		Session session = sf.openSession();
 //	}
-    
+    public static void datos(){
+    	
+    	SucursalDto sucursal1 = new SucursalDto(1, "sucursal1", "direccion", new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+    	
+    	SucursalDao.getInstance().altaSucursal(sucursal1);
+    	
+    }
 
 }

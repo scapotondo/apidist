@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.ArrayList;
 
+import dao.ClienteDao;
 import dto.AdministracionDto;
 import dto.ClienteDto;
 import dto.PedidoPrendasDto;
@@ -40,6 +41,14 @@ public class Administracion {
 				);
 		
 		cliente.saveMe();
+	}
+	public ArrayList<ClienteDto> BuscarClientes(){
+		ArrayList<Cliente> clientes= ClienteDao.getInstance().BuscarClientes();
+		ArrayList<ClienteDto> clientesDto = new ArrayList<ClienteDto>();
+		for (Cliente cliente : clientes) {
+			clientesDto.add(cliente.toDto());
+		}
+		return clientesDto;
 	}
 	
 	

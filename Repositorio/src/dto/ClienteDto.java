@@ -19,25 +19,8 @@ public class ClienteDto {
 	private SucursalDto sucursal;
 	
 	public ClienteDto(float limiteCredito,String formaPago, float cuentaCorriente, String cuit, String nombre, String razonSocial,
-			String telefono, String direccionEnvio,String direccionFacturacion, SucursalDto sucursal,
-			ArrayList<PedidoPrendasDto> pedidosAceptados ){
-		
-		this.limiteCredito=limiteCredito;
-		this.formaPago=formaPago;
-		this.cuentaCorriente=cuentaCorriente;
-		this.cuit=cuit;
-		this.nombre=nombre;
-		this.razonSocial=razonSocial;
-		this.telefono=telefono;
-		this.direccionEnvio=direccionEnvio;
-		this.direccionFacturacion=direccionFacturacion;
-		this.sucursal=sucursal;
-		this.pedidosAceptados= pedidosAceptados;
-	}
-	
-	public ClienteDto(float limiteCredito,String formaPago, float cuentaCorriente, String cuit, String nombre, String razonSocial,
-			String telefono, String direccionEnvio,String direccionFacturacion, int legajo,SucursalDto sucursal,
-			ArrayList<PedidoPrendasDto> pedidosAceptados ){
+			String telefono, String direccionEnvio,String direccionFacturacion,SucursalDto sucursal,
+			ArrayList<PedidoPrendasDto> pedidosAceptados,int legajo ){
 		
 		this.limiteCredito=limiteCredito;
 		this.formaPago=formaPago;

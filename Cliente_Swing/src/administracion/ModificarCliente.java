@@ -1,5 +1,5 @@
 
-package clientes;
+package administracion;
 
 
 public class ModificarCliente extends javax.swing.JFrame {

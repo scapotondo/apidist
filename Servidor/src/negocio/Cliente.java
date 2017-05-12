@@ -26,6 +26,7 @@ public class Cliente {
 	
 	
 	public Cliente(ClienteEntity cliente ){
+		this.legajo=cliente.getLegajo();
 		this.limiteCredito=cliente.getLimiteCredito();
 		this.formaPago=cliente.getFormaPago();
 		this.cuentaCorriente=cliente.getCuentaCorriente();
@@ -165,14 +166,15 @@ public class Cliente {
 	
 	
 	public ClienteDto toDto(){
-		SucursalDto sucursalDto = sucursal.toDto();
+		SucursalDto sucursalDto = this.sucursal.toDto();
 		ArrayList<PedidoPrendasDto> pedidosAceptadosDto= new ArrayList<PedidoPrendasDto>();
-		
-		for (PedidoPrendas pedidoPrendas : pedidosAceptados) {
-			pedidosAceptadosDto.add(pedidoPrendas.toDto());
+		if(this.pedidosAceptados!=null){
+			for (PedidoPrendas pedidoPrendas : this.pedidosAceptados) {
+				pedidosAceptadosDto.add(pedidoPrendas.toDto());
+			}
 		}
 		return new ClienteDto(limiteCredito, formaPago, cuentaCorriente, cuit, nombre, razonSocial, telefono, direccionEnvio,
-				direccionFacturacion, legajo, sucursalDto,pedidosAceptadosDto);
+				direccionFacturacion, sucursalDto,pedidosAceptadosDto,this.legajo);
 	}
 
 	public void saveMe(){

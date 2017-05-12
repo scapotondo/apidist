@@ -56,7 +56,7 @@ public class Empleado {
 		this.legajo = legajo;
 	}
 	public EmpleadoDto toDto(){
-		return new EmpleadoDto(nombre, domicilio, telefono, legajo);
+		return new EmpleadoDto(this.nombre, this.domicilio, this.telefono, this.legajo);
 	}
 	
 }

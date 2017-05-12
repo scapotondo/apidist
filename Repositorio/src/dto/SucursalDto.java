@@ -14,15 +14,23 @@ public class SucursalDto {
 	
 	public SucursalDto(){}
 	
-	public SucursalDto(int numero, String nombre, String direccion, ArrayList<String> horarios, EmpleadoDto gerente,
+	public SucursalDto(int numero, String nombre, String direccion, ArrayList<String> horarios,
 			ArrayList<EmpleadoDto> empleados,ArrayList<PedidoPrendasDto> pedidos){
 		this.numero = numero;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.horarios = horarios;
-		this.gerente = gerente;
-		this.empleados = empleados;
-		this.pedidos = pedidos;
+		//TODO:asignar gerente en base al actor rol
+		//this.gerente = gerente;
+		if(pedidos!=null)
+			this.pedidos = pedidos;
+		else
+			this.pedidos= new ArrayList<PedidoPrendasDto>();
+		
+		if(empleados !=null)
+			this.empleados = empleados;
+		else
+			this.empleados= new ArrayList<EmpleadoDto>();
 	}
 
 	public int getNumero() {

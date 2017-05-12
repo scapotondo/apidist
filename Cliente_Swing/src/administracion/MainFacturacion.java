@@ -1,11 +1,11 @@
 
-package clientes;
+package administracion;
 
 
-public class MainPrendas extends javax.swing.JFrame {
+public class MainFacturacion extends javax.swing.JFrame {
 
     
-    public MainPrendas() {
+    public MainFacturacion() {
         initComponents();
     }
 

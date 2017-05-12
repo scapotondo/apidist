@@ -1,5 +1,5 @@
 
-package clientes;
+package administracion;
 
 public class MainClientes extends javax.swing.JFrame {
 

@@ -123,13 +123,17 @@ public class Sucursal {
 	public SucursalDto toDto(){
 		ArrayList<EmpleadoDto> empleadosDto = new ArrayList<EmpleadoDto>();
 		ArrayList<PedidoPrendasDto> pedidosDto = new ArrayList<PedidoPrendasDto>();
-		for (PedidoPrendas pedidoPrendas : pedidos) {
-			pedidosDto.add(pedidoPrendas.toDto());
+		if(this.pedidos != null){
+			for (PedidoPrendas pedidoPrendas : this.pedidos) {
+				pedidosDto.add(pedidoPrendas.toDto());
+			}
 		}
-		for (Empleado empleado : empleados) {
-			empleadosDto.add(empleado.toDto());
+		if(this.empleados!= null){
+			for (Empleado empleado : this.empleados) {
+				empleadosDto.add(empleado.toDto());
+			}
 		}
 		
-		return new SucursalDto(numero, nombre, direccion, horarios, gerente.toDto(), empleadosDto, pedidosDto);
+		return new SucursalDto(numero, nombre, direccion, horarios, empleadosDto, pedidosDto);
 	}
 }

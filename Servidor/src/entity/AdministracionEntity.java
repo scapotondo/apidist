@@ -21,13 +21,13 @@ public class AdministracionEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@OneToMany()
-	@JoinColumn(name="administraction_id")
-	private List<ClienteEntity> clientes;
-	
-	@OneToMany()
-	@JoinColumn(name="administraction_id")
-	private List<PrendaEntity> prendas;
+//	@OneToMany()
+//	@JoinColumn(name="administraction_id")
+//	private List<ClienteEntity> clientes;
+//	
+//	@OneToMany()
+//	@JoinColumn(name="administraction_id")
+//	private List<PrendaEntity> prendas;
 	
 	public AdministracionEntity(){}
 

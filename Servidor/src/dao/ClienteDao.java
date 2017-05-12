@@ -1,17 +1,16 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.Session;
 
+import dto.ClienteDto;
 import entity.ClienteEntity;
-import entity.EmpleadoEntity;
 import entity.PedidoPrendasEntity;
 import entity.SucursalEntity;
 import hibernate.HibernateUtil;
 import negocio.Cliente;
-import negocio.Empleado;
-import negocio.PedidoPrendas;
 
 public class ClienteDao {
 	private static ClienteDao instance;
@@ -37,6 +36,31 @@ public class ClienteDao {
 		session.save(clienteEntity);
 		session.getTransaction().commit();
 		session.close();
+	}
+	public void ModificarCliente(Cliente cliente){
+		
+	}
+	
+	public void EliminarCliente(Cliente cliente){
+		
+	}
+	
+	public Cliente BuscarClientePorId(ClienteDto cliente){
+		
+		return null;
+	}
+	
+	public ArrayList<Cliente> BuscarClientes(){
+		ArrayList<Cliente> clientes = new ArrayList<>();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		List<ClienteEntity> clientesEntity =  session.createQuery("from ClienteEntity").list();
+		session.getTransaction().commit();
+		session.close();
+		for (ClienteEntity clienteEntity : clientesEntity) {
+			clientes.add(new Cliente(clienteEntity));
+		}
+		return clientes;
 	}
 	
 }
