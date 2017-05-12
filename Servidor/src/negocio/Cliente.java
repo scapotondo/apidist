@@ -180,4 +180,12 @@ public class Cliente {
 	public void saveMe(){
 		ClienteDao.getInstance().crearCliente(this);
 	}
+	
+	public void modificame(){
+		ClienteDao.getInstance().ModificarCliente(this);
+	}
+	
+	public void eliminame(){
+		ClienteDao.getInstance().EliminarCliente(this);
+	}
 }

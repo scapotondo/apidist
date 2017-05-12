@@ -10,11 +10,18 @@ public class ModificarCliente extends javax.swing.JFrame {
      */
     public ModificarCliente(ClienteDto cliente) {
         initComponents();
-        // agregar como parametro un cliente y setear valores a los textfields
+        cuentaCorrienteField.setText(cliente.getCuentaCorriente()+"");
+        cuitField.setText(cliente.getCuit()+"");
+        direccionEnvioField.setText(cliente.getDireccionEnvio());
+        direccionFacturacionField.setText(cliente.getDireccionFacturacion());
+        formaPagoField.setText(cliente.getFormaPago());
+        limiteCreditoField.setText(cliente.getLimiteCredito()+"");
+        nombreField.setText(cliente.getNombre());
+        razonSocialField.setText(cliente.getRazonSocial());
+        telefonoField.setText(cliente.getTelefono());
     }
 
     
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         cancelar = new javax.swing.JButton();
@@ -161,20 +168,22 @@ public class ModificarCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-        BuscarCliente bc =new BuscarCliente();
-        bc.setLocationRelativeTo(null);
-        bc.setVisible(true);
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {
+        atras();
+    }
+
+    private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    	atras();
+    }
+
+    private void atras(){
+    	MainClientes mc =new MainClientes();
+    	mc.setLocationRelativeTo(null);
+    	mc.setVisible(true);
         setVisible(false);
-    }//GEN-LAST:event_cancelarActionPerformed
+    }
 
-    private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_aceptarActionPerformed
-
-    
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptar;
     private javax.swing.JButton cancelar;
     private javax.swing.JTextField cuentaCorrienteField;
@@ -195,5 +204,4 @@ public class ModificarCliente extends javax.swing.JFrame {
     private javax.swing.JLabel razonSocialLabel;
     private javax.swing.JTextField telefonoField;
     private javax.swing.JLabel telefonoLabel;
-    // End of variables declaration//GEN-END:variables
 }

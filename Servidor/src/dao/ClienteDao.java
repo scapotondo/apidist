@@ -11,6 +11,7 @@ import entity.PedidoPrendasEntity;
 import entity.SucursalEntity;
 import hibernate.HibernateUtil;
 import negocio.Cliente;
+import negocio.PedidoPrendas;
 
 public class ClienteDao {
 	private static ClienteDao instance;
@@ -38,7 +39,7 @@ public class ClienteDao {
 		session.close();
 	}
 	public void ModificarCliente(Cliente cliente){
-		
+	//TODO: TERMINAR
 	}
 	
 	public void EliminarCliente(Cliente cliente){
@@ -66,5 +67,7 @@ public class ClienteDao {
 		}
 		return clientes;
 	}
+	
+
 	
 }
