@@ -79,8 +79,8 @@ public class BuscarCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
-        // new main modificarcliente pasandole el cliente seleccionado al constructor de la vista
-        ModificarCliente mc = new ModificarCliente();
+    	ClienteDto cliente =ControllerSwing.getInstance().BuscarClientePorId(clientesComboBox.getSelectedItem()+"");
+        ModificarCliente mc = new ModificarCliente(cliente);
         mc.setLocationRelativeTo(null);
         mc.setVisible(true);
         setVisible(false);

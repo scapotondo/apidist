@@ -30,4 +30,14 @@ public class ControllerSwing {
 	public ArrayList<ClienteDto> BuscarClientes(){
 		return ClienteRemoto.getInstance().BuscarClientes();
 	}
+	
+	public ClienteDto BuscarClientePorId(String cadena){
+		String [] partesCadena = cadena.split("-");
+		String nombreCliente=partesCadena[0];
+		int legajoCliente= Integer.parseInt(partesCadena[1]);
+		ClienteDto cliente = new ClienteDto();
+		cliente.setLegajo(legajoCliente);
+		cliente.setNombre(nombreCliente);
+		return ClienteRemoto.getInstance().BuscarClientePorId(cliente);
+	}
 }

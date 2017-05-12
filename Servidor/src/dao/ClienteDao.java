@@ -46,8 +46,12 @@ public class ClienteDao {
 	}
 	
 	public Cliente BuscarClientePorId(ClienteDto cliente){
-		
-		return null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		ClienteEntity clienteEntity = session.get(ClienteEntity.class, cliente.getLegajo());
+		session.getTransaction().commit();
+		session.close();
+		return new Cliente(clienteEntity);
 	}
 	
 	public ArrayList<Cliente> BuscarClientes(){

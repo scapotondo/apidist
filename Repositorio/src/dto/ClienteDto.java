@@ -17,7 +17,7 @@ public class ClienteDto {
 	private int legajo;
 	private ArrayList<PedidoPrendasDto> pedidosAceptados;
 	private SucursalDto sucursal;
-	
+	public ClienteDto(){}
 	public ClienteDto(float limiteCredito,String formaPago, float cuentaCorriente, String cuit, String nombre, String razonSocial,
 			String telefono, String direccionEnvio,String direccionFacturacion,SucursalDto sucursal,
 			ArrayList<PedidoPrendasDto> pedidosAceptados,int legajo ){

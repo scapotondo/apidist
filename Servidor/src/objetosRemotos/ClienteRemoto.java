@@ -20,7 +20,7 @@ public class ClienteRemoto {
 	}
 	
 	public ClienteDto BuscarClientePorId(ClienteDto cliente){
-		return null;
+		return Controller.getInstance().BuscarClientePorId(cliente);
 	}
 	
 	public ArrayList<ClienteDto> BuscarClientes(){

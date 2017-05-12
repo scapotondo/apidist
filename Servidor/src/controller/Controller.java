@@ -39,7 +39,7 @@ public class Controller {
 	}
 	
 	public ClienteDto BuscarClientePorId(ClienteDto cliente){
-		return null;
+		return Administracion.getInstance().BuscarClientePorId(cliente);
 	}
 	
 	public ArrayList<ClienteDto> BuscarClientes(){

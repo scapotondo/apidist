@@ -50,6 +50,9 @@ public class Administracion {
 		}
 		return clientesDto;
 	}
+	public ClienteDto BuscarClientePorId(ClienteDto cliente){
+		return ClienteDao.getInstance().BuscarClientePorId(cliente).toDto();
+	}
 	
 	
 	public AdministracionDto toDto(){

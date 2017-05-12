@@ -1,13 +1,14 @@
 
 package administracion;
 
+import dto.ClienteDto;
 
 public class ModificarCliente extends javax.swing.JFrame {
 
     /**
      * Creates new form ModificarCliente
      */
-    public ModificarCliente() {
+    public ModificarCliente(ClienteDto cliente) {
         initComponents();
         // agregar como parametro un cliente y setear valores a los textfields
     }
