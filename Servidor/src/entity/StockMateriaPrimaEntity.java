@@ -2,7 +2,17 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import negocio.StockMateriaPrima;
 
 @Entity
 @Table(name="StockMateriaPrima")
@@ -25,6 +35,29 @@ public class StockMateriaPrimaEntity implements Serializable{
 	private String ubicacion;
 	
 	public StockMateriaPrimaEntity(){}
+	
+	public StockMateriaPrimaEntity(int id, MateriaPrimaEntity materiaPrima,OrdenDeCompraEntity lote,Date fechaRecepcion,
+			float precioFinalCompra,int cantidad,String ubicacion){
+		
+		this.id=id;
+		this.materiaPrima=materiaPrima;
+		this.lote=lote;
+		this.fechaRecepcion=fechaRecepcion;
+		this.precioFinalCompra=precioFinalCompra;
+		this.cantidad=cantidad;
+		this.ubicacion=ubicacion;
+	}
+	
+	public StockMateriaPrimaEntity(StockMateriaPrima mp){
+		//TODO: ver como manejar id de StockMateriaPRima porque lo uniboco es el lote supuestamente
+	//	this.id=mp.getId();
+		this.materiaPrima=new MateriaPrimaEntity(mp.getMateriaPrima());
+		this.lote=new OrdenDeCompraEntity(mp.getLote());
+		this.fechaRecepcion=mp.getFechaRecepcion();
+		this.precioFinalCompra=mp.getPrecioFinalCompra();
+		this.cantidad=mp.getCantidad();
+		this.ubicacion=mp.getUbicacion();
+	}
 
 	public int getId() {
 		return id;

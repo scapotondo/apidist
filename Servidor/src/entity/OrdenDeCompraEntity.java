@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.print.CancelablePrintJob;
+
+import negocio.OrdenDeCompra;
 
 @Entity
 @Table(name="OrdenDeCompra")
@@ -38,6 +41,34 @@ public class OrdenDeCompraEntity implements Serializable{
 	private ProveedorEntity proveedor;
 
 	public OrdenDeCompraEntity(){}
+	
+	public OrdenDeCompraEntity(int id,MateriaPrimaEntity materiaPrima,Date fechaGeneracion,Date fechaProbableDespacho,
+			Date fechaRealDespacho,int cantidad,float precioUnitario,OrdenDeProduccionEntity ordenProduccion,ProveedorEntity proveedor){
+		this.id=id;
+		this.materiaPrima= materiaPrima;
+		this.fechaGeneracion=fechaGeneracion;
+		this.fechaProbableDespacho=fechaProbableDespacho;
+		this.fechaRealDespacho=fechaRealDespacho;
+		this.cantidad=cantidad;
+		this.precioUnitario=precioUnitario;
+		this.ordenProduccion=ordenProduccion;
+		this.proveedor=proveedor;
+	}
+	
+	public OrdenDeCompraEntity(OrdenDeCompra orden){
+		this.id=orden.getId();
+		this.fechaGeneracion=orden.getFechaGeneracion();
+		this.fechaProbableDespacho=orden.getFechaProbableDespacho();
+		this.fechaRealDespacho=orden.getFechaRealDespacho();
+		this.cantidad=orden.getCantidad();
+		this.precioUnitario=orden.getPrecioUnitario();
+		
+//		TODO: ver como manejar ordenes de produccion aca tambien
+//		this.ordenProduccion=new OrdenDeProduccionEntity(orden.getOrdenProduccion());
+		
+		this.proveedor=new ProveedorEntity(orden.getProveedor());
+		this.materiaPrima= new MateriaPrimaEntity(orden.getMateriaPrima());
+	}
 
 	public int getId() {
 		return id;

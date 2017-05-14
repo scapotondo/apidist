@@ -12,6 +12,8 @@ public class StockMateriaPrima {
 	private float precioFinalCompra;
 	private int cantidad;
 	private String ubicacion;
+	private MateriaPrima materiaPrima;
+	
 	
 	public StockMateriaPrima(StockMateriaPrimaEntity stock){
 		this.lote=new OrdenDeCompra(stock.getLote());
@@ -19,14 +21,26 @@ public class StockMateriaPrima {
 		this.precioFinalCompra=stock.getPrecioFinalCompra();
 		this.cantidad=stock.getCantidad();
 		this.ubicacion=stock.getUbicacion();
+		this.materiaPrima= new MateriaPrima(stock.getMateriaPrima());
 	}
 	
-	public StockMateriaPrima(OrdenDeCompra lote,Date fechaRecepcion,float precioFinalCompra,int cantidad,String ubicacion){
+	public StockMateriaPrima(OrdenDeCompra lote,Date fechaRecepcion,float precioFinalCompra,int cantidad,String ubicacion,
+			MateriaPrima materiaPrima){
 		this.lote=lote;
 		this.fechaRecepcion=fechaRecepcion;
 		this.precioFinalCompra=precioFinalCompra;
 		this.cantidad=cantidad;
 		this.ubicacion=ubicacion;
+		this.materiaPrima=materiaPrima;
+	}
+
+	
+	public MateriaPrima getMateriaPrima() {
+		return materiaPrima;
+	}
+
+	public void setMateriaPrima(MateriaPrima materiaPrima) {
+		this.materiaPrima = materiaPrima;
 	}
 
 	public OrdenDeCompra getLote() {

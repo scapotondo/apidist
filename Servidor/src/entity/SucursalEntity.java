@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import negocio.Empleado;
 import negocio.PedidoPrendas;
 import negocio.Sucursal;
 
@@ -70,8 +71,12 @@ public class SucursalEntity implements Serializable{
 				this.pedidos.add(new PedidoPrendasEntity(pedido));
 			}	
 		}
-		//TODO: falta terminar
-		this.empleados = empleados;
+		this.empleados=new ArrayList<EmpleadoEntity>();
+		if(sucursal.getEmpleados()!=null){
+			for (Empleado empleado : sucursal.getEmpleados()) {
+				this.empleados.add(new EmpleadoEntity(empleado));
+			}
+		}
 	}
 	
 	public int getNumero() {

@@ -3,15 +3,15 @@ package entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import negocio.StockPrenda;
 
 @Entity
 @Table(name="StockPrenda")
@@ -36,6 +36,42 @@ public class StockPrendaEntity implements Serializable{
 	private OrdenDeProduccionEntity lote;
 	
 	public StockPrendaEntity(){}
+	
+	public StockPrendaEntity(String color,String talle, Date fecha, float costoProduccion, int cantidad, String ubicacion,
+			String estado,PrendaEntity prenda,OrdenDeProduccionEntity lote){
+		
+		this.color=color;
+		this.talle=talle;
+		this.fecha=fecha;
+		this.costoProduccion=costoProduccion;
+		this.cantidad=cantidad;
+		this.ubicacion=ubicacion;
+		this.estado=estado;
+		this.prenda=prenda;
+		this.lote=lote;
+	}
+	
+	public StockPrendaEntity(StockPrenda sp){
+		//terminar
+		this.color=sp.getColor();
+		this.talle=sp.getTalle();
+		this.fecha=sp.getFecha();
+		this.costoProduccion=sp.getCostoProduccion();
+		this.cantidad=sp.getCantidad();
+		this.ubicacion=sp.getUbicacion();
+		this.estado=sp.getEstado();
+		if(sp.getPrenda()!= null)
+			this.prenda=new PrendaEntity(sp.getPrenda());
+		else
+			this.prenda=new PrendaEntity();
+		//TODO: revisar aca las op 
+//		if(sp.getLote()!= null)
+//			this.lote=new OrdenDeProduccionEntity(sp.getLote());
+//		else
+//			this.lote=new OrdenDeProduccionEntity();
+	}
+	
+	
 
 	public int getCodigo() {
 		return codigo;

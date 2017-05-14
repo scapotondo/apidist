@@ -1,10 +1,28 @@
 package entity;
 
-import java.util.List;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import negocio.MateriaPrima;
+import negocio.OrdenDeProduccion;
+import negocio.PedidoPrendas;
+import negocio.Prenda;
 
 
 @Entity 
@@ -22,7 +40,7 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	
 	@OneToMany()
 	@JoinColumn(name="ordenDeProduccion_id")
-	private List<MateriaPrimaEntity> materiaPrimaReservada;
+	private List<MateriaPrimaEntity> materiasPrimasReservadas;
 	
 	private int confeccionesTerminadas;
 	
@@ -36,11 +54,29 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	public OrdenDeProduccionEntity(){}
 	public OrdenDeProduccionEntity(int nroOrden, String estado, List<MateriaPrimaEntity> materiaPrimaReservada, PedidoPrendasEntity pedidoPrenda, PrendaEntity prenda){
 		this.estado=estado;
-		this.materiaPrimaReservada=materiaPrimaReservada;
+		this.materiasPrimasReservadas=materiaPrimaReservada;
 		this.confeccionesTerminadas=0;
 		this.pedidoPrenda=pedidoPrenda;
 		this.prenda=prenda;
 		this.nroOrden = nroOrden;
+	}
+	
+	public OrdenDeProduccionEntity(OrdenDeProduccion op){
+		this.estado=op.getEstado();
+		this.confeccionesTerminadas=op.getConfeccionesTerminadas();
+		this.nroOrden = op.getNroOrden();
+		this.materiasPrimasReservadas= new ArrayList<>();
+		if(op.getMateriaPrimaReservada()!=null){
+			for (MateriaPrima materia : op.getMateriaPrimaReservada()) {
+				this.materiasPrimasReservadas.add(new MateriaPrimaEntity(materia));
+			}
+		}
+		this.pedidoPrenda=new PedidoPrendasEntity(op.getPedido());
+		
+		if(op.getPrenda()!=null)
+			this.prenda=new PrendaEntity(op.getPrenda());
+		else
+			this.prenda=new PrendaEntity();
 	}
 	public int getNroOrden() {
 		return nroOrden;

@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import negocio.MovimientoPrenda;
+
 @Entity
 @Table(name="MovimiendoPrenda")
 public class MovimientoPrendaEntity implements Serializable{
@@ -30,5 +32,30 @@ public class MovimientoPrendaEntity implements Serializable{
 	@ManyToOne()
 	@JoinColumn(name="codigoPrenda")
 	private PrendaEntity prenda;
+	
+	public MovimientoPrendaEntity(){}
+	
+	public MovimientoPrendaEntity(int cantidad, Date fecha, String talle, String color, String encargado, String quienAutorizo,
+			String destino){
+		
+		this.cantidad=cantidad;
+		this.fecha=fecha;
+		this.talle=talle;
+		this.color=color;
+		this.encargado=encargado;
+		this.quienAutorizo=quienAutorizo;
+		this.destino=destino;
+	} 
+	
+	public MovimientoPrendaEntity(MovimientoPrenda movimiento){
+		
+		this.cantidad=movimiento.getCantidad();
+		this.fecha=movimiento.getFecha();
+		this.talle=movimiento.getTalle();
+		this.color=movimiento.getColor();
+		this.encargado=movimiento.getEncargado();
+		this.quienAutorizo=movimiento.getQuienAutorizo();
+		this.destino=movimiento.getDestino();
+	} 
 
 }

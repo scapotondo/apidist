@@ -1,9 +1,22 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import negocio.Confeccion;
+import negocio.Prenda;
+import negocio.StockPrenda;
 
 
 @Entity
@@ -35,7 +48,73 @@ public class PrendaEntity implements Serializable{
 	private List<StockPrendaEntity> stock;
 	
 	public PrendaEntity(){}
+	
+	public PrendaEntity(int codigo, boolean esDiscontinuo,int cantidadAProducir,String nombre,String descripcion,
+			float porsentajeGanancia,ArrayList<String>tallesValidos,ArrayList<String>coloresValidos,
+			ArrayList<ConfeccionEntity> confecciones,ArrayList<StockPrendaEntity> stock){
+		
+		this.codigo=codigo;
+		this.esDiscontinuo=esDiscontinuo;
+		this.cantidadAProducir=cantidadAProducir;
+		this.nombre=nombre;
+		this.descripcion=descripcion;
+		this.porsentajeGanancia=porsentajeGanancia;
+		if(tallesValidos!=null)
+			this.tallesValidos=tallesValidos;
+		else
+			this.tallesValidos= new ArrayList<>();
+		
+		if(coloresValidos!=null)
+			this.coloresValidos=coloresValidos;
+		else
+			this.coloresValidos=new ArrayList<>();
+		if(confecciones!=null)
+			this.confecciones=confecciones;
+		else
+			this.confecciones= new ArrayList<>();
+		
+		if(stock!=null)
+			this.stock=stock;
+		else
+			this.stock=new ArrayList<>();
+	}
 
+	public PrendaEntity(Prenda prenda){
+		
+		this.codigo=prenda.getCodigo();
+		this.esDiscontinuo=prenda.getEsDiscontinuo();
+		this.cantidadAProducir=prenda.getCantidadAProducir();
+		this.nombre=prenda.getNombre();
+		this.descripcion=prenda.getDescripcion();
+		this.porsentajeGanancia=prenda.getPorsentajeGanancia();
+
+		if(prenda.getTallesValidos()!=null)
+			this.tallesValidos=prenda.getTallesValidos();
+		else
+			this.tallesValidos= new ArrayList<>();
+		
+		if(prenda.getColoresValidos()!=null)
+			this.coloresValidos=prenda.getColoresValidos();
+		else
+			this.coloresValidos=new ArrayList<>();
+		
+		if(prenda.getConfecciones()!=null){
+			for (Confeccion confeccion : prenda.getConfecciones()) {
+				this.confecciones.add(new ConfeccionEntity(confeccion));
+			}
+		}else
+			this.confecciones= new ArrayList<ConfeccionEntity>();
+		
+		if(stock!=null)
+			for (StockPrenda stock : prenda.getStock()) {
+				this.stock.add(new StockPrendaEntity(stock));
+			}
+		else
+			this.stock=new ArrayList<>();
+	}
+	
+	
+	
 	public int getCodigo() {
 		return codigo;
 	}

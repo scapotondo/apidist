@@ -90,7 +90,7 @@ public class Prenda {
 		this.codigo = codigo;
 	}
 
-	public boolean isEsDiscontinuo() {
+	public boolean getEsDiscontinuo() {
 		return esDiscontinuo;
 	}
 

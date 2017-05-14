@@ -5,6 +5,8 @@ import entity.ProveedorEntity;
 
 public class Proveedor {
 
+	private int id;
+
 	private String telefono;
 	private String nombre;
 	private String domicilio;
@@ -18,6 +20,7 @@ public class Proveedor {
 		this.domicilio=proveedor.getDomicilio();
 		this.cuit=proveedor.getCuit();
 		this.cbu=proveedor.getCbu();
+		this.id=proveedor.getId();
 	}
 	public Proveedor(String telefono, String nombre, String domicilio, String cuit, String cbu){
 		this.telefono=telefono;
@@ -25,6 +28,12 @@ public class Proveedor {
 		this.domicilio=domicilio;
 		this.cuit=cuit;
 		this.cbu=cbu;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getTelefono() {

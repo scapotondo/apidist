@@ -7,6 +7,15 @@ import entity.OrdenDeCompraEntity;
 
 public class OrdenDeCompra {
 
+	private int id;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	private Date fechaGeneracion;
 	private Date fechaProbableDespacho;
 	private Date fechaRealDespacho;
@@ -14,17 +23,21 @@ public class OrdenDeCompra {
 	private float precioUnitario;
 	private OrdenDeProduccion ordenProduccion;
 	private Proveedor proveedor;
+	private MateriaPrima materiaPrima;
 	
 	
+
 	public OrdenDeCompra(OrdenDeCompraEntity oc){
 		this.fechaGeneracion=oc.getFechaGeneracion();
 		this.fechaProbableDespacho=oc.getFechaProbableDespacho();
 		this.fechaRealDespacho=oc.getFechaRealDespacho();
 		this.cantidad=oc.getCantidad();
 		this.precioUnitario=oc.getPrecioUnitario();
+		this.materiaPrima= new MateriaPrima(oc.getMateriaPrima());
+		this.proveedor=new Proveedor(oc.getProveedor());
 		//TODO: ver como manejar las ordenes de produccion
 		//this.ordenProduccion=new ;
-		this.proveedor=new Proveedor(oc.getProveedor());
+		
 	}
 	
 	public OrdenDeCompra(Date fechaGeneracion,Date fechaProbableDespacho,Date fechaRealDespacho,int cantidad,
@@ -36,6 +49,13 @@ public class OrdenDeCompra {
 		this.precioUnitario=precioUnitario;
 		this.ordenProduccion=ordenProduccion;
 		this.proveedor=proveedor;
+	}
+	public MateriaPrima getMateriaPrima() {
+		return materiaPrima;
+	}
+	
+	public void setMateriaPrima(MateriaPrima materiaPrima) {
+		this.materiaPrima = materiaPrima;
 	}
 	
 	public Date getFechaGeneracion() {

@@ -2,12 +2,13 @@ package entity;
 
 import java.io.Serializable;
 
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import negocio.Proveedor;
 
 @Entity
 @Table(name="Proveedor")
@@ -22,6 +23,27 @@ public class ProveedorEntity implements Serializable{
 	private String domicilio;
 	private String cuit;
 	private String cbu;
+	
+	public ProveedorEntity(){}
+	
+	public ProveedorEntity(int id,String telefono,String nombre,String domicilio, String cuit, String cbu){
+		this.id=id;
+		this.telefono=telefono;
+		this.nombre=nombre;
+		this.domicilio=domicilio;
+		this.cuit=cuit;
+		this.cbu=cbu;
+	}
+	
+	public ProveedorEntity(Proveedor proveedor){
+		this.id=proveedor.getId();
+		this.telefono=proveedor.getTelefono();
+		this.nombre=proveedor.getNombre();
+		this.domicilio=proveedor.getDomicilio();
+		this.cuit=proveedor.getCuit();
+		this.cbu=proveedor.getCbu();
+	}
+	
 	public int getId() {
 		return id;
 	}
