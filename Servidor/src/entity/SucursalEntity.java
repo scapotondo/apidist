@@ -4,7 +4,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import negocio.PedidoPrendas;
+import negocio.Sucursal;
 
 @Entity
 @Embeddable
@@ -46,6 +58,22 @@ public class SucursalEntity implements Serializable{
 		this.pedidos = pedidos;
 		this.empleados = empleados;
 	}
+	
+	public SucursalEntity(Sucursal sucursal){
+		this.numero = sucursal.getNumero();
+		this.nombre = sucursal.getNombre();
+		this.direccion = sucursal.getDireccion();
+		this.horarios = sucursal.getHorarios();
+		this.pedidos= new ArrayList<PedidoPrendasEntity>();
+		if(sucursal.getPedidos()!= null){
+			for (PedidoPrendas pedido : sucursal.getPedidos()) {
+				this.pedidos.add(new PedidoPrendasEntity(pedido));
+			}	
+		}
+		//TODO: falta terminar
+		this.empleados = empleados;
+	}
+	
 	public int getNumero() {
 		return numero;
 	}

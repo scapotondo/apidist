@@ -4,7 +4,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import negocio.Cliente;
+import negocio.PedidoPrendas;
 
 @Entity
 @Table(name="Cliente")
@@ -60,6 +72,30 @@ public class ClienteEntity implements Serializable{
 		this.sucursal=sucursal;
 		this.pedidosAceptados= pedidosAceptados;
 	}
+	
+	public ClienteEntity(Cliente cliente ){
+		
+		this.limiteCredito=cliente.getLimiteCredito();
+		this.formaPago=cliente.getFormaPago();
+		this.cuentaCorriente=cliente.getCuentaCorriente();
+		this.cuit=cliente.getCuit();
+		this.nombre=cliente.getNombre();
+		this.razonSocial=cliente.getRazonSocial();
+		this.telefono=cliente.getTelefono();
+		this.direccionEnvio=cliente.getDireccionEnvio();
+		this.direccionFacturacion=cliente.getDireccionFacturacion();
+		this.legajo=cliente.getLegajo();
+		this.sucursal=new SucursalEntity(cliente.getSucursal());
+		
+		this.pedidosAceptados= new ArrayList<PedidoPrendasEntity>();
+		if(cliente.getPedidosAceptados()!= null){
+			for (PedidoPrendas pedido : cliente.getPedidosAceptados()) {
+				this.pedidosAceptados.add(new PedidoPrendasEntity(pedido));
+			}
+		}
+	}
+	
+	
 	public int getLegajo() {
 		return legajo;
 	}

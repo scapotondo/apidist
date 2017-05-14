@@ -1,11 +1,22 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import negocio.PedidoPrendas;
 
 @Entity
 @Table(name="PedidoPrendas")
@@ -50,6 +61,20 @@ public class PedidoPrendasEntity implements Serializable{
 		this.ordenProduccion=ordenProduccion;
 		this.items=items;
 	}
+	
+	public PedidoPrendasEntity(PedidoPrendas pedido){
+		this.nroPedido=pedido.getNroPedido();
+		this.fechaProbableDespacho=pedido.getFechaProbableDespacho();
+		this.estado=pedido.getEstado();
+		this.fechaGeneracion=pedido.getFechaGeneracion();
+		this.fechaRealDespacho=pedido.getFechaProbableDespacho();
+		this.cliente=new ClienteEntity(pedido.getCliente());
+		
+		
+		this.ordenProduccion=ordenProduccion;
+		this.items=items;
+	}
+	
 	public int getNroPedido() {
 		return nroPedido;
 	}

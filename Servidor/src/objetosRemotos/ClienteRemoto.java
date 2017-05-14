@@ -19,6 +19,8 @@ public class ClienteRemoto {
 		Controller.getInstance().AltaCliente(cliente);
 	}
 	
+	
+	
 	public ClienteDto BuscarClientePorId(ClienteDto cliente){
 		return Controller.getInstance().BuscarClientePorId(cliente);
 	}

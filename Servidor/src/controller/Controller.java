@@ -38,6 +38,10 @@ public class Controller {
 		Administracion.getInstance().AltaCliente(cliente, SucursalDao.getInstance().getSucursalById(cliente.getSucursal().getNumero()));
 	}
 	
+	public void ModificarCliente(ClienteDto cliente) {
+		Administracion.getInstance().ModificarCliente(cliente, SucursalDao.getInstance().getSucursalById(cliente.getSucursal().getNumero()));
+	}
+	
 	public ClienteDto BuscarClientePorId(ClienteDto cliente){
 		return Administracion.getInstance().BuscarClientePorId(cliente);
 	}

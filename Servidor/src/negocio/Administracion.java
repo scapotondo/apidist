@@ -42,6 +42,24 @@ public class Administracion {
 		
 		cliente.saveMe();
 	}
+	
+	public void ModificarCliente(ClienteDto clienteDto, Sucursal sucursal){
+		Cliente cliente = new Cliente(
+				clienteDto.getLimiteCredito(),
+				clienteDto.getFormaPago(),
+				clienteDto.getCuentaCorriente(),
+				clienteDto.getCuit(),
+				clienteDto.getNombre(),
+				clienteDto.getRazonSocial(),
+				clienteDto.getTelefono(),
+				clienteDto.getDireccionEnvio(),
+				clienteDto.getDireccionFacturacion(),
+				sucursal
+			);
+	
+	cliente.modificame();
+	}
+	
 	public ArrayList<ClienteDto> BuscarClientes(){
 		ArrayList<Cliente> clientes= ClienteDao.getInstance().BuscarClientes();
 		ArrayList<ClienteDto> clientesDto = new ArrayList<ClienteDto>();
