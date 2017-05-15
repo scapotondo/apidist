@@ -14,6 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import negocio.MateriaPrima;
+import negocio.StockMateriaPrima;
+
 @Entity
 @Embeddable
 @Table(name="MateriaPrima")
@@ -32,6 +35,17 @@ public class MateriaPrimaEntity implements Serializable{
 	private List<StockMateriaPrimaEntity> stock;
 	
 	public MateriaPrimaEntity(){}
+	public MateriaPrimaEntity(MateriaPrima materiaPrima){
+		this.nombre = materiaPrima.getNombre();
+		this.minimo = materiaPrima.getMinimo();
+		this.ordenDeCompra = new OrdenDeCompraEntity(materiaPrima.getOrdenDeCompra());
+		this.stock = new ArrayList<StockMateriaPrimaEntity>();
+		if(materiaPrima.getStock() != null){
+			for (StockMateriaPrima stockMateriaPrima : materiaPrima.getStock()) {
+				this.stock.add(new StockMateriaPrimaEntity(stockMateriaPrima));
+			}
+		}
+	}
 
 	public int getCodigo() {
 		return codigo;

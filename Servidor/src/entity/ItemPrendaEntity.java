@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import negocio.ItemPrenda;
+
 @Entity
 @Embeddable
 @Table(name="ItemPrenda")
@@ -42,6 +44,15 @@ public class ItemPrendaEntity implements Serializable{
 		this.importe=importe;
 		this.prenda=prenda;
 		this.lote = lote;
+	}
+	public ItemPrendaEntity(ItemPrenda itemPrenda){
+		this.cantidad = itemPrenda.getCantidad();
+		this.talle = itemPrenda.getTalle();
+		this.color = itemPrenda.getColor();
+		this.importe = itemPrenda.getImporte();
+		this.prenda = new PrendaEntity(itemPrenda.getPrenda());
+		//TODO shevisar aca tambien
+		//this.lote = new ordendeproducc
 	}
 	public int getId() {
 		return id;

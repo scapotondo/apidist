@@ -90,11 +90,11 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public List<MateriaPrimaEntity> getMateriaPrimaReservada() {
-		return materiaPrimaReservada;
+	public List<MateriaPrimaEntity> getMateriasPrimasReservadas() {
+		return materiasPrimasReservadas;
 	}
-	public void setMateriaPrimaReservada(List<MateriaPrimaEntity> materiaPrimaReservada) {
-		this.materiaPrimaReservada = materiaPrimaReservada;
+	public void setMateriasPrimasReservadas(List<MateriaPrimaEntity> materiaPrimaReservada) {
+		this.materiasPrimasReservadas = materiaPrimaReservada;
 	}
 	public int getConfeccionesTerminadas() {
 		return confeccionesTerminadas;

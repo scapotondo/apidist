@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import negocio.Empleado;
+
 @Entity
 @Embeddable
 @Table(name="Empleado")
@@ -28,6 +30,12 @@ public class EmpleadoEntity implements Serializable{
 		this.domicilio=domicilio;
 		this.telefono=telefono;
 		this.legajo=legajo;
+	}
+	public EmpleadoEntity(Empleado empleado){
+		this.nombre = empleado.getNombre();
+		this.domicilio = empleado.getDomicilio();
+		this.telefono = empleado.getTelefono();
+		this.legajo = empleado.getLegajo();
 	}
 	public int getLegajo() {
 		return legajo;

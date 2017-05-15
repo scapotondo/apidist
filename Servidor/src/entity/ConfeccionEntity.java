@@ -6,6 +6,10 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import negocio.AreaProduccion;
+import negocio.Confeccion;
+import negocio.Insumo;
+
 @Entity
 @Table(name="Confeccion")
 public class ConfeccionEntity implements Serializable{
@@ -19,13 +23,29 @@ public class ConfeccionEntity implements Serializable{
 	
 	@OneToMany()
 	@JoinColumn(name="confeccion_id")
-	private List<AreaProduccionEntity> areaProduccion;
+	private List<AreaProduccionEntity> areasProduccion;
 	
 	@OneToMany()
 	@JoinColumn(name="confeccion_id")
 	private List<InsumoEntity> insumos;
 	
 	public ConfeccionEntity(){}
+	public ConfeccionEntity(Confeccion confeccion){
+		this.tiempoProd = confeccion.getTiempoProd();
+		this.detalle = confeccion.getDetalle();
+		this.areasProduccion = new ArrayList<AreaProduccionEntity>();
+		if(confeccion.getAreasProduccion() != null){
+			for (AreaProduccion areaProduccion : confeccion.getAreasProduccion()) {
+				this.areasProduccion.add(new AreaProduccionEntity(areaProduccion));
+			}
+		}
+		this.insumos = new ArrayList<InsumoEntity>();
+		if(confeccion.getInsumos() != null){
+			for (Insumo insumo : confeccion.getInsumos()) {
+				this.insumos.add(new InsumoEntity(insumo));
+			}
+		}
+	}
 
 	public int getId() {
 		return id;
@@ -51,12 +71,12 @@ public class ConfeccionEntity implements Serializable{
 		this.detalle = detalle;
 	}
 
-	public List<AreaProduccionEntity> getAreaProduccion() {
-		return areaProduccion;
+	public List<AreaProduccionEntity> getAreasProduccion() {
+		return areasProduccion;
 	}
 
-	public void setAreaProduccion(List<AreaProduccionEntity> areaProduccion) {
-		this.areaProduccion = areaProduccion;
+	public void setAreasProduccion(List<AreaProduccionEntity> areaProduccion) {
+		this.areasProduccion = areaProduccion;
 	}
 
 	public List<InsumoEntity> getInsumos() {

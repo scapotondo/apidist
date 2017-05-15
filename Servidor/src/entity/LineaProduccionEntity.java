@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import negocio.LineaProduccion;
+
 @Entity
 @Table(name="LineaProduccion")
 public class LineaProduccionEntity implements Serializable{
@@ -20,6 +22,15 @@ public class LineaProduccionEntity implements Serializable{
 	private String estado;
 	private Date tiempoLiberarse;
 	private String trabajo;
+	
+	public LineaProduccionEntity(){}
+	public LineaProduccionEntity(LineaProduccion lineaProduccion){
+		this.numero = lineaProduccion.getNumero();
+		this.estado = lineaProduccion.getEstado();
+		this.tiempoLiberarse = lineaProduccion.getTiempoLiberarse();
+		this.trabajo = lineaProduccion.getTrabajo();
+	}
+	
 	public int getNumero() {
 		return numero;
 	}

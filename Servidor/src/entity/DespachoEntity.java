@@ -13,6 +13,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import negocio.Despacho;
+import negocio.PedidoPrendas;
+
 @Entity
 @Table(name="Despacho")
 public class DespachoEntity implements Serializable{
@@ -29,10 +32,16 @@ public class DespachoEntity implements Serializable{
 	@JoinColumn(name="despacho_id")
 	private List<PedidoPrendasEntity> pedidosPrenda;
 	
-	@OneToOne()
-	@JoinColumn(name="administracion_id")
-	private AdministracionEntity administracion;
-	
 	public DespachoEntity(){}
+	public DespachoEntity(Despacho despacho){
+		//TODO
+		//this.almacen = new AlmacenEntity(despacho.getAlmacen());
+		this.pedidosPrenda = new ArrayList<PedidoPrendasEntity>();
+		if(despacho.getPedidosPrenda() != null){
+			for (PedidoPrendas pedidoPrendas : despacho.getPedidosPrenda()) {
+				this.pedidosPrenda.add(new PedidoPrendasEntity(pedidoPrendas));
+			}
+		}
+	}
 
 }

@@ -43,8 +43,8 @@ public class Insumo {
 		this.materiaPrima = materiaPrima;
 	}
 
-	public ArrayList<MateriaPrima> getMateriaPrima(){
-		return null;
+	public MateriaPrima getMateriaPrima(){
+		return this.materiaPrima;
 	}
 	
 	public InsumoDto toDto(){

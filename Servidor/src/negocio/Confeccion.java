@@ -14,7 +14,7 @@ public class Confeccion {
 	private int id;
 	private int tiempoProd;
 	private String detalle;
-	private ArrayList<AreaProduccion> areaProduccion;
+	private ArrayList<AreaProduccion> areasProduccion;
 	private ArrayList<Insumo> insumos;
 	
 	
@@ -22,10 +22,10 @@ public class Confeccion {
 		this.id=confeccion.getId();
 		this.tiempoProd=confeccion.getTiempoProd();
 		this.detalle=confeccion.getDetalle();
-		this.areaProduccion=new ArrayList<>();
+		this.areasProduccion=new ArrayList<>();
 		this.insumos=new ArrayList<>();
-		for (AreaProduccionEntity areaProduccionEntity : confeccion.getAreaProduccion()) {
-			this.areaProduccion.add(new AreaProduccion(areaProduccionEntity));
+		for (AreaProduccionEntity areaProduccionEntity : confeccion.getAreasProduccion()) {
+			this.areasProduccion.add(new AreaProduccion(areaProduccionEntity));
 		}
 		for (InsumoEntity insumoEntity : confeccion.getInsumos()) {
 			this.insumos.add(new Insumo(insumoEntity));
@@ -44,7 +44,7 @@ public class Confeccion {
 		this.id=id;
 		this.tiempoProd=tiempoProd;
 		this.detalle=detalle;
-		this.areaProduccion=areaProduccion;
+		this.areasProduccion=areaProduccion;
 		this.insumos=insumos;
 	}
 	
@@ -68,12 +68,12 @@ public class Confeccion {
 		this.detalle = detalle;
 	}
 
-	public ArrayList<AreaProduccion> getAreaProduccion() {
-		return areaProduccion;
+	public ArrayList<AreaProduccion> getAreasProduccion() {
+		return areasProduccion;
 	}
 
-	public void setAreaProduccion(ArrayList<AreaProduccion> areaProduccion) {
-		this.areaProduccion = areaProduccion;
+	public void setAreasProduccion(ArrayList<AreaProduccion> areaProduccion) {
+		this.areasProduccion = areaProduccion;
 	}
 
 	public void setInsumos(ArrayList<Insumo> insumos) {
@@ -87,7 +87,7 @@ public class Confeccion {
 			insumosDto.add(insumo.toDto());
 		}
 		ArrayList<AreaProduccionDto> areasProduccionDto = new ArrayList<>();
-		for (AreaProduccion areaProduccion2 : this.areaProduccion) {
+		for (AreaProduccion areaProduccion2 : this.areasProduccion) {
 			areasProduccionDto.add(areaProduccion2.toDto());
 		}
 		return new ConfeccionDto(tiempoProd, detalle,areasProduccionDto, insumosDto);

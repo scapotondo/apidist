@@ -23,5 +23,13 @@ public class AreaCompras {
 	public ArrayList<Integer> getNroOrdenCompra(){
 		return null;
 	}
+
+	public ArrayList<OrdenDeCompra> getOrdenesCompras() {
+		return ordenesCompras;
+	}
+
+	public void setOrdenesCompras(ArrayList<OrdenDeCompra> ordenesCompras) {
+		this.ordenesCompras = ordenesCompras;
+	}
 	
 }

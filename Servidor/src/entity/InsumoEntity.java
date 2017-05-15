@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import negocio.Insumo;
+
 @Entity
 @Table(name="Insumo")
 public class InsumoEntity implements Serializable{
@@ -25,6 +27,13 @@ public class InsumoEntity implements Serializable{
 	@OneToOne()
 	@JoinColumn(name="codigo")
 	private MateriaPrimaEntity materiaPrima;
+	
+	public InsumoEntity(){}
+	public InsumoEntity(Insumo insumo){
+		this.cantidad = insumo.getCantidad();
+		this.desperdicio = insumo.getDesperdicio();
+		this.materiaPrima = new MateriaPrimaEntity(insumo.getMateriaPrima());
+	}
 
 	public int getId() {
 		return id;

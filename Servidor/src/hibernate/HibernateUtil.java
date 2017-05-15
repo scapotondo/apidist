@@ -8,7 +8,6 @@ import org.hibernate.cfg.Configuration;
 import dao.SucursalDao;
 import dto.EmpleadoDto;
 import dto.SucursalDto;
-import entity.AdministracionEntity;
 import entity.AlmacenEntity;
 import entity.AreaComprasEntity;
 import entity.AreaProduccionEntity;
@@ -60,7 +59,6 @@ public class HibernateUtil{
         	 config.addAnnotatedClass(AreaComprasEntity.class);
         	 config.addAnnotatedClass(ProveedorEntity.class);
         	 config.addAnnotatedClass(LineaProduccionEntity.class);
-        	 config.addAnnotatedClass(AdministracionEntity.class);
         	 config.addAnnotatedClass(AlmacenEntity.class);
         	 config.addAnnotatedClass(MovimientoPrendaEntity.class);
         	 config.addAnnotatedClass(MovimientoMateriaPrimaEntity.class);

@@ -13,6 +13,7 @@ public class MateriaPrima {
 	private int codigo;
 	private int minimo;
 	private ArrayList<StockMateriaPrima> stock;
+	private OrdenDeCompra ordenDeCompra;
 	
 	public MateriaPrima( MateriaPrimaEntity materia){
 		ArrayList<StockMateriaPrima> stockMateria = new ArrayList<StockMateriaPrima>();
@@ -58,6 +59,14 @@ public class MateriaPrima {
 	}
 	public boolean tenesStock(int cantidad){
 		return true;
+	}
+	
+	public OrdenDeCompra getOrdenDeCompra() {
+		return ordenDeCompra;
+	}
+
+	public void setOrdenDeCompra(OrdenDeCompra ordenDeCompra) {
+		this.ordenDeCompra = ordenDeCompra;
 	}
 	
 	public MateriaPrimaDto toDto(){

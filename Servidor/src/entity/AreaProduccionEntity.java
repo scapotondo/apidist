@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import negocio.AreaProduccion;
+import negocio.LineaProduccion;
+
 @Entity
 @Table(name="AreaProduccion")
 public class AreaProduccionEntity implements Serializable{
@@ -25,6 +28,19 @@ public class AreaProduccionEntity implements Serializable{
 	private List<OrdenDeProduccionEntity> ordenesProduccion;
 	
 	public AreaProduccionEntity(){}
+	public AreaProduccionEntity(AreaProduccion areaProduccion){
+		this.nombre = areaProduccion.getNombre();
+		
+		this.lineasProduccion = new ArrayList<LineaProduccionEntity>();
+		if(areaProduccion.getLineasProduccion() != null){
+			for (LineaProduccion lineaProduccion : areaProduccion.getLineasProduccion()) {
+				this.lineasProduccion.add(new LineaProduccionEntity(lineaProduccion));
+			}
+		}
+		
+		//TODO
+		//this.ordenesProduccion = new ArrayList<OrdenDeProduccionEntity>();
+	}
 
 	public int getCodigo() {
 		return codigo;
