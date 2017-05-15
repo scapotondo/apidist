@@ -9,7 +9,7 @@ public class ConfeccionDto {
 	private ArrayList<AreaProduccionDto> areaProduccion;
 	private ArrayList<InsumoDto> insumos;
 	
-	public ConfeccionDto(int tiempoProd,String detalle,ArrayList<AreaProduccionDto> areaProduccion, ArrayList<InsumoDto> insumos){
+	public ConfeccionDto(int tiempoProd, String detalle, ArrayList<AreaProduccionDto> areaProduccion, ArrayList<InsumoDto> insumos){
 		this.tiempoProd=tiempoProd;
 		this.detalle=detalle;
 		this.areaProduccion=areaProduccion;

@@ -86,10 +86,12 @@ public class Confeccion {
 		for (Insumo insumo : this.insumos) {
 			insumosDto.add(insumo.toDto());
 		}
+		
 		ArrayList<AreaProduccionDto> areasProduccionDto = new ArrayList<>();
 		for (AreaProduccion areaProduccion2 : this.areasProduccion) {
 			areasProduccionDto.add(areaProduccion2.toDto());
 		}
+		
 		return new ConfeccionDto(tiempoProd, detalle,areasProduccionDto, insumosDto);
 	}
 }

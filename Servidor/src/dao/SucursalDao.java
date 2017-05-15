@@ -13,24 +13,30 @@ import negocio.Sucursal;
 
 public class SucursalDao {
 	private static SucursalDao instance;
+	
 	private SucursalDao(){}
+	
 	public static SucursalDao getInstance() {
 		if (instance == null)
 			instance = new SucursalDao();
+	
 		return instance;
 	}
 	
 	public Sucursal getSucursalById(int id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
+		
 		session.beginTransaction();
 		SucursalEntity sucursal =session.get(SucursalEntity.class, id);
 		session.getTransaction().commit();
 		session.close();
+		
 		return new Sucursal(sucursal);
 	}
 	
 	public void altaSucursal(SucursalDto sucursal){
 		Session session = HibernateUtil.getSessionFactory().openSession();
+		
 		session.beginTransaction();
 		SucursalEntity sucursalEntity = new SucursalEntity(sucursal.getNumero(), sucursal.getNombre(), sucursal.getDireccion(),
 				sucursal.getHorarios(), new ArrayList<EmpleadoEntity>(), new ArrayList<PedidoPrendasEntity>());
