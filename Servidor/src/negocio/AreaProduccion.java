@@ -14,6 +14,7 @@ public class AreaProduccion {
 	private String nombre;
 	private ArrayList<LineaProduccion> lineasProduccion;
 	private ArrayList<OrdenDeProduccion> ordenesProduccion;
+	private int codigo;
 	
 	public AreaProduccion(AreaProduccionEntity area){
 		this.nombre=area.getNombre();
@@ -29,12 +30,27 @@ public class AreaProduccion {
 		}
 	}
 	
-	public AreaProduccion(String nombre,ArrayList<LineaProduccion> lineasProduccion,ArrayList<OrdenDeProduccion> ordenesProduccion){
+	public AreaProduccion(String nombre, ArrayList<LineaProduccion> lineasProduccion, ArrayList<OrdenDeProduccion> ordenesProduccion){
 		this.nombre=nombre;
 		this.lineasProduccion= lineasProduccion;
 		this.ordenesProduccion=ordenesProduccion;
 	}
 	
+	public AreaProduccion(int codigo, String nombre, ArrayList<LineaProduccion> lineasProduccion, ArrayList<OrdenDeProduccion> ordenesProduccion){
+		this.codigo = codigo;
+		this.nombre=nombre;
+		this.lineasProduccion= lineasProduccion;
+		this.ordenesProduccion=ordenesProduccion;
+	}
+	
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
 	public void asignarLineaProduccion(Confeccion confeccion, MateriaPrima materia, String ubicacion){
 		
 	}
@@ -42,6 +58,7 @@ public class AreaProduccion {
 	public boolean hayLineasLibres(){
 		return true;
 	}
+	
 	public String getNombre() {
 		return nombre;
 	}

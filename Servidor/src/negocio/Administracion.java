@@ -2,9 +2,17 @@ package negocio;
 
 import java.util.ArrayList;
 
+import dao.AreaProduccionDao;
 import dao.ClienteDao;
+import dao.MateriaPrimaDao;
+import dao.PrendaDao;
 import dto.AdministracionDto;
+import dto.AreaProduccionDto;
 import dto.ClienteDto;
+import dto.ConfeccionDto;
+import dto.InsumoDto;
+import dto.LineaProduccionDto;
+import dto.PedidoPrendasDto;
 import dto.PrendaDto;
 
 public class Administracion {
@@ -94,5 +102,38 @@ public class Administracion {
 		}
 		
 		return new AdministracionDto(clientesDto, prendasDto);
+	}
+	
+	public void AltaPrenda(PrendaDto prendaDto) {
+		ArrayList<Confeccion> confecciones = new ArrayList<Confeccion>();
+		for (ConfeccionDto confeccionDto : prendaDto.getConfecciones()) {
+			ArrayList<AreaProduccion> areasProd = new ArrayList<AreaProduccion>();
+			for (AreaProduccionDto areaProdDto : confeccionDto.getAreaProduccion()) {
+				areasProd.add(AreaProduccionDao.getInstance().getById(areaProdDto));
+			}
+			
+			ArrayList<Insumo> insumos = new ArrayList<Insumo>();
+			for (InsumoDto insumoDto : confeccionDto.getInsumos()) {
+				insumos.add(new Insumo(insumoDto.getCantidad(), insumoDto.getDesperdicio(), MateriaPrimaDao.getInstance().getById(insumoDto.getMateriaPrima())));
+			}
+			
+			Confeccion confeccion = new Confeccion(confeccionDto.getTiempoProd(), confeccionDto.getDetalle(), areasProd, insumos);
+			
+			confecciones.add(confeccion);
+		}
+		
+		Prenda prenda = new Prenda(
+				prendaDto.getTallesValidos(), 
+				prendaDto.getColoresValidos(),
+				prendaDto.getEsDiscontinuo(),
+				prendaDto.getCantidadAProducir(),
+				prendaDto.getNombre(),
+				prendaDto.getDescripcion(),
+				prendaDto.getPorcentajeGanancia(),
+				confecciones,
+				new ArrayList<StockPrenda>()
+				);
+		
+		prenda.saveMe();
 	}
 }

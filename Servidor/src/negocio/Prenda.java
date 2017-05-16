@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.ArrayList;
 
+import dao.PrendaDao;
 import dto.ConfeccionDto;
 import dto.PrendaDto;
 import dto.StockPrendaDto;
@@ -18,40 +19,56 @@ public class Prenda {
 	private int cantidadAProducir;
 	private String nombre;
 	private String descripcion;
-	private float porsentajeGanancia;
+	private float porcentajeGanancia;
 	private ArrayList<Confeccion> confecciones;
 	private ArrayList<StockPrenda> stock;
 	
 	public Prenda(PrendaEntity prenda){
-		ArrayList<String> tvalidos=new ArrayList<>();
-		for (String talle : prenda.getTallesValidos()) {
-			tvalidos.add(talle);
-		}
-		ArrayList<String> cValidos=new ArrayList<>();
-		for (String color : prenda.getColoresValidos()) {
-			cValidos.add(color);
-		}
-		this.tallesValidos=tvalidos;
-		this.coloresValidos=cValidos;
+		this.tallesValidos=new ArrayList<>();
+		this.coloresValidos=new ArrayList<>();
 		this.codigo=prenda.getCodigo();
 		this.esDiscontinuo=prenda.getEsDiscontinuo();
 		this.cantidadAProducir=prenda.getCantidadAProducir();
 		this.nombre=prenda.getNombre();
 		this.descripcion=prenda.getDescripcion();
-		this.porsentajeGanancia=prenda.getPorsentajeGanancia();
+		this.porcentajeGanancia=prenda.getPorsentajeGanancia();
 		this.confecciones = new ArrayList<Confeccion>();
+		this.stock=new ArrayList<StockPrenda>();
+		
 		for (ConfeccionEntity confeccionEntity : prenda.getConfecciones()) {
 			this.confecciones.add(new Confeccion(confeccionEntity));
 		}
-		this.stock=new ArrayList<StockPrenda>();
+		
 		for (StockPrendaEntity stockPrendaEntity : prenda.getStock()) {
 			this.stock.add(new StockPrenda(stockPrendaEntity));
 		}
+		
+		for (String talle : prenda.getTallesValidos()) {
+			this.tallesValidos.add(talle);
+		}
+		
+		for (String color : prenda.getColoresValidos()) {
+			this.coloresValidos.add(color);
+		}
 	}
 	
+	public Prenda(ArrayList<String> tallesValidos, ArrayList<String> coloresValidos, boolean esDiscontinuo,
+			int cantidadAProducir, String nombre, String descripcion, float porcentajeGanancia, ArrayList<Confeccion> confecciones,
+			ArrayList<StockPrenda> stock){
+		
+		this.tallesValidos=tallesValidos;
+		this.coloresValidos=coloresValidos;
+		this.esDiscontinuo=esDiscontinuo;
+		this.cantidadAProducir=cantidadAProducir;
+		this.nombre=nombre;
+		this.descripcion=descripcion;
+		this.porcentajeGanancia=porcentajeGanancia;
+		this.confecciones=confecciones;
+		this.stock=stock;
+	}
 	
-	public Prenda(ArrayList<String> tallesValidos,ArrayList<String> coloresValidos,int codigo,boolean esDiscontinuo,
-			int cantidadAProducir,String nombre,String descripcion,float porsentajeGanancia,ArrayList<Confeccion> confecciones,
+	public Prenda(ArrayList<String> tallesValidos, ArrayList<String> coloresValidos, int codigo, boolean esDiscontinuo,
+			int cantidadAProducir, String nombre, String descripcion, float porcentajeGanancia, ArrayList<Confeccion> confecciones,
 			ArrayList<StockPrenda> stock){
 		
 		this.tallesValidos=tallesValidos;
@@ -61,7 +78,7 @@ public class Prenda {
 		this.cantidadAProducir=cantidadAProducir;
 		this.nombre=nombre;
 		this.descripcion=descripcion;
-		this.porsentajeGanancia=porsentajeGanancia;
+		this.porcentajeGanancia=porcentajeGanancia;
 		this.confecciones=confecciones;
 		this.stock=stock;
 	}
@@ -123,11 +140,11 @@ public class Prenda {
 	}
 
 	public float getPorsentajeGanancia() {
-		return porsentajeGanancia;
+		return porcentajeGanancia;
 	}
 
 	public void setPorsentajeGanancia(float porsentajeGanancia) {
-		this.porsentajeGanancia = porsentajeGanancia;
+		this.porcentajeGanancia = porsentajeGanancia;
 	}
 
 	public ArrayList<Confeccion> getConfecciones() {
@@ -172,6 +189,10 @@ public class Prenda {
 			confeccionesDto.add(confeccion.toDto());
 		}
 		return new PrendaDto(tallesValidos, coloresValidos, codigo, esDiscontinuo, cantidadAProducir, nombre, descripcion,
-				porsentajeGanancia, confeccionesDto, stockDto);
+				porcentajeGanancia, confeccionesDto, stockDto);
+	}
+	
+	public void saveMe() {
+		PrendaDao.getInstance().AltaPrenda(this);
 	}
 }

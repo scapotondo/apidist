@@ -40,8 +40,15 @@ public class Confeccion {
 		this.id = id;
 	}
 
-	public Confeccion(int id,int tiempoProd,String detalle,ArrayList<AreaProduccion> areaProduccion, ArrayList<Insumo> insumos){
+	public Confeccion(int id, int tiempoProd, String detalle, ArrayList<AreaProduccion> areaProduccion, ArrayList<Insumo> insumos){
 		this.id=id;
+		this.tiempoProd=tiempoProd;
+		this.detalle=detalle;
+		this.areasProduccion=areaProduccion;
+		this.insumos=insumos;
+	}
+	
+	public Confeccion(int tiempoProd, String detalle, ArrayList<AreaProduccion> areaProduccion, ArrayList<Insumo> insumos){
 		this.tiempoProd=tiempoProd;
 		this.detalle=detalle;
 		this.areasProduccion=areaProduccion;

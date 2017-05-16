@@ -11,7 +11,7 @@ public class PrendaDto {
 	private int cantidadAProducir;
 	private String nombre;
 	private String descripcion;
-	private float porsentajeGanancia;
+	private float porcentajeGanancia;
 	private ArrayList<ConfeccionDto> confecciones;
 	private ArrayList<StockPrendaDto> stock;
 	
@@ -26,7 +26,7 @@ public class PrendaDto {
 		this.cantidadAProducir=cantidadAProducir;
 		this.nombre=nombre;
 		this.descripcion=descripcion;
-		this.porsentajeGanancia=porsentajeGanancia;
+		this.porcentajeGanancia=porsentajeGanancia;
 		this.confecciones=confecciones;
 		this.stock=stock;
 	}
@@ -55,7 +55,7 @@ public class PrendaDto {
 		this.codigo = codigo;
 	}
 
-	public boolean isEsDiscontinuo() {
+	public boolean getEsDiscontinuo() {
 		return esDiscontinuo;
 	}
 
@@ -87,12 +87,12 @@ public class PrendaDto {
 		this.descripcion = descripcion;
 	}
 
-	public float getPorsentajeGanancia() {
-		return porsentajeGanancia;
+	public float getPorcentajeGanancia() {
+		return porcentajeGanancia;
 	}
 
-	public void setPorsentajeGanancia(float porsentajeGanancia) {
-		this.porsentajeGanancia = porsentajeGanancia;
+	public void setPorcentajeGanancia(float porcentajeGanancia) {
+		this.porcentajeGanancia = porcentajeGanancia;
 	}
 
 	public ArrayList<ConfeccionDto> getConfecciones() {

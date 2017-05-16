@@ -3,7 +3,7 @@ package controller;
 import java.util.ArrayList;
 
 import dao.SucursalDao;
-import dto.ClienteDto;
+import dto.*;
 import dto.PedidoPrendasDto;
 import dto.PrendaDto;
 import negocio.Administracion;
@@ -56,6 +56,10 @@ public class Controller {
 
 	public ArrayList<ClienteDto> BuscarClientes(){
 		return Administracion.getInstance().BuscarClientes();
+	}
+	
+	public void AltaPrenda(PrendaDto prenda) {
+		Administracion.getInstance().AltaPrenda(prenda);
 	}
 	
 	public ArrayList<PrendaDto> GetPrendasDisponibles(){
