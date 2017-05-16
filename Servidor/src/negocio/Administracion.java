@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import dao.ClienteDao;
 import dto.AdministracionDto;
 import dto.ClienteDto;
-import dto.PedidoPrendasDto;
 import dto.PrendaDto;
 
 public class Administracion {
@@ -38,27 +37,33 @@ public class Administracion {
 				clienteDto.getTelefono(),
 				clienteDto.getDireccionEnvio(),
 				clienteDto.getDireccionFacturacion(),
-				sucursal
+				sucursal,
+				new ArrayList<PedidoPrendas>()
 				);
 
 		cliente.saveMe();
 	}
 
 	public void ModificarCliente(ClienteDto clienteDto, Sucursal sucursal){
-		Cliente cliente = new Cliente(
-				clienteDto.getLimiteCredito(),
-				clienteDto.getFormaPago(),
-				clienteDto.getCuentaCorriente(),
-				clienteDto.getCuit(),
-				clienteDto.getNombre(),
-				clienteDto.getRazonSocial(),
-				clienteDto.getTelefono(),
-				clienteDto.getDireccionEnvio(),
-				clienteDto.getDireccionFacturacion(),
-				sucursal
-				);
-
+		Cliente cliente=ClienteDao.getInstance().BuscarClientePorId(clienteDto);
+		cliente.setLimiteCredito(clienteDto.getLimiteCredito());
+		cliente.setFormaPago(clienteDto.getFormaPago());
+		cliente.setCuentaCorriente(clienteDto.getCuentaCorriente());
+		cliente.setCuit(clienteDto.getCuit());
+		cliente.setNombre(clienteDto.getNombre());
+		cliente.setRazonSocial(clienteDto.getRazonSocial());
+		cliente.setTelefono(clienteDto.getTelefono());
+		cliente.setDireccionEnvio(clienteDto.getDireccionEnvio());
+		cliente.setDireccionFacturacion(clienteDto.getDireccionFacturacion());
+		cliente.setSucursal(sucursal);
+		
 		cliente.modificame();
+	}
+	
+	public void EliminarCliente(ClienteDto clienteDto){
+		Cliente cliente=ClienteDao.getInstance().BuscarClientePorId(clienteDto);
+		
+		cliente.eliminame();
 	}
 
 	public ArrayList<ClienteDto> BuscarClientes(){

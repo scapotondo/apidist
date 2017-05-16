@@ -15,11 +15,17 @@ public class ClienteRemoto {
 		return instance;
 	}
 	
-	public void altaCliente(ClienteDto cliente){
+	public void AltaCliente(ClienteDto cliente){
 		Controller.getInstance().AltaCliente(cliente);
 	}
 	
+	public void ModificarCliente(ClienteDto cliente){
+		Controller.getInstance().ModificarCliente(cliente);
+	}
 	
+	public void EliminarCliente(ClienteDto cliente){
+		Controller.getInstance().EliminarCliente(cliente);
+	}
 	
 	public ClienteDto BuscarClientePorId(ClienteDto cliente){
 		return Controller.getInstance().BuscarClientePorId(cliente);

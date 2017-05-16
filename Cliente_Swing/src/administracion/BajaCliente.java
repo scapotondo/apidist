@@ -78,14 +78,14 @@ public class BajaCliente extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
-        // TODO add your handling code here:
+    private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
+        ControllerSwing.getInstance().EliminarCliente(clientesEliminarComboBox.getSelectedItem()+"");
     	atras();
     }
 
-    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {
         atras();
     }
 

@@ -41,11 +41,22 @@ public class ClienteDao {
 	}
 	
 	public void ModificarCliente(Cliente cliente){
-		//TODO: TERMINAR
+		ClienteEntity clienteEntity = new ClienteEntity(cliente);
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.update(clienteEntity);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	public void EliminarCliente(Cliente cliente){
-
+		ClienteEntity clienteEntity = new ClienteEntity(cliente);
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.delete(clienteEntity);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	public Cliente BuscarClientePorId(ClienteDto cliente){
@@ -58,7 +69,7 @@ public class ClienteDao {
 		
 		return new Cliente(clienteEntity);
 	}
-
+	
 	public ArrayList<Cliente> BuscarClientes(){
 		ArrayList<Cliente> clientes = new ArrayList<>();
 		Session session = HibernateUtil.getSessionFactory().openSession();

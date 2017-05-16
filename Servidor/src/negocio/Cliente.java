@@ -44,7 +44,8 @@ public class Cliente {
 	}
 	
 	public Cliente(float limiteCredito,String formaPago,float cuentaCorriente,String cuit,String nombre, String razonSocial,
-			String telefono, String direccionEnvio,String direccionFacturacion, Sucursal sucursal ){
+			String telefono, String direccionEnvio,String direccionFacturacion, Sucursal sucursal,
+			ArrayList<PedidoPrendas> pedidosAceptados){
 		
 		this.limiteCredito=limiteCredito;
 		this.formaPago=formaPago;
@@ -56,7 +57,7 @@ public class Cliente {
 		this.direccionEnvio=direccionEnvio;
 		this.direccionFacturacion=direccionFacturacion;
 		this.sucursal=sucursal;
-		this.pedidosAceptados= new ArrayList<PedidoPrendas>();
+		this.pedidosAceptados= pedidosAceptados;
 	}
 	
 	public void addNuevoPedidoAceptado(PedidoPrendas pedido){

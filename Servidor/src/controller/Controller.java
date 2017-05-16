@@ -34,6 +34,10 @@ public class Controller {
 	public void ModificarCliente(ClienteDto cliente) {
 		Administracion.getInstance().ModificarCliente(cliente, SucursalDao.getInstance().getSucursalById(cliente.getSucursal().getNumero()));
 	}
+	
+	public void EliminarCliente(ClienteDto cliente) {
+		Administracion.getInstance().EliminarCliente(cliente);
+	}
 
 	public ClienteDto BuscarClientePorId(ClienteDto cliente){
 		return Administracion.getInstance().BuscarClientePorId(cliente);
