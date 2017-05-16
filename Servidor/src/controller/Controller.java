@@ -4,7 +4,18 @@ import java.util.ArrayList;
 
 import dao.SucursalDao;
 import dto.ClienteDto;
-import negocio.*;
+import dto.PedidoPrendasDto;
+import dto.PrendaDto;
+import negocio.Administracion;
+import negocio.Almacen;
+import negocio.AreaCompras;
+import negocio.AreaProduccion;
+import negocio.Despacho;
+import negocio.MateriaPrima;
+import negocio.OrdenDeProduccion;
+import negocio.PedidoPrendas;
+import negocio.Prenda;
+import negocio.Sucursal;
 
 public class Controller {
 	private static Controller instance;
@@ -46,4 +57,79 @@ public class Controller {
 	public ArrayList<ClienteDto> BuscarClientes(){
 		return Administracion.getInstance().BuscarClientes();
 	}
+	
+	public ArrayList<PrendaDto> GetPrendasDisponibles(){
+		//TODO: terminar
+		return null;
+	}
+	
+	public PedidoPrendasDto GenerarPedidoPrendas(){
+		//TODO: terminar
+		return null;
+	}
+	
+	public void AprobarPedidoAdmin(int nroPedido, int nroSucursal){
+		//TODO: terminar
+	}
+	
+	private PedidoPrendas BuscarPedido(int nroPedido){
+		//TODO: terminar
+		return null;
+	}
+	
+	private Sucursal BuscarSucursal(int nroSucursal){
+		//TODO: terminar
+		return null;
+	}
+	
+	public void RechazarPedidoAdmin(int nroPedido, int nroSucursal, String descripcion){
+		//TODO: terminar
+	}
+	
+	public void AceptarPedidoCliente(int nroPedido){
+		//TODO: terminar
+	}
+	
+	public void RechazarPedidoCliente(int nroPedido){
+		//TODO: terminar
+	}
+	
+	public void GenerarDevolucion(Prenda prenda){
+		//TODO: terminar
+	}
+	
+	public void AumentarRealStockAlmacen(String bulto,int cantidad){
+		//TODO: terminar
+	}
+	
+	public void DisminuirRealStockAlmacen(String bulto,int cantidad){
+		//TODO: terminar
+	}
+	
+	public void DisminuirStockDefectuosoAlmacen(String lote,int cantidad){
+		//TODO: terminar
+	}
+	
+	public void RechazarOrdenDeCompra(int nroCompra){
+		//TODO: terminar
+	}
+	
+	public ArrayList<PedidoPrendasDto> GetPedidosADespachar(){
+		//TODO: terminar
+		return null;
+	}
+	
+	public void AceptarPedidoDespacho(int nroPedido){
+		//TODO: terminar
+	}
+	
+	public void TrabajoLineaTerminado(int codigoArea, int nroLinea){
+		
+	}
+	
+	private AreaProduccion BuscarAreaProduccion(int codigo){
+		//TODO: terminar
+		return null;
+	}
+	
 }
