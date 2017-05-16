@@ -11,7 +11,7 @@ import entity.PedidoPrendasEntity;
 import entity.SucursalEntity;
 import hibernate.HibernateUtil;
 import negocio.Cliente;
-import negocio.PedidoPrendas;
+import negocio.Sucursal;
 
 public class ClienteDao {
 	private static ClienteDao instance;
@@ -30,10 +30,11 @@ public class ClienteDao {
 		
 		session.beginTransaction();
 
-		SucursalEntity sucursal = session.get(SucursalEntity.class, cliente.getSucursal().getNumero());
+		Sucursal sucursal = SucursalDao.getInstance().getSucursalById(cliente.getSucursal().getNumero());
+		
 		ClienteEntity clienteEntity = new ClienteEntity(cliente.getLimiteCredito(),cliente.getFormaPago(),cliente.getCuentaCorriente(),
 				cliente.getCuit(),cliente.getNombre(),cliente.getRazonSocial(),cliente.getTelefono(),cliente.getDireccionEnvio(),
-				cliente.getDireccionFacturacion(),new ArrayList<PedidoPrendasEntity>(),sucursal);
+				cliente.getDireccionFacturacion(),new ArrayList<PedidoPrendasEntity>(),new SucursalEntity(sucursal));
 
 		session.save(clienteEntity);
 		session.getTransaction().commit();

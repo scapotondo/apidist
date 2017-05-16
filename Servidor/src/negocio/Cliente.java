@@ -189,4 +189,8 @@ public class Cliente {
 	public void eliminame(){
 		ClienteDao.getInstance().EliminarCliente(this);
 	}
+	
+	public void AddNuevoPedidoAceptado(PedidoPrendas pedido){
+		this.pedidosAceptados.add(pedido);
+	}
 }
