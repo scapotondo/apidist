@@ -1,9 +1,13 @@
 package dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class ConfeccionDto {
+public class ConfeccionDto implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private int tiempoProd;
 	private String detalle;
 	private ArrayList<AreaProduccionDto> areaProduccion;

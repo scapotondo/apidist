@@ -1,9 +1,12 @@
 package dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class StockMateriaPrimaDto {
+public class StockMateriaPrimaDto implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 
 	private OrdenDeCompraDto lote;
 	private Date fechaRecepcion;

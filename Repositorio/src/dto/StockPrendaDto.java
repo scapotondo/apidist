@@ -1,9 +1,12 @@
 package dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class StockPrendaDto {
+public class StockPrendaDto implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 
 	private String color;
 	private String talle;

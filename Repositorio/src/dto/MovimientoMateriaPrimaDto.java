@@ -1,9 +1,12 @@
 package dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class MovimientoMateriaPrimaDto {
+public class MovimientoMateriaPrimaDto implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private String estado;
 	private int cantidad;

@@ -1,9 +1,12 @@
 package dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class DespachoDto {
+public class DespachoDto implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 
 	private AlmacenDto almacen;
 	private ArrayList<PedidoPrendasDto> pedidosPrenda;

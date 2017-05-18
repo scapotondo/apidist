@@ -1,9 +1,13 @@
 package dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class PrendaDto {
+public class PrendaDto implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private ArrayList<String> tallesValidos;
 	private ArrayList<String> coloresValidos;
 	private int codigo;

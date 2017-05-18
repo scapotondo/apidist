@@ -1,7 +1,10 @@
 package dto;
 
+import java.io.Serializable;
 
-public class ItemPrendaDto {
+public class ItemPrendaDto implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 
 	private int cantidad;
 	private String talle;

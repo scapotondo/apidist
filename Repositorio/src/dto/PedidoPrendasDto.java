@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class PedidoPrendasDto implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+	
 	private int nroPedido;
 	private Date fechaProbableDespacho;
 	private String estado;

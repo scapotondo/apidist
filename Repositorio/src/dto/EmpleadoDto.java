@@ -1,6 +1,10 @@
 package dto;
 
-public class EmpleadoDto {
+import java.io.Serializable;
+
+public class EmpleadoDto implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 
 	private String nombre;
 	private String domicilio;

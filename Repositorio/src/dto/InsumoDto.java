@@ -1,7 +1,10 @@
 package dto;
 
+import java.io.Serializable;
 
-public class InsumoDto {
+public class InsumoDto implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 
 	private int cantidad;
 	private int desperdicio;

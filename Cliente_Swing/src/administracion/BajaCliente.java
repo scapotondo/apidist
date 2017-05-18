@@ -3,7 +3,7 @@ package administracion;
 
 import java.util.ArrayList;
 
-import controller.ControllerSwing;
+import BusinessDelegate.BusinessDelegate;
 import dto.ClienteDto;
 
 public class BajaCliente extends javax.swing.JFrame {
@@ -11,7 +11,7 @@ public class BajaCliente extends javax.swing.JFrame {
    
     public BajaCliente() {
         initComponents();
-        ArrayList<ClienteDto> clientes = ControllerSwing.getInstance().BuscarClientes();
+        ArrayList<ClienteDto> clientes = BusinessDelegate.getInstance().BuscarClientes();
         for (ClienteDto clienteDto : clientes) {
         	clientesEliminarComboBox.addItem(clienteDto.getNombre()+"-"+clienteDto.getLegajo());
 		}
@@ -81,7 +81,7 @@ public class BajaCliente extends javax.swing.JFrame {
     }
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
-        ControllerSwing.getInstance().EliminarCliente(clientesEliminarComboBox.getSelectedItem()+"");
+        BusinessDelegate.getInstance().EliminarCliente(clientesEliminarComboBox.getSelectedItem()+"");
     	atras();
     }
 

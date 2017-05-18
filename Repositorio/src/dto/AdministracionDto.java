@@ -1,10 +1,13 @@
 package dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 
-public class AdministracionDto {
+public class AdministracionDto implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	private ArrayList<ClienteDto> clientes;
 	private ArrayList<PrendaDto> prendas;
 	

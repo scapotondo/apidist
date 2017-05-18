@@ -3,7 +3,7 @@ package administracion;
 
 import java.util.ArrayList;
 
-import controller.ControllerSwing;
+import BusinessDelegate.BusinessDelegate;
 import dto.ClienteDto;
 
 public class BuscarCliente extends javax.swing.JFrame {
@@ -11,7 +11,7 @@ public class BuscarCliente extends javax.swing.JFrame {
     
     public BuscarCliente() {
         initComponents();
-        ArrayList<ClienteDto> clientes = ControllerSwing.getInstance().BuscarClientes();
+        ArrayList<ClienteDto> clientes = BusinessDelegate.getInstance().BuscarClientes();
         for (ClienteDto clienteDto : clientes) {
 			clientesComboBox.addItem(clienteDto.getNombre()+"-"+clienteDto.getLegajo());
 		}
@@ -79,17 +79,21 @@ public class BuscarCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
-    	ClienteDto cliente =ControllerSwing.getInstance().BuscarClientePorId(clientesComboBox.getSelectedItem()+"");
+    	ClienteDto cliente =BusinessDelegate.getInstance().BuscarClientePorId(clientesComboBox.getSelectedItem()+"");
+    	
         ModificarCliente mc = new ModificarCliente(cliente);
         mc.setLocationRelativeTo(null);
         mc.setVisible(true);
+        
         setVisible(false);
     }
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {
+    	
         MainClientes mc = new MainClientes();
         mc.setLocationRelativeTo(null);
         mc.setVisible(true);
+        
         setVisible(false);
     }
 

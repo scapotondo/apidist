@@ -1,7 +1,7 @@
 
 package administracion;
 
-import controller.ControllerSwing;
+import BusinessDelegate.BusinessDelegate;
 import dto.ClienteDto;
 
 public class ModificarCliente extends javax.swing.JFrame {
@@ -196,7 +196,7 @@ public class ModificarCliente extends javax.swing.JFrame {
     }
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
-    	ControllerSwing.getInstance().ModificarCliente(Float.parseFloat(limiteCreditoField.getText()), formaPagoField.getText(),
+    	BusinessDelegate.getInstance().ModificarCliente(Float.parseFloat(limiteCreditoField.getText()), formaPagoField.getText(),
         		Float.parseFloat(cuentaCorrienteField.getText()), cuitField.getText(),nombreField.getText(),
         		razonSocialField.getText(), telefonoField.getText(), direccionEnvioField.getText(), 
         		direccionFacturacionField.getText(), Integer.parseInt(nroSucursalField.getText()),

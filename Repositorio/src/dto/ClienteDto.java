@@ -1,10 +1,13 @@
 package dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class ClienteDto {
+public class ClienteDto implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private float limiteCredito;
 	private String formaPago;
 	private float cuentaCorriente;

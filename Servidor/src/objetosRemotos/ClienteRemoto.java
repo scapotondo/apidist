@@ -1,20 +1,19 @@
 package objetosRemotos;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import controller.Controller;
 import dto.ClienteDto;
+import interfaces.ClienteInterface;
 
-public class ClienteRemoto {
-	private static ClienteRemoto instance;
-	private ClienteRemoto(){}
+public class ClienteRemoto extends UnicastRemoteObject implements ClienteInterface{
 	
-	public static ClienteRemoto getInstance(){
-		if(instance==null)
-			instance=new ClienteRemoto();
-		return instance;
+	public ClienteRemoto() throws RemoteException {
+		super();
 	}
-	
+
 	public void AltaCliente(ClienteDto cliente){
 		Controller.getInstance().AltaCliente(cliente);
 	}

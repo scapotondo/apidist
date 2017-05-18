@@ -1,9 +1,13 @@
 package dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class MateriaPrimaDto {
+public class MateriaPrimaDto implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private String nombre;
 	private int codigo;
 	private int minimo;

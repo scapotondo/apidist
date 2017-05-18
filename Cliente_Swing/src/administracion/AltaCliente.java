@@ -1,13 +1,15 @@
 
 package administracion;
 
-import controller.ControllerSwing;
+import BusinessDelegate.BusinessDelegate;
 
 public class AltaCliente extends javax.swing.JFrame {
 
    
     public AltaCliente() {
-        initComponents();
+        
+    	initComponents();
+    	
     }
 
     private void initComponents() {
@@ -170,20 +172,25 @@ public class AltaCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
-        ControllerSwing.getInstance().AltaCliente(Float.parseFloat(limiteCreditoField.getText()), formaPagoField.getText(),
+       
+    	BusinessDelegate.getInstance().AltaCliente(Float.parseFloat(limiteCreditoField.getText()), formaPagoField.getText(),
         		Float.parseFloat(cuentaCorrienteField.getText()), cuitField.getText(),nombreField.getText(),
         		razonSocialField.getText(), telefonoField.getText(), direccionEnvioField.getText(), 
         		direccionFacturacionField.getText(), Integer.parseInt(nroSucursalField.getText()));
-        atras();
+
+    	atras();
     }
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {
+    	
         atras();
     }
+    
     private void atras(){
     	MainClientes mc=new MainClientes();
         mc.setLocationRelativeTo(null);
         mc.setVisible(true);
+        
         setVisible(false);
     }
 
