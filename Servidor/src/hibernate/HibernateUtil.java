@@ -6,32 +6,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import dao.SucursalDao;
-import dto.EmpleadoDto;
 import dto.SucursalDto;
-import entity.AlmacenEntity;
-import entity.AreaComprasEntity;
-import entity.AreaProduccionEntity;
-import entity.ClienteEntity;
-import entity.ConfeccionEntity;
-import entity.DespachoEntity;
-import entity.EmpleadoEntity;
-import entity.InsumoEntity;
-import entity.ItemPrendaEntity;
-import entity.LineaProduccionEntity;
-import entity.MateriaPrimaEntity;
-import entity.MovimientoMateriaPrimaEntity;
-import entity.MovimientoPrendaEntity;
-import entity.OrdenDeCompraEntity;
-import entity.OrdenDeProduccionCompletaEntity;
-import entity.OrdenDeProduccionEntity;
-import entity.OrdenDeProduccionParcialEntity;
-import entity.PedidoPrendasEntity;
-import entity.PrendaEntity;
-import entity.ProveedorEntity;
-import entity.StockMateriaPrimaEntity;
-import entity.StockPrendaEntity;
-import entity.SucursalEntity;
-
+import entity.*;
  
 public class HibernateUtil{
 	

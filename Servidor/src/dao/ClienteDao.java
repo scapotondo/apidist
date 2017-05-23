@@ -76,6 +76,7 @@ public class ClienteDao {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		session.beginTransaction();
+		@SuppressWarnings("unchecked")
 		List<ClienteEntity> clientesEntity =  session.createQuery("from ClienteEntity").list();
 		session.getTransaction().commit();
 		session.close();

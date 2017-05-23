@@ -9,19 +9,30 @@ public class Empleado {
 	private String domicilio;
 	private String telefono;
 	private int legajo;
+	private String rol;
 	
 	public Empleado (EmpleadoEntity empleado){
 		this.nombre=empleado.getNombre();
 		this.domicilio=empleado.getDomicilio();
 		this.telefono=empleado.getTelefono();
 		this.legajo=empleado.getLegajo();
+		this.rol=empleado.getRol();
 	}
 	
-	public Empleado(String nombre, String domicilio, String telefono, int legajo){
+	public Empleado(String nombre, String domicilio, String telefono, int legajo,String rol){
 		this.nombre=nombre;
 		this.domicilio=domicilio;
 		this.telefono=telefono;
 		this.legajo=legajo;
+		this.rol=rol;
+	}
+
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
 	}
 
 	public String getNombre() {
@@ -56,7 +67,7 @@ public class Empleado {
 		this.legajo = legajo;
 	}
 	public EmpleadoDto toDto(){
-		return new EmpleadoDto(this.nombre, this.domicilio, this.telefono, this.legajo);
+		return new EmpleadoDto(this.nombre, this.domicilio, this.telefono, this.legajo,this.rol);
 	}
 	
 }

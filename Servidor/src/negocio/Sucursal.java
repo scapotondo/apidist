@@ -24,20 +24,23 @@ public class Sucursal {
 		for (EmpleadoEntity empleado : sucursal.getEmpleados()) {
 			emp.add(new Empleado(empleado));
 		}
+		
 		ArrayList<PedidoPrendas> ped = new ArrayList<>();
 		for (PedidoPrendasEntity pedido : sucursal.getPedidos()) {
 			ped.add(new PedidoPrendas(pedido));
 		}
-		this.numero = sucursal.getNumero();
-		this.nombre = sucursal.getNombre();
-		this.direccion = sucursal.getDireccion();
+		
 		ArrayList<String> hor=new ArrayList<>();
 		for (String horario : sucursal.getHorarios()) {
 			hor.add(horario);
 		}
+		
+		this.numero = sucursal.getNumero();
+		this.nombre = sucursal.getNombre();
+		this.direccion = sucursal.getDireccion();
 		this.horarios = hor;
 		this.empleados = emp;
-		this.pedidos = pedidos;
+		this.pedidos = ped;
 	}
 	
 	public Sucursal(int numero, String nombre, String direccion, ArrayList<String> horarios, Empleado gerente,

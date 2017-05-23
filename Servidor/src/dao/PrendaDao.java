@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.Session;
 
@@ -68,7 +69,8 @@ public class PrendaDao {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		session.beginTransaction();
-		ArrayList<PrendaEntity> prendasEntity = (ArrayList<PrendaEntity>) session.createQuery("from PrendaEntity").list();
+		@SuppressWarnings("unchecked")
+		List<PrendaEntity> prendasEntity =  session.createQuery("from PrendaEntity").list();
 		session.getTransaction().commit();
 		session.close();
 		

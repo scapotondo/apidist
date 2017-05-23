@@ -23,19 +23,29 @@ public class EmpleadoEntity implements Serializable{
 	private String nombre;
 	private String domicilio;
 	private String telefono;
+	private String rol;
 	
 	public EmpleadoEntity(){}
-	public EmpleadoEntity(String nombre, String domicilio, String telefono, int legajo){
+	public EmpleadoEntity(String nombre, String domicilio, String telefono, int legajo,String rol){
 		this.nombre=nombre;
 		this.domicilio=domicilio;
 		this.telefono=telefono;
 		this.legajo=legajo;
+		this.rol=rol;
 	}
 	public EmpleadoEntity(Empleado empleado){
 		this.nombre = empleado.getNombre();
 		this.domicilio = empleado.getDomicilio();
 		this.telefono = empleado.getTelefono();
 		this.legajo = empleado.getLegajo();
+		this.rol=empleado.getRol();
+				
+	}
+	public String getRol() {
+		return rol;
+	}
+	public void setRol(String rol) {
+		this.rol = rol;
 	}
 	public int getLegajo() {
 		return legajo;

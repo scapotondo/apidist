@@ -10,12 +10,22 @@ public class EmpleadoDto implements Serializable{
 	private String domicilio;
 	private String telefono;
 	private int legajo;
+	private String rol;
 	
-	public EmpleadoDto(String nombre, String domicilio, String telefono, int legajo){
+	public EmpleadoDto(String nombre, String domicilio, String telefono, int legajo,String rol){
 		this.nombre=nombre;
 		this.domicilio=domicilio;
 		this.telefono=telefono;
 		this.legajo=legajo;
+		this.rol=rol;
+	}
+
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
 	}
 
 	public String getNombre() {

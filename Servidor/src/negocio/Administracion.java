@@ -11,8 +11,6 @@ import dto.AreaProduccionDto;
 import dto.ClienteDto;
 import dto.ConfeccionDto;
 import dto.InsumoDto;
-import dto.LineaProduccionDto;
-import dto.PedidoPrendasDto;
 import dto.PrendaDto;
 
 public class Administracion {
@@ -49,8 +47,6 @@ public class Administracion {
 				new ArrayList<PedidoPrendas>()
 				);
 
-		clientes.add(cliente);
-		
 		cliente.saveMe();
 	}
 
@@ -74,8 +70,6 @@ public class Administracion {
 	public void EliminarCliente(ClienteDto clienteDto){
 		Cliente cliente= this.BuscarClientePorId(clienteDto);
 		
-		clientes.remove(cliente);
-		
 		cliente.eliminame();
 	}
 
@@ -91,14 +85,6 @@ public class Administracion {
 	}
 	
 	public Cliente BuscarClientePorId(ClienteDto clienteDto){
-		if(clientes!=null){
-			
-			for (Cliente cliente : clientes) {
-				
-				if(cliente.getLegajo() == clienteDto.getLegajo())
-					return cliente;
-			}
-		}
 			
 		return ClienteDao.getInstance().BuscarClientePorId(clienteDto);
 	}
@@ -154,7 +140,6 @@ public class Administracion {
 				new ArrayList<StockPrenda>()
 				);
 		
-		prendas.add(prenda);
 		
 		prenda.saveMe();
 	}
@@ -162,19 +147,10 @@ public class Administracion {
 	public void EliminarPrenda(PrendaDto prendaDto){
 		Prenda prenda = this.BuscarPrendaPorId(prendaDto);
 		
-		this.prendas.remove(prenda);
-		
 		prenda.deleteMe();
 	}
 	
 	public Prenda BuscarPrendaPorId(PrendaDto prendaDto){
-		
-		if(this.prendas!= null){
-			for (Prenda prenda : this.prendas) {
-				if(prenda.getCodigo()== prendaDto.getCodigo())
-					return prenda;
-			}
-		}
 		
 		return PrendaDao.getInstance().BuscarPrendaPorCodigo(prendaDto);
 	}

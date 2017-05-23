@@ -10,10 +10,6 @@ import negocio.Administracion;
 
 public class PrendaRemoto extends UnicastRemoteObject implements PrendaInterface{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	public PrendaRemoto() throws RemoteException {
 		super();
