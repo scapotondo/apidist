@@ -29,8 +29,8 @@ public class Controller {
 	private Almacen almacen;
 	private Despacho despacho;
 
+	//singleton
 	private Controller(){}
-
 	public static Controller getInstance(){
 		if(instance==null)
 			instance=new Controller();
@@ -38,6 +38,7 @@ public class Controller {
 		return instance;
 	}
 
+	
 	public void AltaCliente(ClienteDto cliente) {
 		Administracion.getInstance().AltaCliente(cliente, SucursalDao.getInstance().getSucursalById(cliente.getSucursal().getNumero()));
 	}
@@ -51,7 +52,7 @@ public class Controller {
 	}
 
 	public ClienteDto BuscarClientePorId(ClienteDto cliente){
-		return Administracion.getInstance().BuscarClientePorId(cliente);
+		return Administracion.getInstance().BuscarClientePorId(cliente).toDto();
 	}
 
 	public ArrayList<ClienteDto> BuscarClientes(){

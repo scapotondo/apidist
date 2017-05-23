@@ -24,8 +24,6 @@ public class ModificarCliente extends javax.swing.JFrame {
         nroSucursalField.setText(cliente.getSucursal().getNumero()+"");
     }
 
-    
-
     private void initComponents() {
 
         cancelar = new javax.swing.JButton();

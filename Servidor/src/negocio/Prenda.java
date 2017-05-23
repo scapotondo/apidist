@@ -195,4 +195,12 @@ public class Prenda {
 	public void saveMe() {
 		PrendaDao.getInstance().AltaPrenda(this);
 	}
+	
+	public void deleteMe() {
+		PrendaDao.getInstance().EliminarPrenda(this);
+	}
+	
+	public void modificame() {
+		PrendaDao.getInstance().ModificarPrenda(this);
+	}
 }

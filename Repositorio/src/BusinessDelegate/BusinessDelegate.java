@@ -24,7 +24,7 @@ public class BusinessDelegate {
 			String razonSocial,String telefono, String direccionEnvio,String direccionFacturacion, int nroSucursal ){
 	
 		try {
-			ClienteInterface clienteRemoto=(ClienteInterface)Naming.lookup("//localhost/sucursal/clientes");
+			ClienteInterface clienteRemoto=(ClienteInterface)Naming.lookup("//localhost/administracion/clientes");
 			
 			SucursalDto sucursal = new SucursalDto();
 			sucursal.setNumero(nroSucursal);

@@ -49,11 +49,14 @@ public class Administracion {
 				new ArrayList<PedidoPrendas>()
 				);
 
+		clientes.add(cliente);
+		
 		cliente.saveMe();
 	}
 
 	public void ModificarCliente(ClienteDto clienteDto, Sucursal sucursal){
-		Cliente cliente=ClienteDao.getInstance().BuscarClientePorId(clienteDto);
+		Cliente cliente=this.BuscarClientePorId(clienteDto);
+		
 		cliente.setLimiteCredito(clienteDto.getLimiteCredito());
 		cliente.setFormaPago(clienteDto.getFormaPago());
 		cliente.setCuentaCorriente(clienteDto.getCuentaCorriente());
@@ -69,13 +72,15 @@ public class Administracion {
 	}
 	
 	public void EliminarCliente(ClienteDto clienteDto){
-		Cliente cliente=ClienteDao.getInstance().BuscarClientePorId(clienteDto);
+		Cliente cliente= this.BuscarClientePorId(clienteDto);
+		
+		clientes.remove(cliente);
 		
 		cliente.eliminame();
 	}
 
 	public ArrayList<ClienteDto> BuscarClientes(){
-		ArrayList<Cliente> clientes= ClienteDao.getInstance().BuscarClientes();
+		this.clientes= ClienteDao.getInstance().BuscarClientes();
 		ArrayList<ClienteDto> clientesDto = new ArrayList<ClienteDto>();
 		
 		for (Cliente cliente : clientes) {
@@ -85,10 +90,21 @@ public class Administracion {
 		return clientesDto;
 	}
 	
-	public ClienteDto BuscarClientePorId(ClienteDto cliente){
-		return ClienteDao.getInstance().BuscarClientePorId(cliente).toDto();
+	public Cliente BuscarClientePorId(ClienteDto clienteDto){
+		if(clientes!=null){
+			
+			for (Cliente cliente : clientes) {
+				
+				if(cliente.getLegajo() == clienteDto.getLegajo())
+					return cliente;
+			}
+		}
+			
+		return ClienteDao.getInstance().BuscarClientePorId(clienteDto);
 	}
 
+	
+	//TODO:si lo pasamos a que sea un controller este metodo vuela
 	public AdministracionDto toDto(){
 		ArrayList<ClienteDto> clientesDto = new ArrayList<>();
 		ArrayList<PrendaDto> prendasDto = new ArrayList<>();
@@ -104,9 +120,13 @@ public class Administracion {
 		return new AdministracionDto(clientesDto, prendasDto);
 	}
 	
+	
+	
 	public void AltaPrenda(PrendaDto prendaDto) {
+
 		ArrayList<Confeccion> confecciones = new ArrayList<Confeccion>();
 		for (ConfeccionDto confeccionDto : prendaDto.getConfecciones()) {
+			
 			ArrayList<AreaProduccion> areasProd = new ArrayList<AreaProduccion>();
 			for (AreaProduccionDto areaProdDto : confeccionDto.getAreaProduccion()) {
 				areasProd.add(AreaProduccionDao.getInstance().getById(areaProdDto));
@@ -134,6 +154,76 @@ public class Administracion {
 				new ArrayList<StockPrenda>()
 				);
 		
+		prendas.add(prenda);
+		
 		prenda.saveMe();
+	}
+	
+	public void EliminarPrenda(PrendaDto prendaDto){
+		Prenda prenda = this.BuscarPrendaPorId(prendaDto);
+		
+		this.prendas.remove(prenda);
+		
+		prenda.deleteMe();
+	}
+	
+	public Prenda BuscarPrendaPorId(PrendaDto prendaDto){
+		
+		if(this.prendas!= null){
+			for (Prenda prenda : this.prendas) {
+				if(prenda.getCodigo()== prendaDto.getCodigo())
+					return prenda;
+			}
+		}
+		
+		return PrendaDao.getInstance().BuscarPrendaPorCodigo(prendaDto);
+	}
+	
+	public void ModificarPrenda(PrendaDto prendaDto){
+		
+		
+		ArrayList<Confeccion> confecciones = new ArrayList<Confeccion>();
+		for (ConfeccionDto confeccionDto : prendaDto.getConfecciones()) {
+			
+			ArrayList<AreaProduccion> areasProd = new ArrayList<AreaProduccion>();
+			for (AreaProduccionDto areaProdDto : confeccionDto.getAreaProduccion()) {
+				areasProd.add(AreaProduccionDao.getInstance().getById(areaProdDto));
+			}
+			
+			ArrayList<Insumo> insumos = new ArrayList<Insumo>();
+			for (InsumoDto insumoDto : confeccionDto.getInsumos()) {
+				insumos.add(new Insumo(insumoDto.getCantidad(), insumoDto.getDesperdicio(), MateriaPrimaDao.getInstance().getById(insumoDto.getMateriaPrima())));
+			}
+			
+			Confeccion confeccion = new Confeccion(confeccionDto.getTiempoProd(), confeccionDto.getDetalle(), areasProd, insumos);
+			
+			confecciones.add(confeccion);
+		}
+		
+		Prenda prenda = this.BuscarPrendaPorId(prendaDto);
+		
+		prenda.setCantidadAProducir(prendaDto.getCantidadAProducir());
+		prenda.setColoresValidos(prendaDto.getColoresValidos());
+		prenda.setTallesValidos(prendaDto.getTallesValidos());
+		prenda.setEsDiscontinuo(prendaDto.getEsDiscontinuo());
+		prenda.setNombre(prendaDto.getNombre());
+		prenda.setDescripcion(prendaDto.getDescripcion());
+		prenda.setPorsentajeGanancia(prendaDto.getPorcentajeGanancia());
+		prenda.setConfecciones(confecciones);
+		
+		prenda.modificame();
+	}
+	
+	public ArrayList<PrendaDto> BuscarPrendas(){
+		
+		this.prendas = PrendaDao.getInstance().BuscarPrendas();
+		
+		ArrayList<PrendaDto> prendasDto = new ArrayList<PrendaDto>();
+		
+		for (Prenda prenda : this.prendas) {
+			prendasDto.add( prenda.toDto());
+		}
+		
+		return prendasDto;
 	}
 }
