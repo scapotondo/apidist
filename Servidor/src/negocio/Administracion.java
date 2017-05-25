@@ -12,6 +12,8 @@ import dto.ClienteDto;
 import dto.ConfeccionDto;
 import dto.InsumoDto;
 import dto.PrendaDto;
+import exceptions.ClienteException;
+import exceptions.PrendaException;
 
 public class Administracion {
 	private static Administracion instance;
@@ -50,8 +52,10 @@ public class Administracion {
 		cliente.saveMe();
 	}
 
-	public void ModificarCliente(ClienteDto clienteDto, Sucursal sucursal){
+	public void ModificarCliente(ClienteDto clienteDto, Sucursal sucursal) throws ClienteException{
 		Cliente cliente=this.BuscarClientePorId(clienteDto);
+		if (cliente == null)
+			throw new ClienteException("El cliente ingresado no existe");
 		
 		cliente.setLimiteCredito(clienteDto.getLimiteCredito());
 		cliente.setFormaPago(clienteDto.getFormaPago());
@@ -67,8 +71,10 @@ public class Administracion {
 		cliente.modificame();
 	}
 	
-	public void EliminarCliente(ClienteDto clienteDto){
+	public void EliminarCliente(ClienteDto clienteDto) throws ClienteException{
 		Cliente cliente= this.BuscarClientePorId(clienteDto);
+		if (cliente == null)
+			throw new ClienteException("El cliente ingresado no existe");
 		
 		cliente.eliminame();
 	}
@@ -84,8 +90,7 @@ public class Administracion {
 		return clientesDto;
 	}
 	
-	public Cliente BuscarClientePorId(ClienteDto clienteDto){
-			
+	public Cliente BuscarClientePorId(ClienteDto clienteDto) {
 		return ClienteDao.getInstance().BuscarClientePorId(clienteDto);
 	}
 
@@ -144,18 +149,19 @@ public class Administracion {
 		prenda.saveMe();
 	}
 	
-	public void EliminarPrenda(PrendaDto prendaDto){
+	public void EliminarPrenda(PrendaDto prendaDto) throws PrendaException{
 		Prenda prenda = this.BuscarPrendaPorId(prendaDto);
+		if (prenda == null)
+			throw new PrendaException("La prenda a borrar no existe");
 		
 		prenda.deleteMe();
 	}
 	
 	public Prenda BuscarPrendaPorId(PrendaDto prendaDto){
-		
 		return PrendaDao.getInstance().BuscarPrendaPorCodigo(prendaDto);
 	}
 	
-	public void ModificarPrenda(PrendaDto prendaDto) {
+	public void ModificarPrenda(PrendaDto prendaDto) throws PrendaException {
 		
 		ArrayList<Confeccion> confecciones = new ArrayList<Confeccion>();
 		for (ConfeccionDto confeccionDto : prendaDto.getConfecciones()) {
@@ -176,6 +182,8 @@ public class Administracion {
 		}
 		
 		Prenda prenda = this.BuscarPrendaPorId(prendaDto);
+		if (prenda == null)
+			throw new PrendaException("La prenda a modificar no existe");
 		
 		prenda.setCantidadAProducir(prendaDto.getCantidadAProducir());
 		prenda.setColoresValidos(prendaDto.getColoresValidos());

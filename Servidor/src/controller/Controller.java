@@ -6,10 +6,13 @@ import dao.SucursalDao;
 import dto.*;
 import dto.PedidoPrendasDto;
 import dto.PrendaDto;
+import exceptions.ClienteException;
+import exceptions.SucursalException;
 import negocio.Administracion;
 import negocio.Almacen;
 import negocio.AreaCompras;
 import negocio.AreaProduccion;
+import negocio.Cliente;
 import negocio.Despacho;
 import negocio.MateriaPrima;
 import negocio.OrdenDeProduccion;
@@ -37,30 +40,37 @@ public class Controller {
 		
 		return instance;
 	}
-
 	
-	public void AltaCliente(ClienteDto cliente) {
-		Administracion.getInstance().AltaCliente(cliente, SucursalDao.getInstance().getSucursalById(cliente.getSucursal().getNumero()));
+	public void AltaCliente(ClienteDto cliente) throws SucursalException {
+		Sucursal sucursal = SucursalDao.getInstance().getSucursalById(cliente.getSucursal().getNumero());
+		if (sucursal == null)
+			throw new SucursalException("La sucursal indicada no existe");
+		
+		Administracion.getInstance().AltaCliente(cliente, sucursal);
 	}
 
-	public void ModificarCliente(ClienteDto cliente) {
-		Administracion.getInstance().ModificarCliente(cliente, SucursalDao.getInstance().getSucursalById(cliente.getSucursal().getNumero()));
+	public void ModificarCliente(ClienteDto cliente) throws ClienteException, SucursalException {
+		Sucursal sucursal = SucursalDao.getInstance().getSucursalById(cliente.getSucursal().getNumero());
+		if (sucursal == null)
+			throw new SucursalException("La sucursal indicada no existe");
+		
+		Administracion.getInstance().ModificarCliente(cliente, sucursal);
 	}
 	
-	public void EliminarCliente(ClienteDto cliente) {
+	public void EliminarCliente(ClienteDto cliente) throws ClienteException {
 		Administracion.getInstance().EliminarCliente(cliente);
 	}
 
-	public ClienteDto BuscarClientePorId(ClienteDto cliente){
-		return Administracion.getInstance().BuscarClientePorId(cliente).toDto();
+	public ClienteDto BuscarClientePorId(ClienteDto clienteDto) {
+		Cliente cliente = Administracion.getInstance().BuscarClientePorId(clienteDto);
+		if (cliente == null)
+			return new ClienteDto();
+		
+		return cliente.toDto();
 	}
 
 	public ArrayList<ClienteDto> BuscarClientes(){
 		return Administracion.getInstance().BuscarClientes();
-	}
-	
-	public void AltaPrenda(PrendaDto prenda) {
-		Administracion.getInstance().AltaPrenda(prenda);
 	}
 	
 	public ArrayList<PrendaDto> GetPrendasDisponibles(){

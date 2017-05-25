@@ -1,7 +1,10 @@
 
 package administracion;
 
+import javax.swing.JOptionPane;
+
 import BusinessDelegate.BusinessDelegate;
+import exceptions.*;
 
 public class AltaCliente extends javax.swing.JFrame {
    
@@ -176,10 +179,14 @@ public class AltaCliente extends javax.swing.JFrame {
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
        
-    	BusinessDelegate.getInstance().AltaCliente(Float.parseFloat(limiteCreditoField.getText()), formaPagoField.getText(),
-        		Float.parseFloat(cuentaCorrienteField.getText()), cuitField.getText(),nombreField.getText(),
-        		razonSocialField.getText(), telefonoField.getText(), direccionEnvioField.getText(), 
-        		direccionFacturacionField.getText(), Integer.parseInt(nroSucursalField.getText()));
+    	try {
+			BusinessDelegate.getInstance().AltaCliente(Float.parseFloat(limiteCreditoField.getText()), formaPagoField.getText(),
+					Float.parseFloat(cuentaCorrienteField.getText()), cuitField.getText(),nombreField.getText(),
+					razonSocialField.getText(), telefonoField.getText(), direccionEnvioField.getText(), 
+					direccionFacturacionField.getText(), Integer.parseInt(nroSucursalField.getText()));
+		} catch (RemoteObjectNotFoundException | ApplicationException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
 
     	atras();
     }

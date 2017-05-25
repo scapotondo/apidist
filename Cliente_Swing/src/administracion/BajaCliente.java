@@ -3,18 +3,34 @@ package administracion;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import BusinessDelegate.BusinessDelegate;
 import dto.ClienteDto;
+import exceptions.*;
 
 public class BajaCliente extends javax.swing.JFrame {
 
-   
-    public BajaCliente() {
-        initComponents();
-        ArrayList<ClienteDto> clientes = BusinessDelegate.getInstance().BuscarClientes();
-        for (ClienteDto clienteDto : clientes) {
-        	clientesEliminarComboBox.addItem(clienteDto.getNombre()+"-"+clienteDto.getLegajo());
-		}
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public BajaCliente() {
+    	ArrayList<ClienteDto> clientes;
+    	
+    	initComponents();
+        
+    	try {
+    		clientes = BusinessDelegate.getInstance().BuscarClientes();
+
+    		for (ClienteDto clienteDto : clientes) {
+    			clientesEliminarComboBox.addItem(clienteDto.getNombre()+"-"+clienteDto.getLegajo());
+    		}
+
+    	} catch (RemoteObjectNotFoundException | ApplicationException e) {
+    		JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    	}
     }
 
     private void initComponents() {
@@ -81,7 +97,12 @@ public class BajaCliente extends javax.swing.JFrame {
     }
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
-        BusinessDelegate.getInstance().EliminarCliente(clientesEliminarComboBox.getSelectedItem()+"");
+        try {
+			BusinessDelegate.getInstance().EliminarCliente(clientesEliminarComboBox.getSelectedItem()+"");
+		} catch (RemoteObjectNotFoundException | ApplicationException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
+        
     	atras();
     }
 

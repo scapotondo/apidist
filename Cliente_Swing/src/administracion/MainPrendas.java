@@ -3,12 +3,15 @@ package administracion;
 
 
 public class MainPrendas extends javax.swing.JFrame {
-
     
-    public MainPrendas() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public MainPrendas() {
         initComponents();
     }
-
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

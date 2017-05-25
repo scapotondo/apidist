@@ -3,13 +3,16 @@ package administracion;
 
 
 public class MainFacturacion extends javax.swing.JFrame {
+  
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    
-    public MainFacturacion() {
+	public MainFacturacion() {
         initComponents();
     }
 
-    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

@@ -3,17 +3,32 @@ package administracion;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import BusinessDelegate.BusinessDelegate;
 import dto.ClienteDto;
+import exceptions.*;
 
 public class BuscarCliente extends javax.swing.JFrame {
 
-    
-    public BuscarCliente() {
-        initComponents();
-        ArrayList<ClienteDto> clientes = BusinessDelegate.getInstance().BuscarClientes();
-        for (ClienteDto clienteDto : clientes) {
-			clientesComboBox.addItem(clienteDto.getNombre()+"-"+clienteDto.getLegajo());
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public BuscarCliente() {
+    	ArrayList<ClienteDto> clientes;
+    	
+    	initComponents();
+        
+		try {
+			clientes = BusinessDelegate.getInstance().BuscarClientes();
+			
+			for (ClienteDto clienteDto : clientes) {
+				clientesComboBox.addItem(clienteDto.getNombre()+"-"+clienteDto.getLegajo());
+			}
+		} catch (RemoteObjectNotFoundException | ApplicationException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
     }
     private void initComponents() {
@@ -79,13 +94,18 @@ public class BuscarCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
-    	ClienteDto cliente =BusinessDelegate.getInstance().BuscarClientePorId(clientesComboBox.getSelectedItem()+"");
-    	
-        ModificarCliente mc = new ModificarCliente(cliente);
-        mc.setLocationRelativeTo(null);
-        mc.setVisible(true);
-        
-        setVisible(false);
+    	ClienteDto cliente;
+		try {
+			cliente = BusinessDelegate.getInstance().BuscarClientePorId(clientesComboBox.getSelectedItem()+"");
+			
+			ModificarCliente mc = new ModificarCliente(cliente);
+	        mc.setLocationRelativeTo(null);
+	        mc.setVisible(true);
+	        
+	        setVisible(false);
+		} catch (RemoteObjectNotFoundException | ApplicationException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);	
+		}    
     }
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {

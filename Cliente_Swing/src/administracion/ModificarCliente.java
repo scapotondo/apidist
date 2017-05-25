@@ -1,12 +1,20 @@
 
 package administracion;
 
+import javax.swing.JOptionPane;
+
 import BusinessDelegate.BusinessDelegate;
 import dto.ClienteDto;
+import exceptions.*;
 
 public class ModificarCliente extends javax.swing.JFrame {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
      * Creates new form ModificarCliente
      */
     public ModificarCliente(ClienteDto cliente) {
@@ -194,11 +202,16 @@ public class ModificarCliente extends javax.swing.JFrame {
     }
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
-    	BusinessDelegate.getInstance().ModificarCliente(Float.parseFloat(limiteCreditoField.getText()), formaPagoField.getText(),
-        		Float.parseFloat(cuentaCorrienteField.getText()), cuitField.getText(),nombreField.getText(),
-        		razonSocialField.getText(), telefonoField.getText(), direccionEnvioField.getText(), 
-        		direccionFacturacionField.getText(), Integer.parseInt(nroSucursalField.getText()),
-        		Integer.parseInt(legajoField.getText()));
+    	try {
+			BusinessDelegate.getInstance().ModificarCliente(Float.parseFloat(limiteCreditoField.getText()), formaPagoField.getText(),
+					Float.parseFloat(cuentaCorrienteField.getText()), cuitField.getText(),nombreField.getText(),
+					razonSocialField.getText(), telefonoField.getText(), direccionEnvioField.getText(), 
+					direccionFacturacionField.getText(), Integer.parseInt(nroSucursalField.getText()),
+					Integer.parseInt(legajoField.getText()));
+		} catch (RemoteObjectNotFoundException | ApplicationException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
+    	
     	atras();
     }
 
