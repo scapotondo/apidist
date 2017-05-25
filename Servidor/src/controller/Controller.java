@@ -1,5 +1,6 @@
 package controller;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import dao.SucursalDao;
@@ -38,7 +39,7 @@ public class Controller {
 		return instance;
 	}
 
-	
+	//TODO: ver si lo pasamos directo a administracion o no 
 	public void AltaCliente(ClienteDto cliente) {
 		Administracion.getInstance().AltaCliente(cliente, SucursalDao.getInstance().getSucursalById(cliente.getSucursal().getNumero()));
 	}
@@ -62,11 +63,31 @@ public class Controller {
 	public void AltaPrenda(PrendaDto prenda) {
 		Administracion.getInstance().AltaPrenda(prenda);
 	}
-	
+	public void EliminarPrenda(PrendaDto prendaDto) {
+
+		Administracion.getInstance().EliminarPrenda(prendaDto);
+	}
+
+	public PrendaDto BuscarPrendaPorNumero(PrendaDto prendaDto) {
+		
+		return Administracion.getInstance().BuscarPrendaPorNumero(prendaDto).toDto();
+	}
+
+	public void ModificarPrenda(PrendaDto prendaDto) {
+		Administracion.getInstance().ModificarPrenda(prendaDto);
+		
+	}
+
+	public ArrayList<PrendaDto> BuscarPrendas() {
+		return Administracion.getInstance().BuscarPrendas();
+	}
+
 	public ArrayList<PrendaDto> GetPrendasDisponibles(){
 		//TODO: terminar
 		return null;
 	}
+	
+	//ver hasta aca si lo pasamos
 	
 	public PedidoPrendasDto GenerarPedidoPrendas(){
 		//TODO: terminar

@@ -145,12 +145,12 @@ public class Administracion {
 	}
 	
 	public void EliminarPrenda(PrendaDto prendaDto){
-		Prenda prenda = this.BuscarPrendaPorId(prendaDto);
+		Prenda prenda = this.BuscarPrendaPorNumero(prendaDto);
 		
 		prenda.deleteMe();
 	}
 	
-	public Prenda BuscarPrendaPorId(PrendaDto prendaDto){
+	public Prenda BuscarPrendaPorNumero(PrendaDto prendaDto){
 		
 		return PrendaDao.getInstance().BuscarPrendaPorCodigo(prendaDto);
 	}
@@ -176,7 +176,7 @@ public class Administracion {
 			confecciones.add(confeccion);
 		}
 		
-		Prenda prenda = this.BuscarPrendaPorId(prendaDto);
+		Prenda prenda = this.BuscarPrendaPorNumero(prendaDto);
 		
 		prenda.setCantidadAProducir(prendaDto.getCantidadAProducir());
 		prenda.setColoresValidos(prendaDto.getColoresValidos());
@@ -197,6 +197,18 @@ public class Administracion {
 		ArrayList<PrendaDto> prendasDto = new ArrayList<PrendaDto>();
 		
 		for (Prenda prenda : this.prendas) {
+			prendasDto.add( prenda.toDto());
+		}
+		
+		return prendasDto;
+	}
+
+	public ArrayList<PrendaDto> GetPrendasDisponibles(){
+		
+		ArrayList<PrendaDto> prendasDto = new ArrayList<PrendaDto>();
+		
+		ArrayList<Prenda> prendasDisponibles = PrendaDao.getInstance().GetPrendasDisponibles();
+		for (Prenda prenda : prendasDisponibles) {
 			prendasDto.add( prenda.toDto());
 		}
 		

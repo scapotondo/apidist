@@ -4,9 +4,9 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+import controller.Controller;
 import dto.PrendaDto;
 import interfaces.AdministracionPrendasInterface;
-import negocio.Administracion;
 
 public class AdministracionPrendas extends UnicastRemoteObject implements AdministracionPrendasInterface{
 
@@ -23,30 +23,36 @@ public class AdministracionPrendas extends UnicastRemoteObject implements Admini
 	@Override
 	public void AltaPrenda(PrendaDto prendaDto) throws RemoteException {
 
-		Administracion.getInstance().AltaPrenda(prendaDto);
+		Controller.getInstance().AltaPrenda(prendaDto);
 	}
 
 	@Override
 	public void EliminarPrenda(PrendaDto prendaDto) throws RemoteException {
 
-		Administracion.getInstance().EliminarPrenda(prendaDto);
+		Controller.getInstance().EliminarPrenda(prendaDto);
 	}
 
 	@Override
-	public PrendaDto BuscarPrendaPorId(PrendaDto prendaDto) throws RemoteException {
+	public PrendaDto BuscarPrendaPorNumero(PrendaDto prendaDto) throws RemoteException {
 		
-		return Administracion.getInstance().BuscarPrendaPorId(prendaDto).toDto();
+		return Controller.getInstance().BuscarPrendaPorNumero(prendaDto);
 	}
 
 	@Override
 	public void ModificarPrenda(PrendaDto prendaDto) throws RemoteException {
-		Administracion.getInstance().ModificarPrenda(prendaDto);
+		Controller.getInstance().ModificarPrenda(prendaDto);
 		
 	}
 
 	@Override
 	public ArrayList<PrendaDto> BuscarPrendas() throws RemoteException {
-		return Administracion.getInstance().BuscarPrendas();
+		return Controller.getInstance().BuscarPrendas();
+	}
+
+	@Override
+	public ArrayList<PrendaDto> GetPrendasDisponibles() throws RemoteException {
+		// TODO Auto-generated method stub
+		return Controller.getInstance().GetPrendasDisponibles();
 	}
 
 }
