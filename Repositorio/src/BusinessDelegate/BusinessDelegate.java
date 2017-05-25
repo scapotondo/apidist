@@ -158,12 +158,10 @@ public class BusinessDelegate {
 	
 	public PrendaDto buscarPrendaPorCodigo (PrendaDto prendaDto) throws RemoteObjectNotFoundException, ApplicationException {
 		try {
-			getAdministracionPrendas().BuscarPrendaPorNumero(prendaDto);
+			return getAdministracionPrendas().BuscarPrendaPorNumero(prendaDto);
 		} catch (RemoteException e) {
 			throw new ApplicationException(e.getMessage());
 		}
-		
-		return null;
 	}
 }
 
