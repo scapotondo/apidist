@@ -6,11 +6,16 @@ import java.util.ArrayList;
 
 import controller.Controller;
 import dto.ClienteDto;
-import interfaces.ClienteInterface;
+import interfaces.AdministracionClientesInterface;
 
-public class ClienteRemoto extends UnicastRemoteObject implements ClienteInterface{
+public class AdministracionClientes extends UnicastRemoteObject implements AdministracionClientesInterface{
 	
-	public ClienteRemoto() throws RemoteException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public AdministracionClientes() throws RemoteException {
 		super();
 	}
 

@@ -67,7 +67,7 @@ public class Empleado {
 		this.legajo = legajo;
 	}
 	public EmpleadoDto toDto(){
-		return new EmpleadoDto(this.nombre, this.domicilio, this.telefono, this.legajo,this.rol);
+		return new EmpleadoDto(this.nombre, this.domicilio, this.telefono, this.legajo, this.rol);
 	}
 	
 }

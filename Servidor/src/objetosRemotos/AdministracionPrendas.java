@@ -5,13 +5,18 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import dto.PrendaDto;
-import interfaces.PrendaInterface;
+import interfaces.AdministracionPrendasInterface;
 import negocio.Administracion;
 
-public class PrendaRemoto extends UnicastRemoteObject implements PrendaInterface{
+public class AdministracionPrendas extends UnicastRemoteObject implements AdministracionPrendasInterface{
 
 
-	public PrendaRemoto() throws RemoteException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public AdministracionPrendas() throws RemoteException {
 		super();
 	}
 

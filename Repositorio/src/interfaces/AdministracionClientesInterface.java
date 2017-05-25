@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import dto.ClienteDto;
 
-public interface ClienteInterface extends Remote {
+public interface AdministracionClientesInterface extends Remote {
 
 	public void AltaCliente(ClienteDto cliente)throws RemoteException;
 	

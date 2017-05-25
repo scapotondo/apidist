@@ -3,10 +3,9 @@ package servidor;
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 
-import interfaces.ClienteInterface;
-import interfaces.PrendaInterface;
-import objetosRemotos.ClienteRemoto;
-import objetosRemotos.PrendaRemoto;
+import interfaces.*;
+import objetosRemotos.AdministracionClientes;
+import objetosRemotos.AdministracionPrendas;
 
 public class Servidor {
     
@@ -22,20 +21,20 @@ public class Servidor {
 	
     public void iniciar() {
     	
-    	ClienteInterface clienteRemoto;
-    	PrendaInterface prendaRemoto;
+    	AdministracionClientesInterface adminClientes;
+    	AdministracionPrendasInterface adminPrendas;
     	
     	try {
     		
     		LocateRegistry.createRegistry(1099);	
     		
-    		clienteRemoto = new ClienteRemoto();
-    		prendaRemoto = new PrendaRemoto();
+    		adminClientes = new AdministracionClientes();
+    		adminPrendas = new AdministracionPrendas();
     		
-            Naming.rebind ("//localhost/administracion/clientes", clienteRemoto);
+            Naming.rebind ("//localhost/administracion/clientes", adminClientes);
             System.out.println("Fijado en //localhost/administracion/clientes");
             
-            Naming.rebind ("//localhost/administracion/prendas", prendaRemoto);
+            Naming.rebind ("//localhost/administracion/prendas", adminPrendas);
             System.out.println("Fijado en //localhost/administracion/prendas");
 
 		} catch (Exception e) {

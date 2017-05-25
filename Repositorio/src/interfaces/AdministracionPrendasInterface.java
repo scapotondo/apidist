@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import dto.PrendaDto;
 
 
-public interface PrendaInterface extends Remote {
+public interface AdministracionPrendasInterface extends Remote {
 
 	
 	public void AltaPrenda(PrendaDto prendaDto) throws RemoteException;

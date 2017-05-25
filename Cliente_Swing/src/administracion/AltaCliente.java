@@ -4,9 +4,12 @@ package administracion;
 import BusinessDelegate.BusinessDelegate;
 
 public class AltaCliente extends javax.swing.JFrame {
-
    
-    public AltaCliente() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public AltaCliente() {
         
     	initComponents();
     	
