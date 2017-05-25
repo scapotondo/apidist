@@ -20,7 +20,7 @@ public class MainPrendas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/house_go.png"))); // NOI18N
+        home.setIcon(new javax.swing.ImageIcon("/iconos/house_go.png")); // NOI18N
         home.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 homeActionPerformed(evt);
