@@ -82,4 +82,23 @@ public class PrendaDao {
 		
 		return prendas;
 	}
+	
+	//TODO: revisar cuando definamos en base a que valor una prenda es discontinua o no.
+	public ArrayList<Prenda> GetPrendasDisponibles(){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		List<PrendaEntity> prendasEntity =  session.createQuery("from PrendaEntity WHERE esDiscontinuo=false").list();
+		session.getTransaction().commit();
+		session.close();
+		
+		ArrayList<Prenda> prendas = new ArrayList<Prenda>();
+		
+		for (PrendaEntity prendaEntity : prendasEntity) {
+			prendas.add(new Prenda(prendaEntity));
+		}
+		
+		return prendas;
+	}
 }

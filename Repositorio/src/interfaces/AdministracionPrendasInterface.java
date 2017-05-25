@@ -14,9 +14,11 @@ public interface AdministracionPrendasInterface extends Remote {
 	
 	public void EliminarPrenda(PrendaDto prendaDto) throws RemoteException;
 	
-	public PrendaDto BuscarPrendaPorId(PrendaDto prendaDto) throws RemoteException;
+	public PrendaDto BuscarPrendaPorNumero(PrendaDto prendaDto) throws RemoteException;
 	
 	public void ModificarPrenda(PrendaDto prendaDto) throws RemoteException;
 	
 	public ArrayList<PrendaDto> BuscarPrendas() throws RemoteException;
+	
+	public ArrayList<PrendaDto> GetPrendasDisponibles() throws RemoteException;
 }

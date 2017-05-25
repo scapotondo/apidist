@@ -1,5 +1,6 @@
 package controller;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import dao.SucursalDao;
@@ -7,6 +8,7 @@ import dto.*;
 import dto.PedidoPrendasDto;
 import dto.PrendaDto;
 import exceptions.ClienteException;
+import exceptions.PrendaException;
 import exceptions.SucursalException;
 import negocio.Administracion;
 import negocio.Almacen;
@@ -40,7 +42,7 @@ public class Controller {
 		
 		return instance;
 	}
-	
+	//TODO: ver si lo pasamos directo a administracion o no 
 	public void AltaCliente(ClienteDto cliente) throws SucursalException {
 		Sucursal sucursal = SucursalDao.getInstance().getSucursalById(cliente.getSucursal().getNumero());
 		if (sucursal == null)
@@ -73,10 +75,34 @@ public class Controller {
 		return Administracion.getInstance().BuscarClientes();
 	}
 	
+	public void AltaPrenda(PrendaDto prenda) {
+		Administracion.getInstance().AltaPrenda(prenda);
+	}
+	
+	public void EliminarPrenda(PrendaDto prendaDto) throws PrendaException {
+
+		Administracion.getInstance().EliminarPrenda(prendaDto);
+	}
+
+	public PrendaDto BuscarPrendaPorNumero(PrendaDto prendaDto) {
+		
+		return Administracion.getInstance().BuscarPrendaPorNumero(prendaDto).toDto();
+	}
+
+	public void ModificarPrenda(PrendaDto prendaDto) throws PrendaException {
+		Administracion.getInstance().ModificarPrenda(prendaDto);
+	}
+
+	public ArrayList<PrendaDto> BuscarPrendas() {
+		return Administracion.getInstance().BuscarPrendas();
+	}
+
 	public ArrayList<PrendaDto> GetPrendasDisponibles(){
 		//TODO: terminar
 		return null;
 	}
+	
+	//ver hasta aca si lo pasamos
 	
 	public PedidoPrendasDto GenerarPedidoPrendas(){
 		//TODO: terminar

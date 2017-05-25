@@ -150,14 +150,14 @@ public class Administracion {
 	}
 	
 	public void EliminarPrenda(PrendaDto prendaDto) throws PrendaException{
-		Prenda prenda = this.BuscarPrendaPorId(prendaDto);
+		Prenda prenda = this.BuscarPrendaPorNumero(prendaDto);
 		if (prenda == null)
 			throw new PrendaException("La prenda a borrar no existe");
 		
 		prenda.deleteMe();
 	}
 	
-	public Prenda BuscarPrendaPorId(PrendaDto prendaDto){
+	public Prenda BuscarPrendaPorNumero(PrendaDto prendaDto){
 		return PrendaDao.getInstance().BuscarPrendaPorCodigo(prendaDto);
 	}
 	
@@ -181,7 +181,7 @@ public class Administracion {
 			confecciones.add(confeccion);
 		}
 		
-		Prenda prenda = this.BuscarPrendaPorId(prendaDto);
+		Prenda prenda = this.BuscarPrendaPorNumero(prendaDto);
 		if (prenda == null)
 			throw new PrendaException("La prenda a modificar no existe");
 		
@@ -204,6 +204,18 @@ public class Administracion {
 		ArrayList<PrendaDto> prendasDto = new ArrayList<PrendaDto>();
 		
 		for (Prenda prenda : this.prendas) {
+			prendasDto.add( prenda.toDto());
+		}
+		
+		return prendasDto;
+	}
+
+	public ArrayList<PrendaDto> GetPrendasDisponibles(){
+		
+		ArrayList<PrendaDto> prendasDto = new ArrayList<PrendaDto>();
+		
+		ArrayList<Prenda> prendasDisponibles = PrendaDao.getInstance().GetPrendasDisponibles();
+		for (Prenda prenda : prendasDisponibles) {
 			prendasDto.add( prenda.toDto());
 		}
 		
