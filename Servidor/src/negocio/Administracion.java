@@ -155,8 +155,7 @@ public class Administracion {
 		return PrendaDao.getInstance().BuscarPrendaPorCodigo(prendaDto);
 	}
 	
-	public void ModificarPrenda(PrendaDto prendaDto){
-		
+	public void ModificarPrenda(PrendaDto prendaDto) {
 		
 		ArrayList<Confeccion> confecciones = new ArrayList<Confeccion>();
 		for (ConfeccionDto confeccionDto : prendaDto.getConfecciones()) {

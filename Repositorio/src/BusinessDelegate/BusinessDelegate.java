@@ -6,9 +6,9 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import dto.ClienteDto;
-import dto.SucursalDto;
-import interfaces.AdministracionClientesInterface;
+import dto.*;
+import exceptions.RemoteObjectNotFoundException;
+import interfaces.*;
 
 public class BusinessDelegate {
 	private static BusinessDelegate instance;
@@ -20,8 +20,15 @@ public class BusinessDelegate {
 		return instance;
 	}
 	
-	private AdministracionClientesInterface getAdministracionClientes() throws MalformedURLException, RemoteException, NotBoundException {
-		return (AdministracionClientesInterface)Naming.lookup("//localhost/administracion/clientes");
+	private AdministracionClientesInterface getAdministracionClientes() throws RemoteObjectNotFoundException {
+		try {
+			return (AdministracionClientesInterface)Naming.lookup("//localhost/administracion/clientes");
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			throw new RemoteObjectNotFoundException("No se pudo encontrar Administracion de Clientes");
+		}
 	}
 	
 	public void AltaCliente(float limiteCredito,String formaPago,float cuentaCorriente,String cuit,String nombre, 
@@ -37,11 +44,10 @@ public class BusinessDelegate {
 			getAdministracionClientes().AltaCliente(cliente);
 			
 			//TODO: falta manejo exceptions
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (RemoteException e) {
 			e.printStackTrace();
-		} catch (NotBoundException e) {
+		} catch (RemoteObjectNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -52,11 +58,10 @@ public class BusinessDelegate {
 			return getAdministracionClientes().BuscarClientes();
 			
 			//TODO: faltan exceptions
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (RemoteException e) {
 			e.printStackTrace();
-		} catch (NotBoundException e) {
+		} catch (RemoteObjectNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -79,11 +84,10 @@ public class BusinessDelegate {
 			return getAdministracionClientes().BuscarClientePorId(cliente);
 			//TODO: faltan exceptions
 			
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (RemoteException e) {
 			e.printStackTrace();
-		} catch (NotBoundException e) {
+		} catch (RemoteObjectNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -92,7 +96,7 @@ public class BusinessDelegate {
 	
 	public void ModificarCliente(float limiteCredito,String formaPago,float cuentaCorriente,String cuit,String nombre, 
 			String razonSocial,String telefono, String direccionEnvio,String direccionFacturacion, int nroSucursal,
-			int legajo){
+			int legajo) {
 			
 		try {
 			SucursalDto sucursal = new SucursalDto();
@@ -105,11 +109,10 @@ public class BusinessDelegate {
 			getAdministracionClientes().ModificarCliente(cliente);
 			
 			//TODO: faltan exceptions
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (RemoteException e) {
 			e.printStackTrace();
-		} catch (NotBoundException e) {
+		} catch (RemoteObjectNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -128,15 +131,94 @@ public class BusinessDelegate {
 			getAdministracionClientes().EliminarCliente(cliente);
 			
 			//TODO: faltan exceptions
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (RemoteException e) {
 			e.printStackTrace();
-		} catch (NotBoundException e) {
+		} catch (RemoteObjectNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	private AdministracionPrendasInterface getAdministracionPrendas() throws RemoteObjectNotFoundException {
+		try {
+			return (AdministracionPrendasInterface)Naming.lookup("//localhost/administracion/prendas");
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			throw new RemoteObjectNotFoundException("No se pude encontrar Administracion de Prendas");
+		}
+	}
+	
+	//TODO: no le tendriamos que pasar el DTO desde la Vista directamente? Como hacemos con las listas sino (por ej Confecciones)?
+	//TODO: las exceptions no las deberia catchear la vista directamente?
+	public void AltaPrenda (ArrayList<String> tallesValidos, ArrayList<String> coloresValidos, boolean esDiscontinuo, int cantidadAProducir, String nombre, String descripcion, float porsentajeGanancia, ArrayList<ConfeccionDto> confecciones) {
+		PrendaDto prendaDto = new PrendaDto(tallesValidos, coloresValidos, 0, esDiscontinuo, cantidadAProducir, nombre, descripcion, porsentajeGanancia, confecciones, new ArrayList<StockPrendaDto>());
+		
+		try {
+			getAdministracionPrendas().AltaPrenda(prendaDto);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteObjectNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void EliminarPrenda (int codigo) {
+		try {
+			getAdministracionPrendas().EliminarPrenda(new PrendaDto(codigo));
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteObjectNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void ModificarPrenda (int codigo, ArrayList<String> tallesValidos, ArrayList<String> coloresValidos, boolean esDiscontinuo, int cantidadAProducir, String nombre, String descripcion, float porsentajeGanancia, ArrayList<ConfeccionDto> confecciones) {
+		PrendaDto prendaDto = new PrendaDto(tallesValidos, coloresValidos, codigo, esDiscontinuo, cantidadAProducir, nombre, descripcion, porsentajeGanancia, confecciones, new ArrayList<StockPrendaDto>());
+		
+		try {
+			getAdministracionPrendas().ModificarPrenda(prendaDto);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteObjectNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<PrendaDto> getPrendas() {
+		try {
+			return getAdministracionPrendas().BuscarPrendas();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteObjectNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return new ArrayList<PrendaDto>();
+	}
+	
+	public PrendaDto buscarPrendaPorCodigo (int codigo) {
+		try {
+			getAdministracionPrendas().BuscarPrendaPorId(new PrendaDto(codigo));
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteObjectNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 }
 
 

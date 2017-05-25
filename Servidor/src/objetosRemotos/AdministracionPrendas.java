@@ -8,8 +8,7 @@ import dto.PrendaDto;
 import interfaces.AdministracionPrendasInterface;
 import negocio.Administracion;
 
-public class AdministracionPrendas extends UnicastRemoteObject implements AdministracionPrendasInterface{
-
+public class AdministracionPrendas extends UnicastRemoteObject implements AdministracionPrendasInterface {
 
 	/**
 	 * 
@@ -22,26 +21,22 @@ public class AdministracionPrendas extends UnicastRemoteObject implements Admini
 
 	@Override
 	public void AltaPrenda(PrendaDto prendaDto) throws RemoteException {
-
 		Administracion.getInstance().AltaPrenda(prendaDto);
 	}
 
 	@Override
 	public void EliminarPrenda(PrendaDto prendaDto) throws RemoteException {
-
 		Administracion.getInstance().EliminarPrenda(prendaDto);
 	}
 
 	@Override
 	public PrendaDto BuscarPrendaPorId(PrendaDto prendaDto) throws RemoteException {
-		
 		return Administracion.getInstance().BuscarPrendaPorId(prendaDto).toDto();
 	}
 
 	@Override
 	public void ModificarPrenda(PrendaDto prendaDto) throws RemoteException {
 		Administracion.getInstance().ModificarPrenda(prendaDto);
-		
 	}
 
 	@Override

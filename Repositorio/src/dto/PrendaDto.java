@@ -19,13 +19,17 @@ public class PrendaDto implements Serializable{
 	private ArrayList<ConfeccionDto> confecciones;
 	private ArrayList<StockPrendaDto> stock;
 	
+	public PrendaDto(int codigo) {
+		this.codigo=codigo;
+	}
+	
 	public PrendaDto(ArrayList<String> tallesValidos,ArrayList<String> coloresValidos,int codigo,boolean esDiscontinuo,
 			int cantidadAProducir,String nombre,String descripcion,float porsentajeGanancia,ArrayList<ConfeccionDto> confecciones,
 			ArrayList<StockPrendaDto> stock){
+		this(codigo);
 		
 		this.tallesValidos=tallesValidos;
 		this.coloresValidos=coloresValidos;
-		this.codigo=codigo;
 		this.esDiscontinuo=esDiscontinuo;
 		this.cantidadAProducir=cantidadAProducir;
 		this.nombre=nombre;
