@@ -80,12 +80,10 @@ public class Controller {
 	}
 	
 	public void EliminarPrenda(PrendaDto prendaDto) throws PrendaException {
-
 		Administracion.getInstance().EliminarPrenda(prendaDto);
 	}
 
 	public PrendaDto BuscarPrendaPorNumero(PrendaDto prendaDto) {
-		
 		return Administracion.getInstance().BuscarPrendaPorNumero(prendaDto).toDto();
 	}
 

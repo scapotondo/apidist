@@ -28,7 +28,7 @@ public class MainAdministracion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/group.png"))); // NOI18N
+        clientes.setIcon(new javax.swing.ImageIcon("src/iconos/group.png")); // NOI18N
         clientes.setText("Clientes");
         clientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -16,9 +16,7 @@ public class NewClass {
                 
             	MainAdministracion ma= new MainAdministracion();
                 ma.setLocationRelativeTo(null);
-                ma.setVisible(true);
-                
-                
+                ma.setVisible(true);            
             }
         });
 
