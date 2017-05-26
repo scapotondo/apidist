@@ -57,7 +57,7 @@ public class ModificarCliente extends javax.swing.JFrame {
         labelNroSucursal = new javax.swing.JLabel();
         nroSucursalField = new javax.swing.JTextField();
         legajoLabel = new javax.swing.JLabel();
-        legajoField = new javax.swing.JTextField();
+        legajoField = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -236,7 +236,7 @@ public class ModificarCliente extends javax.swing.JFrame {
     private javax.swing.JLabel labelCuit;
     private javax.swing.JLabel labelNombre;
     private javax.swing.JLabel labelNroSucursal;
-    private javax.swing.JTextField legajoField;
+    private javax.swing.JLabel legajoField;
     private javax.swing.JLabel legajoLabel;
     private javax.swing.JTextField limiteCreditoField;
     private javax.swing.JLabel limiteCreditoLabel;
