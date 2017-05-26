@@ -31,6 +31,9 @@ public class SucursalDao {
 		session.getTransaction().commit();
 		session.close();
 		
+		if (sucursal == null)
+			return null;
+		
 		return new Sucursal(sucursal);
 	}
 	
