@@ -27,6 +27,9 @@ public class MateriaPrimaDao {
 		session.getTransaction().commit();
 		session.close();
 		
+		if (materiaPrimaEntity == null)
+			return null;
+		
 		return new MateriaPrima(materiaPrimaEntity);
 	}
 }

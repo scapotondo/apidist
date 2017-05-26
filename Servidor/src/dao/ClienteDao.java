@@ -68,6 +68,9 @@ public class ClienteDao {
 		session.getTransaction().commit();
 		session.close();
 		
+		if (clienteEntity == null)
+			return null;
+		
 		return new Cliente(clienteEntity);
 	}
 	

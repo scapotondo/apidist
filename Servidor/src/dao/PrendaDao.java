@@ -62,6 +62,9 @@ public class PrendaDao {
 		session.getTransaction().commit();
 		session.close();
 		
+		if (prendaEntity == null)
+			return null;
+		
 		return new Prenda(prendaEntity);
 	}
 	

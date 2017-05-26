@@ -27,6 +27,9 @@ public class AreaProduccionDao {
 		session.getTransaction().commit();
 		session.close();
 		
+		if (areaProduccionEntity == null)
+			return null;
+		
 		return new AreaProduccion(areaProduccionEntity);
 	}
 }
