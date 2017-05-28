@@ -4,11 +4,13 @@ package prendas;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 import BusinessDelegate.BusinessDelegate;
 import dto.AreaProduccionDto;
 import dto.ConfeccionDto;
 import dto.InsumoDto;
+import negocio.AreaProduccion;
 
 
 public abstract class Confeccion extends javax.swing.JFrame {
@@ -149,16 +151,24 @@ public abstract class Confeccion extends javax.swing.JFrame {
     
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
 
+    	if(fieldDetalle.getText().equals("") || fieldTiempo.getText().equals(""))
+    		JOptionPane.showMessageDialog(null, "Por favor complete todos los campos");
     	
-    	AreaProduccionDto areaProduccion = (AreaProduccionDto) comboAreas.getSelectedItem();
+    	else if (insumosDto.size()==0)
+    		JOptionPane.showMessageDialog(null, "Por favor agregue un insumo como minimo");
     	
-        ConfeccionDto confeccion = new ConfeccionDto(Integer.parseInt(fieldTiempo.getText()), fieldDetalle.getText(), 
-        		areaProduccion, insumosDto);
-    	
-        this.confeccionDto=confeccion;
-        
-        aceptar();
-        setVisible(false);
+    	else{
+    		
+	    	AreaProduccionDto areaProduccion = (AreaProduccionDto) comboAreas.getSelectedItem();
+	    	
+	        ConfeccionDto confeccion = new ConfeccionDto(Integer.parseInt(fieldTiempo.getText()), fieldDetalle.getText(), 
+	        		areaProduccion, insumosDto);
+	    	
+	        this.confeccionDto=confeccion;
+	        
+	        aceptar();
+	        setVisible(false);
+    	}
     }
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {

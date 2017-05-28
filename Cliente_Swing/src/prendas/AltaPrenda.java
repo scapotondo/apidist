@@ -3,6 +3,7 @@ package prendas;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 import BusinessDelegate.BusinessDelegate;
 import administracion.MainPrendas;
@@ -269,20 +270,45 @@ public class AltaPrenda extends javax.swing.JFrame {
 	    	ArrayList<String> coloresValidos = new ArrayList<String>();
 	    	boolean discontinuo=false;
 	    	
-	    	if((comboBoxDiscontinuo.getSelectedItem()+"").equals("Si"))
-	    		discontinuo=true;
+	    	//controlo si no escribio nada
+	    	if(fieldCantidadProducir.getText().equals("") || fieldDescripcion.getText().equals("") ||
+	    			fieldNombre.getText().equals("") || fieldPorcentajeGanancias.getText().equals(""))
+	    		
+	    		JOptionPane.showMessageDialog(null, "Por favor complete todos los campos");
 	    	
-	    	CargarTalles(tallesValidos);
-	    	CargarColores(coloresValidos);
+	    	//controlo si dejo todos los checkbox de colores sin seleccionar
+	    	else if(checkAmarillo.isSelected()==false && checkAzul.isSelected()==false && checkBlanco.isSelected()==false && 
+	    			checkNegro.isSelected()==false && checkRojo.isSelected()==false && checkVerde.isSelected()==false)
+	    		
+	    		JOptionPane.showMessageDialog(null, "Por favor seleccione como minimo 1 color");
 	    	
-	        PrendaDto prenda = new PrendaDto(tallesValidos, coloresValidos,0,discontinuo,Integer.parseInt(fieldCantidadProducir.getText()),
-	        		fieldNombre.getText(),fieldDescripcion.getText(),Float.parseFloat(fieldPorcentajeGanancias.getText()),
-	        		confeccionesDto,new ArrayList<StockPrendaDto>());
-	        
-	        
-			BusinessDelegate.getInstance().AltaPrenda(prenda);
-			
-			Atras();
+	    	//controlo si dejo todos los checkbox de talels vacios
+	    	else if(checkL.isSelected()==false && checkM.isSelected()==false && checkS.isSelected()==false && 
+	    			checkXL.isSelected()==false && checkXS.isSelected()==false )
+	    		
+	    		JOptionPane.showMessageDialog(null, "Por favor seleccione como minimo 1 talle");
+	    	
+	    	else if (confeccionesDto.size()==0)
+	    		JOptionPane.showMessageDialog(null, "Por favor agregue una confeccion como minimo");
+	    	
+	    	else{
+		    	if((comboBoxDiscontinuo.getSelectedItem()+"").equals("Si"))
+		    		discontinuo=true;
+		    	
+		    	CargarTalles(tallesValidos);
+		    	CargarColores(coloresValidos);
+		    	
+		        PrendaDto prenda = new PrendaDto(tallesValidos, coloresValidos,0,discontinuo,
+		        		Integer.parseInt(fieldCantidadProducir.getText()),fieldNombre.getText(),fieldDescripcion.getText(),
+		        		Float.parseFloat(fieldPorcentajeGanancias.getText()),confeccionesDto,new ArrayList<StockPrendaDto>());
+		        
+		        
+				BusinessDelegate.getInstance().AltaPrenda(prenda);
+				
+				JOptionPane.showMessageDialog(null, "La prenda fue dada de alta");
+				Atras();
+				
+	    	}
 		} catch (RemoteObjectNotFoundException e) {
 			e.printStackTrace();
 		} catch (ApplicationException e) {

@@ -2,6 +2,8 @@ package prendas;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import BusinessDelegate.BusinessDelegate;
 import administracion.MainPrendas;
 import dto.PrendaDto;
@@ -220,24 +222,46 @@ public class ModificarPrenda extends javax.swing.JFrame {
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
     	try {
-	    	ArrayList<String> tallesValidos = new ArrayList<String>();
-	    	ArrayList<String> coloresValidos = new ArrayList<String>();
-	    	boolean discontinuo=false;
+    		//controlo si no escribio nada
+	    	if(fieldCantidadProducir.getText().equals("") || fieldDescripcion.getText().equals("") ||
+	    			fieldNombre.getText().equals("") || fieldPorcentajeGanancias.getText().equals(""))
+	    		
+	    		JOptionPane.showMessageDialog(null, "Por favor complete todos los campos");
 	    	
-	    	if((comboBoxDiscontinuo.getSelectedItem()+"").equals("Si"))
-	    		discontinuo=true;
+	    	//controlo si dejo todos los checkbox de colores sin seleccionar
+	    	else if(checkAmarillo.isSelected()==false && checkAzul.isSelected()==false && checkBlanco.isSelected()==false && 
+	    			checkNegro.isSelected()==false && checkRojo.isSelected()==false && checkVerde.isSelected()==false)
+	    		
+	    		JOptionPane.showMessageDialog(null, "Por favor seleccione como minimo 1 color");
 	    	
-	    	CargarTalles(tallesValidos);
-	    	CargarColores(coloresValidos);
+	    	//controlo si dejo todos los checkbox de talels vacios
+	    	else if(checkL.isSelected()==false && checkM.isSelected()==false && checkS.isSelected()==false && 
+	    			checkXL.isSelected()==false && checkXS.isSelected()==false )
+	    		
+	    		JOptionPane.showMessageDialog(null, "Por favor seleccione como minimo 1 talle");
 	    	
-	        PrendaDto prenda = new PrendaDto(tallesValidos, coloresValidos,0,discontinuo,Integer.parseInt(fieldCantidadProducir.getText()),
-	        		fieldNombre.getText(),fieldDescripcion.getText(),Float.parseFloat(fieldPorcentajeGanancias.getText()),
-	        		new ArrayList<>(),new ArrayList<StockPrendaDto>());
-	        prenda.setCodigo(this.codigo);
-	        
-			BusinessDelegate.getInstance().ModificarPrenda(prenda);
-			
-			Atras();
+	    	else{
+    		
+		    	ArrayList<String> tallesValidos = new ArrayList<String>();
+		    	ArrayList<String> coloresValidos = new ArrayList<String>();
+		    	boolean discontinuo=false;
+		    	
+		    	if((comboBoxDiscontinuo.getSelectedItem()+"").equals("Si"))
+		    		discontinuo=true;
+		    	
+		    	CargarTalles(tallesValidos);
+		    	CargarColores(coloresValidos);
+		    	
+		        PrendaDto prenda = new PrendaDto(tallesValidos, coloresValidos,0,discontinuo,Integer.parseInt(fieldCantidadProducir.getText()),
+		        		fieldNombre.getText(),fieldDescripcion.getText(),Float.parseFloat(fieldPorcentajeGanancias.getText()),
+		        		new ArrayList<>(),new ArrayList<StockPrendaDto>());
+		        prenda.setCodigo(this.codigo);
+		        
+				BusinessDelegate.getInstance().ModificarPrenda(prenda);
+				
+				JOptionPane.showMessageDialog(null, "La prenda fue modificada");
+				Atras();
+	    	}
 		} catch (RemoteObjectNotFoundException e) {
 			e.printStackTrace();
 		} catch (ApplicationException e) {

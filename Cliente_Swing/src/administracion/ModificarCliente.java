@@ -1,10 +1,13 @@
 
 package administracion;
 
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 import BusinessDelegate.BusinessDelegate;
 import dto.ClienteDto;
+import dto.SucursalDto;
 import exceptions.*;
 
 public class ModificarCliente extends javax.swing.JFrame {
@@ -14,9 +17,8 @@ public class ModificarCliente extends javax.swing.JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-     * Creates new form ModificarCliente
-     */
+	private ArrayList<SucursalDto> sucursalesDto;
+	
     public ModificarCliente(ClienteDto cliente) {
         initComponents();
         legajoField.setText(cliente.getLegajo()+"");
@@ -29,7 +31,18 @@ public class ModificarCliente extends javax.swing.JFrame {
         nombreField.setText(cliente.getNombre());
         razonSocialField.setText(cliente.getRazonSocial());
         telefonoField.setText(cliente.getTelefono());
-        nroSucursalField.setText(cliente.getSucursal().getNumero()+"");
+        
+        sucursalesDto= BusinessDelegate.getInstance().GetSucursales();
+    	
+    	for (SucursalDto sucursalDto : sucursalesDto) {
+    		
+			comboSucursal.addItem(sucursalDto.getNombre() + " -" + sucursalDto.getNumero());
+			
+			if(sucursalDto.getNumero()==cliente.getSucursal().getNumero())
+    			comboSucursal.setSelectedItem(sucursalDto.getNombre() + " -" + sucursalDto.getNumero());
+		}
+    	
+    	
     }
 
     private void initComponents() {
@@ -55,9 +68,9 @@ public class ModificarCliente extends javax.swing.JFrame {
         direccionFacturacionField = new javax.swing.JTextField();
         aceptar = new javax.swing.JButton();
         labelNroSucursal = new javax.swing.JLabel();
-        nroSucursalField = new javax.swing.JTextField();
         legajoLabel = new javax.swing.JLabel();
-        legajoField = new javax.swing.JLabel();
+        legajoField = new javax.swing.JTextField();
+        comboSucursal = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,9 +106,11 @@ public class ModificarCliente extends javax.swing.JFrame {
             }
         });
 
-        labelNroSucursal.setText("numero sucursal");
+        labelNroSucursal.setText("Sucursal");
 
         legajoLabel.setText("Legajo");
+
+        legajoField.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,8 +145,8 @@ public class ModificarCliente extends javax.swing.JFrame {
                             .addComponent(razonSocialField, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                             .addComponent(telefonoField)
                             .addComponent(direccionEnvioField)
-                            .addComponent(nroSucursalField, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                            .addComponent(legajoField)))
+                            .addComponent(legajoField)
+                            .addComponent(comboSucursal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(aceptar)
@@ -185,8 +200,8 @@ public class ModificarCliente extends javax.swing.JFrame {
                     .addComponent(direccionFacturacionField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nroSucursalField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelNroSucursal))
+                    .addComponent(labelNroSucursal)
+                    .addComponent(comboSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aceptar)
@@ -194,7 +209,7 @@ public class ModificarCliente extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>        
+    }// </editor-fold>                        
 
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,16 +218,28 @@ public class ModificarCliente extends javax.swing.JFrame {
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
     	try {
-			BusinessDelegate.getInstance().ModificarCliente(Float.parseFloat(limiteCreditoField.getText()), formaPagoField.getText(),
-					Float.parseFloat(cuentaCorrienteField.getText()), cuitField.getText(),nombreField.getText(),
-					razonSocialField.getText(), telefonoField.getText(), direccionEnvioField.getText(), 
-					direccionFacturacionField.getText(), Integer.parseInt(nroSucursalField.getText()),
-					Integer.parseInt(legajoField.getText()));
+    		if(limiteCreditoField.getText().equals("")|| formaPagoField.getText().equals("")||
+    				   cuentaCorrienteField.getText().equals("")|| cuitField.getText().equals("")||nombreField.getText().equals("")||
+    						razonSocialField.getText().equals("")|| telefonoField.getText().equals("")||
+    						direccionEnvioField.getText().equals("")||direccionFacturacionField.getText().equals(""))
+    	    			
+    	    	JOptionPane.showMessageDialog(null, "Por favor complete todos los campos");
+    	    		
+    	   else{
+    		
+				BusinessDelegate.getInstance().ModificarCliente(Float.parseFloat(limiteCreditoField.getText()), formaPagoField.getText(),
+						Float.parseFloat(cuentaCorrienteField.getText()), cuitField.getText(),nombreField.getText(),
+						razonSocialField.getText(), telefonoField.getText(), direccionEnvioField.getText(), 
+						direccionFacturacionField.getText(), comboSucursal.getSelectedItem()+"",
+						Integer.parseInt(legajoField.getText()));
+				
+				JOptionPane.showMessageDialog(null, "El cliente fue modificado");
+				atras();
+    	   }
 		} catch (RemoteObjectNotFoundException | ApplicationException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
     	
-    	atras();
     }
 
     private void atras(){
@@ -224,6 +251,7 @@ public class ModificarCliente extends javax.swing.JFrame {
 
     private javax.swing.JButton aceptar;
     private javax.swing.JButton cancelar;
+    private javax.swing.JComboBox<String> comboSucursal;
     private javax.swing.JTextField cuentaCorrienteField;
     private javax.swing.JTextField cuitField;
     private javax.swing.JTextField direccionEnvioField;
@@ -236,12 +264,11 @@ public class ModificarCliente extends javax.swing.JFrame {
     private javax.swing.JLabel labelCuit;
     private javax.swing.JLabel labelNombre;
     private javax.swing.JLabel labelNroSucursal;
-    private javax.swing.JLabel legajoField;
+    private javax.swing.JTextField legajoField;
     private javax.swing.JLabel legajoLabel;
     private javax.swing.JTextField limiteCreditoField;
     private javax.swing.JLabel limiteCreditoLabel;
     private javax.swing.JTextField nombreField;
-    private javax.swing.JTextField nroSucursalField;
     private javax.swing.JTextField razonSocialField;
     private javax.swing.JLabel razonSocialLabel;
     private javax.swing.JTextField telefonoField;

@@ -3,10 +3,8 @@ package negocio;
 import java.util.ArrayList;
 
 import dao.ConfeccionDao;
-import dto.AreaProduccionDto;
 import dto.ConfeccionDto;
 import dto.InsumoDto;
-import entity.AreaProduccionEntity;
 import entity.ConfeccionEntity;
 import entity.InsumoEntity;
 

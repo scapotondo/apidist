@@ -99,11 +99,14 @@ public class BajaCliente extends javax.swing.JFrame {
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
         try {
 			BusinessDelegate.getInstance().EliminarCliente(clientesEliminarComboBox.getSelectedItem()+"");
+			
+			JOptionPane.showMessageDialog(null, "El cliente fue eliminado");
+			atras();
+			
 		} catch (RemoteObjectNotFoundException | ApplicationException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
         
-    	atras();
     }
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {

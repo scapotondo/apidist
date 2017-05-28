@@ -28,6 +28,7 @@ public class AreaProduccion {
 		for (OrdenDeProduccionEntity OrdenDeProduccionEntity : area.getOrdenesProduccion()) {
 			//TODO: ver esto, falla por ser abstracta la clase
 			//this.ordenesProduccion.add(new OrdenDeProduccion(OrdenDeProduccionEntity);
+			OrdenDeProduccionEntity.getClass();
 		}
 	}
 	

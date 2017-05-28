@@ -34,8 +34,8 @@ public class PrendaDao {
 	public void EliminarPrenda(Prenda prenda){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
-		PrendaEntity prendaEntity= new PrendaEntity(prenda);
 		session.beginTransaction();
+		PrendaEntity prendaEntity= new PrendaEntity(prenda);
 		session.delete(prendaEntity);
 		session.getTransaction().commit();
 		session.close();

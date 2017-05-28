@@ -73,6 +73,7 @@ public class HibernateUtil{
     
     public static void main(String[] args) {
     	SessionFactory sf = HibernateUtil.getSessionFactory();
+		@SuppressWarnings("unused")
 		Session session = sf.openSession();
 	}
     

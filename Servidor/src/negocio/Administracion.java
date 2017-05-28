@@ -7,7 +7,6 @@ import dao.ClienteDao;
 import dao.MateriaPrimaDao;
 import dao.PrendaDao;
 import dto.AdministracionDto;
-import dto.AreaProduccionDto;
 import dto.ClienteDto;
 import dto.ConfeccionDto;
 import dto.InsumoDto;

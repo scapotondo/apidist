@@ -10,7 +10,12 @@ import prendas.EliminarPrenda;
 public class MainPrendas extends javax.swing.JFrame {
 
     
-    public MainPrendas() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public MainPrendas() {
         initComponents();
     }
 

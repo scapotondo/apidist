@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import negocio.AreaProduccion;
 import negocio.Confeccion;
 import negocio.Insumo;
 
@@ -21,7 +20,7 @@ public class ConfeccionEntity implements Serializable{
 	private int tiempoProd;
 	private String detalle;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne()
 	private AreaProduccionEntity areaProduccion;
 	
 	@OneToMany(cascade = CascadeType.ALL)

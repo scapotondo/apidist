@@ -39,6 +39,7 @@ public class AreaProduccionDao {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		session.beginTransaction();
+		@SuppressWarnings("unchecked")
 		ArrayList<AreaProduccionEntity> areasProduccionEntity = (ArrayList<AreaProduccionEntity>) session.createQuery("from AreaProduccionEntity").list();
 		session.close();
 		

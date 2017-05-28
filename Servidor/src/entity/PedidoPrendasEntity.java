@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import negocio.ItemPrenda;
 import negocio.PedidoPrendas;
 
 @Entity
@@ -71,7 +73,11 @@ public class PedidoPrendasEntity implements Serializable{
 		this.cliente=new ClienteEntity(pedido.getCliente());
 		
 		
-		this.ordenProduccion=ordenProduccion;
+		//this.ordenProduccion=pedido.getOrdenProduccion.getOrdenProduccion();
+		ArrayList<ItemPrendaEntity> items = new ArrayList<>();
+		for (ItemPrenda itemPrenda : pedido.getItems()) {
+			items.add(new ItemPrendaEntity(itemPrenda));
+		}
 		this.items=items;
 	}
 	

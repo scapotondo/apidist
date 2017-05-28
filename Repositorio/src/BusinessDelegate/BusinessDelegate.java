@@ -30,11 +30,17 @@ public class BusinessDelegate {
 	}
 	
 	public void AltaCliente(float limiteCredito,String formaPago,float cuentaCorriente,String cuit,String nombre, 
-			String razonSocial,String telefono, String direccionEnvio,String direccionFacturacion, int nroSucursal ) throws RemoteObjectNotFoundException, ApplicationException{
+			String razonSocial,String telefono, String direccionEnvio,String direccionFacturacion, String cadena ) throws RemoteObjectNotFoundException, ApplicationException{
 	
 		try {
+			
+			String [] partes = cadena.split("-");
+			String cadenaNombre=partes[0];
+			int cadenaNumero = Integer.parseInt(partes[1]);
+			
 			SucursalDto sucursal = new SucursalDto();
-			sucursal.setNumero(nroSucursal);
+			sucursal.setNumero(cadenaNumero);
+			sucursal.setNombre(cadenaNombre);
 			
 			ClienteDto cliente = new ClienteDto(limiteCredito, formaPago, cuentaCorriente, cuit, nombre,
 					razonSocial, telefono, direccionEnvio, direccionFacturacion, sucursal, new ArrayList<>(),0);
@@ -80,12 +86,18 @@ public class BusinessDelegate {
 	}
 	
 	public void ModificarCliente(float limiteCredito,String formaPago,float cuentaCorriente,String cuit,String nombre, 
-			String razonSocial,String telefono, String direccionEnvio,String direccionFacturacion, int nroSucursal,
+			String razonSocial,String telefono, String direccionEnvio,String direccionFacturacion, String cadena,
 			int legajo) throws RemoteObjectNotFoundException, ApplicationException {
 			
 		try {
+			
+			String [] partes = cadena.split("-");
+			String cadenaNombre=partes[0];
+			int cadenaNumero = Integer.parseInt(partes[1]);
+			
 			SucursalDto sucursal = new SucursalDto();
-			sucursal.setNumero(nroSucursal);
+			sucursal.setNumero(cadenaNumero);
+			sucursal.setNombre(cadenaNombre);
 			
 			ClienteDto cliente = new ClienteDto(limiteCredito, formaPago, cuentaCorriente, cuit, nombre,
 					razonSocial, telefono, direccionEnvio, direccionFacturacion, sucursal, new ArrayList<>(),0);
@@ -206,6 +218,18 @@ public class BusinessDelegate {
 		
 		try {
 			return getAreaProduccionRemoto().getMateriasPrimas();
+			
+		} catch (RemoteObjectNotFoundException | RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public ArrayList<SucursalDto> GetSucursales(){
+		
+		try {
+			return getAreaProduccionRemoto().getSucursales();
 			
 		} catch (RemoteObjectNotFoundException | RemoteException e) {
 			e.printStackTrace();

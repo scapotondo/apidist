@@ -2,6 +2,8 @@ package prendas;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import BusinessDelegate.BusinessDelegate;
 import administracion.MainPrendas;
 import dto.PrendaDto;
@@ -92,6 +94,7 @@ public class EliminarPrenda extends javax.swing.JFrame {
     	try {
 			BusinessDelegate.getInstance().EliminarPrenda(comboPrendas.getSelectedItem()+"");
 			
+			JOptionPane.showMessageDialog(null, "La prenda fue eliminada");
 			atras();
 		} catch (RemoteObjectNotFoundException e) {
 			e.printStackTrace();

@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import org.hibernate.Session;
 
 import dto.MateriaPrimaDto;
-import entity.AreaProduccionEntity;
 import entity.MateriaPrimaEntity;
 import hibernate.HibernateUtil;
-import negocio.AreaProduccion;
 import negocio.MateriaPrima;
 
 public class MateriaPrimaDao {
@@ -41,6 +39,7 @@ public class MateriaPrimaDao {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		session.beginTransaction();
+		@SuppressWarnings("unchecked")
 		ArrayList<MateriaPrimaEntity> materiasPrimasEntity = (ArrayList<MateriaPrimaEntity>) session.createQuery("from MateriaPrimaEntity").list();
 		session.close();
 		

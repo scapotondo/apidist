@@ -1,11 +1,6 @@
 
 package administracion;
 
-import java.util.ArrayList;
-
-import dao.SucursalDao;
-import dto.SucursalDto;
-import hibernate.HibernateUtil;
 
 public class NewClass {
     public static void main(String[] args) {

@@ -2,14 +2,10 @@ package entity;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -25,8 +21,7 @@ public class InsumoEntity implements Serializable{
 	private int cantidad;
 	private int desperdicio;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="codigo")
+	@OneToOne()
 	private MateriaPrimaEntity materiaPrima;
 	
 	public InsumoEntity(){}

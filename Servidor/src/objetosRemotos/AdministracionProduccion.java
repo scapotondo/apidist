@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import controller.Controller;
 import dto.AreaProduccionDto;
 import dto.MateriaPrimaDto;
+import dto.SucursalDto;
 import interfaces.AdministracionProduccionInterface;
 
 public class AdministracionProduccion extends UnicastRemoteObject implements AdministracionProduccionInterface {
@@ -28,6 +29,11 @@ public class AdministracionProduccion extends UnicastRemoteObject implements Adm
 	@Override
 	public ArrayList<MateriaPrimaDto> getMateriasPrimas() throws RemoteException {
 		return Controller.getInstance().GetMateriasPrimas();
+	}
+
+	@Override
+	public ArrayList<SucursalDto> getSucursales() throws RemoteException {
+		return Controller.getInstance().getSucursales();
 	}
 	
 

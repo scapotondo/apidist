@@ -1,5 +1,7 @@
 package prendas;
 
+import javax.swing.JOptionPane;
+
 import BusinessDelegate.BusinessDelegate;
 import dto.InsumoDto;
 import dto.MateriaPrimaDto;
@@ -103,14 +105,19 @@ public abstract class Insumo extends javax.swing.JFrame {
 
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
-        //TODO: crear el insumo y asignarselo a insumoDto
-        MateriaPrimaDto materiaPrima = (MateriaPrimaDto) comboMateriaPrima.getSelectedItem();
+    	if(fieldCantidad.getText().equals("") || fieldDesperdicio.getText().equals(""))
+    		JOptionPane.showMessageDialog(null, "Por favor complete todos los campos");
     	
-    	this.insumo= new InsumoDto(Integer.parseInt(fieldCantidad.getText()), Integer.parseInt(fieldDesperdicio.getText()),
-    			materiaPrima);
+    	else{
     	
-        aceptar();
-        setVisible(false);
+	        MateriaPrimaDto materiaPrima = (MateriaPrimaDto) comboMateriaPrima.getSelectedItem();
+	    	
+	    	this.insumo= new InsumoDto(Integer.parseInt(fieldCantidad.getText()), Integer.parseInt(fieldDesperdicio.getText()),
+	    			materiaPrima);
+	    	
+	        aceptar();
+	        setVisible(false);
+    	}
     }
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {
