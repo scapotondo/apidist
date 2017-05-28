@@ -1,11 +1,31 @@
 package prendas;
 
+import java.util.ArrayList;
+
+import BusinessDelegate.BusinessDelegate;
 import administracion.MainPrendas;
+import dto.PrendaDto;
+import exceptions.ApplicationException;
+import exceptions.RemoteObjectNotFoundException;
 
 public class EliminarPrenda extends javax.swing.JFrame {
+	
+	private ArrayList<PrendaDto> prendas = new ArrayList<>();
 
     public EliminarPrenda() {
-        initComponents();
+        try {
+        	
+        	initComponents();
+        	
+			prendas = BusinessDelegate.getInstance().getPrendas();
+			
+			for (PrendaDto prendaDto : prendas) {
+	        	comboPrendas.addItem(prendaDto.getNombre() + "-"+prendaDto.getCodigo());
+			}
+		
+        } catch (RemoteObjectNotFoundException | ApplicationException e) {
+			e.printStackTrace();
+		}
     }
 
 
@@ -68,9 +88,17 @@ public class EliminarPrenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
-//        TODO: conectar con el BusinessDelegate
-        
-        atras();
+
+    	try {
+			BusinessDelegate.getInstance().EliminarPrenda(comboPrendas.getSelectedItem()+"");
+			
+			atras();
+		} catch (RemoteObjectNotFoundException e) {
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
+    	
     }
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {

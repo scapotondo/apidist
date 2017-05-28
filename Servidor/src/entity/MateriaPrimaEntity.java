@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +29,7 @@ public class MateriaPrimaEntity implements Serializable{
 	private String nombre;
 	private int minimo;
 	
-	@OneToMany(mappedBy="materiaPrima")
+	@OneToMany(mappedBy="materiaPrima",cascade = CascadeType.ALL)
 	private List<StockMateriaPrimaEntity> stock;
 	
 	public MateriaPrimaEntity(){}

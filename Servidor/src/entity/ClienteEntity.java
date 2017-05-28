@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
@@ -47,7 +48,7 @@ public class ClienteEntity implements Serializable{
 	@Column(nullable=false)
 	private String direccionFacturacion;
 	
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL)
 	private List<PedidoPrendasEntity> pedidosAceptados;
 	
 	@ManyToOne(targetEntity=SucursalEntity.class)

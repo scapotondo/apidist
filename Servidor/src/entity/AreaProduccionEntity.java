@@ -19,11 +19,11 @@ public class AreaProduccionEntity implements Serializable{
 	
 	private String nombre;
 	
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="areaProduccion_id")
 	private List<LineaProduccionEntity> lineasProduccion;
 	
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="areaProduccion_id")
 	private List<OrdenDeProduccionEntity> ordenesProduccion;
 	

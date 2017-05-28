@@ -21,7 +21,7 @@ public class BuscarPrenda extends javax.swing.JFrame {
         prendas = BusinessDelegate.getInstance().getPrendas();
         
         for (PrendaDto prendaDto : prendas) {
-        	comboPrendas.addItem(prendaDto.getNombre() + " - "+prendaDto.getCodigo());
+        	comboPrendas.addItem(prendaDto.getNombre() + "-"+prendaDto.getCodigo());
 		}
     }
 

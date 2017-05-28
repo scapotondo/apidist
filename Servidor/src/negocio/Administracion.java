@@ -160,33 +160,15 @@ public class Administracion {
 	
 	public void ModificarPrenda(PrendaDto prendaDto) throws PrendaException {
 		
-		ArrayList<Confeccion> confecciones = new ArrayList<Confeccion>();
-		for (ConfeccionDto confeccionDto : prendaDto.getConfecciones()) {
-			
-				AreaProduccion areaProd=AreaProduccionDao.getInstance().getById(confeccionDto.getAreaProduccion());
-			
-			ArrayList<Insumo> insumos = new ArrayList<Insumo>();
-			for (InsumoDto insumoDto : confeccionDto.getInsumos()) {
-				insumos.add(new Insumo(insumoDto.getCantidad(), insumoDto.getDesperdicio(), MateriaPrimaDao.getInstance().getById(insumoDto.getMateriaPrima())));
-			}
-			
-			Confeccion confeccion = new Confeccion(confeccionDto.getTiempoProd(), confeccionDto.getDetalle(), areaProd, insumos);
-			
-			confecciones.add(confeccion);
-		}
+		Prenda prenda = PrendaDao.getInstance().BuscarPrendaPorCodigo(prendaDto);
 		
-		Prenda prenda = new Prenda(
-				prendaDto.getTallesValidos(), 
-				prendaDto.getColoresValidos(),
-				prendaDto.getEsDiscontinuo(),
-				prendaDto.getCantidadAProducir(),
-				prendaDto.getNombre(),
-				prendaDto.getDescripcion(),
-				prendaDto.getPorcentajeGanancia(),
-				confecciones,
-				new ArrayList<StockPrenda>()
-				);
-		
+		prenda.setTallesValidos(prendaDto.getTallesValidos());
+		prenda.setColoresValidos(prendaDto.getColoresValidos());
+		prenda.setEsDiscontinuo(prendaDto.getEsDiscontinuo());
+		prenda.setCantidadAProducir(prendaDto.getCantidadAProducir());
+		prenda.setNombre(prendaDto.getNombre());
+		prenda.setDescripcion(prendaDto.getDescripcion());
+		prenda.setPorsentajeGanancia(prendaDto.getPorcentajeGanancia());
 		
 		prenda.modificame();
 	}

@@ -133,8 +133,15 @@ public class BusinessDelegate {
 		}
 	}
 	
-	public void EliminarPrenda (PrendaDto prendaDto) throws RemoteObjectNotFoundException, ApplicationException {
+	public void EliminarPrenda (String cadena) throws RemoteObjectNotFoundException, ApplicationException {
 		try {
+			String [] partes = cadena.split("-");
+			String nombre=partes[0];
+			int codigo = Integer.parseInt(partes[1]);
+			
+			PrendaDto prendaDto = new PrendaDto(codigo);
+			prendaDto.setNombre(nombre);
+			
 			getAdministracionPrendas().EliminarPrenda(prendaDto);
 		} catch (RemoteException e) {
 			throw new ApplicationException(e.getMessage());

@@ -1,14 +1,32 @@
 package prendas;
 
+import java.util.ArrayList;
+
+import BusinessDelegate.BusinessDelegate;
 import administracion.MainPrendas;
 import dto.PrendaDto;
+import dto.StockPrendaDto;
+import exceptions.ApplicationException;
+import exceptions.RemoteObjectNotFoundException;
 
 public class ModificarPrenda extends javax.swing.JFrame {
-    
-    public ModificarPrenda(PrendaDto prendaModificar) {
+    private int codigo;
+    public ModificarPrenda(PrendaDto prenda) {
         initComponents();
+        CargarColoresField(prenda.getColoresValidos());
+        CargarTallesField(prenda.getTallesValidos());
         
+        if(prenda.getEsDiscontinuo()==true)
+        	comboBoxDiscontinuo.setSelectedItem("Si");
+        else
+        	comboBoxDiscontinuo.setSelectedItem("No");
         
+        fieldCantidadProducir.setText(prenda.getCantidadAProducir()+"");
+        fieldDescripcion.setText(prenda.getDescripcion());
+        fieldNombre.setText(prenda.getNombre());
+        fieldPorcentajeGanancias.setText(prenda.getPorcentajeGanancia()+"");
+        
+        this.codigo=prenda.getCodigo();
     }
     
     private void initComponents() {
@@ -201,7 +219,30 @@ public class ModificarPrenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
-        //TODO: conectar con BusinessDelegate
+    	try {
+	    	ArrayList<String> tallesValidos = new ArrayList<String>();
+	    	ArrayList<String> coloresValidos = new ArrayList<String>();
+	    	boolean discontinuo=false;
+	    	
+	    	if((comboBoxDiscontinuo.getSelectedItem()+"").equals("Si"))
+	    		discontinuo=true;
+	    	
+	    	CargarTalles(tallesValidos);
+	    	CargarColores(coloresValidos);
+	    	
+	        PrendaDto prenda = new PrendaDto(tallesValidos, coloresValidos,0,discontinuo,Integer.parseInt(fieldCantidadProducir.getText()),
+	        		fieldNombre.getText(),fieldDescripcion.getText(),Float.parseFloat(fieldPorcentajeGanancias.getText()),
+	        		new ArrayList<>(),new ArrayList<StockPrendaDto>());
+	        prenda.setCodigo(this.codigo);
+	        
+			BusinessDelegate.getInstance().ModificarPrenda(prenda);
+			
+			Atras();
+		} catch (RemoteObjectNotFoundException e) {
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
         
         Atras();
     }
@@ -210,7 +251,88 @@ public class ModificarPrenda extends javax.swing.JFrame {
         Atras();
     }
 
+    private void CargarColoresField(ArrayList<String> colores){
+    	for (String color : colores) {
+    		
+    		if(color.equals("amarillo"))
+    			checkAmarillo.setSelected(true);
+    		
+    		if(color.equals("azul"))
+    			checkAzul.setSelected(true);
+        	
+    		if(color.equals("blanco"))
+    			checkBlanco.setSelected(true);
+    		
+    		if(color.equals("negro"))
+    			checkNegro.setSelected(true);
+        	
+    		if(color.equals("verde"))
+    			checkVerde.setSelected(true);
+        	
+    		if(color.equals("rojo"))
+    			checkRojo.setSelected(true);
+		}
+    	
+    }
    
+    private void CargarTallesField(ArrayList<String> talles){
+    	for (String talle : talles) {
+			if(talle.equals("xs"))
+				checkXS.setSelected(true);
+			
+			if(talle.equals("s"))
+				checkS.setSelected(true);
+			
+			if(talle.equals("m"))
+				checkM.setSelected(true);
+			
+			if(talle.equals("l"))
+				checkL.setSelected(true);
+			
+			if(talle.equals("xl"))
+				checkXL.setSelected(true);
+			
+		}
+    }
+    
+    private void CargarTalles(ArrayList<String> tallesValidos){
+    	if(checkXS.isSelected() == true)
+    		tallesValidos.add("xs");
+    	
+    	if(checkS.isSelected() == true)
+    		tallesValidos.add("s");
+    	
+    	if(checkM.isSelected() == true)
+    		tallesValidos.add("m");
+    	
+    	if(checkL.isSelected() == true)
+    		tallesValidos.add("l");
+    	
+    	if(checkXL.isSelected() == true)
+    		tallesValidos.add("xl");
+    	
+    }
+    
+    private void CargarColores(ArrayList<String> coloresValidos){
+    	if(checkAmarillo.isSelected()==true)
+    		coloresValidos.add("amarillo");
+    	
+    	if(checkAzul.isSelected()==true)
+    		coloresValidos.add("azul");
+    	
+    	if(checkBlanco.isSelected()==true)
+    		coloresValidos.add("blanco");
+    	
+    	if(checkNegro.isSelected()==true)
+    		coloresValidos.add("negro");
+    	
+    	if(checkVerde.isSelected()==true)
+    		coloresValidos.add("verde");
+    	
+    	if(checkRojo.isSelected()==true)
+    		coloresValidos.add("rojo");
+    	
+    }
     private void Atras(){
         MainPrendas mp = new MainPrendas();
         mp.setLocationRelativeTo(null);

@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -28,11 +29,11 @@ public class ItemPrendaEntity implements Serializable{
 	private String color;
 	private float importe;
 	
-	@OneToOne()
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="codigo")
 	private PrendaEntity prenda;
 	
-	@OneToOne()
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="nroOrden")
 	private OrdenDeProduccionEntity lote;
 	

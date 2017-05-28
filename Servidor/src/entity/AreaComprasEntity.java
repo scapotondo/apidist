@@ -17,7 +17,7 @@ public class AreaComprasEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="areaCompras_id")
 	private List<OrdenDeCompraEntity> ordenesDeCompra;
 	
