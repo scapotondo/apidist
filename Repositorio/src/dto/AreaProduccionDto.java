@@ -57,4 +57,9 @@ public class AreaProduccionDto implements Serializable{
 		this.ordenesProduccion = ordenesProduccion;
 	}
 	
+	@Override
+	public String toString() {
+		return this.nombre+" - "+this.codigo;
+	}
+	
 }

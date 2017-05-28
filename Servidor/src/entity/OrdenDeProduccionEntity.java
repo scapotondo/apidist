@@ -39,7 +39,6 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	private String estado;
 	
 	@OneToMany()
-	@JoinColumn(name="ordenDeProduccion_id")
 	private List<MateriaPrimaEntity> materiasPrimasReservadas;
 	
 	private int confeccionesTerminadas;

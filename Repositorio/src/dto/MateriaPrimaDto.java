@@ -52,4 +52,10 @@ public class MateriaPrimaDto implements Serializable{
 		this.stock = stock;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.nombre+" - "+this.codigo;
+	}
+	
 }

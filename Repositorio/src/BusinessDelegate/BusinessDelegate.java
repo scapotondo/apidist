@@ -119,6 +119,7 @@ public class BusinessDelegate {
 	private AdministracionPrendasInterface getAdministracionPrendas() throws RemoteObjectNotFoundException {
 		try {
 			return (AdministracionPrendasInterface)Naming.lookup("//localhost/administracion/prendas");
+			
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			throw new RemoteObjectNotFoundException("No se pude encontrar Administracion de Prendas");
 		}
@@ -156,17 +157,56 @@ public class BusinessDelegate {
 		}
 	}
 	
-	public PrendaDto buscarPrendaPorCodigo (PrendaDto prendaDto) throws RemoteObjectNotFoundException, ApplicationException {
+	public PrendaDto buscarPrendaPorCodigo (String cadena) throws RemoteObjectNotFoundException, ApplicationException {
 		try {
+			String [] partes = cadena.split("-");
+			String nombre=partes[0];
+			int codigo = Integer.parseInt(partes[1]);
+			
+			PrendaDto prendaDto = new PrendaDto(codigo);
+			prendaDto.setNombre(nombre);
+			
 			return getAdministracionPrendas().BuscarPrendaPorNumero(prendaDto);
 		} catch (RemoteException e) {
 			throw new ApplicationException(e.getMessage());
 		}
 	}
+	
+	
+	private AdministracionProduccionInterface getAreaProduccionRemoto() throws RemoteObjectNotFoundException {
+		try {
+			return (AdministracionProduccionInterface)Naming.lookup("//localhost/administracion/produccion");
+			
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+			throw new RemoteObjectNotFoundException("No se pude encontrar administracion produccion");
+		}
+	}
+	
+	
+	public ArrayList<AreaProduccionDto> GetAreasProduccion(){
+		
+		try {
+			return getAreaProduccionRemoto().getAreasProduccion();
+			
+		} catch (RemoteObjectNotFoundException | RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public ArrayList<MateriaPrimaDto> GetMateriasPrimas(){
+		
+		try {
+			return getAreaProduccionRemoto().getMateriasPrimas();
+			
+		} catch (RemoteObjectNotFoundException | RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 }
-
-
-
 
 
 

@@ -118,17 +118,14 @@ public class Administracion {
 		ArrayList<Confeccion> confecciones = new ArrayList<Confeccion>();
 		for (ConfeccionDto confeccionDto : prendaDto.getConfecciones()) {
 			
-			ArrayList<AreaProduccion> areasProd = new ArrayList<AreaProduccion>();
-			for (AreaProduccionDto areaProdDto : confeccionDto.getAreaProduccion()) {
-				areasProd.add(AreaProduccionDao.getInstance().getById(areaProdDto));
-			}
+			AreaProduccion areaProd = AreaProduccionDao.getInstance().getById(confeccionDto.getAreaProduccion());
 			
 			ArrayList<Insumo> insumos = new ArrayList<Insumo>();
 			for (InsumoDto insumoDto : confeccionDto.getInsumos()) {
 				insumos.add(new Insumo(insumoDto.getCantidad(), insumoDto.getDesperdicio(), MateriaPrimaDao.getInstance().getById(insumoDto.getMateriaPrima())));
 			}
 			
-			Confeccion confeccion = new Confeccion(confeccionDto.getTiempoProd(), confeccionDto.getDetalle(), areasProd, insumos);
+			Confeccion confeccion = new Confeccion(confeccionDto.getTiempoProd(), confeccionDto.getDetalle(), areaProd, insumos);
 			
 			confecciones.add(confeccion);
 		}
@@ -166,33 +163,30 @@ public class Administracion {
 		ArrayList<Confeccion> confecciones = new ArrayList<Confeccion>();
 		for (ConfeccionDto confeccionDto : prendaDto.getConfecciones()) {
 			
-			ArrayList<AreaProduccion> areasProd = new ArrayList<AreaProduccion>();
-			for (AreaProduccionDto areaProdDto : confeccionDto.getAreaProduccion()) {
-				areasProd.add(AreaProduccionDao.getInstance().getById(areaProdDto));
-			}
+				AreaProduccion areaProd=AreaProduccionDao.getInstance().getById(confeccionDto.getAreaProduccion());
 			
 			ArrayList<Insumo> insumos = new ArrayList<Insumo>();
 			for (InsumoDto insumoDto : confeccionDto.getInsumos()) {
 				insumos.add(new Insumo(insumoDto.getCantidad(), insumoDto.getDesperdicio(), MateriaPrimaDao.getInstance().getById(insumoDto.getMateriaPrima())));
 			}
 			
-			Confeccion confeccion = new Confeccion(confeccionDto.getTiempoProd(), confeccionDto.getDetalle(), areasProd, insumos);
+			Confeccion confeccion = new Confeccion(confeccionDto.getTiempoProd(), confeccionDto.getDetalle(), areaProd, insumos);
 			
 			confecciones.add(confeccion);
 		}
 		
-		Prenda prenda = this.BuscarPrendaPorNumero(prendaDto);
-		if (prenda == null)
-			throw new PrendaException("La prenda a modificar no existe");
+		Prenda prenda = new Prenda(
+				prendaDto.getTallesValidos(), 
+				prendaDto.getColoresValidos(),
+				prendaDto.getEsDiscontinuo(),
+				prendaDto.getCantidadAProducir(),
+				prendaDto.getNombre(),
+				prendaDto.getDescripcion(),
+				prendaDto.getPorcentajeGanancia(),
+				confecciones,
+				new ArrayList<StockPrenda>()
+				);
 		
-		prenda.setCantidadAProducir(prendaDto.getCantidadAProducir());
-		prenda.setColoresValidos(prendaDto.getColoresValidos());
-		prenda.setTallesValidos(prendaDto.getTallesValidos());
-		prenda.setEsDiscontinuo(prendaDto.getEsDiscontinuo());
-		prenda.setNombre(prendaDto.getNombre());
-		prenda.setDescripcion(prendaDto.getDescripcion());
-		prenda.setPorsentajeGanancia(prendaDto.getPorcentajeGanancia());
-		prenda.setConfecciones(confecciones);
 		
 		prenda.modificame();
 	}

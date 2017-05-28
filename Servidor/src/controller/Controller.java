@@ -3,6 +3,8 @@ package controller;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import dao.AreaProduccionDao;
+import dao.MateriaPrimaDao;
 import dao.SucursalDao;
 import dto.*;
 import dto.PedidoPrendasDto;
@@ -169,6 +171,28 @@ public class Controller {
 	private AreaProduccion BuscarAreaProduccion(int codigo){
 		//TODO: terminar
 		return null;
+	}
+	
+	public ArrayList<AreaProduccionDto> GetAreasProduccion(){
+		ArrayList<AreaProduccionDto> areasProduccionDto = new ArrayList<AreaProduccionDto>();
+		
+		ArrayList<AreaProduccion> areasProduccion = AreaProduccionDao.getInstance().getAreasProduccion();
+		for (AreaProduccion areaProduccion : areasProduccion) {
+			areasProduccionDto.add(areaProduccion.toDto());
+		}
+		
+		return areasProduccionDto;
+	}
+	
+	public ArrayList<MateriaPrimaDto> GetMateriasPrimas(){
+		ArrayList<MateriaPrimaDto> materiasPrimasDto = new ArrayList<MateriaPrimaDto>();
+		
+		ArrayList<MateriaPrima> materiasPrimas = MateriaPrimaDao.getInstance().getMateriasPrimas();
+		for (MateriaPrima materiaPrima : materiasPrimas) {
+			materiasPrimasDto.add(materiaPrima.toDto());
+		}
+		
+		return materiasPrimasDto;
 	}
 	
 }

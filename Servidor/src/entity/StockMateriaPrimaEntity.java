@@ -26,7 +26,6 @@ public class StockMateriaPrimaEntity implements Serializable{
 	private MateriaPrimaEntity materiaPrima;
 	
 	@OneToOne()
-	@JoinColumn(name="lote_id")
 	private OrdenDeCompraEntity lote;
 	
 	private Date fechaRecepcion;

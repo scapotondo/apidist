@@ -17,6 +17,7 @@ public class AreaProduccion {
 	private int codigo;
 	
 	public AreaProduccion(AreaProduccionEntity area){
+		this.codigo=area.getCodigo();
 		this.nombre=area.getNombre();
 		this.lineasProduccion=new ArrayList<>();
 		for (LineaProduccionEntity lineaProduccionEntity : area.getLineasProduccion()) {
@@ -97,6 +98,6 @@ public class AreaProduccion {
 		for (OrdenDeProduccion ordenDeProduccion : ordenesProduccion) {
 			ordenesProduccionDto.add(ordenDeProduccion.toDto());
 		}
-		return new AreaProduccionDto(nombre, lineasProduccionDto, ordenesProduccionDto);
+		return new AreaProduccionDto(this.codigo,nombre, lineasProduccionDto, ordenesProduccionDto);
 	}
 }

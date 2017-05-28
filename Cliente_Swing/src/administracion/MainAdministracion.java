@@ -85,18 +85,18 @@ public class MainAdministracion extends javax.swing.JFrame {
     }//GEN-LAST:event_clientesActionPerformed
 
     private void prendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prendasActionPerformed
-        MainFacturacion mf =new MainFacturacion();
-        mf.setLocationRelativeTo(null);
-        mf.setVisible(true);
+        MainPrendas mp =new MainPrendas();
+        mp.setLocationRelativeTo(null);
+        mp.setVisible(true);
         setVisible(false);
-    }//GEN-LAST:event_prendasActionPerformed
+    }
 
     private void facturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facturacionActionPerformed
         MainPrendas mp=new MainPrendas();
         mp.setLocationRelativeTo(null);
         mp.setVisible(true);
         setVisible(false);
-    }//GEN-LAST:event_facturacionActionPerformed
+    }
 
    
     // Variables declaration - do not modify//GEN-BEGIN:variables

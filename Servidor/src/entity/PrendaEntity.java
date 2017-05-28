@@ -87,7 +87,8 @@ public class PrendaEntity implements Serializable{
 		this.nombre=prenda.getNombre();
 		this.descripcion=prenda.getDescripcion();
 		this.porsentajeGanancia=prenda.getPorsentajeGanancia();
-
+		this.confecciones = new ArrayList<ConfeccionEntity>();
+		
 		if(prenda.getTallesValidos()!=null)
 			this.tallesValidos=prenda.getTallesValidos();
 		else

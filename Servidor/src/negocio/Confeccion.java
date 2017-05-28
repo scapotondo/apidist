@@ -14,7 +14,7 @@ public class Confeccion {
 	private int id;
 	private int tiempoProd;
 	private String detalle;
-	private ArrayList<AreaProduccion> areasProduccion;
+	private AreaProduccion areaProduccion;
 	private ArrayList<Insumo> insumos;
 	
 	
@@ -22,11 +22,9 @@ public class Confeccion {
 		this.id=confeccion.getId();
 		this.tiempoProd=confeccion.getTiempoProd();
 		this.detalle=confeccion.getDetalle();
-		this.areasProduccion=new ArrayList<>();
+		this.areaProduccion=new AreaProduccion(confeccion.getAreaProduccion());
 		this.insumos=new ArrayList<>();
-		for (AreaProduccionEntity areaProduccionEntity : confeccion.getAreasProduccion()) {
-			this.areasProduccion.add(new AreaProduccion(areaProduccionEntity));
-		}
+		
 		for (InsumoEntity insumoEntity : confeccion.getInsumos()) {
 			this.insumos.add(new Insumo(insumoEntity));
 		}
@@ -40,18 +38,18 @@ public class Confeccion {
 		this.id = id;
 	}
 
-	public Confeccion(int id, int tiempoProd, String detalle, ArrayList<AreaProduccion> areaProduccion, ArrayList<Insumo> insumos){
+	public Confeccion(int id, int tiempoProd, String detalle, AreaProduccion areaProduccion, ArrayList<Insumo> insumos){
 		this.id=id;
 		this.tiempoProd=tiempoProd;
 		this.detalle=detalle;
-		this.areasProduccion=areaProduccion;
+		this.areaProduccion=areaProduccion;
 		this.insumos=insumos;
 	}
 	
-	public Confeccion(int tiempoProd, String detalle, ArrayList<AreaProduccion> areaProduccion, ArrayList<Insumo> insumos){
+	public Confeccion(int tiempoProd, String detalle, AreaProduccion areaProduccion, ArrayList<Insumo> insumos){
 		this.tiempoProd=tiempoProd;
 		this.detalle=detalle;
-		this.areasProduccion=areaProduccion;
+		this.areaProduccion=areaProduccion;
 		this.insumos=insumos;
 	}
 	
@@ -75,12 +73,12 @@ public class Confeccion {
 		this.detalle = detalle;
 	}
 
-	public ArrayList<AreaProduccion> getAreasProduccion() {
-		return areasProduccion;
+	public AreaProduccion getAreaProduccion() {
+		return areaProduccion;
 	}
 
-	public void setAreasProduccion(ArrayList<AreaProduccion> areaProduccion) {
-		this.areasProduccion = areaProduccion;
+	public void setAreaProduccion(AreaProduccion areaProduccion) {
+		this.areaProduccion = areaProduccion;
 	}
 
 	public void setInsumos(ArrayList<Insumo> insumos) {
@@ -94,11 +92,7 @@ public class Confeccion {
 			insumosDto.add(insumo.toDto());
 		}
 		
-		ArrayList<AreaProduccionDto> areasProduccionDto = new ArrayList<>();
-		for (AreaProduccion areaProduccion2 : this.areasProduccion) {
-			areasProduccionDto.add(areaProduccion2.toDto());
-		}
 		
-		return new ConfeccionDto(tiempoProd, detalle,areasProduccionDto, insumosDto);
+		return new ConfeccionDto(tiempoProd, detalle,areaProduccion.toDto(), insumosDto);
 	}
 }

@@ -28,9 +28,6 @@ public class MateriaPrimaEntity implements Serializable{
 	private String nombre;
 	private int minimo;
 	
-	@OneToOne()
-	private OrdenDeCompraEntity ordenDeCompra;
-	
 	@OneToMany(mappedBy="materiaPrima")
 	private List<StockMateriaPrimaEntity> stock;
 	
@@ -38,7 +35,6 @@ public class MateriaPrimaEntity implements Serializable{
 	public MateriaPrimaEntity(MateriaPrima materiaPrima){
 		this.nombre = materiaPrima.getNombre();
 		this.minimo = materiaPrima.getMinimo();
-		this.ordenDeCompra = new OrdenDeCompraEntity(materiaPrima.getOrdenDeCompra());
 		this.stock = new ArrayList<StockMateriaPrimaEntity>();
 		if(materiaPrima.getStock() != null){
 			for (StockMateriaPrima stockMateriaPrima : materiaPrima.getStock()) {
@@ -69,14 +65,6 @@ public class MateriaPrimaEntity implements Serializable{
 
 	public void setMinimo(int minimo) {
 		this.minimo = minimo;
-	}
-
-	public OrdenDeCompraEntity getOrdenDeCompra() {
-		return ordenDeCompra;
-	}
-
-	public void setOrdenDeCompra(OrdenDeCompraEntity ordenDeCompra) {
-		this.ordenDeCompra = ordenDeCompra;
 	}
 
 	public List<StockMateriaPrimaEntity> getStock() {
