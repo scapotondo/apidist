@@ -93,6 +93,6 @@ public class Confeccion {
 		}
 		
 		
-		return new ConfeccionDto(tiempoProd, detalle,areaProduccion.toDto(), insumosDto);
+		return new ConfeccionDto(tiempoProd, detalle, areaProduccion.toDto(), insumosDto);
 	}
 }

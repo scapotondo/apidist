@@ -78,7 +78,7 @@ public abstract class Confeccion extends javax.swing.JFrame {
             }
         });
 
-        refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/arrow_refresh.png"))); // NOI18N
+        refresh.setIcon(new javax.swing.ImageIcon("src/iconos/arrow_refresh.png")); // NOI18N
         refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refreshActionPerformed(evt);
