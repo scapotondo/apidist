@@ -7,6 +7,7 @@ public class Despacho {
 	private Almacen almacen;
 	private ArrayList<PedidoPrendas> pedidosPrenda;
 	private Administracion administracion;
+	private int id;
 	
 	public Despacho(Almacen almacen,ArrayList<PedidoPrendas> pedidosPrenda,Administracion administracion){
 		this.almacen=almacen;
@@ -46,6 +47,14 @@ public class Despacho {
 
 	public void setAdministracion(Administracion administracion) {
 		this.administracion = administracion;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }

@@ -25,7 +25,7 @@ public class MainPrendas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/house_go.png"))); // NOI18N
+        home.setIcon(new javax.swing.ImageIcon("src/iconos/house_go.png")); // NOI18N
         home.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 homeActionPerformed(evt);
@@ -35,7 +35,7 @@ public class MainPrendas extends javax.swing.JFrame {
         labelCliente.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         labelCliente.setText("Prendas");
 
-        alta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/add.png"))); // NOI18N
+        alta.setIcon(new javax.swing.ImageIcon("src/iconos/add.png")); // NOI18N
         alta.setText("Alta");
         alta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -43,7 +43,7 @@ public class MainPrendas extends javax.swing.JFrame {
             }
         });
 
-        modificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/pencil.png"))); // NOI18N
+        modificar.setIcon(new javax.swing.ImageIcon("src/iconos/pencil.png")); // NOI18N
         modificar.setText("Modificar");
         modificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -51,7 +51,7 @@ public class MainPrendas extends javax.swing.JFrame {
             }
         });
 
-        baja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/delete.png"))); // NOI18N
+        baja.setIcon(new javax.swing.ImageIcon("src/iconos/delete.png")); // NOI18N
         baja.setText("Baja");
         baja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -33,6 +33,7 @@ public class MateriaPrimaEntity implements Serializable{
 	
 	public MateriaPrimaEntity(){}
 	public MateriaPrimaEntity(MateriaPrima materiaPrima){
+		this.codigo = materiaPrima.getCodigo();
 		this.nombre = materiaPrima.getNombre();
 		this.minimo = materiaPrima.getMinimo();
 		this.stock = new ArrayList<StockMateriaPrimaEntity>();

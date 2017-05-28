@@ -37,6 +37,7 @@ public class ItemPrendaEntity implements Serializable{
 	private OrdenDeProduccionEntity lote;
 	
 	public ItemPrendaEntity(){}
+	
 	public ItemPrendaEntity(int cantidad, String talle, String color,float importe, PrendaEntity prenda, OrdenDeProduccionEntity lote ){
 		this.cantidad=cantidad;
 		this.talle=talle;
@@ -45,7 +46,9 @@ public class ItemPrendaEntity implements Serializable{
 		this.prenda=prenda;
 		this.lote = lote;
 	}
+	
 	public ItemPrendaEntity(ItemPrenda itemPrenda){
+		this.id = itemPrenda.getId();
 		this.cantidad = itemPrenda.getCantidad();
 		this.talle = itemPrenda.getTalle();
 		this.color = itemPrenda.getColor();

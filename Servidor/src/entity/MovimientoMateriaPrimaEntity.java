@@ -31,6 +31,7 @@ public class MovimientoMateriaPrimaEntity implements Serializable{
 	
 	public MovimientoMateriaPrimaEntity(){}
 	public MovimientoMateriaPrimaEntity(MovimientoMateriaPrima movimientoMateriaPrima){
+		this.id = movimientoMateriaPrima.getId();
 		this.estado = movimientoMateriaPrima.getEstado();
 		this.cantidad = movimientoMateriaPrima.getCantidad();
 		this.fecha = movimientoMateriaPrima.getFecha();

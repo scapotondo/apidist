@@ -39,7 +39,7 @@ public class EmpleadoEntity implements Serializable{
 		this.telefono = empleado.getTelefono();
 		this.legajo = empleado.getLegajo();
 		this.rol=empleado.getRol();
-				
+		this.legajo = empleado.getLegajo();		
 	}
 	public String getRol() {
 		return rol;

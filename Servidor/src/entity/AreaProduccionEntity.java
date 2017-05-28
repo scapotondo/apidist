@@ -28,7 +28,9 @@ public class AreaProduccionEntity implements Serializable{
 	private List<OrdenDeProduccionEntity> ordenesProduccion;
 	
 	public AreaProduccionEntity(){}
+	
 	public AreaProduccionEntity(AreaProduccion areaProduccion){
+		this.codigo = areaProduccion.getCodigo();
 		this.nombre = areaProduccion.getNombre();
 		
 		this.lineasProduccion = new ArrayList<LineaProduccionEntity>();

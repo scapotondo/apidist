@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.ArrayList;
 
+import dao.ConfeccionDao;
 import dto.AreaProduccionDto;
 import dto.ConfeccionDto;
 import dto.InsumoDto;
@@ -54,7 +55,7 @@ public class Confeccion {
 	}
 	
 	public ArrayList<Insumo> getInsumos(){
-		return null;
+		return insumos;
 	}
 
 	public int getTiempoProd() {
@@ -94,5 +95,9 @@ public class Confeccion {
 		
 		
 		return new ConfeccionDto(tiempoProd, detalle, areaProduccion.toDto(), insumosDto);
+	}
+	
+	public void saveMe() {
+		ConfeccionDao.getInstance().crearConfeccion(this);
 	}
 }

@@ -22,7 +22,9 @@ public class AreaComprasEntity implements Serializable{
 	private List<OrdenDeCompraEntity> ordenesDeCompra;
 	
 	public AreaComprasEntity(){}
+	
 	public AreaComprasEntity(AreaCompras areaCompras){
+		this.id = areaCompras.getId();
 		this.ordenesDeCompra = new ArrayList<OrdenDeCompraEntity>();
 		if(areaCompras.getOrdenesCompras() != null){
 			for (OrdenDeCompra ordenDeCompra : areaCompras.getOrdenesCompras()) {

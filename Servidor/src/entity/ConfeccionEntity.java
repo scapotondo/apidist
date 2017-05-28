@@ -21,14 +21,15 @@ public class ConfeccionEntity implements Serializable{
 	private int tiempoProd;
 	private String detalle;
 	
-	@OneToOne()
+	@OneToOne(cascade = CascadeType.ALL)
 	private AreaProduccionEntity areaProduccion;
 	
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="confeccion_id")
 	private List<InsumoEntity> insumos;
 	
-	public ConfeccionEntity(){}
+	public ConfeccionEntity() { }
+	
 	public ConfeccionEntity(Confeccion confeccion){
 		this.tiempoProd = confeccion.getTiempoProd();
 		this.detalle = confeccion.getDetalle();

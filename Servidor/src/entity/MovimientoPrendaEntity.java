@@ -48,7 +48,7 @@ public class MovimientoPrendaEntity implements Serializable{
 	} 
 	
 	public MovimientoPrendaEntity(MovimientoPrenda movimiento){
-		
+		this.id = movimiento.getId();
 		this.cantidad=movimiento.getCantidad();
 		this.fecha=movimiento.getFecha();
 		this.talle=movimiento.getTalle();
