@@ -3,6 +3,7 @@ package entity;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -41,12 +42,12 @@ public class FacturaEntity implements Serializable{
 	private float precio;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	private ArrayList<ItemFacturaEntity> items;
+	private List<ItemFacturaEntity> items;
 	
 	public FacturaEntity(){}
 	
 	public FacturaEntity(int nroComprobante, Date fecha, String nombreComprador, String domicilioComprador, String cuit,
-			String comprador, String condicionesVenta, ArrayList<ItemFacturaEntity> items, float precio, String razonSocialVendedor,
+			String comprador, String condicionesVenta, List<ItemFacturaEntity> items, float precio, String razonSocialVendedor,
 			String domicilioVendedor,String telefonoVendedor, String datosIvaVendedor, String cuitVendedor){
 		
 		this.razonSocialVendedor = razonSocialVendedor;
@@ -171,11 +172,11 @@ public class FacturaEntity implements Serializable{
 	}
 
 
-	public ArrayList<ItemFacturaEntity> getItems() {
+	public List<ItemFacturaEntity> getItems() {
 		return items;
 	}
 
-	public void setItems(ArrayList<ItemFacturaEntity> items) {
+	public void setItems(List<ItemFacturaEntity> items) {
 		this.items = items;
 	}
 
