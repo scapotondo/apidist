@@ -98,4 +98,9 @@ public class Confeccion {
 	public void saveMe() {
 		ConfeccionDao.getInstance().crearConfeccion(this);
 	}
+	
+	@Override
+	public String toString() {
+		return this.detalle;
+	}
 }

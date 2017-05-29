@@ -54,4 +54,9 @@ public class Insumo {
 	public void saveMe() {
 		InsumoDao.getInstance().crearInsumo(this);
 	}
+	
+	@Override
+	public String toString() {
+		return this.cantidad + " de " +this.materiaPrima.getNombre() ;
+	}
 }

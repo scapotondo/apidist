@@ -202,8 +202,8 @@ public class AltaCliente extends javax.swing.JFrame {
 						razonSocialField.getText(), telefonoField.getText(), direccionEnvioField.getText(), 
 						direccionFacturacionField.getText(), comboSucursal.getSelectedItem()+"");
 	    		
-	    		JOptionPane.showMessageDialog(null, "El cliente fue creado");
 	    		atras();
+	    		JOptionPane.showMessageDialog(null, "El cliente fue creado");
     		}
 		} catch (RemoteObjectNotFoundException | ApplicationException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
