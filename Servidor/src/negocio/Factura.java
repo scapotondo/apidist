@@ -1,6 +1,7 @@
 package negocio;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public abstract class Factura {
 	
@@ -24,10 +25,12 @@ public abstract class Factura {
 	private String cuitComprador;
 	
 	private String condicionesVenta; //efectivo, cheque, cuenta corriente
-	private String descripcion; //elemento, cantidad, precio unitario
+	private ArrayList<ItemFactura> items; //elemento, cantidad, precio unitario
 	private float precio;
 	
-	public Factura(int nroComprobante, Date fecha, String nombreComprador, String domicilioComprador, String cuit, String comprador, String condicionesVenta, String descripcion, float precio){
+	public Factura(int nroComprobante, Date fecha, String nombreComprador, String domicilioComprador, String cuit, 
+			String comprador, String condicionesVenta, ArrayList<ItemFactura> items, float precio){
+		
 		this.razonSocialVendedor = RAZON_SOCIAL_VENDEDOR;
 		this.domicilioVendedor = DOMICILIO_VENDEDOR;
 		this.telefonoVendedor = TELEFONO_VENDEDOR;
@@ -39,7 +42,7 @@ public abstract class Factura {
 		this.domicilioComprador = domicilioComprador;
 		this.cuitComprador = cuit;
 		this.condicionesVenta = condicionesVenta;
-		this.descripcion = descripcion;
+		this.items = items;
 		this.precio = precio;
 	}
 
@@ -131,12 +134,12 @@ public abstract class Factura {
 		this.condicionesVenta = condicionesVenta;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public ArrayList<ItemFactura> getItems() {
+		return items;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setItems(ArrayList<ItemFactura> items) {
+		this.items = items;
 	}
 
 	public float getPrecio() {

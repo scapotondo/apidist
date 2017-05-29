@@ -2,12 +2,18 @@ package entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import negocio.Factura;
+import negocio.ItemFactura;
 
 @Entity
 @Table(name="Factura")
@@ -31,13 +37,16 @@ public class FacturaEntity implements Serializable{
 	private String cuitComprador;
 	
 	private String condicionesVenta; //efectivo, cheque, cuenta corriente
-	private String descripcion; //elemento, cantidad, precio unitario
+	
 	private float precio;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	private ArrayList<ItemFacturaEntity> items;
 	
 	public FacturaEntity(){}
 	
 	public FacturaEntity(int nroComprobante, Date fecha, String nombreComprador, String domicilioComprador, String cuit,
-			String comprador, String condicionesVenta, String descripcion, float precio, String razonSocialVendedor,
+			String comprador, String condicionesVenta, ArrayList<ItemFacturaEntity> items, float precio, String razonSocialVendedor,
 			String domicilioVendedor,String telefonoVendedor, String datosIvaVendedor, String cuitVendedor){
 		
 		this.razonSocialVendedor = razonSocialVendedor;
@@ -51,8 +60,30 @@ public class FacturaEntity implements Serializable{
 		this.domicilioComprador = domicilioComprador;
 		this.cuitComprador = cuit;
 		this.condicionesVenta = condicionesVenta;
-		this.descripcion = descripcion;
+		this.items = items;
 		this.precio = precio;
+	}
+	
+	public FacturaEntity(Factura factura){
+		
+		this.razonSocialVendedor = factura.getRazonSocialVendedor();
+		this.domicilioVendedor = factura.getDomicilioVendedor();
+		this.telefonoVendedor = factura.getTelefonoVendedor();
+		this.datosIvaVendedor = factura.getDatosIvaVendedor();
+		this.cuitVendedor = factura.getCuitVendedor();
+		this.nroComprobante = factura.getNroComprobante();
+		this.fecha = factura.getFecha();
+		this.nombreComprador = factura.getNombreComprador();
+		this.domicilioComprador = factura.getDomicilioComprador();
+		this.cuitComprador = factura.getCuitComprador();
+		this.condicionesVenta = factura.getCondicionesVenta();
+		this.precio = factura.getPrecio();
+
+		ArrayList<ItemFacturaEntity> items = new ArrayList<ItemFacturaEntity>();
+		for (ItemFactura itemFactura : factura.getItems()) {
+			items.add(new ItemFacturaEntity(itemFactura));
+		}
+		this.items = items;
 	}
 
 	public int getNroComprobante() {
@@ -139,12 +170,17 @@ public class FacturaEntity implements Serializable{
 		this.condicionesVenta = condicionesVenta;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+
+	public ArrayList<ItemFacturaEntity> getItems() {
+		return items;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setItems(ArrayList<ItemFacturaEntity> items) {
+		this.items = items;
+	}
+
+	public void setNroComprobante(int nroComprobante) {
+		this.nroComprobante = nroComprobante;
 	}
 
 	public float getPrecio() {

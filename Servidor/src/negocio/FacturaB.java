@@ -1,13 +1,14 @@
 package negocio;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class FacturaB extends Factura{
 
 	public FacturaB(int nroComprobante, Date fecha, String nombreComprador, String domicilioComprador, String cuit,
-			String comprador, String condicionesVenta, String descripcion, float precio) {
+			String comprador, String condicionesVenta, ArrayList<ItemFactura> items, float precio) {
 		
-		super(nroComprobante, fecha, nombreComprador, domicilioComprador, cuit, comprador, condicionesVenta, descripcion,
+		super(nroComprobante, fecha, nombreComprador, domicilioComprador, cuit, comprador, condicionesVenta, items,
 				precio);
 	}
 
