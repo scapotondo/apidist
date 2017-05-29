@@ -48,7 +48,7 @@ public class MovimientoPrendaEntity implements Serializable{
 	} 
 	
 	public MovimientoPrendaEntity(MovimientoPrenda movimiento){
-		
+		this.id = movimiento.getId();
 		this.cantidad=movimiento.getCantidad();
 		this.fecha=movimiento.getFecha();
 		this.talle=movimiento.getTalle();
@@ -56,6 +56,79 @@ public class MovimientoPrendaEntity implements Serializable{
 		this.encargado=movimiento.getEncargado();
 		this.quienAutorizo=movimiento.getQuienAutorizo();
 		this.destino=movimiento.getDestino();
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public String getTalle() {
+		return talle;
+	}
+
+	public void setTalle(String talle) {
+		this.talle = talle;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getEncargado() {
+		return encargado;
+	}
+
+	public void setEncargado(String encargado) {
+		this.encargado = encargado;
+	}
+
+	public String getQuienAutorizo() {
+		return quienAutorizo;
+	}
+
+	public void setQuienAutorizo(String quienAutorizo) {
+		this.quienAutorizo = quienAutorizo;
+	}
+
+	public String getDestino() {
+		return destino;
+	}
+
+	public void setDestino(String destino) {
+		this.destino = destino;
+	}
+
+	public PrendaEntity getPrenda() {
+		return prenda;
+	}
+
+	public void setPrenda(PrendaEntity prenda) {
+		this.prenda = prenda;
 	} 
 
+	
 }

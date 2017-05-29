@@ -4,14 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import negocio.MateriaPrima;
@@ -28,17 +27,14 @@ public class MateriaPrimaEntity implements Serializable{
 	private String nombre;
 	private int minimo;
 	
-	@OneToOne()
-	private OrdenDeCompraEntity ordenDeCompra;
-	
-	@OneToMany(mappedBy="materiaPrima")
+	@OneToMany(mappedBy="materiaPrima",cascade = CascadeType.ALL)
 	private List<StockMateriaPrimaEntity> stock;
 	
 	public MateriaPrimaEntity(){}
 	public MateriaPrimaEntity(MateriaPrima materiaPrima){
+		this.codigo = materiaPrima.getCodigo();
 		this.nombre = materiaPrima.getNombre();
 		this.minimo = materiaPrima.getMinimo();
-		this.ordenDeCompra = new OrdenDeCompraEntity(materiaPrima.getOrdenDeCompra());
 		this.stock = new ArrayList<StockMateriaPrimaEntity>();
 		if(materiaPrima.getStock() != null){
 			for (StockMateriaPrima stockMateriaPrima : materiaPrima.getStock()) {
@@ -69,14 +65,6 @@ public class MateriaPrimaEntity implements Serializable{
 
 	public void setMinimo(int minimo) {
 		this.minimo = minimo;
-	}
-
-	public OrdenDeCompraEntity getOrdenDeCompra() {
-		return ordenDeCompra;
-	}
-
-	public void setOrdenDeCompra(OrdenDeCompraEntity ordenDeCompra) {
-		this.ordenDeCompra = ordenDeCompra;
 	}
 
 	public List<StockMateriaPrimaEntity> getStock() {

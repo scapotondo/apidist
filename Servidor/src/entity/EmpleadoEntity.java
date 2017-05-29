@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import negocio.Empleado;
@@ -39,7 +38,7 @@ public class EmpleadoEntity implements Serializable{
 		this.telefono = empleado.getTelefono();
 		this.legajo = empleado.getLegajo();
 		this.rol=empleado.getRol();
-				
+		this.legajo = empleado.getLegajo();		
 	}
 	public String getRol() {
 		return rol;

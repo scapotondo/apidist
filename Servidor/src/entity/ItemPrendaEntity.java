@@ -2,14 +2,13 @@ package entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -28,15 +27,16 @@ public class ItemPrendaEntity implements Serializable{
 	private String color;
 	private float importe;
 	
-	@OneToOne()
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="codigo")
 	private PrendaEntity prenda;
 	
-	@OneToOne()
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="nroOrden")
 	private OrdenDeProduccionEntity lote;
 	
 	public ItemPrendaEntity(){}
+	
 	public ItemPrendaEntity(int cantidad, String talle, String color,float importe, PrendaEntity prenda, OrdenDeProduccionEntity lote ){
 		this.cantidad=cantidad;
 		this.talle=talle;
@@ -45,7 +45,9 @@ public class ItemPrendaEntity implements Serializable{
 		this.prenda=prenda;
 		this.lote = lote;
 	}
+	
 	public ItemPrendaEntity(ItemPrenda itemPrenda){
+		this.id = itemPrenda.getId();
 		this.cantidad = itemPrenda.getCantidad();
 		this.talle = itemPrenda.getTalle();
 		this.color = itemPrenda.getColor();

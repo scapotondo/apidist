@@ -1,21 +1,28 @@
 
 package administracion;
 
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 import BusinessDelegate.BusinessDelegate;
-import exceptions.*;
+import dto.SucursalDto;
+import exceptions.ApplicationException;
+import exceptions.RemoteObjectNotFoundException;
 
 public class AltaCliente extends javax.swing.JFrame {
    
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    private ArrayList<SucursalDto> sucursalesDto;
+	
 	public AltaCliente() {
         
     	initComponents();
     	
+    	sucursalesDto= BusinessDelegate.getInstance().GetSucursales();
+    	
+    	for (SucursalDto sucursalDto : sucursalesDto) {
+			comboSucursal.addItem(sucursalDto.getNombre() + " -" + sucursalDto.getNumero());
+		}
     }
 
     private void initComponents() {
@@ -41,7 +48,7 @@ public class AltaCliente extends javax.swing.JFrame {
         aceptar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
         labelNroSucursal = new javax.swing.JLabel();
-        nroSucursalField = new javax.swing.JTextField();
+        comboSucursal = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,7 +84,7 @@ public class AltaCliente extends javax.swing.JFrame {
             }
         });
 
-        labelNroSucursal.setText("numero sucursal");
+        labelNroSucursal.setText("Sucursal");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,7 +122,7 @@ public class AltaCliente extends javax.swing.JFrame {
                         .addComponent(razonSocialField, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(telefonoField, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(direccionEnvioField, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(nroSucursalField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                        .addComponent(comboSucursal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addComponent(cancelar)))
@@ -166,7 +173,7 @@ public class AltaCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNroSucursal)
-                    .addComponent(nroSucursalField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aceptar)
@@ -180,15 +187,28 @@ public class AltaCliente extends javax.swing.JFrame {
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
        
     	try {
-			BusinessDelegate.getInstance().AltaCliente(Float.parseFloat(limiteCreditoField.getText()), formaPagoField.getText(),
-					Float.parseFloat(cuentaCorrienteField.getText()), cuitField.getText(),nombreField.getText(),
-					razonSocialField.getText(), telefonoField.getText(), direccionEnvioField.getText(), 
-					direccionFacturacionField.getText(), Integer.parseInt(nroSucursalField.getText()));
+    		
+    		if(limiteCreditoField.getText().equals("")|| formaPagoField.getText().equals("")||
+			   cuentaCorrienteField.getText().equals("")|| cuitField.getText().equals("")||nombreField.getText().equals("")||
+					razonSocialField.getText().equals("")|| telefonoField.getText().equals("")||
+					direccionEnvioField.getText().equals("")||direccionFacturacionField.getText().equals(""))
+    			
+    			JOptionPane.showMessageDialog(null, "Por favor complete todos los campos");
+    		
+    		else{
+    		
+	    		BusinessDelegate.getInstance().AltaCliente(Float.parseFloat(limiteCreditoField.getText()), formaPagoField.getText(),
+						Float.parseFloat(cuentaCorrienteField.getText()), cuitField.getText(),nombreField.getText(),
+						razonSocialField.getText(), telefonoField.getText(), direccionEnvioField.getText(), 
+						direccionFacturacionField.getText(), comboSucursal.getSelectedItem()+"");
+	    		
+	    		JOptionPane.showMessageDialog(null, "El cliente fue creado");
+	    		atras();
+    		}
 		} catch (RemoteObjectNotFoundException | ApplicationException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 
-    	atras();
     }
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,7 +241,7 @@ public class AltaCliente extends javax.swing.JFrame {
     private javax.swing.JTextField limiteCreditoField;
     private javax.swing.JLabel limiteCreditoLabel;
     private javax.swing.JTextField nombreField;
-    private javax.swing.JTextField nroSucursalField;
+    private javax.swing.JComboBox<String> comboSucursal;
     private javax.swing.JTextField razonSocialField;
     private javax.swing.JLabel razonSocialLabel;
     private javax.swing.JTextField telefonoField;

@@ -14,6 +14,7 @@ public class MovimientoPrenda {
 	private String quienAutorizo;
 	private String destino;
 	private Prenda prenda;
+	private int id;
 	
 	public MovimientoPrenda(int cantidad, Date fecha, String talle, String color, String encargado, String quienAutorizo,
 			String destino, Prenda prenda){
@@ -93,6 +94,14 @@ public class MovimientoPrenda {
 	
 	public MovimientoPrendaDto toDto(){
 		return new MovimientoPrendaDto(cantidad, fecha, talle, color, encargado, quienAutorizo, destino, prenda.toDto());
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }

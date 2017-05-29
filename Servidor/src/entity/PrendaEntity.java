@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
@@ -40,11 +41,11 @@ public class PrendaEntity implements Serializable{
 	@ElementCollection
 	private List<String> coloresValidos;
 
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="prenda_id")
 	private List<ConfeccionEntity> confecciones;
 	
-	@OneToMany(mappedBy="prenda")
+	@OneToMany(mappedBy="prenda", cascade = CascadeType.ALL)
 	private List<StockPrendaEntity> stock;
 	
 	public PrendaEntity(){}
@@ -87,7 +88,8 @@ public class PrendaEntity implements Serializable{
 		this.nombre=prenda.getNombre();
 		this.descripcion=prenda.getDescripcion();
 		this.porsentajeGanancia=prenda.getPorsentajeGanancia();
-
+		this.confecciones = new ArrayList<ConfeccionEntity>();
+		
 		if(prenda.getTallesValidos()!=null)
 			this.tallesValidos=prenda.getTallesValidos();
 		else

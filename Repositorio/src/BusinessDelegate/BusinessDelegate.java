@@ -30,11 +30,17 @@ public class BusinessDelegate {
 	}
 	
 	public void AltaCliente(float limiteCredito,String formaPago,float cuentaCorriente,String cuit,String nombre, 
-			String razonSocial,String telefono, String direccionEnvio,String direccionFacturacion, int nroSucursal ) throws RemoteObjectNotFoundException, ApplicationException{
+			String razonSocial,String telefono, String direccionEnvio,String direccionFacturacion, String cadena ) throws RemoteObjectNotFoundException, ApplicationException{
 	
 		try {
+			
+			String [] partes = cadena.split("-");
+			String cadenaNombre=partes[0];
+			int cadenaNumero = Integer.parseInt(partes[1]);
+			
 			SucursalDto sucursal = new SucursalDto();
-			sucursal.setNumero(nroSucursal);
+			sucursal.setNumero(cadenaNumero);
+			sucursal.setNombre(cadenaNombre);
 			
 			ClienteDto cliente = new ClienteDto(limiteCredito, formaPago, cuentaCorriente, cuit, nombre,
 					razonSocial, telefono, direccionEnvio, direccionFacturacion, sucursal, new ArrayList<>(),0);
@@ -80,12 +86,18 @@ public class BusinessDelegate {
 	}
 	
 	public void ModificarCliente(float limiteCredito,String formaPago,float cuentaCorriente,String cuit,String nombre, 
-			String razonSocial,String telefono, String direccionEnvio,String direccionFacturacion, int nroSucursal,
+			String razonSocial,String telefono, String direccionEnvio,String direccionFacturacion, String cadena,
 			int legajo) throws RemoteObjectNotFoundException, ApplicationException {
 			
 		try {
+			
+			String [] partes = cadena.split("-");
+			String cadenaNombre=partes[0];
+			int cadenaNumero = Integer.parseInt(partes[1]);
+			
 			SucursalDto sucursal = new SucursalDto();
-			sucursal.setNumero(nroSucursal);
+			sucursal.setNumero(cadenaNumero);
+			sucursal.setNombre(cadenaNombre);
 			
 			ClienteDto cliente = new ClienteDto(limiteCredito, formaPago, cuentaCorriente, cuit, nombre,
 					razonSocial, telefono, direccionEnvio, direccionFacturacion, sucursal, new ArrayList<>(),0);
@@ -119,6 +131,7 @@ public class BusinessDelegate {
 	private AdministracionPrendasInterface getAdministracionPrendas() throws RemoteObjectNotFoundException {
 		try {
 			return (AdministracionPrendasInterface)Naming.lookup("//localhost/administracion/prendas");
+			
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			throw new RemoteObjectNotFoundException("No se pude encontrar Administracion de Prendas");
 		}
@@ -132,8 +145,15 @@ public class BusinessDelegate {
 		}
 	}
 	
-	public void EliminarPrenda (PrendaDto prendaDto) throws RemoteObjectNotFoundException, ApplicationException {
+	public void EliminarPrenda (String cadena) throws RemoteObjectNotFoundException, ApplicationException {
 		try {
+			String [] partes = cadena.split("-");
+			String nombre=partes[0];
+			int codigo = Integer.parseInt(partes[1]);
+			
+			PrendaDto prendaDto = new PrendaDto(codigo);
+			prendaDto.setNombre(nombre);
+			
 			getAdministracionPrendas().EliminarPrenda(prendaDto);
 		} catch (RemoteException e) {
 			throw new ApplicationException(e.getMessage());
@@ -156,17 +176,68 @@ public class BusinessDelegate {
 		}
 	}
 	
-	public PrendaDto buscarPrendaPorCodigo (PrendaDto prendaDto) throws RemoteObjectNotFoundException, ApplicationException {
+	public PrendaDto buscarPrendaPorCodigo (String cadena) throws RemoteObjectNotFoundException, ApplicationException {
 		try {
+			String [] partes = cadena.split("-");
+			String nombre=partes[0];
+			int codigo = Integer.parseInt(partes[1]);
+			
+			PrendaDto prendaDto = new PrendaDto(codigo);
+			prendaDto.setNombre(nombre);
+			
 			return getAdministracionPrendas().BuscarPrendaPorNumero(prendaDto);
 		} catch (RemoteException e) {
 			throw new ApplicationException(e.getMessage());
 		}
 	}
+	
+	
+	private AdministracionProduccionInterface getAreaProduccionRemoto() throws RemoteObjectNotFoundException {
+		try {
+			return (AdministracionProduccionInterface)Naming.lookup("//localhost/administracion/produccion");
+			
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+			throw new RemoteObjectNotFoundException("No se pude encontrar administracion produccion");
+		}
+	}
+	
+	
+	public ArrayList<AreaProduccionDto> GetAreasProduccion(){
+		
+		try {
+			return getAreaProduccionRemoto().getAreasProduccion();
+			
+		} catch (RemoteObjectNotFoundException | RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public ArrayList<MateriaPrimaDto> GetMateriasPrimas(){
+		
+		try {
+			return getAreaProduccionRemoto().getMateriasPrimas();
+			
+		} catch (RemoteObjectNotFoundException | RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public ArrayList<SucursalDto> GetSucursales(){
+		
+		try {
+			return getAreaProduccionRemoto().getSucursales();
+			
+		} catch (RemoteObjectNotFoundException | RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 }
-
-
-
 
 
 

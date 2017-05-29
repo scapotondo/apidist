@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.ArrayList;
+
 import org.hibernate.Session;
 
 import dto.AreaProduccionDto;
@@ -31,5 +33,25 @@ public class AreaProduccionDao {
 			return null;
 		
 		return new AreaProduccion(areaProduccionEntity);
+	}
+	
+	public ArrayList<AreaProduccion> getAreasProduccion () {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		ArrayList<AreaProduccionEntity> areasProduccionEntity = (ArrayList<AreaProduccionEntity>) session.createQuery("from AreaProduccionEntity").list();
+		session.close();
+		
+		if (areasProduccionEntity == null)
+			return null;
+		
+		ArrayList<AreaProduccion> areasProduccion = new ArrayList<AreaProduccion>();
+		
+		for (AreaProduccionEntity areaProduccionEntity : areasProduccionEntity) {
+			areasProduccion.add(new AreaProduccion(areaProduccionEntity));
+		}
+		
+		return areasProduccion;
 	}
 }

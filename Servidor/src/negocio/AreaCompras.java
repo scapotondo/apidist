@@ -6,7 +6,16 @@ import java.util.ArrayList;
 public class AreaCompras {
 
 	private ArrayList<OrdenDeCompra> ordenesCompras;
+	private int id;
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public AreaCompras(ArrayList<OrdenDeCompra> ordenesCompras){
 		this.ordenesCompras=ordenesCompras;
 	}

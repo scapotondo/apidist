@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import negocio.AreaProduccion;
 import negocio.Confeccion;
 import negocio.Insumo;
 
@@ -21,24 +20,20 @@ public class ConfeccionEntity implements Serializable{
 	private int tiempoProd;
 	private String detalle;
 	
-	@OneToMany()
-	@JoinColumn(name="confeccion_id")
-	private List<AreaProduccionEntity> areasProduccion;
+	@OneToOne()
+	private AreaProduccionEntity areaProduccion;
 	
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="confeccion_id")
 	private List<InsumoEntity> insumos;
 	
-	public ConfeccionEntity(){}
+	public ConfeccionEntity() { }
+	
 	public ConfeccionEntity(Confeccion confeccion){
 		this.tiempoProd = confeccion.getTiempoProd();
 		this.detalle = confeccion.getDetalle();
-		this.areasProduccion = new ArrayList<AreaProduccionEntity>();
-		if(confeccion.getAreasProduccion() != null){
-			for (AreaProduccion areaProduccion : confeccion.getAreasProduccion()) {
-				this.areasProduccion.add(new AreaProduccionEntity(areaProduccion));
-			}
-		}
+		this.areaProduccion = new AreaProduccionEntity(confeccion.getAreaProduccion());
+		
 		this.insumos = new ArrayList<InsumoEntity>();
 		if(confeccion.getInsumos() != null){
 			for (Insumo insumo : confeccion.getInsumos()) {
@@ -71,12 +66,12 @@ public class ConfeccionEntity implements Serializable{
 		this.detalle = detalle;
 	}
 
-	public List<AreaProduccionEntity> getAreasProduccion() {
-		return areasProduccion;
+	public AreaProduccionEntity getAreaProduccion() {
+		return areaProduccion;
 	}
 
-	public void setAreasProduccion(List<AreaProduccionEntity> areaProduccion) {
-		this.areasProduccion = areaProduccion;
+	public void setAreaProduccion(AreaProduccionEntity areaProduccion) {
+		this.areaProduccion = areaProduccion;
 	}
 
 	public List<InsumoEntity> getInsumos() {

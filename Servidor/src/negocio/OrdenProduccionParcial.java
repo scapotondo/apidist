@@ -19,4 +19,21 @@ public class OrdenProduccionParcial extends OrdenDeProduccion {
 		return 0;
 	}
 
+	public ArrayList<String> getTalles() {
+		return talles;
+	}
+
+	public void setTalles(ArrayList<String> talles) {
+		this.talles = talles;
+	}
+
+	public ArrayList<String> getColores() {
+		return colores;
+	}
+
+	public void setColores(ArrayList<String> colores) {
+		this.colores = colores;
+	}
+
+	
 }

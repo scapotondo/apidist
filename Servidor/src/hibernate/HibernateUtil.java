@@ -1,13 +1,32 @@
 package hibernate;
 
-import java.util.ArrayList;
-
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import dao.SucursalDao;
-import dto.SucursalDto;
-import entity.*;
+import entity.AlmacenEntity;
+import entity.AreaComprasEntity;
+import entity.AreaProduccionEntity;
+import entity.ClienteEntity;
+import entity.ConfeccionEntity;
+import entity.DespachoEntity;
+import entity.EmpleadoEntity;
+import entity.InsumoEntity;
+import entity.ItemPrendaEntity;
+import entity.LineaProduccionEntity;
+import entity.MateriaPrimaEntity;
+import entity.MovimientoMateriaPrimaEntity;
+import entity.MovimientoPrendaEntity;
+import entity.OrdenDeCompraEntity;
+import entity.OrdenDeProduccionCompletaEntity;
+import entity.OrdenDeProduccionEntity;
+import entity.OrdenDeProduccionParcialEntity;
+import entity.PedidoPrendasEntity;
+import entity.PrendaEntity;
+import entity.ProveedorEntity;
+import entity.StockMateriaPrimaEntity;
+import entity.StockPrendaEntity;
+import entity.SucursalEntity;
  
 public class HibernateUtil{
 	
@@ -52,16 +71,10 @@ public class HibernateUtil{
         return sessionFactory;
     }
     
-//    public static void main(String[] args) {
-//    	SessionFactory sf = HibernateUtil.getSessionFactory();
-//		Session session = sf.openSession();
-//	}
-    public static void datos(){
-    	
-    	SucursalDto sucursal1 = new SucursalDto(1, "sucursal1", "direccion", new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-    	
-    	SucursalDao.getInstance().altaSucursal(sucursal1);
-    	
-    }
-
+    public static void main(String[] args) {
+    	SessionFactory sf = HibernateUtil.getSessionFactory();
+		@SuppressWarnings("unused")
+		Session session = sf.openSession();
+	}
+    
 }

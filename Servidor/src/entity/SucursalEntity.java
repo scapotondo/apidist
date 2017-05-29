@@ -60,7 +60,7 @@ public class SucursalEntity implements Serializable{
 		this.empleados = empleados;
 	}
 	
-	public SucursalEntity(Sucursal sucursal){
+	public SucursalEntity(Sucursal sucursal) {
 		this.numero = sucursal.getNumero();
 		this.nombre = sucursal.getNombre();
 		this.direccion = sucursal.getDireccion();

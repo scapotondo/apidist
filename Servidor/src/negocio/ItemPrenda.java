@@ -11,6 +11,8 @@ public class ItemPrenda {
 	private float importe;
 	private Prenda prenda;
 	private OrdenDeProduccion lote;
+	private int id;
+	
 	
 	public ItemPrenda(ItemPrendaEntity item){
 		this.cantidad=item.getCantidad();
@@ -85,5 +87,13 @@ public class ItemPrenda {
 	
 	public ItemPrendaDto toDto(){
 		return new ItemPrendaDto(cantidad, talle, color, importe, prenda.toDto(), lote.toDto());
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

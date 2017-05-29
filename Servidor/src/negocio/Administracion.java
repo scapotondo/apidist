@@ -7,7 +7,6 @@ import dao.ClienteDao;
 import dao.MateriaPrimaDao;
 import dao.PrendaDao;
 import dto.AdministracionDto;
-import dto.AreaProduccionDto;
 import dto.ClienteDto;
 import dto.ConfeccionDto;
 import dto.InsumoDto;
@@ -118,17 +117,14 @@ public class Administracion {
 		ArrayList<Confeccion> confecciones = new ArrayList<Confeccion>();
 		for (ConfeccionDto confeccionDto : prendaDto.getConfecciones()) {
 			
-			ArrayList<AreaProduccion> areasProd = new ArrayList<AreaProduccion>();
-			for (AreaProduccionDto areaProdDto : confeccionDto.getAreaProduccion()) {
-				areasProd.add(AreaProduccionDao.getInstance().getById(areaProdDto));
-			}
+			AreaProduccion areaProd = AreaProduccionDao.getInstance().getById(confeccionDto.getAreaProduccion());
 			
 			ArrayList<Insumo> insumos = new ArrayList<Insumo>();
 			for (InsumoDto insumoDto : confeccionDto.getInsumos()) {
 				insumos.add(new Insumo(insumoDto.getCantidad(), insumoDto.getDesperdicio(), MateriaPrimaDao.getInstance().getById(insumoDto.getMateriaPrima())));
 			}
 			
-			Confeccion confeccion = new Confeccion(confeccionDto.getTiempoProd(), confeccionDto.getDetalle(), areasProd, insumos);
+			Confeccion confeccion = new Confeccion(confeccionDto.getTiempoProd(), confeccionDto.getDetalle(), areaProd, insumos);
 			
 			confecciones.add(confeccion);
 		}
@@ -163,36 +159,15 @@ public class Administracion {
 	
 	public void ModificarPrenda(PrendaDto prendaDto) throws PrendaException {
 		
-		ArrayList<Confeccion> confecciones = new ArrayList<Confeccion>();
-		for (ConfeccionDto confeccionDto : prendaDto.getConfecciones()) {
-			
-			ArrayList<AreaProduccion> areasProd = new ArrayList<AreaProduccion>();
-			for (AreaProduccionDto areaProdDto : confeccionDto.getAreaProduccion()) {
-				areasProd.add(AreaProduccionDao.getInstance().getById(areaProdDto));
-			}
-			
-			ArrayList<Insumo> insumos = new ArrayList<Insumo>();
-			for (InsumoDto insumoDto : confeccionDto.getInsumos()) {
-				insumos.add(new Insumo(insumoDto.getCantidad(), insumoDto.getDesperdicio(), MateriaPrimaDao.getInstance().getById(insumoDto.getMateriaPrima())));
-			}
-			
-			Confeccion confeccion = new Confeccion(confeccionDto.getTiempoProd(), confeccionDto.getDetalle(), areasProd, insumos);
-			
-			confecciones.add(confeccion);
-		}
+		Prenda prenda = PrendaDao.getInstance().BuscarPrendaPorCodigo(prendaDto);
 		
-		Prenda prenda = this.BuscarPrendaPorNumero(prendaDto);
-		if (prenda == null)
-			throw new PrendaException("La prenda a modificar no existe");
-		
-		prenda.setCantidadAProducir(prendaDto.getCantidadAProducir());
-		prenda.setColoresValidos(prendaDto.getColoresValidos());
 		prenda.setTallesValidos(prendaDto.getTallesValidos());
+		prenda.setColoresValidos(prendaDto.getColoresValidos());
 		prenda.setEsDiscontinuo(prendaDto.getEsDiscontinuo());
+		prenda.setCantidadAProducir(prendaDto.getCantidadAProducir());
 		prenda.setNombre(prendaDto.getNombre());
 		prenda.setDescripcion(prendaDto.getDescripcion());
 		prenda.setPorsentajeGanancia(prendaDto.getPorcentajeGanancia());
-		prenda.setConfecciones(confecciones);
 		
 		prenda.modificame();
 	}

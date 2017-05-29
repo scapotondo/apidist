@@ -1,6 +1,7 @@
 package negocio;
 
 
+import dao.InsumoDao;
 import dto.InsumoDto;
 import entity.InsumoEntity;
 
@@ -48,5 +49,9 @@ public class Insumo {
 	
 	public InsumoDto toDto(){
 		return new InsumoDto(cantidad, desperdicio, materiaPrima.toDto());
+	}
+	
+	public void saveMe() {
+		InsumoDao.getInstance().crearInsumo(this);
 	}
 }

@@ -1,26 +1,11 @@
 package controller;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import dao.SucursalDao;
 import dto.*;
-import dto.PedidoPrendasDto;
-import dto.PrendaDto;
-import exceptions.ClienteException;
-import exceptions.PrendaException;
-import exceptions.SucursalException;
-import negocio.Administracion;
-import negocio.Almacen;
-import negocio.AreaCompras;
-import negocio.AreaProduccion;
-import negocio.Cliente;
-import negocio.Despacho;
-import negocio.MateriaPrima;
-import negocio.OrdenDeProduccion;
-import negocio.PedidoPrendas;
-import negocio.Prenda;
-import negocio.Sucursal;
+import exceptions.*;
+import negocio.*;
+import dao.*;
 
 public class Controller {
 	private static Controller instance;
@@ -44,7 +29,7 @@ public class Controller {
 	}
 	//TODO: ver si lo pasamos directo a administracion o no 
 	public void AltaCliente(ClienteDto cliente) throws SucursalException {
-		Sucursal sucursal = SucursalDao.getInstance().getSucursalById(cliente.getSucursal().getNumero());
+		Sucursal sucursal = this.BuscarSucursal(cliente.getSucursal().getNumero());
 		if (sucursal == null)
 			throw new SucursalException("La sucursal indicada no existe");
 		
@@ -52,7 +37,7 @@ public class Controller {
 	}
 
 	public void ModificarCliente(ClienteDto cliente) throws ClienteException, SucursalException {
-		Sucursal sucursal = SucursalDao.getInstance().getSucursalById(cliente.getSucursal().getNumero());
+		Sucursal sucursal = this.BuscarSucursal(cliente.getSucursal().getNumero());
 		if (sucursal == null)
 			throw new SucursalException("La sucursal indicada no existe");
 		
@@ -112,13 +97,12 @@ public class Controller {
 	}
 	
 	private PedidoPrendas BuscarPedido(int nroPedido){
-		//TODO: terminar
 		return null;
 	}
 	
 	private Sucursal BuscarSucursal(int nroSucursal){
-		//TODO: terminar
-		return null;
+		
+		return SucursalDao.getInstance().getSucursalById(nroSucursal);
 	}
 	
 	public void RechazarPedidoAdmin(int nroPedido, int nroSucursal, String descripcion){
@@ -166,9 +150,42 @@ public class Controller {
 		
 	}
 	
-	private AreaProduccion BuscarAreaProduccion(int codigo){
-		//TODO: terminar
-		return null;
+	private AreaProduccion BuscarAreaProduccion(AreaProduccionDto areaProdDto){
+		return AreaProduccionDao.getInstance().getById(areaProdDto);
+	}
+	
+	public ArrayList<AreaProduccionDto> GetAreasProduccion(){
+		ArrayList<AreaProduccionDto> areasProduccionDto = new ArrayList<AreaProduccionDto>();
+		
+		ArrayList<AreaProduccion> areasProduccion = AreaProduccionDao.getInstance().getAreasProduccion();
+		for (AreaProduccion areaProduccion : areasProduccion) {
+			areasProduccionDto.add(areaProduccion.toDto());
+		}
+		
+		return areasProduccionDto;
+	}
+	
+	public ArrayList<MateriaPrimaDto> GetMateriasPrimas(){
+		ArrayList<MateriaPrimaDto> materiasPrimasDto = new ArrayList<MateriaPrimaDto>();
+		
+		ArrayList<MateriaPrima> materiasPrimas = MateriaPrimaDao.getInstance().getMateriasPrimas();
+		for (MateriaPrima materiaPrima : materiasPrimas) {
+			materiasPrimasDto.add(materiaPrima.toDto());
+		}
+		
+		return materiasPrimasDto;
+	}
+	
+	public ArrayList<SucursalDto> getSucursales(){
+		
+		ArrayList<SucursalDto> sucursalesDto = new ArrayList<SucursalDto>();
+		
+		ArrayList<Sucursal> sucursales = SucursalDao.getInstance().getSucursales();
+		for (Sucursal sucursal : sucursales) {
+			sucursalesDto.add(sucursal.toDto());
+		}
+		
+		return sucursalesDto;
 	}
 	
 }

@@ -37,6 +37,27 @@ public class SucursalDao {
 		return new Sucursal(sucursal);
 	}
 	
+	public ArrayList<Sucursal> getSucursales(){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		ArrayList<SucursalEntity> sucursalesEntity =(ArrayList<SucursalEntity>) session.createQuery("from SucursalEntity").list();
+		session.getTransaction().commit();
+		session.close();
+		
+		if (sucursalesEntity == null)
+			return null;
+		
+		ArrayList<Sucursal> sucursales = new ArrayList<Sucursal>();
+		
+		for (SucursalEntity sucursalEntity : sucursalesEntity) {
+			sucursales.add(new Sucursal(sucursalEntity));
+		}
+		
+		return sucursales;
+	}
+	
 	public void altaSucursal(SucursalDto sucursal){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		

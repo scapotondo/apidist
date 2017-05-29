@@ -10,10 +10,10 @@ public class ConfeccionDto implements Serializable{
 	
 	private int tiempoProd;
 	private String detalle;
-	private ArrayList<AreaProduccionDto> areaProduccion;
+	private AreaProduccionDto areaProduccion;
 	private ArrayList<InsumoDto> insumos;
 	
-	public ConfeccionDto(int tiempoProd, String detalle, ArrayList<AreaProduccionDto> areaProduccion, ArrayList<InsumoDto> insumos){
+	public ConfeccionDto(int tiempoProd, String detalle, AreaProduccionDto areaProduccion, ArrayList<InsumoDto> insumos){
 		this.tiempoProd=tiempoProd;
 		this.detalle=detalle;
 		this.areaProduccion=areaProduccion;
@@ -36,11 +36,11 @@ public class ConfeccionDto implements Serializable{
 		this.detalle = detalle;
 	}
 
-	public ArrayList<AreaProduccionDto> getAreaProduccion() {
+	public AreaProduccionDto getAreaProduccion() {
 		return areaProduccion;
 	}
 
-	public void setAreaProduccion(ArrayList<AreaProduccionDto> areaProduccion) {
+	public void setAreaProduccion(AreaProduccionDto areaProduccion) {
 		this.areaProduccion = areaProduccion;
 	}
 

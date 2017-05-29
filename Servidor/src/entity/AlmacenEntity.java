@@ -1,10 +1,9 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,19 +22,19 @@ public class AlmacenEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="almacen_Id")
 	private List<MovimientoPrendaEntity> movimientosPrendas;
 	
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="almacen_Id")
 	private List<MovimientoMateriaPrimaEntity> movimientosMateriaPrima;
 	
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="almacen_Id")
 	private List<StockPrendaEntity> stockPrendas;
 	
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="almacen_Id")
 	private List<StockMateriaPrimaEntity> stockMateriaPrima;
 }

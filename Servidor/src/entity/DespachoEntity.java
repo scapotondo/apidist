@@ -36,6 +36,7 @@ public class DespachoEntity implements Serializable{
 	public DespachoEntity(Despacho despacho){
 		//TODO
 		//this.almacen = new AlmacenEntity(despacho.getAlmacen());
+		this.id = despacho.getId();
 		this.pedidosPrenda = new ArrayList<PedidoPrendasEntity>();
 		if(despacho.getPedidosPrenda() != null){
 			for (PedidoPrendas pedidoPrendas : despacho.getPedidosPrenda()) {

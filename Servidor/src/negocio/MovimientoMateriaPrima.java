@@ -10,6 +10,7 @@ public class MovimientoMateriaPrima {
 	private int cantidad;
 	private Date fecha;
 	private MateriaPrima materiaPrima;
+	private int id;
 	
 	public MovimientoMateriaPrima(String estado, int cantidad, Date fecha, MateriaPrima materiaPrima){
 		this.estado=estado;
@@ -52,6 +53,14 @@ public class MovimientoMateriaPrima {
 	
 	public MovimientoMateriaPrimaDto toDto(){
 		return new MovimientoMateriaPrimaDto(estado, cantidad, fecha, materiaPrima.toDto());
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }

@@ -19,16 +19,18 @@ public class AreaProduccionEntity implements Serializable{
 	
 	private String nombre;
 	
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="areaProduccion_id")
 	private List<LineaProduccionEntity> lineasProduccion;
 	
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="areaProduccion_id")
 	private List<OrdenDeProduccionEntity> ordenesProduccion;
 	
 	public AreaProduccionEntity(){}
+	
 	public AreaProduccionEntity(AreaProduccion areaProduccion){
+		this.codigo = areaProduccion.getCodigo();
 		this.nombre = areaProduccion.getNombre();
 		
 		this.lineasProduccion = new ArrayList<LineaProduccionEntity>();
