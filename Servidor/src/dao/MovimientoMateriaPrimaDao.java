@@ -8,7 +8,6 @@ import hibernate.HibernateUtil;
 import negocio.MovimientoMateriaPrima;
 
 public class MovimientoMateriaPrimaDao {
-	
 private static MovimientoMateriaPrimaDao instance;
 	
 	public static MovimientoMateriaPrimaDao getInstance(){
@@ -44,7 +43,7 @@ private static MovimientoMateriaPrimaDao instance;
 		session.close();
 	}
 	
-	public MovimientoMateriaPrima BuscarMovimientoMateriaPrima(MovimientoMateriaPrimaDto movimiento){
+	public MovimientoMateriaPrima BuscarMovimientoPrenda(MovimientoMateriaPrimaDto movimiento){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		

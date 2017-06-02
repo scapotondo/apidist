@@ -57,8 +57,16 @@ public class LineaProduccion {
 		this.trabajo = trabajo;
 	}
 
+	
 	public void asignarTrabajo(String trabajo, Date tiempo){
-		
+		this.setTiempoLiberarse(tiempo);
+		this.setTrabajo(trabajo);
+	}
+	
+	//TODO: checkear si el trabajo y tiempo cuando esta vacio lo dejamos en null o ponemos un valor pro defecto.
+	public void Liberar(){
+		this.setTiempoLiberarse(null);
+		this.setTrabajo(null);
 	}
 	
 	public LineaProduccionDto toDto(){
