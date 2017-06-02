@@ -16,9 +16,11 @@ public class MovimientoPrendaDto implements Serializable{
 	private String quienAutorizo;
 	private String destino;
 	private PrendaDto prenda;
+	private int id;
 	
-	public MovimientoPrendaDto(int cantidad, Date fecha, String talle, String color, String encargado, String quienAutorizo,
+	public MovimientoPrendaDto(int id,int cantidad, Date fecha, String talle, String color, String encargado, String quienAutorizo,
 			String destino, PrendaDto prenda){
+		this.id= id;
 		this.cantidad=cantidad;
 		this.fecha=fecha;
 		this.talle=talle;
@@ -28,6 +30,17 @@ public class MovimientoPrendaDto implements Serializable{
 		this.destino=destino;
 		this.prenda=prenda;
 	}
+	
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 
 	public int getCantidad() {
 		return cantidad;

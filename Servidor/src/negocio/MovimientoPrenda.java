@@ -3,6 +3,7 @@ package negocio;
 import java.util.Date;
 
 import dto.MovimientoPrendaDto;
+import entity.MovimientoPrendaEntity;
 
 public class MovimientoPrenda {
 
@@ -17,7 +18,7 @@ public class MovimientoPrenda {
 	private int id;
 	
 	public MovimientoPrenda(int cantidad, Date fecha, String talle, String color, String encargado, String quienAutorizo,
-			String destino, Prenda prenda){
+			String destino, Prenda prenda, int id){
 		this.cantidad=cantidad;
 		this.fecha=fecha;
 		this.talle=talle;
@@ -26,6 +27,18 @@ public class MovimientoPrenda {
 		this.quienAutorizo=quienAutorizo;
 		this.destino=destino;
 		this.prenda=prenda;
+		this.id= id;
+	}
+	
+	public MovimientoPrenda(MovimientoPrendaEntity movimiento){
+		this.cantidad=movimiento.getCantidad();
+		this.fecha=movimiento.getFecha();
+		this.talle=movimiento.getTalle();
+		this.color=movimiento.getColor();
+		this.encargado=movimiento.getEncargado();
+		this.quienAutorizo=movimiento.getQuienAutorizo();
+		this.destino=movimiento.getDestino();
+		this.prenda=new Prenda(movimiento.getPrenda());
 	}
 
 	public int getCantidad() {
@@ -93,7 +106,7 @@ public class MovimientoPrenda {
 	}
 	
 	public MovimientoPrendaDto toDto(){
-		return new MovimientoPrendaDto(cantidad, fecha, talle, color, encargado, quienAutorizo, destino, prenda.toDto());
+		return new MovimientoPrendaDto(id,cantidad, fecha, talle, color, encargado, quienAutorizo, destino, prenda.toDto());
 	}
 
 	public int getId() {

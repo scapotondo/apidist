@@ -12,8 +12,10 @@ public class MovimientoMateriaPrimaDto implements Serializable{
 	private int cantidad;
 	private Date fecha;
 	private MateriaPrimaDto materiaPrima;
+	private int id;
 	
-	public MovimientoMateriaPrimaDto(String estado, int cantidad, Date fecha, MateriaPrimaDto materiaPrima){
+	public MovimientoMateriaPrimaDto(int id,String estado, int cantidad, Date fecha, MateriaPrimaDto materiaPrima){
+		this.id=id;
 		this.estado=estado;
 		this.cantidad=cantidad;
 		this.fecha=fecha;
@@ -51,5 +53,15 @@ public class MovimientoMateriaPrimaDto implements Serializable{
 	public void setMateriaPrima(MateriaPrimaDto materiaPrima) {
 		this.materiaPrima = materiaPrima;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 	
 }

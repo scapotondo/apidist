@@ -150,8 +150,6 @@ public abstract class Factura {
 		this.precio = precio;
 	}
 	
-	public float getTotal(){
-		return (float) (this.getPrecio() * 1.21);
-	}
+	public abstract float getTotal();
 
 }

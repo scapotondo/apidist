@@ -17,5 +17,10 @@ public class FacturaA extends Factura{
 	public float getIva(){
 		return (float) (this.getPrecio() * 0.21);
 	}
+
+	@Override
+	public float getTotal() {
+		return (float) (this.getPrecio() * 1.21);
+	}
 	
 }

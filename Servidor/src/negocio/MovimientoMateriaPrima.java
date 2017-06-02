@@ -3,6 +3,7 @@ package negocio;
 import java.util.Date;
 
 import dto.MovimientoMateriaPrimaDto;
+import entity.MovimientoMateriaPrimaEntity;
 
 public class MovimientoMateriaPrima {
 
@@ -12,11 +13,20 @@ public class MovimientoMateriaPrima {
 	private MateriaPrima materiaPrima;
 	private int id;
 	
-	public MovimientoMateriaPrima(String estado, int cantidad, Date fecha, MateriaPrima materiaPrima){
+	public MovimientoMateriaPrima(int id,String estado, int cantidad, Date fecha, MateriaPrima materiaPrima){
+		this.id=id;
 		this.estado=estado;
 		this.cantidad=cantidad;
 		this.fecha=fecha;
 		this.materiaPrima=materiaPrima;
+	}
+	
+	public MovimientoMateriaPrima(MovimientoMateriaPrimaEntity movimiento){
+		this.id=movimiento.getId();
+		this.estado=movimiento.getEstado();
+		this.cantidad=movimiento.getCantidad();
+		this.fecha=movimiento.getFecha();
+		this.materiaPrima=new MateriaPrima(movimiento.getMateriaPrima());
 	}
 
 	public String getEstado() {
@@ -52,7 +62,7 @@ public class MovimientoMateriaPrima {
 	}
 	
 	public MovimientoMateriaPrimaDto toDto(){
-		return new MovimientoMateriaPrimaDto(estado, cantidad, fecha, materiaPrima.toDto());
+		return new MovimientoMateriaPrimaDto(id,estado, cantidad, fecha, materiaPrima.toDto());
 	}
 
 	public int getId() {

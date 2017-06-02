@@ -12,4 +12,9 @@ public class FacturaB extends Factura{
 				precio);
 	}
 
+	@Override
+	public float getTotal() {
+		return (float) (this.getPrecio() * 1.21);
+	}
+
 }
