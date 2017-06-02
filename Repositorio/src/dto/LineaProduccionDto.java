@@ -1,7 +1,6 @@
 package dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class LineaProduccionDto implements Serializable{
 	
@@ -9,10 +8,10 @@ public class LineaProduccionDto implements Serializable{
 
 	private int numero;
 	private String estado;
-	private Date tiempoLiberarse;
+	private Float tiempoLiberarse;
 	private String trabajo;
 	
-	public LineaProduccionDto(int numero, String estado, Date tiempoLiberarse, String trabajo){
+	public LineaProduccionDto(int numero, String estado, Float tiempoLiberarse, String trabajo){
 		this.numero=numero;
 		this.estado= estado;
 		this.tiempoLiberarse=tiempoLiberarse;
@@ -35,11 +34,11 @@ public class LineaProduccionDto implements Serializable{
 		this.estado = estado;
 	}
 
-	public Date getTiempoLiberarse() {
+	public Float getTiempoLiberarse() {
 		return tiempoLiberarse;
 	}
 
-	public void setTiempoLiberarse(Date tiempoLiberarse) {
+	public void setTiempoLiberarse(Float tiempoLiberarse) {
 		this.tiempoLiberarse = tiempoLiberarse;
 	}
 

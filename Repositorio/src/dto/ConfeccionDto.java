@@ -8,23 +8,23 @@ public class ConfeccionDto implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int tiempoProd;
+	private Float tiempoProd;
 	private String detalle;
 	private AreaProduccionDto areaProduccion;
 	private ArrayList<InsumoDto> insumos;
 	
-	public ConfeccionDto(int tiempoProd, String detalle, AreaProduccionDto areaProduccion, ArrayList<InsumoDto> insumos){
+	public ConfeccionDto(Float tiempoProd, String detalle, AreaProduccionDto areaProduccion, ArrayList<InsumoDto> insumos){
 		this.tiempoProd=tiempoProd;
 		this.detalle=detalle;
 		this.areaProduccion=areaProduccion;
 		this.insumos=insumos;
 	}
 
-	public int getTiempoProd() {
+	public Float getTiempoProd() {
 		return tiempoProd;
 	}
 
-	public void setTiempoProd(int tiempoProd) {
+	public void setTiempoProd(Float tiempoProd) {
 		this.tiempoProd = tiempoProd;
 	}
 

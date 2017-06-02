@@ -10,18 +10,19 @@ import BusinessDelegate.BusinessDelegate;
 import dto.AreaProduccionDto;
 import dto.ConfeccionDto;
 import dto.InsumoDto;
-import negocio.AreaProduccion;
 
 
 public abstract class Confeccion extends javax.swing.JFrame {
 	
-    private DefaultListModel model = new DefaultListModel();
+    @SuppressWarnings("rawtypes")
+	private DefaultListModel model = new DefaultListModel();
     private ArrayList<InsumoDto> insumosDto = new ArrayList<InsumoDto>();
     
     protected ConfeccionDto confeccionDto;
   
     
-    public Confeccion() {
+    @SuppressWarnings("unchecked")
+	public Confeccion() {
         initComponents(); 
         refresh();
 
@@ -161,7 +162,7 @@ public abstract class Confeccion extends javax.swing.JFrame {
     		
 	    	AreaProduccionDto areaProduccion = (AreaProduccionDto) comboAreas.getSelectedItem();
 	    	
-	        ConfeccionDto confeccion = new ConfeccionDto(Integer.parseInt(fieldTiempo.getText()), fieldDetalle.getText(), 
+	        ConfeccionDto confeccion = new ConfeccionDto(Float.parseFloat(fieldTiempo.getText()), fieldDetalle.getText(), 
 	        		areaProduccion, insumosDto);
 	    	
 	        this.confeccionDto=confeccion;

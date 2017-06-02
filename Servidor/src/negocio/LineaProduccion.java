@@ -1,14 +1,16 @@
 package negocio;
 
-import java.util.Date;
-
+import dao.LineaProduccionDao;
 import dto.LineaProduccionDto;
 import entity.LineaProduccionEntity;
 
 public class LineaProduccion {
+	public static final String OCUPADO = "Ocupado";
+	public static final String LIBRE = "Libre";
+	
 	private int numero;
 	private String estado;
-	private Date tiempoLiberarse;
+	private Float tiempoLiberarse;
 	private String trabajo;
 	
 	public LineaProduccion(LineaProduccionEntity linea){
@@ -18,7 +20,7 @@ public class LineaProduccion {
 		this.trabajo=linea.getTrabajo();
 	}
 	
-	public LineaProduccion(int numero, String estado, Date tiempoLiberarse, String trabajo){
+	public LineaProduccion(int numero, String estado, Float tiempoLiberarse, String trabajo){
 		this.numero=numero;
 		this.estado= estado;
 		this.tiempoLiberarse=tiempoLiberarse;
@@ -41,11 +43,11 @@ public class LineaProduccion {
 		this.estado = estado;
 	}
 
-	public Date getTiempoLiberarse() {
+	public Float getTiempoLiberarse() {
 		return tiempoLiberarse;
 	}
 
-	public void setTiempoLiberarse(Date tiempoLiberarse) {
+	public void setTiempoLiberarse(Float tiempoLiberarse) {
 		this.tiempoLiberarse = tiempoLiberarse;
 	}
 
@@ -58,15 +60,23 @@ public class LineaProduccion {
 	}
 
 	
-	public void asignarTrabajo(String trabajo, Date tiempo){
+	public void asignarTrabajo(String trabajo, Float tiempo){
 		this.setTiempoLiberarse(tiempo);
 		this.setTrabajo(trabajo);
+		this.setEstado(OCUPADO);
+		modificar();
 	}
 	
 	//TODO: checkear si el trabajo y tiempo cuando esta vacio lo dejamos en null o ponemos un valor pro defecto.
 	public void Liberar(){
 		this.setTiempoLiberarse(null);
 		this.setTrabajo(null);
+		this.setEstado(LIBRE);
+		modificar();
+	}
+	
+	public void modificar(){
+		LineaProduccionDao.getInstance().Modificar(this);
 	}
 	
 	public LineaProduccionDto toDto(){

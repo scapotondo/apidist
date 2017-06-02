@@ -11,7 +11,7 @@ import entity.InsumoEntity;
 public class Confeccion {
 	
 	private int id;
-	private int tiempoProd;
+	private Float tiempoProd;
 	private String detalle;
 	private AreaProduccion areaProduccion;
 	private ArrayList<Insumo> insumos;
@@ -37,7 +37,7 @@ public class Confeccion {
 		this.id = id;
 	}
 
-	public Confeccion(int id, int tiempoProd, String detalle, AreaProduccion areaProduccion, ArrayList<Insumo> insumos){
+	public Confeccion(int id, Float tiempoProd, String detalle, AreaProduccion areaProduccion, ArrayList<Insumo> insumos){
 		this.id=id;
 		this.tiempoProd=tiempoProd;
 		this.detalle=detalle;
@@ -45,7 +45,7 @@ public class Confeccion {
 		this.insumos=insumos;
 	}
 	
-	public Confeccion(int tiempoProd, String detalle, AreaProduccion areaProduccion, ArrayList<Insumo> insumos){
+	public Confeccion(Float tiempoProd, String detalle, AreaProduccion areaProduccion, ArrayList<Insumo> insumos){
 		this.tiempoProd=tiempoProd;
 		this.detalle=detalle;
 		this.areaProduccion=areaProduccion;
@@ -56,11 +56,11 @@ public class Confeccion {
 		return insumos;
 	}
 
-	public int getTiempoProd() {
+	public Float getTiempoProd() {
 		return tiempoProd;
 	}
 
-	public void setTiempoProd(int tiempoProd) {
+	public void setTiempoProd(Float tiempoProd) {
 		this.tiempoProd = tiempoProd;
 	}
 

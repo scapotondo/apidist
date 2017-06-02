@@ -53,14 +53,6 @@ public class AreaProduccion {
 		this.codigo = codigo;
 	}
 
-	public void asignarLineaProduccion(Confeccion confeccion, MateriaPrima materia, String ubicacion){
-		
-	}
-	
-	public boolean hayLineasLibres(){
-		return true;
-	}
-	
 	public String getNombre() {
 		return nombre;
 	}
@@ -84,9 +76,28 @@ public class AreaProduccion {
 	public void setOrdenesProduccion(ArrayList<OrdenDeProduccion> ordenesProduccion) {
 		this.ordenesProduccion = ordenesProduccion;
 	}
+	
+	
+	public void asignarLineaProduccion(Confeccion confeccion, MateriaPrima materia, String ubicacion){
+		if(hayLineasLibres()){
+			LineaProduccion linea = lineasProduccion.get(0);
+			String trabajo = confeccion.getDetalle() + " con " + materia.getNombre() + " en " + ubicacion;
+			
+			linea.asignarTrabajo(trabajo, confeccion.getTiempoProd());
+		}
+	}
+	
+	public boolean hayLineasLibres(){
+		for (LineaProduccion lineaProduccion : this.lineasProduccion) {
+			if(lineaProduccion.getEstado().equals(LineaProduccion.LIBRE))	
+				return true;
+		}
+		
+		return false;
+	}
 
 	public void agregarOrdenProduccion(OrdenDeProduccion orden){
-		
+		this.ordenesProduccion.add(orden);
 	}
 	
 	public AreaProduccionDto toDto(){

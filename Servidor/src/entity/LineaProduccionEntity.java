@@ -1,7 +1,6 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +18,7 @@ public class LineaProduccionEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int numero;	
 	private String estado;
-	private Date tiempoLiberarse;
+	private Float tiempoLiberarse;
 	private String trabajo;
 	
 	public LineaProduccionEntity(){}
@@ -42,10 +41,10 @@ public class LineaProduccionEntity implements Serializable{
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public Date getTiempoLiberarse() {
+	public Float getTiempoLiberarse() {
 		return tiempoLiberarse;
 	}
-	public void setTiempoLiberarse(Date tiempoLiberarse) {
+	public void setTiempoLiberarse(Float tiempoLiberarse) {
 		this.tiempoLiberarse = tiempoLiberarse;
 	}
 	public String getTrabajo() {
