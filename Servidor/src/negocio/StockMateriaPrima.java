@@ -13,7 +13,7 @@ public class StockMateriaPrima {
 	private int cantidad;
 	private String ubicacion;
 	private MateriaPrima materiaPrima;
-	
+
 	
 	public StockMateriaPrima(StockMateriaPrimaEntity stock){
 		this.lote=new OrdenDeCompra(stock.getLote());

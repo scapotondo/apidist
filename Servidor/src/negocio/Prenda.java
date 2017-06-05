@@ -1,6 +1,7 @@
 package negocio;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import dao.PrendaDao;
 import dto.ConfeccionDto;
@@ -86,94 +87,93 @@ public class Prenda {
 	public ArrayList<String> getTallesValidos() {
 		return tallesValidos;
 	}
-
 	public void setTallesValidos(ArrayList<String> tallesValidos) {
 		this.tallesValidos = tallesValidos;
 	}
-
 	public ArrayList<String> getColoresValidos() {
 		return coloresValidos;
 	}
-
 	public void setColoresValidos(ArrayList<String> coloresValidos) {
 		this.coloresValidos = coloresValidos;
 	}
-
 	public int getCodigo() {
 		return codigo;
 	}
-
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
-
 	public boolean getEsDiscontinuo() {
 		return esDiscontinuo;
 	}
-
 	public void setEsDiscontinuo(boolean esDiscontinuo) {
 		this.esDiscontinuo = esDiscontinuo;
 	}
-
 	public int getCantidadAProducir() {
 		return cantidadAProducir;
 	}
-
 	public void setCantidadAProducir(int cantidadAProducir) {
 		this.cantidadAProducir = cantidadAProducir;
 	}
-
 	public String getNombre() {
 		return nombre;
 	}
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 	public String getDescripcion() {
 		return descripcion;
 	}
-
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
 	public float getPorsentajeGanancia() {
 		return porcentajeGanancia;
 	}
-
 	public void setPorsentajeGanancia(float porsentajeGanancia) {
 		this.porcentajeGanancia = porsentajeGanancia;
 	}
-
 	public ArrayList<Confeccion> getConfecciones() {
 		return confecciones;
 	}
-
 	public void setConfecciones(ArrayList<Confeccion> confecciones) {
 		this.confecciones = confecciones;
 	}
-
 	public ArrayList<StockPrenda> getStock() {
 		return stock;
 	}
-
 	public void setStock(ArrayList<StockPrenda> stock) {
 		this.stock = stock;
 	}
 
+	
 	public float calcularCostoActual(){
-		return 0;
-	}
-	public void getPrendasDto(){
 		
+		Float valor = 0F;
+		
+		for (Confeccion confeccion : this.confecciones) {
+			
+			for (Insumo insumo : confeccion.getInsumos()) {
+				valor += insumo.getPrecio() * insumo.getCantidad();
+			}
+		}
+		
+		return valor;
 	}
 	
-	public ArrayList<Insumo> CalcularCantidadMateriaPrimaTotal(){
-		return null;
+	public Hashtable<MateriaPrima, Integer> CalcularCantidadMateriaPrimaTotal(){
+		Hashtable<MateriaPrima, Integer> materiasPrimasNecesarias = new Hashtable<MateriaPrima, Integer>();
+		
+		for (Confeccion confeccion : this.confecciones) {
+			for (Insumo insumo : confeccion.getInsumos()) {
+				
+				materiasPrimasNecesarias.put(insumo.getMateriaPrima(), insumo.getCantidad());
+			}
+		}
+		
+		return materiasPrimasNecesarias;
 	}
 	
+	//TODO: nose si va aca, revisar
 	public boolean hayStockSuficiente(int cantidad){
 		return true;
 	}

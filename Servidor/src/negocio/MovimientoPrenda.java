@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.Date;
 
+import dao.MovimientoPrendaDao;
 import dto.MovimientoPrendaDto;
 import entity.MovimientoPrendaEntity;
 
@@ -28,6 +29,18 @@ public class MovimientoPrenda {
 		this.destino=destino;
 		this.prenda=prenda;
 		this.id= id;
+	}
+	
+	public MovimientoPrenda(int cantidad, Date fecha, String talle, String color, String encargado, String quienAutorizo,
+			String destino, Prenda prenda){
+		this.cantidad=cantidad;
+		this.fecha=fecha;
+		this.talle=talle;
+		this.color=color;
+		this.encargado=encargado;
+		this.quienAutorizo=quienAutorizo;
+		this.destino=destino;
+		this.prenda=prenda;
 	}
 	
 	public MovimientoPrenda(MovimientoPrendaEntity movimiento){
@@ -115,6 +128,10 @@ public class MovimientoPrenda {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public void saveMe() {
+		MovimientoPrendaDao.getInstance().CrearMovimientoPrenda(this);
 	}
 	
 }

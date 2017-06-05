@@ -2,14 +2,18 @@ package entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import negocio.Empleado;
+import negocio.Rol;
 
 @Entity
 @Embeddable
@@ -22,10 +26,13 @@ public class EmpleadoEntity implements Serializable{
 	private String nombre;
 	private String domicilio;
 	private String telefono;
-	private String rol;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "rol")
+	private Rol rol;
 	
 	public EmpleadoEntity(){}
-	public EmpleadoEntity(String nombre, String domicilio, String telefono, int legajo,String rol){
+	public EmpleadoEntity(String nombre, String domicilio, String telefono, int legajo,Rol rol){
 		this.nombre=nombre;
 		this.domicilio=domicilio;
 		this.telefono=telefono;
@@ -40,10 +47,10 @@ public class EmpleadoEntity implements Serializable{
 		this.rol=empleado.getRol();
 		this.legajo = empleado.getLegajo();		
 	}
-	public String getRol() {
+	public Rol getRol() {
 		return rol;
 	}
-	public void setRol(String rol) {
+	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
 	public int getLegajo() {

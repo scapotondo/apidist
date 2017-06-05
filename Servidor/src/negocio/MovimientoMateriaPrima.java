@@ -7,13 +7,13 @@ import entity.MovimientoMateriaPrimaEntity;
 
 public class MovimientoMateriaPrima {
 
-	private String estado;
+	private EstadoMovimientoMateriaPrima estado;
 	private int cantidad;
 	private Date fecha;
 	private MateriaPrima materiaPrima;
 	private int id;
 	
-	public MovimientoMateriaPrima(int id,String estado, int cantidad, Date fecha, MateriaPrima materiaPrima){
+	public MovimientoMateriaPrima(int id,EstadoMovimientoMateriaPrima estado, int cantidad, Date fecha, MateriaPrima materiaPrima){
 		this.id=id;
 		this.estado=estado;
 		this.cantidad=cantidad;
@@ -29,11 +29,11 @@ public class MovimientoMateriaPrima {
 		this.materiaPrima=new MateriaPrima(movimiento.getMateriaPrima());
 	}
 
-	public String getEstado() {
+	public EstadoMovimientoMateriaPrima getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(EstadoMovimientoMateriaPrima estado) {
 		this.estado = estado;
 	}
 
@@ -62,7 +62,7 @@ public class MovimientoMateriaPrima {
 	}
 	
 	public MovimientoMateriaPrimaDto toDto(){
-		return new MovimientoMateriaPrimaDto(id,estado, cantidad, fecha, materiaPrima.toDto());
+		return new MovimientoMateriaPrimaDto(id,estado+"", cantidad, fecha, materiaPrima.toDto());
 	}
 
 	public int getId() {

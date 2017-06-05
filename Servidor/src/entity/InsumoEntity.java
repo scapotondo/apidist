@@ -20,6 +20,7 @@ public class InsumoEntity implements Serializable{
 	private int id;
 	private int cantidad;
 	private int desperdicio;
+	private int precio;
 	
 	@OneToOne()
 	private MateriaPrimaEntity materiaPrima;
@@ -29,6 +30,7 @@ public class InsumoEntity implements Serializable{
 		this.cantidad = insumo.getCantidad();
 		this.desperdicio = insumo.getDesperdicio();
 		this.materiaPrima = new MateriaPrimaEntity(insumo.getMateriaPrima());
+		this.precio=insumo.getPrecio();
 	}
 
 	public int getId() {
@@ -62,6 +64,13 @@ public class InsumoEntity implements Serializable{
 	public void setMateriaPrima(MateriaPrimaEntity materiaPrima) {
 		this.materiaPrima = materiaPrima;
 	}
+	public int getPrecio() {
+		return precio;
+	}
+	public void setPrecio(int precio) {
+		this.precio = precio;
+	}
 
+	
 	
 }

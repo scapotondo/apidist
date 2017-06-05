@@ -3,7 +3,10 @@ package entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import negocio.EstadoMovimientoMateriaPrima;
 import negocio.MovimientoMateriaPrima;
 
 @Entity
@@ -21,7 +25,10 @@ public class MovimientoMateriaPrimaEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	private String estado;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "estado")
+	private EstadoMovimientoMateriaPrima estado;
+	
 	private int cantidad;
 	private Date fecha;
 	
@@ -43,10 +50,10 @@ public class MovimientoMateriaPrimaEntity implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getEstado() {
+	public EstadoMovimientoMateriaPrima getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(EstadoMovimientoMateriaPrima estado) {
 		this.estado = estado;
 	}
 	public int getCantidad() {

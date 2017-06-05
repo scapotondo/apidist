@@ -2,10 +2,12 @@ package negocio;
 
 import java.util.Date;
 
+import dao.StockPrendaDao;
 import dto.StockPrendaDto;
 import entity.StockPrendaEntity;
 
 public class StockPrenda {
+	
 	private String color;
 	private String talle;
 	private OrdenDeProduccion lote;
@@ -13,8 +15,9 @@ public class StockPrenda {
 	private float costoProduccion;
 	private int cantidad;
 	private String ubicacion;
-	private String estado;
+	private EstadoStockPrenda estado;
 	private Prenda prenda;
+	
 	
 	public StockPrenda(StockPrendaEntity stock){
 		this.color=stock.getColor();
@@ -30,7 +33,7 @@ public class StockPrenda {
 	}
 	
 	public StockPrenda(String color,String talle,OrdenDeProduccion lote,Date fecha,float costoProduccion,int cantidad,
-			String ubicacion,String estado,Prenda prenda){
+			String ubicacion,EstadoStockPrenda estado,Prenda prenda){
 		this.color=color;
 		this.talle=talle;
 		this.lote=lote;
@@ -98,11 +101,11 @@ public class StockPrenda {
 		this.ubicacion = ubicacion;
 	}
 
-	public String getEstado() {
+	public EstadoStockPrenda getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(EstadoStockPrenda estado) {
 		this.estado = estado;
 	}
 
@@ -114,10 +117,13 @@ public class StockPrenda {
 		this.prenda = prenda;
 	}
 
+	public void saveMe(){
+		StockPrendaDao.getInstance().CrearStockPrenda(this);
+	}
 	
 	
 	public StockPrendaDto toDto(){
-		return new StockPrendaDto(color, talle, lote.toDto(), fecha, costoProduccion, cantidad, ubicacion, estado,
+		return new StockPrendaDto(color, talle, lote.toDto(), fecha, costoProduccion, cantidad, ubicacion, estado+"",
 				prenda.toDto());
 	}
 

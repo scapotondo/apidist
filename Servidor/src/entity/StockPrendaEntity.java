@@ -3,7 +3,10 @@ package entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import negocio.EstadoStockPrenda;
 import negocio.StockPrenda;
 
 @Entity
@@ -27,7 +31,10 @@ public class StockPrendaEntity implements Serializable{
 	private float costoProduccion;
 	private int cantidad;
 	private String ubicacion;
-	private String estado;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "estado")
+	private EstadoStockPrenda estado;
 	
 	@ManyToOne(targetEntity=PrendaEntity.class)
 	private PrendaEntity prenda;
@@ -38,7 +45,7 @@ public class StockPrendaEntity implements Serializable{
 	public StockPrendaEntity(){}
 	
 	public StockPrendaEntity(String color,String talle, Date fecha, float costoProduccion, int cantidad, String ubicacion,
-			String estado,PrendaEntity prenda,OrdenDeProduccionEntity lote){
+			EstadoStockPrenda estado,PrendaEntity prenda,OrdenDeProduccionEntity lote){
 		
 		this.color=color;
 		this.talle=talle;
@@ -129,11 +136,11 @@ public class StockPrendaEntity implements Serializable{
 		this.ubicacion = ubicacion;
 	}
 
-	public String getEstado() {
+	public EstadoStockPrenda getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(EstadoStockPrenda estado) {
 		this.estado = estado;
 	}
 

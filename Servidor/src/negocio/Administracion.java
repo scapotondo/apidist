@@ -121,7 +121,7 @@ public class Administracion {
 			
 			ArrayList<Insumo> insumos = new ArrayList<Insumo>();
 			for (InsumoDto insumoDto : confeccionDto.getInsumos()) {
-				insumos.add(new Insumo(insumoDto.getCantidad(), insumoDto.getDesperdicio(), MateriaPrimaDao.getInstance().getById(insumoDto.getMateriaPrima())));
+				insumos.add(new Insumo(insumoDto.getCantidad(), insumoDto.getDesperdicio(), MateriaPrimaDao.getInstance().getById(insumoDto.getMateriaPrima()),insumoDto.getPrecio()));
 			}
 			
 			Confeccion confeccion = new Confeccion(confeccionDto.getTiempoProd(), confeccionDto.getDetalle(), areaProd, insumos);

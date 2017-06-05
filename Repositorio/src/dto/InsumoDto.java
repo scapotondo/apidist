@@ -9,11 +9,13 @@ public class InsumoDto implements Serializable{
 	private int cantidad;
 	private int desperdicio;
 	private MateriaPrimaDto materiaPrima;
+	private int precio;
 	
-	public InsumoDto(int cantidad, int desperdicio, MateriaPrimaDto materiaPrima){
+	public InsumoDto(int cantidad, int desperdicio, MateriaPrimaDto materiaPrima, int precio){
 		this.cantidad=cantidad;
 		this.desperdicio=desperdicio;
 		this.materiaPrima=materiaPrima;
+		this.precio=precio;
 	}
 
 	public int getCantidad() {
@@ -39,5 +41,14 @@ public class InsumoDto implements Serializable{
 	public void setMateriaPrima(MateriaPrimaDto materiaPrima) {
 		this.materiaPrima = materiaPrima;
 	}
+
+	public int getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(int precio) {
+		this.precio = precio;
+	}
+	
 	
 }

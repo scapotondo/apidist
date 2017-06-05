@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.ArrayList;
+
 import org.hibernate.Session;
 
 import dto.MovimientoMateriaPrimaDto;
@@ -43,7 +45,7 @@ private static MovimientoMateriaPrimaDao instance;
 		session.close();
 	}
 	
-	public MovimientoMateriaPrima BuscarMovimientoPrenda(MovimientoMateriaPrimaDto movimiento){
+	public MovimientoMateriaPrima BuscarMovimientoMateriaPrima(MovimientoMateriaPrimaDto movimiento){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
@@ -56,5 +58,27 @@ private static MovimientoMateriaPrimaDao instance;
 			return null;
 		
 		return new MovimientoMateriaPrima(movimientoEntity);
+	}
+	
+	public ArrayList<MovimientoMateriaPrima> BuscarMovimientoMateriaPrimaReservara(){
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		session.beginTransaction();
+		ArrayList<MovimientoMateriaPrimaEntity> movimientosReservadosEntity = (ArrayList<MovimientoMateriaPrimaEntity>) session.createQuery("from MovimientoMateriaPrimaEntity WHERE estado = Reservado").list();
+		session.getTransaction().commit();
+		session.close();
+		
+		if(movimientosReservadosEntity == null)
+			return null;
+		
+		ArrayList<MovimientoMateriaPrima> movimientosReservados= new ArrayList<MovimientoMateriaPrima>();
+		
+		for (MovimientoMateriaPrimaEntity movimientoMateriaPrimaEntity : movimientosReservadosEntity) {
+			
+			movimientosReservados.add(new MovimientoMateriaPrima(movimientoMateriaPrimaEntity));
+		}
+		
+		return movimientosReservados;
 	}
 }

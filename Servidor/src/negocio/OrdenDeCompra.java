@@ -8,14 +8,7 @@ import entity.OrdenDeCompraEntity;
 public class OrdenDeCompra {
 
 	private int id;
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	
 	private Date fechaGeneracion;
 	private Date fechaProbableDespacho;
 	private Date fechaRealDespacho;
@@ -50,6 +43,15 @@ public class OrdenDeCompra {
 		this.ordenProduccion=ordenProduccion;
 		this.proveedor=proveedor;
 	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public MateriaPrima getMateriaPrima() {
 		return materiaPrima;
 	}
