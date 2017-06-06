@@ -165,8 +165,16 @@ public class Prenda {
 		
 		for (Confeccion confeccion : this.confecciones) {
 			for (Insumo insumo : confeccion.getInsumos()) {
+				if(materiasPrimasNecesarias.containsKey(insumo.getMateriaPrima())){
+					
+					int cantidadVieja = materiasPrimasNecesarias.get(insumo.getMateriaPrima());
+					int cantidadNueva = cantidadVieja + insumo.getCantidad();
+					
+					materiasPrimasNecesarias.replace(insumo.getMateriaPrima(), cantidadVieja, cantidadNueva);
+					
+				}else
+					materiasPrimasNecesarias.put(insumo.getMateriaPrima(), insumo.getCantidad());
 				
-				materiasPrimasNecesarias.put(insumo.getMateriaPrima(), insumo.getCantidad());
 			}
 		}
 		

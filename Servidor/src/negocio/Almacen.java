@@ -82,8 +82,85 @@ public class Almacen {
 	}
 	
 	public boolean tenesStockMateriaPrimaParaPrenda(Prenda prenda){
+		//actualizo stock
+		this.stockMateriaPrima = StockMateriaPrimaDao.getInstance().getStockMateriasPrimas();
+		
+		//diccionario materias primas reservadas
+				
+		//movimientos que tienen estado Reservado
+		ArrayList<MovimientoMateriaPrima> movimientosMateriaPrimaReservada = MovimientoMateriaPrimaDao.getInstance().BuscarMovimientoMateriaPrimaReservara();
+				
+		Hashtable<MateriaPrima, Integer> materiasPrimasReservadas= new Hashtable<>();
+				
+		for (MovimientoMateriaPrima movimientoMateriaPrima : movimientosMateriaPrimaReservada) {
+					
+			//si la materia prima existe 
+			if(materiasPrimasReservadas.containsKey(movimientoMateriaPrima.getMateriaPrima())){
+						
+				//obtengo la materia prima
+				MateriaPrima materia = movimientoMateriaPrima.getMateriaPrima();
+						
+				int cantidadVieja = materiasPrimasReservadas.get(materia);
+				//la cantidad existente la sumo con la nueva
+				int cantidadNueva = cantidadVieja + movimientoMateriaPrima.getCantidad();
+						
+				//cambio valores de la materia prima en diccionario
+				materiasPrimasReservadas.replace(materia, cantidadVieja, cantidadNueva);
+				
+			}else{
+				materiasPrimasReservadas.put(movimientoMateriaPrima.getMateriaPrima(), movimientoMateriaPrima.getCantidad());
+			}
+		}
+		
+		//Materia prima que actualmente tengo
+		Hashtable<MateriaPrima, Integer> materiaPrimaActual = new Hashtable<MateriaPrima, Integer>();
+		
+		for (StockMateriaPrima stockMateriaPrima : this.stockMateriaPrima) {
+			
+			if(materiaPrimaActual.containsKey(stockMateriaPrima.getMateriaPrima())){
+				
+				MateriaPrima materia = stockMateriaPrima.getMateriaPrima();
+				
+				int cantidadVieja = materiaPrimaActual.get(materia);
+				
+				int cantidadNueva = cantidadVieja + stockMateriaPrima.getCantidad();
+				
+				materiaPrimaActual.replace(materia, cantidadVieja, cantidadNueva);
+			}else
+				materiaPrimaActual.put(stockMateriaPrima.getMateriaPrima(), stockMateriaPrima.getCantidad());
+			
+		}
+						
+		//diccionario de materias necesarias
+		Hashtable<MateriaPrima, Integer> materiaPrimaNecesaria = prenda.CalcularCantidadMateriaPrimaTotal();
+				
+		
+		//obtengo las keys del diccionario, en este caso son los objetos de materia prima
+		Enumeration<MateriaPrima> materiasPrimasKeys = materiaPrimaNecesaria.keys();
+		
+		while(materiasPrimasKeys.hasMoreElements()){
+			
+			MateriaPrima materia = materiasPrimasKeys.nextElement();
+			int reservada = 0;
+			int actual = 0;
+			int necesaria = 0;
+			
+			if(materiasPrimasReservadas.containsKey(materia))
+				reservada = materiasPrimasReservadas.get(materia);
+			
+			if(materiaPrimaNecesaria.containsKey(materia))
+				necesaria = materiaPrimaNecesaria.get(materia);
+			
+			if(materiaPrimaActual.containsKey(materia))
+				actual = materiaPrimaActual.get(materia);
+			
+			if( (actual - necesaria - reservada) < 0)
+				return false;
+		}
+		
 		return true;
 	}
+	
 	
 	public void disminuirStockPrenda(Prenda prenda,int cantidad, String talle, String color, String encargado){
 		
