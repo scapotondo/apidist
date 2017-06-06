@@ -6,8 +6,10 @@ import org.hibernate.Session;
 
 import dto.MateriaPrimaDto;
 import entity.MateriaPrimaEntity;
+import entity.MovimientoMateriaPrimaEntity;
 import hibernate.HibernateUtil;
 import negocio.MateriaPrima;
+import negocio.MovimientoMateriaPrima;
 
 public class MateriaPrimaDao {
 	private static MateriaPrimaDao instance;
@@ -19,6 +21,19 @@ public class MateriaPrimaDao {
 			instance = new MateriaPrimaDao();
 		
 		return instance;
+	}
+	
+	
+	public void crearMovimiento (MovimientoMateriaPrima movimiento) {
+		
+		MovimientoMateriaPrimaEntity movimientoEntity = new MovimientoMateriaPrimaEntity(movimiento);
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		session.beginTransaction();
+		session.save(movimientoEntity);
+		session.getTransaction().commit();
+		session.close();
 	}
 	
 	public MateriaPrima getById (MateriaPrimaDto materiaPrimaDto) {

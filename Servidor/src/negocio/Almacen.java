@@ -198,8 +198,12 @@ public class Almacen {
 		
 	}
 	
-	public String reservarMateriaPrima(MateriaPrima mp, int cantidad){
-		return null;
+	public void reservarMateriaPrima(MateriaPrima mp, int cantidad){
+		
+		MovimientoMateriaPrima movimientoMateriaPrimaReservada = new MovimientoMateriaPrima(EstadoMovimientoMateriaPrima.Reservado, cantidad, Calendar.getInstance().getTime(), mp);
+		movimientoMateriaPrimaReservada.saveMe();
+		
+		//TODO: ver si hay que moverla y en base a eso si se devuelve la nueva localizacion
 	}
 	
 	
