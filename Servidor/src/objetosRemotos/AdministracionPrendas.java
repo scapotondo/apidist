@@ -46,7 +46,6 @@ public class AdministracionPrendas extends UnicastRemoteObject implements Admini
 
 	@Override
 	public ArrayList<PrendaDto> GetPrendasDisponibles() throws RemoteException {
-		// TODO Auto-generated method stub
 		return Controller.getInstance().GetPrendasDisponibles();
 	}
 

@@ -90,7 +90,11 @@ public class PrendaDao {
 		
 		session.beginTransaction();
 		@SuppressWarnings("unchecked")
-		List<PrendaEntity> prendasEntity =  session.createQuery("from PrendaEntity WHERE esDiscontinuo=false").list();
+		//SELECT prenda, SUM(cantidad) AS stock FROM StockPrendaEntity GROUP BY prenda HAVING stock > 0
+		List<PrendaEntity> prendasEntity =  session.createQuery("SELECT prenda, SUM(cantidad) AS stock FROM StockPrendaEntity GROUP BY prenda HAVING stock > 0").list();
+//		List<PrendaEntity> prendasEntity =  session.createQuery("FROM PrendaEntity P "
+//				+ " "
+//				+ "WHERE esDiscontinuo = false OR (esDiscontinuo = true AND (SELECT SP.prenda, SUM(SP.cantidad) AS stock FROM P.stock SP WHERE SP.prenda.codigo = P.codigo GROUP BY SP.prenda).stock > 0)").list();
 		session.getTransaction().commit();
 		session.close();
 		

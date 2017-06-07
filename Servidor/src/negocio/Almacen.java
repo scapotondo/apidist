@@ -8,6 +8,7 @@ import java.util.Hashtable;
 import dao.MovimientoMateriaPrimaDao;
 import dao.StockMateriaPrimaDao;
 import dao.StockPrendaDao;
+import exceptions.ColorException;
 
 public class Almacen {
 	//falta diccionario de diccionarios
@@ -170,14 +171,14 @@ public class Almacen {
 		
 	}
 	
-	public void agregarStockPrenda(Prenda prenda,int cantidad,String talle,String  color, OrdenDeProduccion lote){
+	public void agregarStockPrenda(Prenda prenda, int cantidad, String talle, String color, OrdenDeProduccion lote) throws ColorException{
 		
 		Float costoProduccion= prenda.calcularCostoActual();
 		
 		//TODO: ARMAR UBICACIONES
 		String ubicacion = "";
 		
-		StockPrenda stockPrenda = new StockPrenda(color, talle, lote,Calendar.getInstance().getTime(), costoProduccion, cantidad, 
+		StockPrenda stockPrenda = new StockPrenda(ColorPrenda.fromString(color), talle, lote,Calendar.getInstance().getTime(), costoProduccion, cantidad, 
 				ubicacion, EstadoStockPrenda.Disponible, prenda);
 		
 		stockPrenda.saveMe();

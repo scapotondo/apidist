@@ -8,7 +8,7 @@ import entity.StockPrendaEntity;
 
 public class StockPrenda {
 	
-	private String color;
+	private ColorPrenda color;
 	private String talle;
 	private OrdenDeProduccion lote;
 	private Date fecha;
@@ -32,7 +32,7 @@ public class StockPrenda {
 		this.prenda=new Prenda(stock.getPrenda());
 	}
 	
-	public StockPrenda(String color,String talle,OrdenDeProduccion lote,Date fecha,float costoProduccion,int cantidad,
+	public StockPrenda(ColorPrenda color,String talle,OrdenDeProduccion lote,Date fecha,float costoProduccion,int cantidad,
 			String ubicacion,EstadoStockPrenda estado,Prenda prenda){
 		this.color=color;
 		this.talle=talle;
@@ -45,11 +45,11 @@ public class StockPrenda {
 		this.prenda=prenda;
 	}
 
-	public String getColor() {
+	public ColorPrenda getColor() {
 		return color;
 	}
 
-	public void setColor(String color) {
+	public void setColor(ColorPrenda color) {
 		this.color = color;
 	}
 
@@ -121,9 +121,8 @@ public class StockPrenda {
 		StockPrendaDao.getInstance().CrearStockPrenda(this);
 	}
 	
-	
 	public StockPrendaDto toDto(){
-		return new StockPrendaDto(color, talle, lote.toDto(), fecha, costoProduccion, cantidad, ubicacion, estado+"",
+		return new StockPrendaDto(color.toString(), talle, lote.toDto(), fecha, costoProduccion, cantidad, ubicacion, estado+"",
 				prenda.toDto());
 	}
 

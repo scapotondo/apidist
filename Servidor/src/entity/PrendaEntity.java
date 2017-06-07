@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import negocio.ColorPrenda;
 import negocio.Confeccion;
 import negocio.Prenda;
 import negocio.StockPrenda;
@@ -39,7 +40,7 @@ public class PrendaEntity implements Serializable{
 	private List<String> tallesValidos;
 	
 	@ElementCollection
-	private List<String> coloresValidos;
+	private List<Integer> coloresValidos;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="prenda_id")
@@ -50,9 +51,9 @@ public class PrendaEntity implements Serializable{
 	
 	public PrendaEntity(){}
 	
-	public PrendaEntity(int codigo, boolean esDiscontinuo,int cantidadAProducir,String nombre,String descripcion,
-			float porsentajeGanancia,ArrayList<String>tallesValidos,ArrayList<String>coloresValidos,
-			ArrayList<ConfeccionEntity> confecciones,ArrayList<StockPrendaEntity> stock){
+	public PrendaEntity(int codigo, boolean esDiscontinuo, int cantidadAProducir, String nombre, String descripcion, 
+			float porsentajeGanancia, ArrayList<String>tallesValidos, ArrayList<Integer>coloresValidos,
+			ArrayList<ConfeccionEntity> confecciones, ArrayList<StockPrendaEntity> stock){
 		
 		this.codigo=codigo;
 		this.esDiscontinuo=esDiscontinuo;
@@ -60,6 +61,7 @@ public class PrendaEntity implements Serializable{
 		this.nombre=nombre;
 		this.descripcion=descripcion;
 		this.porsentajeGanancia=porsentajeGanancia;
+		
 		if(tallesValidos!=null)
 			this.tallesValidos=tallesValidos;
 		else
@@ -69,6 +71,7 @@ public class PrendaEntity implements Serializable{
 			this.coloresValidos=coloresValidos;
 		else
 			this.coloresValidos=new ArrayList<>();
+		
 		if(confecciones!=null)
 			this.confecciones=confecciones;
 		else
@@ -81,42 +84,33 @@ public class PrendaEntity implements Serializable{
 	}
 
 	public PrendaEntity(Prenda prenda){
-		
 		this.codigo=prenda.getCodigo();
 		this.esDiscontinuo=prenda.getEsDiscontinuo();
 		this.cantidadAProducir=prenda.getCantidadAProducir();
 		this.nombre=prenda.getNombre();
 		this.descripcion=prenda.getDescripcion();
 		this.porsentajeGanancia=prenda.getPorsentajeGanancia();
-		this.confecciones = new ArrayList<ConfeccionEntity>();
+		this.tallesValidos= new ArrayList<>();
+		this.coloresValidos=new ArrayList<>();
+		this.confecciones= new ArrayList<ConfeccionEntity>();
+		this.stock=new ArrayList<>();
 		
 		if(prenda.getTallesValidos()!=null)
 			this.tallesValidos=prenda.getTallesValidos();
-		else
-			this.tallesValidos= new ArrayList<>();
 		
 		if(prenda.getColoresValidos()!=null)
-			this.coloresValidos=prenda.getColoresValidos();
-		else
-			this.coloresValidos=new ArrayList<>();
+			for (ColorPrenda color : prenda.getColoresValidos())
+				this.coloresValidos.add(color.toInt());
 		
-		if(prenda.getConfecciones()!=null){
-			for (Confeccion confeccion : prenda.getConfecciones()) {
+		if(prenda.getConfecciones()!=null)
+			for (Confeccion confeccion : prenda.getConfecciones())
 				this.confecciones.add(new ConfeccionEntity(confeccion));
-			}
-		}else
-			this.confecciones= new ArrayList<ConfeccionEntity>();
-		
+	
 		if(stock!=null)
-			for (StockPrenda stock : prenda.getStock()) {
+			for (StockPrenda stock : prenda.getStock())
 				this.stock.add(new StockPrendaEntity(stock));
-			}
-		else
-			this.stock=new ArrayList<>();
 	}
-	
-	
-	
+		
 	public int getCodigo() {
 		return codigo;
 	}
@@ -173,11 +167,11 @@ public class PrendaEntity implements Serializable{
 		this.tallesValidos = tallesValidos;
 	}
 
-	public List<String> getColoresValidos() {
+	public List<Integer> getColoresValidos() {
 		return coloresValidos;
 	}
 
-	public void setColoresValidos(List<String> coloresValidos) {
+	public void setColoresValidos(List<Integer> coloresValidos) {
 		this.coloresValidos = coloresValidos;
 	}
 

@@ -12,6 +12,7 @@ import dto.ConfeccionDto;
 import dto.InsumoDto;
 import dto.PrendaDto;
 import exceptions.ClienteException;
+import exceptions.ColorException;
 import exceptions.PrendaException;
 
 public class Administracion {
@@ -112,7 +113,7 @@ public class Administracion {
 	
 	
 	
-	public void AltaPrenda(PrendaDto prendaDto) {
+	public void AltaPrenda(PrendaDto prendaDto) throws ColorException {
 
 		ArrayList<Confeccion> confecciones = new ArrayList<Confeccion>();
 		for (ConfeccionDto confeccionDto : prendaDto.getConfecciones()) {
@@ -129,9 +130,13 @@ public class Administracion {
 			confecciones.add(confeccion);
 		}
 		
+		ArrayList<ColorPrenda> colores = new ArrayList<>();
+		for (String color : prendaDto.getColoresValidos())
+			colores.add(ColorPrenda.fromString(color));
+		
 		Prenda prenda = new Prenda(
 				prendaDto.getTallesValidos(), 
-				prendaDto.getColoresValidos(),
+				colores,
 				prendaDto.getEsDiscontinuo(),
 				prendaDto.getCantidadAProducir(),
 				prendaDto.getNombre(),
@@ -140,7 +145,6 @@ public class Administracion {
 				confecciones,
 				new ArrayList<StockPrenda>()
 				);
-		
 		
 		prenda.saveMe();
 	}
@@ -157,12 +161,16 @@ public class Administracion {
 		return PrendaDao.getInstance().BuscarPrendaPorCodigo(prendaDto);
 	}
 	
-	public void ModificarPrenda(PrendaDto prendaDto) throws PrendaException {
+	public void ModificarPrenda(PrendaDto prendaDto) throws PrendaException, ColorException {
 		
 		Prenda prenda = PrendaDao.getInstance().BuscarPrendaPorCodigo(prendaDto);
 		
+		ArrayList<ColorPrenda> colores = new ArrayList<>();
+		for (String color : prendaDto.getColoresValidos())
+			colores.add(ColorPrenda.fromString(color));
+			
 		prenda.setTallesValidos(prendaDto.getTallesValidos());
-		prenda.setColoresValidos(prendaDto.getColoresValidos());
+		prenda.setColoresValidos(colores);
 		prenda.setEsDiscontinuo(prendaDto.getEsDiscontinuo());
 		prenda.setCantidadAProducir(prendaDto.getCantidadAProducir());
 		prenda.setNombre(prendaDto.getNombre());

@@ -14,6 +14,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
+
+import negocio.ColorPrenda;
 import negocio.EstadoStockPrenda;
 import negocio.StockPrenda;
 
@@ -21,11 +25,26 @@ import negocio.StockPrenda;
 @Table(name="StockPrenda")
 public class StockPrendaEntity implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int codigo;
 	
-	private String color;
+	@Column(columnDefinition="integer", nullable = false)
+    @Type(
+        type = "negocio.ColorPrenda", 
+        parameters = { 
+        	@Parameter(name = "enumClass", value = "negocio.ColorPrenda"),
+        	@Parameter(name = "identifierMethod", value = "toInt"),
+        	@Parameter(name = "valueOfMethod", value = "fromInt")
+        }
+    )
+	private ColorPrenda color;
+	
 	private String talle;
 	private Date fecha;
 	private float costoProduccion;
@@ -44,7 +63,7 @@ public class StockPrendaEntity implements Serializable{
 	
 	public StockPrendaEntity(){}
 	
-	public StockPrendaEntity(String color,String talle, Date fecha, float costoProduccion, int cantidad, String ubicacion,
+	public StockPrendaEntity(ColorPrenda color,String talle, Date fecha, float costoProduccion, int cantidad, String ubicacion,
 			EstadoStockPrenda estado,PrendaEntity prenda,OrdenDeProduccionEntity lote){
 		
 		this.color=color;
@@ -88,11 +107,11 @@ public class StockPrendaEntity implements Serializable{
 		this.codigo = codigo;
 	}
 
-	public String getColor() {
+	public ColorPrenda getColor() {
 		return color;
 	}
 
-	public void setColor(String color) {
+	public void setColor(ColorPrenda color) {
 		this.color = color;
 	}
 

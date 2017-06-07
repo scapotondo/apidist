@@ -60,7 +60,7 @@ public class Controller {
 		return Administracion.getInstance().BuscarClientes();
 	}
 	
-	public void AltaPrenda(PrendaDto prenda) {
+	public void AltaPrenda(PrendaDto prenda) throws ColorException {
 		Administracion.getInstance().AltaPrenda(prenda);
 	}
 	
@@ -72,7 +72,7 @@ public class Controller {
 		return Administracion.getInstance().BuscarPrendaPorNumero(prendaDto).toDto();
 	}
 
-	public void ModificarPrenda(PrendaDto prendaDto) throws PrendaException {
+	public void ModificarPrenda(PrendaDto prendaDto) throws PrendaException, ColorException {
 		Administracion.getInstance().ModificarPrenda(prendaDto);
 	}
 
@@ -81,8 +81,7 @@ public class Controller {
 	}
 
 	public ArrayList<PrendaDto> GetPrendasDisponibles(){
-		//TODO: terminar
-		return null;
+		return Administracion.getInstance().GetPrendasDisponibles();
 	}
 	
 	//ver hasta aca si lo pasamos

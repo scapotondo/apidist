@@ -1,5 +1,6 @@
 package prendas;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -302,6 +303,13 @@ public class AltaPrenda extends javax.swing.JFrame {
 		        		Integer.parseInt(fieldCantidadProducir.getText()),fieldNombre.getText(),fieldDescripcion.getText(),
 		        		Float.parseFloat(fieldPorcentajeGanancias.getText()),confeccionesDto,new ArrayList<StockPrendaDto>());
 		        
+		        
+		        try {
+					ArrayList<PrendaDto> prn = BusinessDelegate.getInstance().getPrendasDisponibles();
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		        
 				BusinessDelegate.getInstance().AltaPrenda(prenda);
 				

@@ -10,11 +10,12 @@ import dto.StockPrendaDto;
 import entity.ConfeccionEntity;
 import entity.PrendaEntity;
 import entity.StockPrendaEntity;
+import exceptions.ColorException;
 
 public class Prenda {
 
 	private ArrayList<String> tallesValidos;
-	private ArrayList<String> coloresValidos;
+	private ArrayList<ColorPrenda> coloresValidos;
 	private int codigo;
 	private boolean esDiscontinuo;
 	private int cantidadAProducir;
@@ -24,7 +25,7 @@ public class Prenda {
 	private ArrayList<Confeccion> confecciones;
 	private ArrayList<StockPrenda> stock;
 	
-	public Prenda(PrendaEntity prenda){
+	public Prenda(PrendaEntity prenda) {
 		this.tallesValidos=new ArrayList<>();
 		this.coloresValidos=new ArrayList<>();
 		this.codigo=prenda.getCodigo();
@@ -48,12 +49,16 @@ public class Prenda {
 			this.tallesValidos.add(talle);
 		}
 		
-		for (String color : prenda.getColoresValidos()) {
-			this.coloresValidos.add(color);
+		for (Integer color : prenda.getColoresValidos()) {
+			try {
+				this.coloresValidos.add(ColorPrenda.fromInt(color));
+			} catch (ColorException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
-	public Prenda(ArrayList<String> tallesValidos, ArrayList<String> coloresValidos, boolean esDiscontinuo,
+	public Prenda(ArrayList<String> tallesValidos, ArrayList<ColorPrenda> coloresValidos, boolean esDiscontinuo,
 			int cantidadAProducir, String nombre, String descripcion, float porcentajeGanancia, ArrayList<Confeccion> confecciones,
 			ArrayList<StockPrenda> stock){
 		
@@ -68,7 +73,7 @@ public class Prenda {
 		this.stock=stock;
 	}
 	
-	public Prenda(ArrayList<String> tallesValidos, ArrayList<String> coloresValidos, int codigo, boolean esDiscontinuo,
+	public Prenda(ArrayList<String> tallesValidos, ArrayList<ColorPrenda> coloresValidos, int codigo, boolean esDiscontinuo,
 			int cantidadAProducir, String nombre, String descripcion, float porcentajeGanancia, ArrayList<Confeccion> confecciones,
 			ArrayList<StockPrenda> stock){
 		
@@ -90,10 +95,10 @@ public class Prenda {
 	public void setTallesValidos(ArrayList<String> tallesValidos) {
 		this.tallesValidos = tallesValidos;
 	}
-	public ArrayList<String> getColoresValidos() {
+	public ArrayList<ColorPrenda> getColoresValidos() {
 		return coloresValidos;
 	}
-	public void setColoresValidos(ArrayList<String> coloresValidos) {
+	public void setColoresValidos(ArrayList<ColorPrenda> coloresValidos) {
 		this.coloresValidos = coloresValidos;
 	}
 	public int getCodigo() {
@@ -145,7 +150,6 @@ public class Prenda {
 		this.stock = stock;
 	}
 
-	
 	public float calcularCostoActual(){
 		
 		Float valor = 0F;
@@ -189,14 +193,21 @@ public class Prenda {
 	public PrendaDto toDto(){
 		ArrayList<ConfeccionDto> confeccionesDto =new ArrayList<>();
 		ArrayList<StockPrendaDto> stockDto = new ArrayList<>();
+		ArrayList<String> coloresValidosDto = new ArrayList<>();
 		
 		for (StockPrenda stockPrenda : stock) {
 			stockDto.add(stockPrenda.toDto());
 		}
+		
 		for (Confeccion confeccion : confecciones) {
 			confeccionesDto.add(confeccion.toDto());
 		}
-		return new PrendaDto(tallesValidos, coloresValidos, codigo, esDiscontinuo, cantidadAProducir, nombre, descripcion,
+		
+		for (ColorPrenda color : coloresValidos) {
+			coloresValidosDto.add(color.toString());
+		}
+		
+		return new PrendaDto(tallesValidos, coloresValidosDto, codigo, esDiscontinuo, cantidadAProducir, nombre, descripcion,
 				porcentajeGanancia, confeccionesDto, stockDto);
 	}
 	
