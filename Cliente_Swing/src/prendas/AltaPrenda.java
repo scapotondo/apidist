@@ -302,15 +302,7 @@ public class AltaPrenda extends javax.swing.JFrame {
 		        PrendaDto prenda = new PrendaDto(tallesValidos, coloresValidos,0,discontinuo,
 		        		Integer.parseInt(fieldCantidadProducir.getText()),fieldNombre.getText(),fieldDescripcion.getText(),
 		        		Float.parseFloat(fieldPorcentajeGanancias.getText()),confeccionesDto,new ArrayList<StockPrendaDto>());
-		        
-		        
-		        try {
-					ArrayList<PrendaDto> prn = BusinessDelegate.getInstance().getPrendasDisponibles();
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		        
+		        	        
 				BusinessDelegate.getInstance().AltaPrenda(prenda);
 				
 				JOptionPane.showMessageDialog(null, "La prenda fue dada de alta");
