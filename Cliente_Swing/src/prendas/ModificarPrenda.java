@@ -278,22 +278,22 @@ public class ModificarPrenda extends javax.swing.JFrame {
     private void CargarColoresField(ArrayList<String> colores){
     	for (String color : colores) {
     		
-    		if(color.equals("amarillo"))
+    		if(color.equals("Amarillo"))
     			checkAmarillo.setSelected(true);
     		
-    		if(color.equals("azul"))
+    		if(color.equals("Azul"))
     			checkAzul.setSelected(true);
         	
-    		if(color.equals("blanco"))
+    		if(color.equals("Blanco"))
     			checkBlanco.setSelected(true);
     		
-    		if(color.equals("negro"))
+    		if(color.equals("Negro"))
     			checkNegro.setSelected(true);
         	
-    		if(color.equals("verde"))
+    		if(color.equals("Verde"))
     			checkVerde.setSelected(true);
         	
-    		if(color.equals("rojo"))
+    		if(color.equals("Rojo"))
     			checkRojo.setSelected(true);
 		}
     	
