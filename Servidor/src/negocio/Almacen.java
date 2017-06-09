@@ -14,7 +14,6 @@ public class Almacen {
 	//falta diccionario de diccionarios
 	//hashmap para diccionario
 	
-	
 	private ArrayList<MovimientoPrenda> movimientosPrendas;
 	private ArrayList<MovimientoMateriaPrima> movimientosMateriaPrima;
 	private ArrayList<StockPrenda> stockPrendas;
@@ -53,8 +52,8 @@ public class Almacen {
 	}
 
 	
-	//devuelvo -1 porque no acepta null
-	public int getStockPrendaDto( Prenda prenda,  String talle,  String color){
+	
+	public int getStockPrenda( Prenda prenda,  String talle,  String color){
 		
 		this.stockPrendas=StockPrendaDao.getInstance().getStockPrendas();
 		for (StockPrenda stockPrenda : this.stockPrendas) {
@@ -64,20 +63,13 @@ public class Almacen {
 				
 				return stockPrenda.getCantidad();
 		}
-		
-		return -1;
+		return 0;
 	}
 	
 	public boolean tenesStockPrenda(Prenda prenda,String talle, String color, int cantidad){
 
-		this.stockPrendas=StockPrendaDao.getInstance().getStockPrendas();
-		for (StockPrenda stockPrenda : this.stockPrendas) {
-			
-			if(stockPrenda.getPrenda().getCodigo() == prenda.getCodigo() && stockPrenda.getColor().equals(color) 
-					&& stockPrenda.getTalle().equals(talle) && stockPrenda.getCantidad() >= cantidad)
-				
-				return true;
-		}
+		if(getStockPrenda(prenda, talle, color) >= cantidad )
+			return true;
 		
 		return false;
 	}
@@ -167,7 +159,7 @@ public class Almacen {
 		
 	}
 	
-	public void disminuirStockPrenda(Prenda prenda,int cantidad, String talle, String color, String encargado, String quienAutorizo, String destino){
+	public void disminuirStockPrendaPorDeterioro(Prenda prenda,int cantidad, String talle, String color, String encargado, String quienAutorizo, String destino){
 		
 	}
 	
@@ -176,26 +168,37 @@ public class Almacen {
 		Float costoProduccion= prenda.calcularCostoActual();
 		
 		//TODO: ARMAR UBICACIONES
-		String ubicacion = "";
+		String ubicacion = getUbicacionPrendaDisponible();
+		
+		//TODO: RESERVAR UBICACION
 		
 		StockPrenda stockPrenda = new StockPrenda(ColorPrenda.fromString(color), talle, lote,Calendar.getInstance().getTime(), costoProduccion, cantidad, 
 				ubicacion, EstadoStockPrenda.Disponible, prenda);
 		
 		stockPrenda.saveMe();
 		
-		new MovimientoPrenda(cantidad, Calendar.getInstance().getTime(), talle, color, "sistema", "sistema", ubicacion, prenda).saveMe();
+		MovimientoPrenda movimiento = new MovimientoPrenda(cantidad, Calendar.getInstance().getTime(), talle, color,
+				"sistema", "sistema", ubicacion, prenda);
+		
+		movimiento.saveMe();
 	}
 	
 	public void agregarStockMateriaPrima(MateriaPrima materiaPrima,int cantidad){
 		
+		String ubicacion = getUbicacionMateriaPrimaDisponible();
+		
+		//TODO: reservar ubicacion 
+		
+		//TODO:terminar por problema de que la materia prima no tiene un precio
+//		StockMateriaPrima stock = new StockMateriaPrima(lote, fechaRecepcion, precioFinalCompra, cantidad, ubicacion, materiaPrima);
+//		stock.saveMe();
+		
+		MovimientoMateriaPrima movimiento = new MovimientoMateriaPrima(EstadoMovimientoMateriaPrima.Disponible, cantidad, Calendar.getInstance().getTime(), materiaPrima);
+		movimiento.saveMe();
 	}
 	
 	public void disminuirStockMateriaPrima(MateriaPrima materiaPrima,int cantidad){
 		
-	}
-	
-	
-	public void ReservarPrenda(Prenda prenda,String talle,String color, int cantidad){
 		
 	}
 	
@@ -207,5 +210,50 @@ public class Almacen {
 		//TODO: ver si hay que moverla y en base a eso si se devuelve la nueva localizacion
 	}
 	
+	private String getUbicacionPrendaDisponible(){
+		
+		return null;
+	}
 	
+	private String getUbicacionMateriaPrimaDisponible(){
+		
+		return null;
+	}
+	
+	//se usa para obtener la letra que corresponde a cada calle
+	private String getLetraCallePrendas(int numero){
+		switch (numero) {
+			case 1: return "A";
+			case 2: return "B";
+			case 3: return "C";
+			case 4: return "D";
+			case 5: return "E";
+			case 6: return "F";
+			case 7: return "G";
+		
+			default : return null;
+		}
+	}
+	
+	private String getLetraCalleMateriaPrima(int numero){
+		switch (numero) {
+			case 1: return "H";
+			case 2: return "I";
+			case 3: return "J";
+			case 4: return "K";
+			case 5: return "L";
+			case 6: return "M";
+			case 7: return "N";
+			case 8: return "O";
+			case 9: return "P";
+		
+			default : return null;
+		}
+	}
+	
+	
+	//TODO: no se usa nunca,solo se reserva materia prima. Por las dudas chequear 
+	public void ReservarPrenda(Prenda prenda,String talle,String color, int cantidad){
+			
+	}
 }

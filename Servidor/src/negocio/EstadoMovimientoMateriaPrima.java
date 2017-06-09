@@ -4,5 +4,5 @@ public enum EstadoMovimientoMateriaPrima {
 
 	Disponible,
 	Reservado,
-	Finalizado;
+	Utilizado;
 }

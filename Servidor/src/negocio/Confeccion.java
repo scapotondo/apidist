@@ -99,7 +99,6 @@ public class Confeccion {
 		ConfeccionDao.getInstance().crearConfeccion(this);
 	}
 	
-	@Override
 	public String toString() {
 		return this.detalle;
 	}

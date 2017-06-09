@@ -8,7 +8,6 @@ import entity.InsumoEntity;
 public class Insumo {
 	private int cantidad;
 	private int desperdicio;
-	private int precio;
 	private MateriaPrima materiaPrima;
 	
 	
@@ -16,14 +15,12 @@ public class Insumo {
 		this.cantidad=insumo.getCantidad();
 		this.desperdicio=insumo.getDesperdicio();
 		this.materiaPrima=new MateriaPrima(insumo.getMateriaPrima());
-		this.precio = insumo.getPrecio();
 	}
 	
-	public Insumo(int cantidad, int desperdicio, MateriaPrima materiaPrima,int precio){
+	public Insumo(int cantidad, int desperdicio, MateriaPrima materiaPrima){
 		this.cantidad=cantidad;
 		this.desperdicio=desperdicio;
 		this.materiaPrima=materiaPrima;
-		this.precio=precio;
 	}
 
 	public int getCantidad() {
@@ -44,15 +41,14 @@ public class Insumo {
 	public MateriaPrima getMateriaPrima(){
 		return this.materiaPrima;
 	}
-	public int getPrecio() {
-		return precio;
-	}
-	public void setPrecio(int precio) {
-		this.precio = precio;
+
+	
+	public Float calcularCosto(){
+		return this.materiaPrima.calcularPrecioCosto(this.cantidad);
 	}
 
 	public InsumoDto toDto(){
-		return new InsumoDto(cantidad, desperdicio, materiaPrima.toDto(),precio);
+		return new InsumoDto(cantidad, desperdicio, materiaPrima.toDto());
 	}
 	
 	

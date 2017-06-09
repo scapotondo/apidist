@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.Date;
 
+import dao.StockMateriaPrimaDao;
 import dto.StockMateriaPrimaDto;
 import entity.StockMateriaPrimaEntity;
 
@@ -83,8 +84,16 @@ public class StockMateriaPrima {
 		this.ubicacion = ubicacion;
 	}
 	
+	
+	public void disminuirCantidad(int cantidad){
+		this.cantidad= this.cantidad - cantidad;
+	}
+	
 	public StockMateriaPrimaDto toDto(){
 		return new StockMateriaPrimaDto(lote.toDto(), fechaRecepcion, precioFinalCompra, cantidad, ubicacion);
 	}
 	
+	public void saveMe(){
+		StockMateriaPrimaDao.getInstance().CrearStockMateriaPrima(this);
+	}
 }

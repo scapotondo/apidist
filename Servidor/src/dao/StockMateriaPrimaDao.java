@@ -19,6 +19,18 @@ public class StockMateriaPrimaDao {
 	
 	private StockMateriaPrimaDao(){}
 	
+	public void CrearStockMateriaPrima(StockMateriaPrima stock){
+		
+		StockMateriaPrimaEntity stockEntity = new StockMateriaPrimaEntity(stock);
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.save(stockEntity);
+		session.getTransaction().commit();
+		session.close();
+		
+	}
+	
 	@SuppressWarnings("unchecked")
 	public ArrayList<StockMateriaPrima> getStockMateriasPrimas(){
 		

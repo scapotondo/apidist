@@ -69,6 +69,30 @@ public class MateriaPrima {
 		this.ordenDeCompra = ordenDeCompra;
 	}
 	
+	public Float calcularPrecioCosto(int cantidadNecesaria){
+		Float costo=0F;
+		
+		for (StockMateriaPrima stockMateriaPrima : stock) {
+			if(cantidadNecesaria > 0){
+				
+				if(stockMateriaPrima.getCantidad()-cantidadNecesaria >= 0){
+					stockMateriaPrima.disminuirCantidad(cantidadNecesaria);
+					
+					costo = costo +cantidadNecesaria * stockMateriaPrima.getPrecioFinalCompra();
+				}else{
+					
+					stockMateriaPrima.disminuirCantidad(stockMateriaPrima.getCantidad());
+					
+					cantidadNecesaria = cantidadNecesaria - stockMateriaPrima.getCantidad();
+					
+					costo = costo + stockMateriaPrima.getCantidad() *stockMateriaPrima.getPrecioFinalCompra();
+				}
+			}
+		}
+		
+		return costo;
+	}
+	
 	public MateriaPrimaDto toDto(){
 		
 		ArrayList<StockMateriaPrimaDto> stockDto = new ArrayList<>();

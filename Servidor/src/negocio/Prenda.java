@@ -157,11 +157,14 @@ public class Prenda {
 		for (Confeccion confeccion : this.confecciones) {
 			
 			for (Insumo insumo : confeccion.getInsumos()) {
-				valor += insumo.getPrecio() * insumo.getCantidad();
+				
+				valor = valor + insumo.calcularCosto();
 			}
 		}
 		
-		return valor;
+		Float ganancia = 1 + this.porcentajeGanancia / 100;
+		
+		return valor * ganancia;
 	}
 	
 	public Hashtable<MateriaPrima, Integer> CalcularCantidadMateriaPrimaTotal(){
