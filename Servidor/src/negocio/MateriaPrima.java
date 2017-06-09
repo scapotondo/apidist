@@ -76,12 +76,11 @@ public class MateriaPrima {
 			if(cantidadNecesaria > 0){
 				
 				if(stockMateriaPrima.getCantidad()-cantidadNecesaria >= 0){
-					stockMateriaPrima.disminuirCantidad(cantidadNecesaria);
 					
 					costo = costo +cantidadNecesaria * stockMateriaPrima.getPrecioFinalCompra();
-				}else{
 					
-					stockMateriaPrima.disminuirCantidad(stockMateriaPrima.getCantidad());
+					cantidadNecesaria = 0;
+				}else{
 					
 					cantidadNecesaria = cantidadNecesaria - stockMateriaPrima.getCantidad();
 					
