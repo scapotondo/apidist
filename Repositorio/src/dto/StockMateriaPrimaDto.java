@@ -8,26 +8,28 @@ public class StockMateriaPrimaDto implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
-	private OrdenDeCompraDto lote;
+	private int numero;
 	private Date fechaRecepcion;
 	private float precioFinalCompra;
 	private int cantidad;
 	private String ubicacion;
 	
-	public StockMateriaPrimaDto(OrdenDeCompraDto lote,Date fechaRecepcion,float precioFinalCompra,int cantidad,String ubicacion){
-		this.lote=lote;
+	public StockMateriaPrimaDto(int numero, Date fechaRecepcion,float precioFinalCompra,int cantidad,String ubicacion){
+		this.numero= numero;
 		this.fechaRecepcion=fechaRecepcion;
 		this.precioFinalCompra=precioFinalCompra;
 		this.cantidad=cantidad;
 		this.ubicacion=ubicacion;
 	}
 
-	public OrdenDeCompraDto getLote() {
-		return lote;
+
+
+	public int getNumero() {
+		return numero;
 	}
 
-	public void setLote(OrdenDeCompraDto lote) {
-		this.lote = lote;
+	public void setNumero(int numero) {
+		this.numero = numero;
 	}
 
 	public Date getFechaRecepcion() {

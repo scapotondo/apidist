@@ -161,6 +161,7 @@ public class Almacen {
 	
 	public void disminuirStockPrendaPorDeterioro(Prenda prenda,int cantidad, String talle, String color, String encargado, String quienAutorizo, String destino){
 		
+		
 	}
 	
 	public void agregarStockPrenda(Prenda prenda, int cantidad, String talle, String color, OrdenDeProduccion lote) throws ColorException{
@@ -183,21 +184,21 @@ public class Almacen {
 		movimiento.saveMe();
 	}
 	
-	public void agregarStockMateriaPrima(MateriaPrima materiaPrima,int cantidad){
+	public void agregarStockMateriaPrima(MateriaPrima materiaPrima, int cantidad, Float precio){
 		
 		String ubicacion = getUbicacionMateriaPrimaDisponible();
 		
 		//TODO: reservar ubicacion 
 		
-		//TODO:terminar por problema de que la materia prima no tiene un precio
-//		StockMateriaPrima stock = new StockMateriaPrima(lote, fechaRecepcion, precioFinalCompra, cantidad, ubicacion, materiaPrima);
-//		stock.saveMe();
+		StockMateriaPrima stock = new StockMateriaPrima(Calendar.getInstance().getTime(), precio, cantidad, ubicacion, materiaPrima);
+		stock.saveMe();
 		
 		MovimientoMateriaPrima movimiento = new MovimientoMateriaPrima(EstadoMovimientoMateriaPrima.Disponible, cantidad, Calendar.getInstance().getTime(), materiaPrima);
 		movimiento.saveMe();
 	}
 	
-	public void disminuirStockMateriaPrima(MateriaPrima materiaPrima,int cantidad){
+	public void disminuirStockMateriaPrima(MateriaPrima materiaPrima, int cantidad){
+		
 		
 		
 	}

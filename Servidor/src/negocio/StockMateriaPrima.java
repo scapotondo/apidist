@@ -8,7 +8,7 @@ import entity.StockMateriaPrimaEntity;
 
 public class StockMateriaPrima {
 	
-	private OrdenDeCompra lote;
+	private int numero;
 	private Date fechaRecepcion;
 	private float precioFinalCompra;
 	private int cantidad;
@@ -17,7 +17,7 @@ public class StockMateriaPrima {
 
 	
 	public StockMateriaPrima(StockMateriaPrimaEntity stock){
-		this.lote=new OrdenDeCompra(stock.getLote());
+		this.numero= stock.getNumero();
 		this.fechaRecepcion=stock.getFechaRecepcion();
 		this.precioFinalCompra=stock.getPrecioFinalCompra();
 		this.cantidad=stock.getCantidad();
@@ -25,9 +25,18 @@ public class StockMateriaPrima {
 		this.materiaPrima= new MateriaPrima(stock.getMateriaPrima());
 	}
 	
-	public StockMateriaPrima(OrdenDeCompra lote,Date fechaRecepcion,float precioFinalCompra,int cantidad,String ubicacion,
+	public StockMateriaPrima(int numero, Date fechaRecepcion,float precioFinalCompra,int cantidad,String ubicacion,
 			MateriaPrima materiaPrima){
-		this.lote=lote;
+		this.numero=numero;
+		this.fechaRecepcion=fechaRecepcion;
+		this.precioFinalCompra=precioFinalCompra;
+		this.cantidad=cantidad;
+		this.ubicacion=ubicacion;
+		this.materiaPrima=materiaPrima;
+	}
+	
+	public StockMateriaPrima(Date fechaRecepcion,float precioFinalCompra,int cantidad,String ubicacion,
+			MateriaPrima materiaPrima){
 		this.fechaRecepcion=fechaRecepcion;
 		this.precioFinalCompra=precioFinalCompra;
 		this.cantidad=cantidad;
@@ -44,12 +53,12 @@ public class StockMateriaPrima {
 		this.materiaPrima = materiaPrima;
 	}
 
-	public OrdenDeCompra getLote() {
-		return lote;
+	public int getNumero() {
+		return numero;
 	}
 
-	public void setLote(OrdenDeCompra lote) {
-		this.lote = lote;
+	public void setNumero(int numero) {
+		this.numero = numero;
 	}
 
 	public Date getFechaRecepcion() {
@@ -90,7 +99,7 @@ public class StockMateriaPrima {
 	}
 	
 	public StockMateriaPrimaDto toDto(){
-		return new StockMateriaPrimaDto(lote.toDto(), fechaRecepcion, precioFinalCompra, cantidad, ubicacion);
+		return new StockMateriaPrimaDto(numero, fechaRecepcion, precioFinalCompra, cantidad, ubicacion);
 	}
 	
 	public void saveMe(){

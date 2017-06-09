@@ -19,13 +19,10 @@ public class StockMateriaPrimaEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private int numero;
 	
 	@ManyToOne(targetEntity=MateriaPrimaEntity.class)
 	private MateriaPrimaEntity materiaPrima;
-	
-	@OneToOne()
-	private OrdenDeCompraEntity lote;
 	
 	private Date fechaRecepcion;
 	private float precioFinalCompra;
@@ -34,12 +31,11 @@ public class StockMateriaPrimaEntity implements Serializable{
 	
 	public StockMateriaPrimaEntity(){}
 	
-	public StockMateriaPrimaEntity(int id, MateriaPrimaEntity materiaPrima,OrdenDeCompraEntity lote,Date fechaRecepcion,
-			float precioFinalCompra,int cantidad,String ubicacion){
+	public StockMateriaPrimaEntity(int numero, MateriaPrimaEntity materiaPrima, Date fechaRecepcion, float precioFinalCompra,
+			int cantidad, String ubicacion){
 		
-		this.id=id;
+		this.numero= numero;
 		this.materiaPrima=materiaPrima;
-		this.lote=lote;
 		this.fechaRecepcion=fechaRecepcion;
 		this.precioFinalCompra=precioFinalCompra;
 		this.cantidad=cantidad;
@@ -47,22 +43,21 @@ public class StockMateriaPrimaEntity implements Serializable{
 	}
 	
 	public StockMateriaPrimaEntity(StockMateriaPrima mp){
-		//TODO: ver como manejar id de StockMateriaPRima porque lo uniboco es el lote supuestamente
-	//	this.id=mp.getId();
+		this.numero=mp.getNumero();
 		this.materiaPrima=new MateriaPrimaEntity(mp.getMateriaPrima());
-		this.lote=new OrdenDeCompraEntity(mp.getLote());
 		this.fechaRecepcion=mp.getFechaRecepcion();
 		this.precioFinalCompra=mp.getPrecioFinalCompra();
 		this.cantidad=mp.getCantidad();
 		this.ubicacion=mp.getUbicacion();
 	}
 
-	public int getId() {
-		return id;
+
+	public int getNumero() {
+		return numero;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setNumero(int numero) {
+		this.numero = numero;
 	}
 
 	public MateriaPrimaEntity getMateriaPrima() {
@@ -105,13 +100,4 @@ public class StockMateriaPrimaEntity implements Serializable{
 		this.ubicacion = ubicacion;
 	}
 
-	public OrdenDeCompraEntity getLote() {
-		return lote;
-	}
-
-	public void setLote(OrdenDeCompraEntity lote) {
-		this.lote = lote;
-	}
-	
-	
 }
