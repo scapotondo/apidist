@@ -6,16 +6,10 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import dto.AreaProduccionDto;
-import dto.ClienteDto;
-import dto.MateriaPrimaDto;
-import dto.PrendaDto;
-import dto.SucursalDto;
+import dto.*;
 import exceptions.ApplicationException;
 import exceptions.RemoteObjectNotFoundException;
-import interfaces.AdministracionClientesInterface;
-import interfaces.AdministracionPrendasInterface;
-import interfaces.AdministracionProduccionInterface;
+import interfaces.*;
 
 public class BusinessDelegate {
 	private static BusinessDelegate instance;
