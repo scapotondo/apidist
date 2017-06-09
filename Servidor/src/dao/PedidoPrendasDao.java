@@ -53,12 +53,12 @@ public class PedidoPrendasDao {
 		session.close();
 	}
 	
-	public PedidoPrendas BuscarPedidoPrendas(PedidoPrendasDto pedido){
+	public PedidoPrendas BuscarPedidoPrendas(int nroPedido){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		session.beginTransaction();
-		PedidoPrendasEntity pedidoEntity = session.get(PedidoPrendasEntity.class, pedido.getNroPedido());
+		PedidoPrendasEntity pedidoEntity = session.get(PedidoPrendasEntity.class, nroPedido);
 		session.getTransaction().commit();
 		session.close();
 		

@@ -15,41 +15,31 @@ public class AdministracionPedidos extends UnicastRemoteObject implements Admini
 		super();
 	}
 
-	@Override
 	public void CrearPedido(PedidoPrendasDto pedido) throws RemoteException {
 		Controller.getInstance().CrearPedidoPrendas(pedido);
 	}
 
-	@Override
 	public void AprobarPedidoAdmin(int nroPedido, int nroSucursal) throws RemoteException {
-		// TODO Auto-generated method stub
+		Controller.getInstance().AprobarPedidoAdmin(nroPedido, nroSucursal);
 		
 	}
 
-	@Override
 	public PedidoPrendasDto BuscarPedido(int nroPedido) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		return Controller.getInstance().BuscarPedido(nroPedido).toDto();
 	}
 
-	@Override
 	public void RechazarPedidoAdmin(int nroPedido, int nroSucursal, String descripcion) throws RemoteException {
-		// TODO Auto-generated method stub
+		Controller.getInstance().RechazarPedidoAdmin(nroPedido, nroSucursal, descripcion);
 		
 	}
 
-	@Override
 	public void AceptarPedidoCliente(int nroPedido) throws RemoteException {
-		// TODO Auto-generated method stub
+		Controller.getInstance().AceptarPedidoCliente(nroPedido);
 		
 	}
 
-	@Override
 	public void RechazarPedidoCliente(int nroPedido) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		Controller.getInstance().RechazarPedidoCliente(nroPedido);
 	}
-
-
 	
 }
