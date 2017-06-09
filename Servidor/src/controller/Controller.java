@@ -86,22 +86,17 @@ public class Controller {
 	
 	//ver hasta aca si lo pasamos
 	
-	public PedidoPrendasDto GenerarPedidoPrendas(){
+	
+	public void CrearPedidoPrendas(PedidoPrendasDto pedido){
 		//TODO: terminar
-		return null;
 	}
 	
 	public void AprobarPedidoAdmin(int nroPedido, int nroSucursal){
 		//TODO: terminar
 	}
 	
-	private PedidoPrendas BuscarPedido(int nroPedido){
+	public PedidoPrendas BuscarPedido(int nroPedido){
 		return null;
-	}
-	
-	private Sucursal BuscarSucursal(int nroSucursal){
-		
-		return SucursalDao.getInstance().getSucursalById(nroSucursal);
 	}
 	
 	public void RechazarPedidoAdmin(int nroPedido, int nroSucursal, String descripcion){
@@ -120,6 +115,7 @@ public class Controller {
 		//TODO: terminar
 	}
 	
+	
 	public void AumentarRealStockAlmacen(String bulto,int cantidad){
 		//TODO: terminar
 	}
@@ -131,6 +127,7 @@ public class Controller {
 	public void DisminuirStockDefectuosoAlmacen(String lote,int cantidad){
 		//TODO: terminar
 	}
+	
 	
 	public void RechazarOrdenDeCompra(int nroCompra){
 		//TODO: terminar
@@ -187,4 +184,8 @@ public class Controller {
 		return sucursalesDto;
 	}
 	
+	private Sucursal BuscarSucursal(int nroSucursal){
+		
+		return SucursalDao.getInstance().getSucursalById(nroSucursal);
+	}
 }
