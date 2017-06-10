@@ -96,7 +96,6 @@ public class Controller {
 	}
 	
 	public PedidoPrendas BuscarPedido(int nroPedido){
-		
 		return PedidoPrendasDao.getInstance().BuscarPedidoPrendas(nroPedido);
 	}
 	

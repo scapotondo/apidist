@@ -65,7 +65,7 @@ private static MovimientoMateriaPrimaDao instance;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		session.beginTransaction();
-		ArrayList<MovimientoMateriaPrimaEntity> movimientosReservadosEntity = (ArrayList<MovimientoMateriaPrimaEntity>) session.createQuery("from MovimientoMateriaPrimaEntity WHERE estado = Reservado").list();
+		ArrayList<MovimientoMateriaPrimaEntity> movimientosReservadosEntity = (ArrayList<MovimientoMateriaPrimaEntity>) session.createQuery("from MovimientoMateriaPrimaEntity WHERE estado = Reservar").list();
 		session.getTransaction().commit();
 		session.close();
 		
