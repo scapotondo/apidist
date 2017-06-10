@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.ArrayList;
+
 import org.hibernate.Session;
 
 import entity.LineaProduccionEntity;
@@ -18,6 +20,24 @@ public class LineaProduccionDao {
 	}
 	
 	private LineaProduccionDao(){}
+	
+	public ArrayList<LineaProduccion> getLineasProduccionDisponibles(){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		session.beginTransaction();
+		ArrayList<LineaProduccionEntity> lineasProduccionEntity = (ArrayList<LineaProduccionEntity>) session.createQuery("from LineaProduccionEntity where estado = Libre").list();
+		session.getTransaction().commit();
+		session.close();
+		
+		if(lineasProduccionEntity == null)
+			return null;
+		
+		ArrayList<LineaProduccion> lineasProduccion = new ArrayList<LineaProduccion>();
+		for (LineaProduccionEntity linea : lineasProduccionEntity) 
+			lineasProduccion.add(new LineaProduccion(linea));
+		
+		return lineasProduccion;
+	}
 	
 	public void Modificar(LineaProduccion linea){
 		LineaProduccionEntity lineaEntity = new LineaProduccionEntity(linea);
