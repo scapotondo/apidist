@@ -52,4 +52,18 @@ public class StockPrendaDao {
 		
 		return stockPrendas;
 	}
+	
+	public StockPrenda BuscarStockPrenda(int codigo){
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		StockPrendaEntity stockEntity = session.get(StockPrendaEntity.class, codigo);
+		session.getTransaction().commit();
+		session.close();
+		
+		if(stockEntity == null)
+			return null;
+		
+		return new StockPrenda(stockEntity);
+	}
 }

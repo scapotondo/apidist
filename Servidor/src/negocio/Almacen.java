@@ -14,14 +14,7 @@ public class Almacen {
 	
 	private static Almacen instance;
 	
-	private int[][][][] almacen = new int[7][5][6][21];
-	
-	private Object[] calle = new Integer[7];
-	private Object[] bloque = new Integer[5];
-	private Object[] estante = new Integer[6];
-	private Object[] posicion = new StockPrenda[21];
-	
-//	private Object [][][][] almacen ={calle,bloque,estante,posicion}; 
+	private int[][][][] almacen = new int[17][6][7][22];
 	
 	
 	private ArrayList<MovimientoPrenda> movimientosPrendas;
@@ -30,10 +23,10 @@ public class Almacen {
 	private ArrayList<StockMateriaPrima> stockMateriaPrima;
 	
 	private Almacen(){
-		for (int calles = 1; calles <= 7; calles++) {
-			for (int bloques = 1; bloques <= 5; bloques++) {
-				for (int estantes = 1; estantes <= 6; estantes++) {
-					for (int posiciones = 1; posiciones <= 21; posiciones++) {
+		for (int calles = 1; calles < 17; calles++) {
+			for (int bloques = 1; bloques < 6; bloques++) {
+				for (int estantes = 1; estantes < 7; estantes++) {
+					for (int posiciones = 1; posiciones < 21; posiciones++) {
 						
 						almacen[calles][bloques][estantes][posiciones] = 0;
 					}
@@ -76,6 +69,7 @@ public class Almacen {
 	
 	
 	public int getStockPrenda( Prenda prenda,  String talle,  String color){
+		int total = 0;
 		
 		this.stockPrendas=StockPrendaDao.getInstance().getStockPrendas();
 		for (StockPrenda stockPrenda : this.stockPrendas) {
@@ -83,9 +77,10 @@ public class Almacen {
 			if(stockPrenda.getPrenda().getCodigo() == prenda.getCodigo() && stockPrenda.getColor().equals(color) 
 					&& stockPrenda.getTalle().equals(talle) )
 				
-				return stockPrenda.getCantidad();
+				total = total + stockPrenda.getCantidad();
 		}
-		return 0;
+		
+		return total;
 	}
 	
 	public boolean tenesStockPrenda(Prenda prenda,String talle, String color, int cantidad){
@@ -99,8 +94,6 @@ public class Almacen {
 	public boolean tenesStockMateriaPrimaParaPrenda(Prenda prenda){
 		//actualizo stock
 		this.stockMateriaPrima = StockMateriaPrimaDao.getInstance().getStockMateriasPrimas();
-		
-		//diccionario materias primas reservadas
 				
 		//movimientos que tienen estado Reservado
 		ArrayList<MovimientoMateriaPrima> movimientosMateriaPrimaReservada = MovimientoMateriaPrimaDao.getInstance().BuscarMovimientoMateriaPrimaReservara();
@@ -175,7 +168,7 @@ public class Almacen {
 		
 		return true;
 	}
-	
+
 	public void disminuirStockPrenda(Prenda prenda,int cantidad, String talle, String color, String encargado){
 		
 	}
@@ -189,13 +182,13 @@ public class Almacen {
 		
 		Float costoProduccion= prenda.calcularCostoActual();
 		
-		//TODO: ARMAR UBICACIONES
 		String ubicacion = getUbicacionPrendaDisponible();
 		
-		//TODO: RESERVAR UBICACION
 		
 		StockPrenda stockPrenda = new StockPrenda(ColorPrenda.fromString(color), talle, lote,Calendar.getInstance().getTime(), costoProduccion, cantidad, 
 				ubicacion, EstadoStockPrenda.Disponible, prenda);
+		
+		agregarStockPrenda(stockPrenda, ubicacion);
 		
 		stockPrenda.saveMe();
 		
@@ -209,10 +202,11 @@ public class Almacen {
 		
 		String ubicacion = getUbicacionMateriaPrimaDisponible();
 		
-		//TODO: reservar ubicacion 
 		
 		StockMateriaPrima stock = new StockMateriaPrima(Calendar.getInstance().getTime(), precio, cantidad, ubicacion, materiaPrima);
 		stock.saveMe();
+		
+		agregarStockMateriaPrima(stock, ubicacion);
 		
 		MovimientoMateriaPrima movimiento = new MovimientoMateriaPrima(EstadoMovimientoMateriaPrima.Disponible, cantidad, Calendar.getInstance().getTime(), materiaPrima);
 		movimiento.saveMe();
@@ -220,7 +214,6 @@ public class Almacen {
 	
 	public void disminuirStockMateriaPrima(MateriaPrima materiaPrima, int cantidad){
 		
-		//TODO: ver que esta lista se carge con lo que hay en el dic de dics
 		this.stockMateriaPrima = StockMateriaPrimaDao.getInstance().getStockMateriasPrimas();
 		for (StockMateriaPrima stock : this.stockMateriaPrima) {
 			if(cantidad > 0){
@@ -233,7 +226,8 @@ public class Almacen {
 					}else{
 						cantidad = cantidad - stock.getCantidad();
 						stock.deleteMe();
-						//TODO: sacar del dic de dics en este caso
+						
+						sacarStockMateriaPrima(stock);
 					}
 				}
 			}
@@ -247,29 +241,24 @@ public class Almacen {
 		
 		MovimientoMateriaPrima movimientoMateriaPrimaReservada = new MovimientoMateriaPrima(EstadoMovimientoMateriaPrima.Reservado, cantidad, Calendar.getInstance().getTime(), mp);
 		movimientoMateriaPrimaReservada.saveMe();
-		
-		//TODO: ver si hay que moverla y en base a eso si se devuelve la nueva localizacion
 	}
 	
-	public static void main(String[] args) {
-		System.out.println(Almacen.getInstance().getUbicacionPrendaDisponible());
-	}
 	
 	//TODO: en las posiciones poner el codigo del stock y para recuperarlo ir al dao y buscarlo
 	public String getUbicacionPrendaDisponible(){
 		String posicion;
-		for (int calles = 1; calles <= 7; calles++) {
-			for (int bloques = 1; bloques <= 5; bloques++) {
-				for (int estantes = 1; estantes <= 6; estantes++) {
-					for (int posiciones = 1; posiciones <= 21; posiciones++) {
+		for (int calles = 1; calles < 8; calles++) {
+			for (int bloques = 1; bloques < 6; bloques++) {
+				for (int estantes = 1; estantes < 7; estantes++) {
+					for (int posiciones = 1; posiciones < 22; posiciones++) {
 						
 						if(almacen[calles][bloques][estantes][posiciones] == 0 ){
-							if(posiciones >10)
+							if(posiciones <10)
 								posicion = "0"+posiciones;
 							else
 								posicion = posiciones+"";
 							
-							return getLetraCallePrendas(calles) + "0" + bloques + "0" + estantes + posicion;
+							return getLetraCalle(calles) + "0" + bloques + "0" + estantes + posicion;
 						}
 					}
 				}
@@ -279,18 +268,110 @@ public class Almacen {
 		return null;
 	}
 	
-	private StockPrenda buscarStockPrenda(int codigoStock){
-		//TODO: terminar y buscar prenda por codigo
-		return null;
+	
+	
+	private void sacarStockPrenda(StockPrenda stockPrenda){
+		
+		for (int calles = 1; calles < 8; calles++) {
+			for (int bloques = 1; bloques < 6; bloques++) {
+				for (int estantes = 1; estantes < 7; estantes++) {
+					for (int posiciones = 1; posiciones < 22; posiciones++) {
+						
+						if(almacen[calles][bloques][estantes][posiciones] == stockPrenda.getLote().getNroOrden() ){
+							
+							almacen[calles][bloques][estantes][posiciones] = 0;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private void agregarStockPrenda(StockPrenda stockPrenda, String ubicacion){
+		int calle = getNumeroCalle(ubicacion.charAt(0)+"");
+		int bloque = Integer.parseInt((ubicacion.charAt(1) + ubicacion.charAt(2) +""));
+		int estante = Integer.parseInt(ubicacion.charAt(3) + ubicacion.charAt(4) +"");
+		int posicion = Integer.parseInt(ubicacion.charAt(5) + ubicacion.charAt(6) +"");
+		
+		almacen[calle][bloque][estante][posicion] = stockPrenda.getLote().getNroOrden();
 	}
 	
+	
+	
 	private String getUbicacionMateriaPrimaDisponible(){
+		String posicion;
+		for (int calles = 8; calles < 17; calles++) {
+			for (int bloques = 1; bloques < 6; bloques++) {
+				for (int estantes = 1; estantes < 7; estantes++) {
+					for (int posiciones = 1; posiciones < 22; posiciones++) {
+						
+						if(almacen[calles][bloques][estantes][posiciones] == 0 ){
+							if(posiciones <10)
+								posicion = "0"+posiciones;
+							else
+								posicion = posiciones+"";
+							
+							return getLetraCalle(calles) + "0" + bloques + "0" + estantes + posicion;
+						}
+					}
+				}
+			}
+		}
 		
 		return null;
 	}
 	
-	//se usa para obtener la letra que corresponde a cada calle
-	private String getLetraCallePrendas(int numero){
+	
+	private void sacarStockMateriaPrima(StockMateriaPrima stockMateriaPrima){
+		for (int calles = 8; calles < 17; calles++) {
+			for (int bloques = 1; bloques < 6; bloques++) {
+				for (int estantes = 1; estantes < 7; estantes++) {
+					for (int posiciones = 1; posiciones < 22; posiciones++) {
+						
+						if(almacen[calles][bloques][estantes][posiciones] ==  stockMateriaPrima.getNumero()){
+							
+							almacen[calles][bloques][estantes][posiciones] = 0;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private void agregarStockMateriaPrima(StockMateriaPrima stockMateriaPrima , String ubicacion){
+		int calle = getNumeroCalle(ubicacion.charAt(0)+"");
+		int bloque = Integer.parseInt((ubicacion.charAt(1) + ubicacion.charAt(2) +""));
+		int estante = Integer.parseInt(ubicacion.charAt(3) + ubicacion.charAt(4) +"");
+		int posicion = Integer.parseInt(ubicacion.charAt(5) + ubicacion.charAt(6) +"");
+		
+		almacen[calle][bloque][estante][posicion] = stockMateriaPrima.getNumero();
+	}
+	
+	
+	private int getNumeroCalle(String letra){
+		switch (letra) {
+			case "A": return 1;
+			case "B": return 2;
+			case "C": return 3;
+			case "D": return 4;
+			case "E": return 5;
+			case "F": return 6;
+			case "G": return 7;
+			case "H": return 8;
+			case "I": return 9;
+			case "J": return 10;
+			case "K": return 11;
+			case "L": return 12;
+			case "M": return 13;
+			case "N": return 14;
+			case "O": return 15;
+			case "P": return 16;
+		
+			default : return 0;
+		}
+	}
+	
+	private String getLetraCalle(int numero){
 		switch (numero) {
 			case 1: return "A";
 			case 2: return "B";
@@ -299,30 +380,22 @@ public class Almacen {
 			case 5: return "E";
 			case 6: return "F";
 			case 7: return "G";
-		
+			case 8: return "H";
+			case 9: return "I";
+			case 10: return "J";
+			case 11: return "K";
+			case 12: return "L";
+			case 13: return "M";
+			case 14: return "N";
+			case 15: return "O";
+			case 16: return "P";
 			default : return null;
 		}
 	}
 	
-	private String getLetraCalleMateriaPrima(int numero){
-		switch (numero) {
-			case 1: return "H";
-			case 2: return "I";
-			case 3: return "J";
-			case 4: return "K";
-			case 5: return "L";
-			case 6: return "M";
-			case 7: return "N";
-			case 8: return "O";
-			case 9: return "P";
+	private StockPrenda buscarStockPrenda(int codigoStock){
 		
-			default : return null;
-		}
+		return StockPrendaDao.getInstance().BuscarStockPrenda(codigoStock);
 	}
 	
-	
-	//TODO: no se usa nunca,solo se reserva materia prima. Por las dudas chequear 
-	public void ReservarPrenda(Prenda prenda,String talle,String color, int cantidad){
-			
-	}
 }
