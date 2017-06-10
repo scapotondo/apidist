@@ -76,4 +76,25 @@ public class StockMateriaPrimaDao {
 		
 		return stockMateriasPrimas;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<StockMateriaPrima> getStockMateriasPrimasDisponibles(){
+		
+		ArrayList<StockMateriaPrima> stockMateriasPrimas= new ArrayList<StockMateriaPrima>();
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		ArrayList<StockMateriaPrimaEntity> stockMateriasPrimasEntity = (ArrayList<StockMateriaPrimaEntity>) session.createQuery("from StockMateriaPrimaEntity WHERE cantidad > 0").list();
+		session.getTransaction().commit();
+		session.close();
+		
+		if(stockMateriasPrimasEntity == null)
+			return null;
+		
+		for (StockMateriaPrimaEntity stockMateriaPrimasEntity : stockMateriasPrimasEntity) {
+			stockMateriasPrimas.add(new StockMateriaPrima(stockMateriaPrimasEntity));
+		}
+		
+		return stockMateriasPrimas;
+	}
 }

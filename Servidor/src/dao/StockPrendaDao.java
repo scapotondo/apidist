@@ -76,6 +76,27 @@ public class StockPrendaDao {
 		return stockPrendas;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public ArrayList<StockPrenda> getStockPrendasDisponibles(){
+		
+		ArrayList<StockPrenda> stockPrendas= new ArrayList<StockPrenda>();
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		ArrayList<StockPrendaEntity> stockPrendasEntity = (ArrayList<StockPrendaEntity>) session.createQuery("from StockPrendaEntity WHERE cantidad > 0").list();
+		session.getTransaction().commit();
+		session.close();
+		
+		if(stockPrendasEntity == null)
+			return null;
+		
+		for (StockPrendaEntity stockPrendaEntity : stockPrendasEntity) {
+			stockPrendas.add(new StockPrenda(stockPrendaEntity));
+		}
+		
+		return stockPrendas;
+	}
+	
 	public StockPrenda BuscarStockPrenda(int codigo){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();

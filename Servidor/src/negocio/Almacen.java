@@ -14,19 +14,33 @@ public class Almacen {
 	
 	private static Almacen instance;
 	
-	private int[][][][] almacen = new int[17][6][7][22];
+	private int callePrendas = 8;
+	private int calle = 17;
+	private int bloque = 6;
+	private int estante = 7;
+	private int posicion = 22;
 	
-	
-	private ArrayList<MovimientoPrenda> movimientosPrendas;
-	private ArrayList<MovimientoMateriaPrima> movimientosMateriaPrima;
-	private ArrayList<StockPrenda> stockPrendas;
-	private ArrayList<StockMateriaPrima> stockMateriaPrima;
+	private int[][][][] almacen = new int[calle][bloque][estante][posicion];
 	
 	private Almacen(){
-		for (int calles = 1; calles < 17; calles++) {
-			for (int bloques = 1; bloques < 6; bloques++) {
-				for (int estantes = 1; estantes < 7; estantes++) {
-					for (int posiciones = 1; posiciones < 21; posiciones++) {
+		ArrayList<StockPrenda> stockPrendasDisponibles = StockPrendaDao.getInstance().getStockPrendasDisponibles();
+		if(stockPrendasDisponibles != null){
+			for (StockPrenda stockPrenda : stockPrendasDisponibles) {
+				this.agregarStockPrenda(stockPrenda);
+			}
+		}
+		
+		ArrayList<StockMateriaPrima> stockMateriasPrimasDisponibles = StockMateriaPrimaDao.getInstance().getStockMateriasPrimasDisponibles();
+		if(stockMateriasPrimasDisponibles != null){
+			for (StockMateriaPrima stockMateriaPrima : stockMateriasPrimasDisponibles) {
+				this.agregarStockMateriaPrima(stockMateriaPrima);
+			}
+		}
+		
+		for (int calles = 1; calles < calle; calles++) {
+			for (int bloques = 1; bloques < bloque; bloques++) {
+				for (int estantes = 1; estantes < estante; estantes++) {
+					for (int posiciones = 1; posiciones < posicion; posiciones++) {
 						
 						almacen[calles][bloques][estantes][posiciones] = 0;
 					}
@@ -42,37 +56,11 @@ public class Almacen {
 		return instance;
 	}
 	
-	public ArrayList<MovimientoPrenda> getMovimientosPrendas() {
-		return movimientosPrendas;
-	}
-	public void setMovimientosPrendas(ArrayList<MovimientoPrenda> movimientosPrendas) {
-		this.movimientosPrendas = movimientosPrendas;
-	}
-	public ArrayList<MovimientoMateriaPrima> getMovimientosMateriaPrima() {
-		return movimientosMateriaPrima;
-	}
-	public void setMovimientosMateriaPrima(ArrayList<MovimientoMateriaPrima> movimientosMateriaPrima) {
-		this.movimientosMateriaPrima = movimientosMateriaPrima;
-	}
-	public ArrayList<StockPrenda> getStockPrendas() {
-		return stockPrendas;
-	}
-	public void setStockPrendas(ArrayList<StockPrenda> stockPrendas) {
-		this.stockPrendas = stockPrendas;
-	}
-	public ArrayList<StockMateriaPrima> getStockMateriaPrima() {
-		return stockMateriaPrima;
-	}
-	public void setStockMateriaPrima(ArrayList<StockMateriaPrima> stockMateriaPrima) {
-		this.stockMateriaPrima = stockMateriaPrima;
-	}
-	
 	
 	public int getStockPrenda( Prenda prenda,  String talle,  String color){
 		int total = 0;
-		
-		this.stockPrendas=StockPrendaDao.getInstance().getStockPrendas();
-		for (StockPrenda stockPrenda : this.stockPrendas) {
+		ArrayList<StockPrenda> stockPrendas = StockPrendaDao.getInstance().getStockPrendas();
+		for (StockPrenda stockPrenda : stockPrendas) {
 			
 			if(stockPrenda.getPrenda().getCodigo() == prenda.getCodigo() && stockPrenda.getColor().equals(color) 
 					&& stockPrenda.getTalle().equals(talle) )
@@ -92,9 +80,7 @@ public class Almacen {
 	}
 	
 	public boolean tenesStockMateriaPrimaParaPrenda(Prenda prenda){
-		//actualizo stock
-		this.stockMateriaPrima = StockMateriaPrimaDao.getInstance().getStockMateriasPrimas();
-				
+	
 		//movimientos que tienen estado Reservado
 		ArrayList<MovimientoMateriaPrima> movimientosMateriaPrimaReservada = MovimientoMateriaPrimaDao.getInstance().BuscarMovimientoMateriaPrimaReservara();
 				
@@ -123,7 +109,8 @@ public class Almacen {
 		//Materia prima que actualmente tengo
 		Hashtable<MateriaPrima, Integer> materiaPrimaActual = new Hashtable<MateriaPrima, Integer>();
 		
-		for (StockMateriaPrima stockMateriaPrima : this.stockMateriaPrima) {
+		ArrayList<StockMateriaPrima> stockMateriasPrima = StockMateriaPrimaDao.getInstance().getStockMateriasPrimas();
+		for (StockMateriaPrima stockMateriaPrima : stockMateriasPrima) {
 			
 			if(materiaPrimaActual.containsKey(stockMateriaPrima.getMateriaPrima())){
 				
@@ -172,76 +159,81 @@ public class Almacen {
 	public void disminuirStockPrenda(Prenda prenda,int cantidad, String talle, String color, String encargado){
 		MovimientoPrenda movimiento;
 		String ubicacion= "";
+		ArrayList<StockPrenda> stockPrendas;
 		
 		if(tenesStockPrenda(prenda, talle, color, cantidad)){
-			this.stockPrendas = StockPrendaDao.getInstance().getStockPrendas();
-			for (StockPrenda stockPrenda : this.stockPrendas) {
-				if(cantidad > 0){
-					if(stockPrenda.getPrenda().getCodigo() == prenda.getCodigo() && stockPrenda.getColor().equals(color) &&
-							stockPrenda.getTalle().equals(talle)){
+			stockPrendas = StockPrendaDao.getInstance().getStockPrendas();
+			for (StockPrenda stockPrenda : stockPrendas) {
+				if(cantidad <= 0){
+					break;
+				}
+				if(stockPrenda.getPrenda().getCodigo() == prenda.getCodigo() && stockPrenda.getColor().equals(color) &&
+						stockPrenda.getTalle().equals(talle)){
 						
-						if(stockPrenda.getCantidad() - cantidad > 0){
+					if(stockPrenda.getCantidad() - cantidad > 0){
 							
-							stockPrenda.disminuirCantidad(cantidad);
-							stockPrenda.updateMe();
+						stockPrenda.disminuirCantidad(cantidad);
 							
-							ubicacion = getUbicacionStockPrenda(stockPrenda);
-						
-							cantidad = 0;
-						}else{
+						ubicacion = stockPrenda.getUbicacion();
+						cantidad = 0;
+					}else{
 							
-							cantidad = cantidad - stockPrenda.getCantidad();
+						cantidad = cantidad - stockPrenda.getCantidad();
 							
-							stockPrenda.deleteMe();
+						ubicacion = "0";
 							
-							ubicacion = "0";
+						stockPrenda.setCantidad(0);
 							
-							sacarStockPrenda(stockPrenda);
-						}
+						sacarStockPrenda(stockPrenda);
 					}
+						
+					stockPrenda.updateMe();
 				}
 			}
 		}
 		
-		movimiento = new MovimientoPrenda(-cantidad, Calendar.getInstance().getTime(), talle, color, encargado, "sistema", ubicacion, prenda);
+		movimiento = new MovimientoPrenda(cantidad, Calendar.getInstance().getTime(), talle, color, encargado, "sistema", ubicacion, prenda);
 		movimiento.saveMe();
 	}
 	
 	public void disminuirStockPrendaPorDeterioro(Prenda prenda,int cantidad, String talle, String color, String encargado, String quienAutorizo, String destino){
 		MovimientoPrenda movimiento;
 		String ubicacion= "";
+		ArrayList<StockPrenda> stockPrendas;
 		
 		if(tenesStockPrenda(prenda, talle, color, cantidad)){
-			this.stockPrendas = StockPrendaDao.getInstance().getStockPrendas();
-			for (StockPrenda stockPrenda : this.stockPrendas) {
-				if(cantidad > 0){
-					if(stockPrenda.getPrenda().getCodigo() == prenda.getCodigo() && stockPrenda.getColor().equals(color) &&
-							stockPrenda.getTalle().equals(talle)){
+			
+			stockPrendas = StockPrendaDao.getInstance().getStockPrendas();
+			for (StockPrenda stockPrenda : stockPrendas) {
+				if(cantidad <= 0){
+					break;
+				}
+				
+				if(stockPrenda.getPrenda().getCodigo() == prenda.getCodigo() && stockPrenda.getColor().equals(color) &&
+						stockPrenda.getTalle().equals(talle)){
+					
+					if(stockPrenda.getCantidad() - cantidad > 0){
 						
-						if(stockPrenda.getCantidad() - cantidad > 0){
-							
-							stockPrenda.disminuirCantidad(cantidad);
-							stockPrenda.updateMe();
-							
-							ubicacion = getUbicacionStockPrenda(stockPrenda);
-							
-							cantidad = 0;
-						}else{
-							
-							cantidad = cantidad - stockPrenda.getCantidad();
-							
-							stockPrenda.deleteMe();
-							
-							ubicacion = "0";
-							
-							sacarStockPrenda(stockPrenda);
-						}
+						stockPrenda.disminuirCantidad(cantidad);
+						
+						ubicacion = stockPrenda.getUbicacion();							
+						cantidad = 0;
+					}else{
+						
+						cantidad = cantidad - stockPrenda.getCantidad();
+						
+						stockPrenda.setCantidad(0);
+						
+						ubicacion = "0";		
+						
+						sacarStockPrenda(stockPrenda);
 					}
+					stockPrenda.updateMe();
 				}
 			}
 		}
 		
-		movimiento = new MovimientoPrenda(-cantidad, Calendar.getInstance().getTime(), talle, color, encargado, quienAutorizo, ubicacion, prenda);
+		movimiento = new MovimientoPrenda(cantidad, Calendar.getInstance().getTime(), talle, color, encargado, quienAutorizo, ubicacion, prenda);
 		movimiento.saveMe();
 	}
 	
@@ -255,7 +247,7 @@ public class Almacen {
 		StockPrenda stockPrenda = new StockPrenda(ColorPrenda.fromString(color), talle, lote,Calendar.getInstance().getTime(), costoProduccion, cantidad, 
 				ubicacion, EstadoStockPrenda.Disponible, prenda);
 		
-		agregarStockPrenda(stockPrenda, ubicacion);
+		agregarStockPrenda(stockPrenda);
 		
 		stockPrenda.saveMe();
 		
@@ -273,60 +265,63 @@ public class Almacen {
 		StockMateriaPrima stock = new StockMateriaPrima(Calendar.getInstance().getTime(), precio, cantidad, ubicacion, materiaPrima);
 		stock.saveMe();
 		
-		agregarStockMateriaPrima(stock, ubicacion);
+		agregarStockMateriaPrima(stock);
 		
-		MovimientoMateriaPrima movimiento = new MovimientoMateriaPrima(EstadoMovimientoMateriaPrima.Disponible, cantidad, Calendar.getInstance().getTime(), materiaPrima);
+		MovimientoMateriaPrima movimiento = new MovimientoMateriaPrima(EstadoMovimientoMateriaPrima.Agregar, cantidad, Calendar.getInstance().getTime(), materiaPrima);
 		movimiento.saveMe();
 	}
  	
-	//si pertenece a un movimiento donde esta reservada, se elimina el movimiento?
 	public void disminuirStockMateriaPrima(MateriaPrima materiaPrima, int cantidad){
 		
-		this.stockMateriaPrima = StockMateriaPrimaDao.getInstance().getStockMateriasPrimas();
-		for (StockMateriaPrima stock : this.stockMateriaPrima) {
-			if(cantidad > 0){
-				if(stock.getMateriaPrima().getCodigo() == materiaPrima.getCodigo()){
+		ArrayList<StockMateriaPrima> stockMateriaPrima = StockMateriaPrimaDao.getInstance().getStockMateriasPrimas();
+		for (StockMateriaPrima stock : stockMateriaPrima) {
+			if(cantidad <= 0)
+				break;
+			
+			if(stock.getMateriaPrima().getCodigo() == materiaPrima.getCodigo()){
 					
-					if(stock.getCantidad() - cantidad > 0){
-						stock.disminuirCantidad(cantidad);
-						stock.updateMe();
-						
-						cantidad = 0;
-					}else{
-						cantidad = cantidad - stock.getCantidad();
-						stock.deleteMe();
-						
-						sacarStockMateriaPrima(stock);
-					}
+				if(stock.getCantidad() - cantidad > 0){
+					stock.disminuirCantidad(cantidad);
+					
+					cantidad = 0;
+				}else{						
+					cantidad = cantidad - stock.getCantidad();
+					
+					stock.setCantidad(0);
+					
+					sacarStockMateriaPrima(stock);
 				}
+				
+				stock.updateMe();
 			}
 		}
 		
-		MovimientoMateriaPrima movimiento = new MovimientoMateriaPrima(EstadoMovimientoMateriaPrima.Utilizado, -cantidad, Calendar.getInstance().getTime(), materiaPrima);
+		MovimientoMateriaPrima movimiento = new MovimientoMateriaPrima(EstadoMovimientoMateriaPrima.Remover, cantidad, Calendar.getInstance().getTime(),
+				materiaPrima);
 		movimiento.saveMe();
 	}
 	
 	public void reservarMateriaPrima(MateriaPrima mp, int cantidad){
 		
-		MovimientoMateriaPrima movimientoMateriaPrimaReservada = new MovimientoMateriaPrima(EstadoMovimientoMateriaPrima.Reservado, cantidad, Calendar.getInstance().getTime(), mp);
+		MovimientoMateriaPrima movimientoMateriaPrimaReservada = new MovimientoMateriaPrima(EstadoMovimientoMateriaPrima.Reservar, cantidad, Calendar.getInstance().getTime(), mp);
 		movimientoMateriaPrimaReservada.saveMe();
 	}
 
 	
 	public String getUbicacionPrendaDisponible(){
-		String posicion;
-		for (int calles = 1; calles < 8; calles++) {
-			for (int bloques = 1; bloques < 6; bloques++) {
-				for (int estantes = 1; estantes < 7; estantes++) {
-					for (int posiciones = 1; posiciones < 22; posiciones++) {
+		String ubicacion;
+		for (int calles = 1; calles < callePrendas; calles++) {
+			for (int bloques = 1; bloques < bloque; bloques++) {
+				for (int estantes = 1; estantes < estante; estantes++) {
+					for (int posiciones = 1; posiciones < posicion; posiciones++) {
 						
 						if(almacen[calles][bloques][estantes][posiciones] == 0 ){
 							if(posiciones <10)
-								posicion = "0"+posiciones;
+								ubicacion = "0"+posiciones;
 							else
-								posicion = posiciones+"";
+								ubicacion = posiciones+"";
 							
-							return getLetraCalle(calles) + "0" + bloques + "0" + estantes + posicion;
+							return getLetraCalle(calles) + "0" + bloques + "0" + estantes + ubicacion;
 						}
 					}
 				}
@@ -337,23 +332,19 @@ public class Almacen {
 	}
 	
 	private void sacarStockPrenda(StockPrenda stockPrenda){
+		String ubicacion = stockPrenda.getUbicacion();
 		
-		for (int calles = 1; calles < 8; calles++) {
-			for (int bloques = 1; bloques < 6; bloques++) {
-				for (int estantes = 1; estantes < 7; estantes++) {
-					for (int posiciones = 1; posiciones < 22; posiciones++) {
-						
-						if(almacen[calles][bloques][estantes][posiciones] == stockPrenda.getLote().getNroOrden() ){
-							
-							almacen[calles][bloques][estantes][posiciones] = 0;
-						}
-					}
-				}
-			}
-		}
+		int calle = getNumeroCalle(ubicacion.charAt(0)+"");
+		int bloque = Integer.parseInt((ubicacion.charAt(1) + ubicacion.charAt(2) +""));
+		int estante = Integer.parseInt(ubicacion.charAt(3) + ubicacion.charAt(4) +"");
+		int posicion = Integer.parseInt(ubicacion.charAt(5) + ubicacion.charAt(6) +"");
+		
+		almacen[calle][bloque][estante][posicion] = 0;
 	}
 
-	private void agregarStockPrenda(StockPrenda stockPrenda, String ubicacion){
+	private void agregarStockPrenda(StockPrenda stockPrenda){
+		String ubicacion = stockPrenda.getUbicacion();
+		
 		int calle = getNumeroCalle(ubicacion.charAt(0)+"");
 		int bloque = Integer.parseInt((ubicacion.charAt(1) + ubicacion.charAt(2) +""));
 		int estante = Integer.parseInt(ubicacion.charAt(3) + ubicacion.charAt(4) +"");
@@ -362,44 +353,21 @@ public class Almacen {
 		almacen[calle][bloque][estante][posicion] = stockPrenda.getLote().getNroOrden();
 	}
 	
-	private String getUbicacionStockPrenda(StockPrenda stock){
-		String posicion =new String();
-		
-		for (int calles = 1; calles < 8; calles++) {
-			for (int bloques = 1; bloques < 6; bloques++) {
-				for (int estantes = 1; estantes < 7; estantes++) {
-					for (int posiciones = 1; posiciones < 22; posiciones++) {
-						
-						if(almacen[calles][bloques][estantes][posiciones] == stock.getLote().getNroOrden()){
-							if(posiciones <10)
-								posicion = "0"+posiciones;
-							else
-								posicion = posiciones+"";
-							
-							return getLetraCalle(calles) + "0" + bloques + "0" + estantes + posicion;
-						}
-					}
-				}
-			}
-		}
-		return null;
-	}
-	
 	
 	private String getUbicacionMateriaPrimaDisponible(){
-		String posicion;
-		for (int calles = 8; calles < 17; calles++) {
-			for (int bloques = 1; bloques < 6; bloques++) {
-				for (int estantes = 1; estantes < 7; estantes++) {
-					for (int posiciones = 1; posiciones < 22; posiciones++) {
+		String ubicacion;
+		for (int calles = callePrendas; calles < calle; calles++) {
+			for (int bloques = 1; bloques < bloque; bloques++) {
+				for (int estantes = 1; estantes < estante; estantes++) {
+					for (int posiciones = 1; posiciones < posicion; posiciones++) {
 						
 						if(almacen[calles][bloques][estantes][posiciones] == 0 ){
 							if(posiciones <10)
-								posicion = "0"+posiciones;
+								ubicacion = "0"+posiciones;
 							else
-								posicion = posiciones+"";
+								ubicacion = posiciones+"";
 							
-							return getLetraCalle(calles) + "0" + bloques + "0" + estantes + posicion;
+							return getLetraCalle(calles) + "0" + bloques + "0" + estantes + ubicacion;
 						}
 					}
 				}
@@ -410,22 +378,19 @@ public class Almacen {
 	}
 	
 	private void sacarStockMateriaPrima(StockMateriaPrima stockMateriaPrima){
-		for (int calles = 8; calles < 17; calles++) {
-			for (int bloques = 1; bloques < 6; bloques++) {
-				for (int estantes = 1; estantes < 7; estantes++) {
-					for (int posiciones = 1; posiciones < 22; posiciones++) {
-						
-						if(almacen[calles][bloques][estantes][posiciones] ==  stockMateriaPrima.getNumero()){
-							
-							almacen[calles][bloques][estantes][posiciones] = 0;
-						}
-					}
-				}
-			}
-		}
+		String ubicacion = stockMateriaPrima.getUbicacion();
+		
+		int calle = getNumeroCalle(ubicacion.charAt(0)+"");
+		int bloque = Integer.parseInt((ubicacion.charAt(1) + ubicacion.charAt(2) +""));
+		int estante = Integer.parseInt(ubicacion.charAt(3) + ubicacion.charAt(4) +"");
+		int posicion = Integer.parseInt(ubicacion.charAt(5) + ubicacion.charAt(6) +"");
+		
+		almacen[calle][bloque][estante][posicion] = 0;
 	}
 
-	private void agregarStockMateriaPrima(StockMateriaPrima stockMateriaPrima , String ubicacion){
+	private void agregarStockMateriaPrima(StockMateriaPrima stockMateriaPrima){
+		String ubicacion = stockMateriaPrima.getUbicacion();
+		
 		int calle = getNumeroCalle(ubicacion.charAt(0)+"");
 		int bloque = Integer.parseInt((ubicacion.charAt(1) + ubicacion.charAt(2) +""));
 		int estante = Integer.parseInt(ubicacion.charAt(3) + ubicacion.charAt(4) +"");
@@ -436,7 +401,7 @@ public class Almacen {
 	
 	
 	private int getNumeroCalle(String letra){
-		switch (letra) {
+		switch (letra.toUpperCase()) {
 			case "A": return 1;
 			case "B": return 2;
 			case "C": return 3;

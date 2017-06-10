@@ -2,7 +2,7 @@ package negocio;
 
 public enum EstadoMovimientoMateriaPrima {
 
-	Disponible,
-	Reservado,
-	Utilizado;
+	Agregar,
+	Reservar,
+	Remover;
 }
