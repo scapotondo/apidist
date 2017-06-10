@@ -31,6 +31,31 @@ public class StockMateriaPrimaDao {
 		
 	}
 	
+	public void modificarStockMateriaPrima(StockMateriaPrima stock){
+		
+		StockMateriaPrimaEntity stockEntity = new StockMateriaPrimaEntity(stock);
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.update(stockEntity);
+		session.getTransaction().commit();
+		session.close();
+		
+	}
+	
+	public void eliminarStockMateriaPrima(StockMateriaPrima stock){
+		
+		StockMateriaPrimaEntity stockEntity = new StockMateriaPrimaEntity(stock);
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.delete(stockEntity);
+		session.getTransaction().commit();
+		session.close();
+		
+	}
+	
+	
 	@SuppressWarnings("unchecked")
 	public ArrayList<StockMateriaPrima> getStockMateriasPrimas(){
 		

@@ -8,6 +8,7 @@ import entity.StockPrendaEntity;
 
 public class StockPrenda {
 	
+	
 	private ColorPrenda color;
 	private String talle;
 	private OrdenDeProduccion lote;

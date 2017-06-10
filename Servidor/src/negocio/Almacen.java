@@ -11,19 +11,42 @@ import dao.StockPrendaDao;
 import exceptions.ColorException;
 
 public class Almacen {
-	//falta diccionario de diccionarios
-	//hashmap para diccionario
+	
+	private static Almacen instance;
+	
+	private int[][][][] almacen = new int[7][5][6][21];
+	
+	private Object[] calle = new Integer[7];
+	private Object[] bloque = new Integer[5];
+	private Object[] estante = new Integer[6];
+	private Object[] posicion = new StockPrenda[21];
+	
+//	private Object [][][][] almacen ={calle,bloque,estante,posicion}; 
+	
 	
 	private ArrayList<MovimientoPrenda> movimientosPrendas;
 	private ArrayList<MovimientoMateriaPrima> movimientosMateriaPrima;
 	private ArrayList<StockPrenda> stockPrendas;
 	private ArrayList<StockMateriaPrima> stockMateriaPrima;
 	
-	public Almacen(){
-		movimientosMateriaPrima=new ArrayList<MovimientoMateriaPrima>();
-		movimientosPrendas=new ArrayList<MovimientoPrenda>();
-		stockPrendas=new ArrayList<StockPrenda>();
-		stockMateriaPrima=new ArrayList<StockMateriaPrima>();
+	private Almacen(){
+		for (int calles = 1; calles <= 7; calles++) {
+			for (int bloques = 1; bloques <= 5; bloques++) {
+				for (int estantes = 1; estantes <= 6; estantes++) {
+					for (int posiciones = 1; posiciones <= 21; posiciones++) {
+						
+						almacen[calles][bloques][estantes][posiciones] = 0;
+					}
+				}
+			}
+		}
+	}
+	
+	public static Almacen getInstance(){
+		if(instance==null)
+			instance = new Almacen();
+		
+		return instance;
 	}
 	
 	public ArrayList<MovimientoPrenda> getMovimientosPrendas() {
@@ -50,7 +73,6 @@ public class Almacen {
 	public void setStockMateriaPrima(ArrayList<StockMateriaPrima> stockMateriaPrima) {
 		this.stockMateriaPrima = stockMateriaPrima;
 	}
-
 	
 	
 	public int getStockPrenda( Prenda prenda,  String talle,  String color){
@@ -154,7 +176,6 @@ public class Almacen {
 		return true;
 	}
 	
-	
 	public void disminuirStockPrenda(Prenda prenda,int cantidad, String talle, String color, String encargado){
 		
 	}
@@ -199,8 +220,27 @@ public class Almacen {
 	
 	public void disminuirStockMateriaPrima(MateriaPrima materiaPrima, int cantidad){
 		
+		//TODO: ver que esta lista se carge con lo que hay en el dic de dics
+		this.stockMateriaPrima = StockMateriaPrimaDao.getInstance().getStockMateriasPrimas();
+		for (StockMateriaPrima stock : this.stockMateriaPrima) {
+			if(cantidad > 0){
+				if(stock.getMateriaPrima().getCodigo() == materiaPrima.getCodigo()){
+					
+					if(stock.getCantidad() - cantidad >= 0){
+						stock.disminuirCantidad(cantidad);
+						stock.updateMe();
+						
+					}else{
+						cantidad = cantidad - stock.getCantidad();
+						stock.deleteMe();
+						//TODO: sacar del dic de dics en este caso
+					}
+				}
+			}
+		}
 		
-		
+		MovimientoMateriaPrima movimiento = new MovimientoMateriaPrima(EstadoMovimientoMateriaPrima.Utilizado, -cantidad, Calendar.getInstance().getTime(), materiaPrima);
+		movimiento.saveMe();
 	}
 	
 	public void reservarMateriaPrima(MateriaPrima mp, int cantidad){
@@ -211,8 +251,36 @@ public class Almacen {
 		//TODO: ver si hay que moverla y en base a eso si se devuelve la nueva localizacion
 	}
 	
-	private String getUbicacionPrendaDisponible(){
+	public static void main(String[] args) {
+		System.out.println(Almacen.getInstance().getUbicacionPrendaDisponible());
+	}
+	
+	//TODO: en las posiciones poner el codigo del stock y para recuperarlo ir al dao y buscarlo
+	public String getUbicacionPrendaDisponible(){
+		String posicion;
+		for (int calles = 1; calles <= 7; calles++) {
+			for (int bloques = 1; bloques <= 5; bloques++) {
+				for (int estantes = 1; estantes <= 6; estantes++) {
+					for (int posiciones = 1; posiciones <= 21; posiciones++) {
+						
+						if(almacen[calles][bloques][estantes][posiciones] == 0 ){
+							if(posiciones >10)
+								posicion = "0"+posiciones;
+							else
+								posicion = posiciones+"";
+							
+							return getLetraCallePrendas(calles) + "0" + bloques + "0" + estantes + posicion;
+						}
+					}
+				}
+			}
+		}
 		
+		return null;
+	}
+	
+	private StockPrenda buscarStockPrenda(int codigoStock){
+		//TODO: terminar y buscar prenda por codigo
 		return null;
 	}
 	

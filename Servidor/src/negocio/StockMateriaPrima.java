@@ -105,4 +105,12 @@ public class StockMateriaPrima {
 	public void saveMe(){
 		StockMateriaPrimaDao.getInstance().CrearStockMateriaPrima(this);
 	}
+	
+	public void updateMe(){
+		StockMateriaPrimaDao.getInstance().modificarStockMateriaPrima(this);
+	}
+	
+	public void deleteMe(){
+		StockMateriaPrimaDao.getInstance().eliminarStockMateriaPrima(this);
+	}
 }
