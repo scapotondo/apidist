@@ -118,10 +118,22 @@ public class StockPrenda {
 		this.prenda = prenda;
 	}
 
+	public void disminuirCantidad(int cantidad){
+		this.cantidad = this.cantidad - cantidad;
+	}
+	
 	public void saveMe(){
 		StockPrendaDao.getInstance().CrearStockPrenda(this);
 	}
+
+	public void updateMe(){
+		StockPrendaDao.getInstance().ModificarStockPrenda(this);
+	}
 	
+	public void deleteMe(){
+		StockPrendaDao.getInstance().EliminarStockPrenda(this);
+	}
+
 	public StockPrendaDto toDto(){
 		return new StockPrendaDto(color.toString(), talle, lote.toDto(), fecha, costoProduccion, cantidad, ubicacion, estado+"",
 				prenda.toDto());

@@ -32,6 +32,29 @@ public class StockPrendaDao {
 		session.close();
 	}
 	
+	public void ModificarStockPrenda(StockPrenda stock){
+		
+		StockPrendaEntity stockEntity = new StockPrendaEntity(stock);
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.update(stockEntity);
+		session.getTransaction().commit();
+		session.close();
+	}
+	
+	public void EliminarStockPrenda(StockPrenda stock){
+		
+		StockPrendaEntity stockEntity = new StockPrendaEntity(stock);
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.delete(stockEntity);
+		session.getTransaction().commit();
+		session.close();
+	}
+	
+	
 	@SuppressWarnings("unchecked")
 	public ArrayList<StockPrenda> getStockPrendas(){
 		

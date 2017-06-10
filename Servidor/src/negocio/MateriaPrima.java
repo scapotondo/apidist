@@ -77,14 +77,14 @@ public class MateriaPrima {
 				
 				if(stockMateriaPrima.getCantidad()-cantidadNecesaria >= 0){
 					
-					costo = costo +cantidadNecesaria * stockMateriaPrima.getPrecioFinalCompra();
+					costo = costo + ( cantidadNecesaria * stockMateriaPrima.getPrecioFinalCompra() );
 					
 					cantidadNecesaria = 0;
 				}else{
 					
 					cantidadNecesaria = cantidadNecesaria - stockMateriaPrima.getCantidad();
 					
-					costo = costo + stockMateriaPrima.getCantidad() *stockMateriaPrima.getPrecioFinalCompra();
+					costo = costo + ( stockMateriaPrima.getCantidad() *stockMateriaPrima.getPrecioFinalCompra() );
 				}
 			}
 		}
