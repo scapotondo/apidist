@@ -279,6 +279,7 @@ public class Almacen {
 		movimiento.saveMe();
 	}
  	
+	//si pertenece a un movimiento donde esta reservada, se elimina el movimiento?
 	public void disminuirStockMateriaPrima(MateriaPrima materiaPrima, int cantidad){
 		
 		this.stockMateriaPrima = StockMateriaPrimaDao.getInstance().getStockMateriasPrimas();
@@ -310,6 +311,7 @@ public class Almacen {
 		MovimientoMateriaPrima movimientoMateriaPrimaReservada = new MovimientoMateriaPrima(EstadoMovimientoMateriaPrima.Reservado, cantidad, Calendar.getInstance().getTime(), mp);
 		movimientoMateriaPrimaReservada.saveMe();
 	}
+
 	
 	public String getUbicacionPrendaDisponible(){
 		String posicion;
