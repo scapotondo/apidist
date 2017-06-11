@@ -27,7 +27,6 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	private int confeccionesTerminadas;
 	
 	@ManyToOne()
-	@JoinColumn(name="ordenDeProduccion_id")
 	private PrendaEntity prenda;
 	
 	@OneToOne()

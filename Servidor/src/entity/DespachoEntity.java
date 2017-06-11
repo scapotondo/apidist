@@ -27,22 +27,22 @@ public class DespachoEntity implements Serializable{
 	@OneToOne()
 	@JoinColumn(name="almacen_id")
 	private AlmacenEntity almacen;
-	
-	@OneToMany()
-	@JoinColumn(name="despacho_id")
-	private List<PedidoPrendasEntity> pedidosPrenda;
-	
+//	
+//	@OneToMany()
+//	@JoinColumn(name="despacho_id")
+//	private List<PedidoPrendasEntity> pedidosPrenda;
+//	
 	public DespachoEntity(){}
-	public DespachoEntity(Despacho despacho){
-		//TODO
-		//this.almacen = new AlmacenEntity(despacho.getAlmacen());
-		this.id = despacho.getId();
-		this.pedidosPrenda = new ArrayList<PedidoPrendasEntity>();
-		if(despacho.getPedidosPrenda() != null){
-			for (PedidoPrendas pedidoPrendas : despacho.getPedidosPrenda()) {
-				this.pedidosPrenda.add(new PedidoPrendasEntity(pedidoPrendas));
-			}
-		}
-	}
+//	public DespachoEntity(Despacho despacho){
+//		//TODO
+//		//this.almacen = new AlmacenEntity(despacho.getAlmacen());
+//		this.id = despacho.getId();
+//		this.pedidosPrenda = new ArrayList<PedidoPrendasEntity>();
+//		if(despacho.getPedidosPrenda() != null){
+//			for (PedidoPrendas pedidoPrendas : despacho.getPedidosPrenda()) {
+//				this.pedidosPrenda.add(new PedidoPrendasEntity(pedidoPrendas));
+//			}
+//		}
+//	}
 
 }

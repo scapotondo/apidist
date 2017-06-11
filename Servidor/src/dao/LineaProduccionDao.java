@@ -21,6 +21,7 @@ public class LineaProduccionDao {
 	
 	private LineaProduccionDao(){}
 	
+	@SuppressWarnings("unchecked")
 	public ArrayList<LineaProduccion> getLineasProduccionDisponibles(){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		

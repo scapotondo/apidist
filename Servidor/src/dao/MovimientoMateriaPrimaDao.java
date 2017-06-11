@@ -60,6 +60,7 @@ private static MovimientoMateriaPrimaDao instance;
 		return new MovimientoMateriaPrima(movimientoEntity);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public ArrayList<MovimientoMateriaPrima> BuscarMovimientoMateriaPrimaReservara(){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();

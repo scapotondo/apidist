@@ -60,11 +60,9 @@ public class MateriaPrima {
 	public boolean tenesStock(int cantidad){
 		return true;
 	}
-	
 	public OrdenDeCompra getOrdenDeCompra() {
 		return ordenDeCompra;
 	}
-
 	public void setOrdenDeCompra(OrdenDeCompra ordenDeCompra) {
 		this.ordenDeCompra = ordenDeCompra;
 	}

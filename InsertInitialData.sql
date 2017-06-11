@@ -14,6 +14,58 @@ VALUES (4, "Tatooine 523", "Tatooine");
 
 
 
+INSERT into Cliente
+VALUES(1, 50, '20-17254359-7', 'Av.San Juan 123', 'Av.Independencia 100', 'credito', 100, 'Juan Perez', 'empresa 1', '4321-6543', 1);
+
+INSERT into Cliente
+VALUES(2, 60, '20-17254358-7', 'Av.San Juan 143', 'Av.Independencia 500', 'credito', 200, 'Sebastian Perez', 'empresa 2', '4321-6542', 2);
+
+INSERT into Cliente
+VALUES(3, 100, '20-17254357-7', 'Av.San Juan 1444', 'Av.Independencia 1000', 'credito', 300, 'Martin Perez', 'empresa 3', '4321-6541', 3);
+
+INSERT into Cliente
+VALUES(4, 200, '20-17254356-7', 'Av.San Juan 432', 'Av.Independencia 444', 'credito', 400, 'Carlos Perez', 'empresa 4', '4321-6549', 4);
+
+
+
+INSERT into Empleado 
+VALUES(1, 'Av. garay 123', 'Juan Perez', 'Empleado', '4312-1234', 1);
+
+INSERT into Empleado 
+VALUES(2, 'Av. Independencia 123', 'Sebastian Rodriguez', 'Empleado', '4301-1237', 1);
+
+INSERT into Empleado 
+VALUES(3, 'Av. San Juan 123', 'Julian Gomez', 'Gerente', '4307-1234', 1);
+
+INSERT into Empleado 
+VALUES(4, 'Av. garay 122', 'Juan Rodriguez', 'Empleado', '4312-1232', 2);
+
+INSERT into Empleado 
+VALUES(5, 'Av. Independencia 3000', 'Sebastian Diaz', 'Empleado', '4301-1233', 2);
+
+INSERT into Empleado 
+VALUES(6, 'Av. San Juan 696', 'Oscar Fernandez', 'Gerente', '4307-1231', 2);
+
+INSERT into Empleado 
+VALUES(7, 'Av. garay 122', 'Ramon Rodriguez', 'Empleado', '4312-1235', 3);
+
+INSERT into Empleado 
+VALUES(8, 'Av. Independencia 532', 'Javier Diaz', 'Empleado', '4301-6378', 3);
+
+INSERT into Empleado 
+VALUES(9, 'Av. San Juan 3242', 'Carlos Fernandez', 'Gerente', '4307-4904', 3);
+
+INSERT into Empleado 
+VALUES(10, 'Av. garay 2345', 'Ramon Gomez', 'Empleado', '4312-1235', 4);
+
+INSERT into Empleado 
+VALUES(11, 'Av. Independencia 665', 'Javier Fernandez', 'Empleado', '4301-6378', 4);
+
+INSERT into Empleado 
+VALUES(12, 'Av. San Juan 900', 'Carlos Diaz', 'Gerente', '4307-4904', 4);
+
+
+
 INSERT INTO AreaProduccion
 VALUES (1, "Area produccion 1");
 
@@ -26,9 +78,42 @@ VALUES (3, "Area produccion 3");
 INSERT INTO AreaProduccion
 VALUES (4, "Area produccion 4");
 
-INSERT INTO AreaProduccion
-VALUES (5, "Area produccion 5");
 
+INSERT into LineaProduccion
+VALUES(1, 'Libre', 0, '', 1);
+
+INSERT into LineaProduccion
+VALUES(2, 'Libre', 0, '', 1);
+
+INSERT into LineaProduccion
+VALUES(3, 'Libre', 0, '', 1);
+
+INSERT into LineaProduccion
+VALUES(4, 'Libre', 0, '', 2);
+
+INSERT into LineaProduccion
+VALUES(5, 'Libre', 0, '', 2);
+
+INSERT into LineaProduccion
+VALUES(6, 'Libre', 0, '', 2);
+
+INSERT into LineaProduccion
+VALUES(7, 'Libre', 0, '', 3);
+
+INSERT into LineaProduccion
+VALUES(8, 'Libre', 0, '', 3);
+
+INSERT into LineaProduccion
+VALUES(9, 'Libre', 0, '', 3);
+
+INSERT into LineaProduccion
+VALUES(10, 'Libre', 0, '', 4);
+
+INSERT into LineaProduccion
+VALUES(11, 'Libre', 0, '', 4);
+
+INSERT into LineaProduccion
+VALUES(12, 'Libre', 0, '', 4);
 
 
 INSERT INTO MateriaPrima
@@ -45,6 +130,39 @@ VALUES (4, 10, "Hilo");
 
 INSERT INTO MateriaPrima
 VALUES (5, 10, "Algodon peruano");
+
+
+INSERT into StockMateriaPrima
+VALUES(1, 1000, NOW(), 2, 'H010101', 1);
+
+INSERT into StockMateriaPrima
+VALUES(2, 1000, NOW(), 3, 'H010102', 2);
+
+INSERT into StockMateriaPrima
+VALUES(3, 1000, NOW(), 5, 'H010103', 3);
+
+INSERT into StockMateriaPrima
+VALUES(4, 1000, NOW(), 1, 'H010104', 4);
+
+INSERT into StockMateriaPrima
+VALUES(5, 1000, NOW(), 10, 'H010105', 5);
+
+
+
+INSERT into Proveedor 
+VALUES(1, 'cbu', 'cuit', 'Av. siempre viva 1234', 'Proveedor 1', '4309-8767' );
+
+INSERT into Proveedor 
+VALUES(2, 'cbu', 'cuit', 'Av. Garay 134', 'Proveedor 2', '4324-9634' );
+
+INSERT into Proveedor 
+VALUES(3, 'cbu', 'cuit', 'Av. San Juan 1004', 'Proveedor 3', '4301-4825' );
+
+INSERT into Proveedor 
+VALUES(4, 'cbu', 'cuit', 'Av. Independencia 576', 'Proveedor 4', '4307-4725' );
+
+INSERT into Proveedor 
+VALUES(5, 'cbu', 'cuit', 'Avellaneda 500', 'Proveedor 5', '4302-6581' );
 
 
 
@@ -72,7 +190,7 @@ VALUES (1, 'Tela necesaria', 3.5, 1, 1); -- confeccion(id, detalle, tiempoProd, 
 
 
 INSERT INTO Insumo
-VALUES (1, 10, 0.5, 3, 2, 1); -- Insumo (id, cantidad, desperdicio, precio, codigo materia prima, confeccion_id)
+VALUES (1, 10, 0.5, 2, 1); -- Insumo (id, cantidad, desperdicio, codigo materia prima, confeccion_id)
 
 
 
@@ -107,7 +225,7 @@ VALUES (2, 'Algodon necesario', 5.5, 2, 2); -- confeccion(id, detalle, tiempoPro
 
 
 INSERT INTO Insumo
-VALUES (2, 5, 0, 5, 5, 2); -- Insumo (id, cantidad, desperdicio, precio, codigo materia prima, confeccion_id)
+VALUES (2, 5, 0, 5, 2); -- Insumo (id, cantidad, desperdicio, codigo materia prima, confeccion_id)
 
 
 
@@ -115,7 +233,7 @@ VALUES (2, 5, 0, 5, 5, 2); -- Insumo (id, cantidad, desperdicio, precio, codigo 
 INSERT INTO Prenda
 VALUES (3, 100, "Pantalon jean", 1, "Pantalon", 10);
 
-INSERT INTO PrendaEntity_coloresValidos
+INSERT INTO PrendaEntity_coloresValidos	
 VALUES (3, 2); -- Pantalon Negro
 
 INSERT INTO PrendaEntity_tallesValidos
@@ -130,16 +248,37 @@ VALUES (3, 'Botones necesarios', 1.5, 3, 3); -- confeccion(id, detalle, tiempoPr
 
 
 INSERT INTO Insumo
-VALUES (3, 5, 0, 5, 1, 3); -- Insumo (id, cantidad, desperdicio, precio, codigo materia prima, confeccion_id)
+VALUES (3, 5, 0, 1, 3); -- Insumo (id, cantidad, desperdicio, codigo materia prima, confeccion_id)
+
+
+INSERT into StockPrenda
+VALUES(1, 100, 1, 30, 'Disponible', NOW(), 's', 'A010101', 1, 1);
+
+INSERT into StockPrenda
+VALUES(2, 100, 2, 50, 'Disponible', NOW(), 'm', 'A010102', 2, 2);
+
+INSERT into StockPrenda
+VALUES(3, 100, 2, 10, 'Disponible', NOW(), 's', 'A010103', 3, 3);
 
 
 
-INSERT INTO StockPrenda
-VALUES (3, 10, 1, 1.5, "", NOW(), "M", "AAA", null, 3, null); -- stock
+INSERT into OrdenDeProduccion
+VALUES('', 1, 1, 'Finalizado', 1, 1, 1);
 
-INSERT INTO StockPrenda
-VALUES (2, 0, 1, 1.5, "", NOW(), "M", "AAA", null, 2, null); -- stock
+INSERT into OrdenDeProduccion
+VALUES('', 2, 1, 'Finalizado', 2, 2, 2);
 
-INSERT INTO StockPrenda
-VALUES (1, 0, 1, 1.5, "", NOW(), "M", "AAA", null, 1, null); -- stock
+INSERT into OrdenDeProduccion
+VALUES('', 3, 1, 'Finalizado', 3, 3, 3);
+
+
+INSERT into PedidoPrendas
+VALUES(1, 'Completo', NOW(), NOW(), NOW(), 1, 1,1);
+
+INSERT into PedidoPrendas
+VALUES(2, 'Completo', NOW(), NOW(), NOW(), 2, 2,2);
+
+INSERT into PedidoPrendas
+VALUES(3, 'Completo', NOW(), NOW(), NOW(), 3, 3,3);
+
 

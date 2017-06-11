@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.hibernate.Session;
 
-import dto.PedidoPrendasDto;
 import entity.PedidoPrendasEntity;
 import hibernate.HibernateUtil;
 import negocio.PedidoPrendas;

@@ -24,12 +24,12 @@ public class AreaProduccion {
 			this.lineasProduccion.add(new LineaProduccion(lineaProduccionEntity));
 		}
 		//falta
-		this.ordenesProduccion=new ArrayList<>();
-		for (OrdenDeProduccionEntity OrdenDeProduccionEntity : area.getOrdenesProduccion()) {
+//		this.ordenesProduccion=new ArrayList<>();
+//		for (OrdenDeProduccionEntity OrdenDeProduccionEntity : area.getOrdenesProduccion()) {
 			//TODO: ver esto, falla por ser abstracta la clase
 			//this.ordenesProduccion.add(new OrdenDeProduccion(OrdenDeProduccionEntity);
-			OrdenDeProduccionEntity.getClass();
-		}
+//			OrdenDeProduccionEntity.getClass();
+//		}
 	}
 	
 	public AreaProduccion(String nombre, ArrayList<LineaProduccion> lineasProduccion, ArrayList<OrdenDeProduccion> ordenesProduccion){
