@@ -1,4 +1,4 @@
-package negocio;
+package controller;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import dao.AreaProduccionDao;
 import dao.ClienteDao;
 import dao.MateriaPrimaDao;
 import dao.PrendaDao;
-import dto.AdministracionDto;
+import dao.SucursalDao;
 import dto.ClienteDto;
 import dto.ConfeccionDto;
 import dto.InsumoDto;
@@ -14,27 +14,46 @@ import dto.PrendaDto;
 import exceptions.ClienteException;
 import exceptions.ColorException;
 import exceptions.PrendaException;
+import exceptions.SucursalException;
+import negocio.AreaProduccion;
+import negocio.Cliente;
+import negocio.ColorPrenda;
+import negocio.Confeccion;
+import negocio.Insumo;
+import negocio.PedidoPrendas;
+import negocio.Prenda;
+import negocio.StockPrenda;
+import negocio.Sucursal;
 
-public class Administracion {
-	private static Administracion instance;
+public class AdministracionController {
+	private static AdministracionController instance;
 
 	private ArrayList<Cliente> clientes;
 	private ArrayList<Prenda> prendas;
 
-	public static Administracion getInstance(){
+	public static AdministracionController getInstance(){
 		if (instance == null)
-			instance = new Administracion();
+			instance = new AdministracionController();
 		
 		return instance;
 	}
 
-	private Administracion() {}
+	private AdministracionController() {}
 
 	public void generarFacturacion(PedidoPrendas pedido){
 
 	}
 
-	public void AltaCliente(ClienteDto clienteDto, Sucursal sucursal) {
+	public void AltaCliente(ClienteDto clienteDto)  {
+		Sucursal sucursal = SucursalDao.getInstance().getSucursalById(clienteDto.getSucursal().getNumero());
+		if (sucursal == null){
+			try {
+				throw new SucursalException("La sucursal indicada no existe");
+			} catch (SucursalException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		Cliente cliente = new Cliente(
 				clienteDto.getLimiteCredito(),
 				clienteDto.getFormaPago(),
@@ -52,10 +71,20 @@ public class Administracion {
 		cliente.saveMe();
 	}
 
-	public void ModificarCliente(ClienteDto clienteDto, Sucursal sucursal) throws ClienteException{
+	public void ModificarCliente(ClienteDto clienteDto) throws ClienteException{
+		
 		Cliente cliente=this.BuscarClientePorId(clienteDto);
 		if (cliente == null)
 			throw new ClienteException("El cliente ingresado no existe");
+		
+		Sucursal sucursal = SucursalDao.getInstance().getSucursalById(clienteDto.getSucursal().getNumero());
+		if (sucursal == null){
+			try {
+				throw new SucursalException("La sucursal indicada no existe");
+			} catch (SucursalException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		cliente.setLimiteCredito(clienteDto.getLimiteCredito());
 		cliente.setFormaPago(clienteDto.getFormaPago());
@@ -94,24 +123,6 @@ public class Administracion {
 		return ClienteDao.getInstance().BuscarClientePorId(clienteDto);
 	}
 
-	
-	//TODO:si lo pasamos a que sea un controller este metodo vuela
-	public AdministracionDto toDto(){
-		ArrayList<ClienteDto> clientesDto = new ArrayList<>();
-		ArrayList<PrendaDto> prendasDto = new ArrayList<>();
-
-		for (Prenda prenda : prendas) {
-			prendasDto.add(prenda.toDto());
-		}
-		
-		for (Cliente cliente : clientes) {
-			clientesDto.add(cliente.toDto());
-		}
-		
-		return new AdministracionDto(clientesDto, prendasDto);
-	}
-	
-	
 	
 	public void AltaPrenda(PrendaDto prendaDto) throws ColorException {
 

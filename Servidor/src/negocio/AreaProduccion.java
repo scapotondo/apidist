@@ -7,7 +7,6 @@ import dto.LineaProduccionDto;
 import dto.OrdenDeProduccionDto;
 import entity.AreaProduccionEntity;
 import entity.LineaProduccionEntity;
-import entity.OrdenDeProduccionEntity;
 
 public class AreaProduccion {
 
@@ -107,9 +106,9 @@ public class AreaProduccion {
 		for (LineaProduccion lineaDeProduccion : lineasProduccion) {
 			lineasProduccionDto.add(lineaDeProduccion.toDto());
 		}
-		for (OrdenDeProduccion ordenDeProduccion : ordenesProduccion) {
-			ordenesProduccionDto.add(ordenDeProduccion.toDto());
-		}
+//		for (OrdenDeProduccion ordenDeProduccion : ordenesProduccion) {
+//			ordenesProduccionDto.add(ordenDeProduccion.toDto());
+//		}
 		return new AreaProduccionDto(this.codigo,nombre, lineasProduccionDto, ordenesProduccionDto);
 	}
 }

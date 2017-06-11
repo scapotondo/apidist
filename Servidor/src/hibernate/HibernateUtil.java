@@ -4,31 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import entity.AlmacenEntity;
-import entity.AreaComprasEntity;
-import entity.AreaProduccionEntity;
-import entity.ClienteEntity;
-import entity.ConfeccionEntity;
-import entity.DespachoEntity;
-import entity.EmpleadoEntity;
-import entity.FacturaEntity;
-import entity.InsumoEntity;
-import entity.ItemFacturaEntity;
-import entity.ItemPrendaEntity;
-import entity.LineaProduccionEntity;
-import entity.MateriaPrimaEntity;
-import entity.MovimientoMateriaPrimaEntity;
-import entity.MovimientoPrendaEntity;
-import entity.OrdenDeCompraEntity;
-import entity.OrdenDeProduccionCompletaEntity;
-import entity.OrdenDeProduccionEntity;
-import entity.OrdenDeProduccionParcialEntity;
-import entity.PedidoPrendasEntity;
-import entity.PrendaEntity;
-import entity.ProveedorEntity;
-import entity.StockMateriaPrimaEntity;
-import entity.StockPrendaEntity;
-import entity.SucursalEntity;
+import entity.*;
  
 public class HibernateUtil{
 	
@@ -53,13 +29,10 @@ public class HibernateUtil{
         	 config.addAnnotatedClass(OrdenDeCompraEntity.class);
         	 config.addAnnotatedClass(AreaProduccionEntity.class);
         	 config.addAnnotatedClass(InsumoEntity.class);
-        	 config.addAnnotatedClass(AreaComprasEntity.class);
         	 config.addAnnotatedClass(ProveedorEntity.class);
         	 config.addAnnotatedClass(LineaProduccionEntity.class);
-        	 config.addAnnotatedClass(AlmacenEntity.class);
         	 config.addAnnotatedClass(MovimientoPrendaEntity.class);
         	 config.addAnnotatedClass(MovimientoMateriaPrimaEntity.class);
-        	 config.addAnnotatedClass(DespachoEntity.class);
         	 config.addAnnotatedClass(FacturaEntity.class);
         	 config.addAnnotatedClass(ItemFacturaEntity.class);
         	 

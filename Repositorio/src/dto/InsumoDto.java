@@ -40,5 +40,9 @@ public class InsumoDto implements Serializable{
 		this.materiaPrima = materiaPrima;
 	}
 
+	@Override
+	public String toString() {
+		return this.cantidad + " " + this.materiaPrima.getNombre() ;
+	}
 	
 }

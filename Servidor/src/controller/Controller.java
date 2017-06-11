@@ -15,9 +15,6 @@ public class Controller {
 	private ArrayList<MateriaPrima> materiaPrima;
 	private ArrayList<Sucursal> sucursales;
 	private AreaProduccion areaProduccion;
-	private AreaCompras areaCompras;
-	private Almacen almacen;
-	private Despacho despacho;
 
 	//singleton
 	private Controller(){}
@@ -27,65 +24,7 @@ public class Controller {
 		
 		return instance;
 	}
-	//TODO: ver si lo pasamos directo a administracion o no 
-	public void AltaCliente(ClienteDto cliente) throws SucursalException {
-		Sucursal sucursal = this.BuscarSucursal(cliente.getSucursal().getNumero());
-		if (sucursal == null)
-			throw new SucursalException("La sucursal indicada no existe");
-		
-		Administracion.getInstance().AltaCliente(cliente, sucursal);
-	}
 
-	public void ModificarCliente(ClienteDto cliente) throws ClienteException, SucursalException {
-		Sucursal sucursal = this.BuscarSucursal(cliente.getSucursal().getNumero());
-		if (sucursal == null)
-			throw new SucursalException("La sucursal indicada no existe");
-		
-		Administracion.getInstance().ModificarCliente(cliente, sucursal);
-	}
-	
-	public void EliminarCliente(ClienteDto cliente) throws ClienteException {
-		Administracion.getInstance().EliminarCliente(cliente);
-	}
-
-	public ClienteDto BuscarClientePorId(ClienteDto clienteDto) {
-		Cliente cliente = Administracion.getInstance().BuscarClientePorId(clienteDto);
-		if (cliente == null)
-			return new ClienteDto();
-		
-		return cliente.toDto();
-	}
-
-	public ArrayList<ClienteDto> BuscarClientes(){
-		return Administracion.getInstance().BuscarClientes();
-	}
-	
-	public void AltaPrenda(PrendaDto prenda) throws ColorException {
-		Administracion.getInstance().AltaPrenda(prenda);
-	}
-	
-	public void EliminarPrenda(PrendaDto prendaDto) throws PrendaException {
-		Administracion.getInstance().EliminarPrenda(prendaDto);
-	}
-
-	public PrendaDto BuscarPrendaPorNumero(PrendaDto prendaDto) {
-		return Administracion.getInstance().BuscarPrendaPorNumero(prendaDto).toDto();
-	}
-
-	public void ModificarPrenda(PrendaDto prendaDto) throws PrendaException, ColorException {
-		Administracion.getInstance().ModificarPrenda(prendaDto);
-	}
-
-	public ArrayList<PrendaDto> BuscarPrendas() {
-		return Administracion.getInstance().BuscarPrendas();
-	}
-
-	public ArrayList<PrendaDto> GetPrendasDisponibles(){
-		return Administracion.getInstance().GetPrendasDisponibles();
-	}
-	
-	//ver hasta aca si lo pasamos
-	
 	
 	public void CrearPedidoPrendas(PedidoPrendasDto pedido){
 		//TODO: terminar

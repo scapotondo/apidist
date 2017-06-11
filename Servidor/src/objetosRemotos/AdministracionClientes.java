@@ -4,9 +4,10 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-import controller.Controller;
+import controller.AdministracionController;
 import dto.ClienteDto;
 import interfaces.AdministracionClientesInterface;
+import negocio.Cliente;
 
 public class AdministracionClientes extends UnicastRemoteObject implements AdministracionClientesInterface{
 	
@@ -20,22 +21,27 @@ public class AdministracionClientes extends UnicastRemoteObject implements Admin
 	}
 
 	public void AltaCliente(ClienteDto cliente) throws RemoteException {
-		Controller.getInstance().AltaCliente(cliente);
+		AdministracionController.getInstance().AltaCliente(cliente);
 	}
 	
 	public void ModificarCliente(ClienteDto cliente) throws RemoteException {
-		Controller.getInstance().ModificarCliente(cliente);
+		AdministracionController.getInstance().ModificarCliente(cliente);
 	}
 	
 	public void EliminarCliente(ClienteDto cliente) throws RemoteException {
-		Controller.getInstance().EliminarCliente(cliente);
+		AdministracionController.getInstance().EliminarCliente(cliente);
 	}
 	
-	public ClienteDto BuscarClientePorId(ClienteDto cliente) throws RemoteException {
-		return Controller.getInstance().BuscarClientePorId(cliente);
+	public ClienteDto BuscarClientePorId(ClienteDto clienteDto) throws RemoteException {
+		Cliente cliente = AdministracionController.getInstance().BuscarClientePorId(clienteDto);
+		
+		if(cliente == null)
+			return new ClienteDto();
+		
+		return cliente.toDto();
 	}
 	
 	public ArrayList<ClienteDto> BuscarClientes() throws RemoteException {
-		return Controller.getInstance().BuscarClientes();
+		return AdministracionController.getInstance().BuscarClientes();
 	}
 }

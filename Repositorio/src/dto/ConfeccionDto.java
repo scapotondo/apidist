@@ -52,4 +52,9 @@ public class ConfeccionDto implements Serializable{
 		this.insumos = insumos;
 	}
 	
+	@Override
+	public String toString() {
+		return this.detalle;
+	}
+	
 }

@@ -1,24 +1,28 @@
-package negocio;
+package controller;
 
 import java.util.ArrayList;
 
+import negocio.MateriaPrima;
+import negocio.OrdenDeCompra;
 
-public class AreaCompras {
 
-	private ArrayList<OrdenDeCompra> ordenesCompras;
-	private int id;
+public class AreaComprasController {
+	private static AreaComprasController instance;
 	
-	public int getId() {
-		return id;
-	}
+	private ArrayList<OrdenDeCompra> ordenesCompras;
+	
 
-	public void setId(int id) {
-		this.id = id;
+	private AreaComprasController(){
+		this.ordenesCompras = new ArrayList<OrdenDeCompra>();
 	}
-
-	public AreaCompras(ArrayList<OrdenDeCompra> ordenesCompras){
-		this.ordenesCompras=ordenesCompras;
+	
+	public static AreaComprasController getInstance(){
+		if(instance == null)
+			instance = new AreaComprasController();
+		
+		return instance;
 	}
+	
 	
 	public void comprar(MateriaPrima materiaPrima,int cantidad){
 		

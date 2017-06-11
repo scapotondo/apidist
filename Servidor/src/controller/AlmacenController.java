@@ -1,4 +1,4 @@
-package negocio;
+package controller;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,10 +9,20 @@ import dao.MovimientoMateriaPrimaDao;
 import dao.StockMateriaPrimaDao;
 import dao.StockPrendaDao;
 import exceptions.ColorException;
+import negocio.ColorPrenda;
+import negocio.EstadoMovimientoMateriaPrima;
+import negocio.EstadoStockPrenda;
+import negocio.MateriaPrima;
+import negocio.MovimientoMateriaPrima;
+import negocio.MovimientoPrenda;
+import negocio.OrdenDeProduccion;
+import negocio.Prenda;
+import negocio.StockMateriaPrima;
+import negocio.StockPrenda;
 
-public class Almacen {
+public class AlmacenController {
 
-	private static Almacen instance;
+	private static AlmacenController instance;
 
 	private int callePrendas = 8;
 	private int calle = 17;
@@ -22,7 +32,7 @@ public class Almacen {
 
 	private int[][][][] almacen = new int[calle][bloque][estante][posicion];
 
-	private Almacen() {
+	private AlmacenController() {
 		for (int calles = 1; calles < calle; calles++) {
 			for (int bloques = 1; bloques < bloque; bloques++) {
 				for (int estantes = 1; estantes < estante; estantes++) {
@@ -51,9 +61,9 @@ public class Almacen {
 
 	}
 
-	public static Almacen getInstance() {
+	public static AlmacenController getInstance() {
 		if (instance == null)
-			instance = new Almacen();
+			instance = new AlmacenController();
 
 		return instance;
 	}
