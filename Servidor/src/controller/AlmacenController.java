@@ -90,7 +90,7 @@ public class AlmacenController {
 		return false;
 	}
 
-	
+	//TODO: para que sirve este metodo?? para saber si hay MP para producir una Orden de Prod Completa???	
 	public boolean tenesStockMateriaPrimaParaPrenda(Prenda prenda) {
 		Hashtable<MateriaPrima, Integer> materiasPrimasReservadas = this.materiaPrimaReservada();
 

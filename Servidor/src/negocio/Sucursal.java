@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.ArrayList;
 
+import dao.SucursalDao;
 import dto.EmpleadoDto;
 import dto.PedidoPrendasDto;
 import dto.SucursalDto;
@@ -122,15 +123,16 @@ public class Sucursal {
 		
 	}
 	
-	
 	public SucursalDto toDto(){
 		ArrayList<EmpleadoDto> empleadosDto = new ArrayList<EmpleadoDto>();
 		ArrayList<PedidoPrendasDto> pedidosDto = new ArrayList<PedidoPrendasDto>();
+		
 		if(this.pedidos != null){
 			for (PedidoPrendas pedidoPrendas : this.pedidos) {
 				pedidosDto.add(pedidoPrendas.toDto());
 			}
 		}
+		
 		if(this.empleados!= null){
 			for (Empleado empleado : this.empleados) {
 				empleadosDto.add(empleado.toDto());
@@ -138,5 +140,9 @@ public class Sucursal {
 		}
 		
 		return new SucursalDto(numero, nombre, direccion, horarios, empleadosDto, pedidosDto);
+	}
+	
+	public void modificame() {
+		SucursalDao.getInstance().modificarSucursal(this);
 	}
 }

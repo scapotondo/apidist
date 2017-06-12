@@ -8,8 +8,7 @@ import dto.PedidoPrendasDto;
 
 public interface AdministracionPedidoInterface extends Remote{
 
-	public void CrearPedido(PedidoPrendasDto pedido) throws RemoteException;
-	
+	public PedidoPrendasDto CrearPedido(PedidoPrendasDto pedido) throws RemoteException;
 	
 	public void AprobarPedidoAdmin(int nroPedido, int nroSucursal) throws RemoteException;
 	

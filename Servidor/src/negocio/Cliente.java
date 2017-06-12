@@ -3,11 +3,13 @@ package negocio;
 import java.util.ArrayList;
 
 import dao.ClienteDao;
+import dao.SucursalDao;
 import dto.ClienteDto;
 import dto.PedidoPrendasDto;
 import dto.SucursalDto;
 import entity.ClienteEntity;
 import entity.PedidoPrendasEntity;
+import exceptions.SucursalException;
 
 public class Cliente {
 
@@ -41,6 +43,26 @@ public class Cliente {
 		for (PedidoPrendasEntity pedidoPrendasEntity : cliente.getPedidosAceptados()) {
 			this.pedidosAceptados.add(new PedidoPrendas(pedidoPrendasEntity));
 		}
+	}
+	
+	public Cliente(ClienteDto clienteDto) throws SucursalException {
+		Sucursal sucursal = SucursalDao.getInstance().getSucursalById(clienteDto.getSucursal().getNumero());
+		if (sucursal == null)
+			throw new SucursalException("La sucursal indicada no existe");
+		
+		ArrayList<PedidoPrendas> pedidos = new ArrayList<PedidoPrendas>();
+		
+		this.limiteCredito = clienteDto.getLimiteCredito();
+		this.formaPago = clienteDto.getFormaPago();
+		this.cuentaCorriente = clienteDto.getCuentaCorriente();
+		this.cuit = clienteDto.getCuit();
+		this.nombre = clienteDto.getNombre();
+		this.razonSocial = clienteDto.getRazonSocial();
+		this.telefono = clienteDto.getTelefono();
+		this.direccionEnvio = clienteDto.getDireccionEnvio();
+		this.direccionFacturacion = clienteDto.getDireccionFacturacion();
+		this.sucursal = sucursal;
+		this.pedidosAceptados = new ArrayList<PedidoPrendas>(); //TODO: pasar pedidos???
 	}
 	
 	public Cliente(float limiteCredito,String formaPago,float cuentaCorriente,String cuit,String nombre, String razonSocial,
@@ -188,9 +210,5 @@ public class Cliente {
 	
 	public void eliminame(){
 		ClienteDao.getInstance().EliminarCliente(this);
-	}
-	
-	public void AddNuevoPedidoAceptado(PedidoPrendas pedido){
-		this.pedidosAceptados.add(pedido);
 	}
 }

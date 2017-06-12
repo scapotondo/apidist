@@ -7,8 +7,10 @@ import org.hibernate.Session;
 import dto.SucursalDto;
 import entity.EmpleadoEntity;
 import entity.PedidoPrendasEntity;
+import entity.PrendaEntity;
 import entity.SucursalEntity;
 import hibernate.HibernateUtil;
+import negocio.Prenda;
 import negocio.Sucursal;
 
 public class SucursalDao {
@@ -65,6 +67,16 @@ public class SucursalDao {
 		SucursalEntity sucursalEntity = new SucursalEntity(sucursal.getNumero(), sucursal.getNombre(), sucursal.getDireccion(),
 				sucursal.getHorarios(), new ArrayList<EmpleadoEntity>(), new ArrayList<PedidoPrendasEntity>());
 		session.save(sucursalEntity);
+		session.getTransaction().commit();
+		session.close();
+	}
+	
+	public void modificarSucursal(Sucursal sucursal){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		SucursalEntity sucursalEntity= new SucursalEntity(sucursal);
+		session.beginTransaction();
+		session.update(sucursalEntity);
 		session.getTransaction().commit();
 		session.close();
 	}

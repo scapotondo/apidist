@@ -119,7 +119,7 @@ public class PedidoPrendas {
 		
 	}
 	public void aprobarPedido(){
-		
+	//TODO: que es esto??	
 	}
 	
 	public PedidoPrendasDto toDto(){

@@ -5,6 +5,7 @@ import java.util.Date;
 import dao.StockPrendaDao;
 import dto.StockPrendaDto;
 import entity.StockPrendaEntity;
+import exceptions.ColorException;
 
 public class StockPrenda {
 	
@@ -32,8 +33,8 @@ public class StockPrenda {
 		this.prenda=new Prenda(stock.getPrenda());
 	}
 	
-	public StockPrenda(ColorPrenda color,String talle,OrdenDeProduccion lote,Date fecha,float costoProduccion,int cantidad,
-			String ubicacion,EstadoStockPrenda estado,Prenda prenda){
+	public StockPrenda(ColorPrenda color, String talle, OrdenDeProduccion lote, Date fecha, float costoProduccion, int cantidad,
+			String ubicacion, EstadoStockPrenda estado, Prenda prenda){
 		this.color=color;
 		this.talle=talle;
 		this.lote=lote;

@@ -1,6 +1,8 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Hashtable;
 
 import dto.*;
 import exceptions.*;
@@ -25,21 +27,94 @@ public class Controller {
 		return instance;
 	}
 
-	
-	public void CrearPedidoPrendas(PedidoPrendasDto pedido){
-		//TODO: terminar
+	private PedidoPrendasDao getPedidoPrendasDao() {
+		return PedidoPrendasDao.getInstance();
 	}
 	
-	public void AprobarPedidoAdmin(int nroPedido, int nroSucursal){
-		//TODO: terminar
+	public PedidoPrendasDto CrearPedidoPrendas(PedidoPrendasDto pedidoDto) throws SucursalException, ColorException, ClienteException{
+		Cliente cliente = ClienteDao.getInstance().BuscarClientePorId(pedidoDto.getCliente());
+		if (cliente == null)
+			throw new ClienteException("El Cliente no existe");
+		
+		ArrayList<ItemPrenda> items = new ArrayList<>();
+		for (ItemPrendaDto itemDto : pedidoDto.getItems()) 
+			items.add(new ItemPrenda(itemDto.getCantidad(), 
+					itemDto.getTalle(), 
+					itemDto.getColor(), 
+					itemDto.getImporte(), 
+					new Prenda(itemDto.getPrenda()), 
+					null));
+		
+		PedidoPrendas pedido = new PedidoPrendas(pedidoDto.getNroPedido(), 
+				pedidoDto.getFechaProbableDespacho(),
+				pedidoDto.getEstado(),
+				pedidoDto.getFechaGeneracion(),
+				pedidoDto.getFechaRealDespacho(),
+				null,
+				cliente,
+				items);
+		
+		getPedidoPrendasDao().CrearPedidoPrendas(pedido);
+		
+		//TODO: ver como traer el pedido recien agregado para tener el nro que es autogenerado y para poder pasarle el pedido a la sucursal
+//		cliente.getSucursal().addNuevoPedido(pedido);
+//		cliente.getSucursal().updateMe();
+		
+		return null;
 	}
 	
+	public void AprobarPedidoAdmin(PedidoPrendasDto pedidoDto) throws ClienteException, PedidoException{
+		Cliente cliente = ClienteDao.getInstance().BuscarClientePorId(pedidoDto.getCliente());
+		if (cliente == null)
+			throw new ClienteException("El Cliente no existe");
+		
+		PedidoPrendas pedido = PedidoPrendasDao.getInstance().BuscarPedidoPrendas(pedidoDto.getNroPedido());
+		if (pedido == null)
+			throw new PedidoException("No se encuentra el pedido");
+		
+		//TODO: cambiar estado pedido
+		//TODO: calcular fecha probable
+		ArrayList<ItemPrenda> sinStock = new ArrayList<>();
+		for (ItemPrenda item : pedido.getItems()) {
+			if (!AlmacenController.getInstance().tenesStockPrenda(item.getPrenda(), item.getTalle(), item.getColor(), item.getCantidad())) {
+				sinStock.add(item);
+			}
+		}
+		
+		if (!sinStock.isEmpty()) {
+			//Calcular el tipo de OP y si hay MP
+		}
+		
+		Sucursal sucursal = cliente.getSucursal();
+		sucursal.getPedidos().remove(pedido);
+		sucursal.modificame();
+		
+		cliente.addNuevoPedidoAceptado(pedido);
+		cliente.modificame();
+	}
+	
+	//TODO: cambiar parametro, no puede ser int si viene de la vista, tiene que ser DTO
 	public PedidoPrendas BuscarPedido(int nroPedido){
-		return PedidoPrendasDao.getInstance().BuscarPedidoPrendas(nroPedido);
+		return getPedidoPrendasDao().BuscarPedidoPrendas(nroPedido);
 	}
 	
-	public void RechazarPedidoAdmin(int nroPedido, int nroSucursal, String descripcion){
-		//TODO: terminar
+	public void RechazarPedidoAdmin(PedidoPrendasDto pedidoDto, String descripcion) throws ClienteException, PedidoException{
+		Cliente cliente = ClienteDao.getInstance().BuscarClientePorId(pedidoDto.getCliente());
+		if (cliente == null)
+			throw new ClienteException("El Cliente no existe");
+		
+		PedidoPrendas pedido = PedidoPrendasDao.getInstance().BuscarPedidoPrendas(pedidoDto.getNroPedido());
+		if (pedido == null)
+			throw new PedidoException("No se encuentra el pedido");
+		
+		//TODO: cambiar estado pedido
+		
+		Sucursal sucursal = cliente.getSucursal();
+		sucursal.getPedidos().remove(pedido);
+		sucursal.modificame();
+		
+		cliente.addNuevoPedidoRechazado(pedido, descripcion);
+		cliente.modificame();
 	}
 	
 	public void AceptarPedidoCliente(int nroPedido){
@@ -54,7 +129,6 @@ public class Controller {
 		//TODO: terminar
 	}
 	
-	
 	public void AumentarRealStockAlmacen(String bulto,int cantidad){
 		//TODO: terminar
 	}
@@ -66,7 +140,6 @@ public class Controller {
 	public void DisminuirStockDefectuosoAlmacen(String lote,int cantidad){
 		//TODO: terminar
 	}
-	
 	
 	public void RechazarOrdenDeCompra(int nroCompra){
 		//TODO: terminar
@@ -123,8 +196,7 @@ public class Controller {
 		return sucursalesDto;
 	}
 	
-	private Sucursal BuscarSucursal(int nroSucursal){
-		
+	private Sucursal BuscarSucursal(int nroSucursal){	
 		return SucursalDao.getInstance().getSucursalById(nroSucursal);
 	}
 }

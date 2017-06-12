@@ -3,8 +3,11 @@ package negocio;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import dao.AreaProduccionDao;
+import dao.MateriaPrimaDao;
 import dao.PrendaDao;
 import dto.ConfeccionDto;
+import dto.InsumoDto;
 import dto.PrendaDto;
 import dto.StockPrendaDto;
 import entity.ConfeccionEntity;
@@ -56,6 +59,40 @@ public class Prenda {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public Prenda(PrendaDto prendaDto) throws ColorException {
+		ArrayList<Confeccion> confecciones = new ArrayList<Confeccion>();
+		ArrayList<ColorPrenda> colores = new ArrayList<>();
+		
+		for (ConfeccionDto confeccionDto : prendaDto.getConfecciones()) {
+			
+			AreaProduccion areaProd = AreaProduccionDao.getInstance().getById(confeccionDto.getAreaProduccion());
+			
+			ArrayList<Insumo> insumos = new ArrayList<Insumo>();
+			for (InsumoDto insumoDto : confeccionDto.getInsumos()) {
+				insumos.add(new Insumo(insumoDto.getCantidad(), insumoDto.getDesperdicio(), MateriaPrimaDao.getInstance().getById(insumoDto.getMateriaPrima())));
+			}
+			
+			Confeccion confeccion = new Confeccion(confeccionDto.getTiempoProd(), confeccionDto.getDetalle(), areaProd, insumos);
+			
+			confecciones.add(confeccion);
+		}
+		
+		for (String color : prendaDto.getColoresValidos())
+			colores.add(ColorPrenda.fromString(color));
+		
+		
+		this.tallesValidos = prendaDto.getTallesValidos(); 
+		this.coloresValidos = colores;
+		this.esDiscontinuo = prendaDto.getEsDiscontinuo();
+		this.cantidadAProducir = prendaDto.getCantidadAProducir();
+		this.nombre = prendaDto.getNombre();
+		this.descripcion = prendaDto.getDescripcion();
+		this.porcentajeGanancia = prendaDto.getPorcentajeGanancia();
+		this.confecciones = confecciones;
+		this.stock = new ArrayList<StockPrenda>(); //TODO: levantar StockPrenda del dto???
+		
 	}
 	
 	public Prenda(ArrayList<String> tallesValidos, ArrayList<ColorPrenda> coloresValidos, boolean esDiscontinuo,

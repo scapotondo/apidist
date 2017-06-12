@@ -24,7 +24,8 @@ public class ItemPrenda {
 		//this.lote = new OrdenDeProduccion(item.getLote());
 	}
 	
-	public ItemPrenda(int cantidad, String talle, String color,float importe, Prenda prenda, OrdenDeProduccion lote ){
+	//TODO: usar ColorPrenda en lugar de string
+	public ItemPrenda(int cantidad, String talle, String color, float importe, Prenda prenda, OrdenDeProduccion lote ){
 		this.cantidad=cantidad;
 		this.talle=talle;
 		this.color=color;
