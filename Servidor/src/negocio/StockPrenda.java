@@ -8,16 +8,15 @@ import entity.StockPrendaEntity;
 
 public class StockPrenda {
 	
-	
+	private OrdenDeProduccion lote;
+	private Prenda prenda;
 	private ColorPrenda color;
 	private String talle;
-	private OrdenDeProduccion lote;
 	private Date fecha;
 	private float costoProduccion;
 	private int cantidad;
 	private String ubicacion;
 	private EstadoStockPrenda estado;
-	private Prenda prenda;
 	
 	
 	public StockPrenda(StockPrendaEntity stock){
