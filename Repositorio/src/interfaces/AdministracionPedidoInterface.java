@@ -10,11 +10,11 @@ public interface AdministracionPedidoInterface extends Remote{
 
 	public PedidoPrendasDto CrearPedido(PedidoPrendasDto pedido) throws RemoteException;
 	
-	public void AprobarPedidoAdmin(int nroPedido, int nroSucursal) throws RemoteException;
+	public void AprobarPedidoAdmin(PedidoPrendasDto pedidoDto) throws RemoteException;
 	
 	public PedidoPrendasDto BuscarPedido(int nroPedido)throws RemoteException;
 	
-	public void RechazarPedidoAdmin(int nroPedido, int nroSucursal, String descripcion) throws RemoteException;
+	public void RechazarPedidoAdmin(PedidoPrendasDto pedidoDto, String descripcion) throws RemoteException;
 	
 	public void AceptarPedidoCliente(int nroPedido) throws RemoteException;
 	

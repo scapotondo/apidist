@@ -19,16 +19,16 @@ public class AdministracionPedidos extends UnicastRemoteObject implements Admini
 		return Controller.getInstance().CrearPedidoPrendas(pedido);
 	}
 
-	public void AprobarPedidoAdmin(int nroPedido, int nroSucursal) throws RemoteException {
-		Controller.getInstance().AprobarPedidoAdmin(nroPedido, nroSucursal);
+	public void AprobarPedidoAdmin(PedidoPrendasDto pedidoDto) throws RemoteException {
+		Controller.getInstance().AprobarPedidoAdmin(pedidoDto);
 	}
 
 	public PedidoPrendasDto BuscarPedido(int nroPedido) throws RemoteException {
 		return Controller.getInstance().BuscarPedido(nroPedido).toDto();
 	}
 
-	public void RechazarPedidoAdmin(int nroPedido, int nroSucursal, String descripcion) throws RemoteException {
-		Controller.getInstance().RechazarPedidoAdmin(nroPedido, nroSucursal, descripcion);
+	public void RechazarPedidoAdmin(PedidoPrendasDto pedidoDto, String descripcion) throws RemoteException {
+		Controller.getInstance().RechazarPedidoAdmin(pedidoDto,descripcion);
 		
 	}
 
