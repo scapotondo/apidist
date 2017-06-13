@@ -1,11 +1,31 @@
 package controller;
 
-import java.util.*;
+import java.util.ArrayList;
 
-import dto.*;
-import exceptions.*;
-import negocio.*;
-import dao.*;
+import dao.AreaProduccionDao;
+import dao.ClienteDao;
+import dao.MateriaPrimaDao;
+import dao.PedidoPrendasDao;
+import dao.SucursalDao;
+import dto.AreaProduccionDto;
+import dto.ItemPrendaDto;
+import dto.MateriaPrimaDto;
+import dto.PedidoPrendasDto;
+import dto.SucursalDto;
+import exceptions.ClienteException;
+import exceptions.ColorException;
+import exceptions.PedidoException;
+import exceptions.PrendaException;
+import exceptions.SucursalException;
+import negocio.AreaProduccion;
+import negocio.Cliente;
+import negocio.EstadoPedidoPrenda;
+import negocio.ItemPrenda;
+import negocio.MateriaPrima;
+import negocio.OrdenDeProduccion;
+import negocio.PedidoPrendas;
+import negocio.Prenda;
+import negocio.Sucursal;
 
 public class Controller {
 	private static Controller instance;
@@ -121,14 +141,35 @@ public class Controller {
 		cliente.modificame();
 	}
 	
-	public void AceptarPedidoCliente(int nroPedido){
+	public void AceptarPedidoCliente(int nroPedido) throws PedidoException{
+		PedidoPrendas pedido = this.BuscarPedido(nroPedido);
+		
+		if(pedido == null)
+			throw new PedidoException("No se encuentra el pedido");
+		
+		boolean tenesPrendas = true;
+		for (ItemPrenda item : pedido.getItems()) {
+			
+			if(!AlmacenController.getInstance().tenesStockPrenda(item.getPrenda(), item.getTalle(), item.getColor(), item.getCantidad())){
+			
+				tenesPrendas = false;
+			}
+		}
+		
 		//TODO: terminar
 	}
 	
-	public void RechazarPedidoCliente(int nroPedido){
-		//TODO: terminar
+	public void RechazarPedidoCliente(int nroPedido) throws PedidoException{
+		PedidoPrendas pedido = this.BuscarPedido(nroPedido);
+		
+		if(pedido == null)
+			throw new PedidoException("No se encuentra el pedido");
+		
+		pedido.setEstado(EstadoPedidoPrenda.CanceladoCliente);
+		pedido.modificame();
 	}
 	
+	//TODO: ver si se pasa o no al almacenController
 	public void GenerarDevolucion(Prenda prenda){
 		//TODO: terminar
 	}
@@ -144,19 +185,7 @@ public class Controller {
 	public void DisminuirStockDefectuosoAlmacen(String lote,int cantidad){
 		//TODO: terminar
 	}
-	
-	public void RechazarOrdenDeCompra(int nroCompra){
-		//TODO: terminar
-	}
-	
-	public ArrayList<PedidoPrendasDto> GetPedidosADespachar(){
-		//TODO: terminar
-		return null;
-	}
-	
-	public void AceptarPedidoDespacho(int nroPedido){
-		//TODO: terminar
-	}
+	//fin todo
 	
 	public void TrabajoLineaTerminado(int codigoArea, int nroLinea){
 		

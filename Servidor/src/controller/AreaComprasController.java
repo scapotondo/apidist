@@ -45,4 +45,8 @@ public class AreaComprasController {
 		this.ordenesCompras = ordenesCompras;
 	}
 	
+	public void RechazarOrdenDeCompra(int nroCompra){
+		//TODO: terminar
+	}
+	
 }
