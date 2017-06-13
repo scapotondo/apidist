@@ -1,8 +1,6 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Hashtable;
+import java.util.*;
 
 import dto.*;
 import exceptions.*;
@@ -31,19 +29,24 @@ public class Controller {
 		return PedidoPrendasDao.getInstance();
 	}
 	
-	public PedidoPrendasDto CrearPedidoPrendas(PedidoPrendasDto pedidoDto) throws SucursalException, ColorException, ClienteException{
+	public PedidoPrendasDto CrearPedidoPrendas(PedidoPrendasDto pedidoDto) throws SucursalException, ColorException, ClienteException, PrendaException{
 		Cliente cliente = ClienteDao.getInstance().BuscarClientePorId(pedidoDto.getCliente());
 		if (cliente == null)
-			throw new ClienteException("El Cliente no existe");
+			throw new ClienteException("El Cliente " + pedidoDto.getCliente().getNombre() + " no existe");
 		
 		ArrayList<ItemPrenda> items = new ArrayList<>();
-		for (ItemPrendaDto itemDto : pedidoDto.getItems()) 
+		for (ItemPrendaDto itemDto : pedidoDto.getItems()) {
+			Prenda prenda = AdministracionController.getInstance().BuscarPrendaPorNumero(itemDto.getPrenda());
+			if (prenda == null)
+				throw new PrendaException("No existe la prenda: " + itemDto.getPrenda().getNombre());
+			
 			items.add(new ItemPrenda(itemDto.getCantidad(), 
 					itemDto.getTalle(), 
 					itemDto.getColor(), 
 					itemDto.getImporte(), 
-					new Prenda(itemDto.getPrenda()), 
+					prenda, 
 					null));
+		}
 		
 		PedidoPrendas pedido = new PedidoPrendas(pedidoDto.getNroPedido(), 
 				pedidoDto.getFechaProbableDespacho(),
@@ -54,13 +57,11 @@ public class Controller {
 				cliente,
 				items);
 		
-		getPedidoPrendasDao().CrearPedidoPrendas(pedido);
+		pedido = getPedidoPrendasDao().CrearPedidoPrendas(pedido);
+		cliente.getSucursal().addNuevoPedido(pedido);
+		cliente.getSucursal().modificame();
 		
-		//TODO: ver como traer el pedido recien agregado para tener el nro que es autogenerado y para poder pasarle el pedido a la sucursal
-//		cliente.getSucursal().addNuevoPedido(pedido);
-//		cliente.getSucursal().updateMe();
-		
-		return null;
+		return pedido.toDto();
 	}
 	
 	public void AprobarPedidoAdmin(PedidoPrendasDto pedidoDto) throws ClienteException, PedidoException{
@@ -72,7 +73,9 @@ public class Controller {
 		if (pedido == null)
 			throw new PedidoException("No se encuentra el pedido");
 		
-		//TODO: cambiar estado pedido
+		pedido.setEstado(EstadoPedidoPrenda.PendienteDeAceptacion);
+		pedido.modificame();
+		
 		//TODO: calcular fecha probable
 		ArrayList<ItemPrenda> sinStock = new ArrayList<>();
 		for (ItemPrenda item : pedido.getItems()) {
@@ -98,7 +101,7 @@ public class Controller {
 		return getPedidoPrendasDao().BuscarPedidoPrendas(nroPedido);
 	}
 	
-	public void RechazarPedidoAdmin(PedidoPrendasDto pedidoDto, String descripcion) throws ClienteException, PedidoException{
+	public void RechazarPedidoAdmin(PedidoPrendasDto pedidoDto, String descripcion) throws ClienteException, PedidoException {
 		Cliente cliente = ClienteDao.getInstance().BuscarClientePorId(pedidoDto.getCliente());
 		if (cliente == null)
 			throw new ClienteException("El Cliente no existe");
@@ -107,7 +110,8 @@ public class Controller {
 		if (pedido == null)
 			throw new PedidoException("No se encuentra el pedido");
 		
-		//TODO: cambiar estado pedido
+		pedido.setEstado(EstadoPedidoPrenda.RechazadoAdmin);
+		pedido.modificame();
 		
 		Sucursal sucursal = cliente.getSucursal();
 		sucursal.getPedidos().remove(pedido);

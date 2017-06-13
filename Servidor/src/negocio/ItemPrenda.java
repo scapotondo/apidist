@@ -25,6 +25,7 @@ public class ItemPrenda {
 	}
 	
 	//TODO: usar ColorPrenda en lugar de string
+	//TODO: es necesario tener Orden De Produccion?
 	public ItemPrenda(int cantidad, String talle, String color, float importe, Prenda prenda, OrdenDeProduccion lote ){
 		this.cantidad=cantidad;
 		this.talle=talle;

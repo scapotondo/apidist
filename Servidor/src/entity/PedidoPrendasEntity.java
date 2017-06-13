@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import negocio.EstadoPedidoPrenda;
 import negocio.ItemPrenda;
 import negocio.PedidoPrendas;
 
@@ -33,7 +34,7 @@ public class PedidoPrendasEntity implements Serializable{
 	private Date fechaProbableDespacho;
 	
 	@Column(nullable=false)
-	private String estado;
+	private int estado;
 	
 	@Column(nullable=false)
 	private Date fechaGeneracion;
@@ -52,11 +53,11 @@ public class PedidoPrendasEntity implements Serializable{
 	private List<ItemPrendaEntity> items;
 	
 	public PedidoPrendasEntity(){}
-	public PedidoPrendasEntity(int nroPedido, Date fechaProbableDespacho, String estado, Date fechaGeneracion,
+	public PedidoPrendasEntity(int nroPedido, Date fechaProbableDespacho, EstadoPedidoPrenda estado, Date fechaGeneracion,
 			Date fechaRealDespacho, OrdenDeProduccionEntity ordenProduccion, ClienteEntity cliente, List<ItemPrendaEntity> items){
 		this.nroPedido=nroPedido;
 		this.fechaProbableDespacho=fechaProbableDespacho;
-		this.estado=estado;
+		this.estado=estado.toInt();
 		this.fechaGeneracion=fechaGeneracion;
 		this.fechaRealDespacho=fechaRealDespacho;
 		this.cliente=cliente;
@@ -67,7 +68,7 @@ public class PedidoPrendasEntity implements Serializable{
 	public PedidoPrendasEntity(PedidoPrendas pedido){
 		this.nroPedido=pedido.getNroPedido();
 		this.fechaProbableDespacho=pedido.getFechaProbableDespacho();
-		this.estado=pedido.getEstado();
+		this.estado=pedido.getEstado().toInt();
 		this.fechaGeneracion=pedido.getFechaGeneracion();
 		this.fechaRealDespacho=pedido.getFechaProbableDespacho();
 		this.cliente=new ClienteEntity(pedido.getCliente());
@@ -93,10 +94,10 @@ public class PedidoPrendasEntity implements Serializable{
 	public void setFechaProbableDespacho(Date fechaProbableDespacho) {
 		this.fechaProbableDespacho = fechaProbableDespacho;
 	}
-	public String getEstado() {
+	public int getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(int estado) {
 		this.estado = estado;
 	}
 	public Date getFechaGeneracion() {
@@ -129,5 +130,4 @@ public class PedidoPrendasEntity implements Serializable{
 	public void setItems(List<ItemPrendaEntity> items) {
 		this.items = items;
 	}
-	
 }

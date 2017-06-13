@@ -19,7 +19,7 @@ public class PedidoPrendasDao {
 	}
 	private PedidoPrendasDao(){}
 
-	public void CrearPedidoPrendas(PedidoPrendas pedido){
+	public PedidoPrendas CrearPedidoPrendas(PedidoPrendas pedido){
 		PedidoPrendasEntity pedidoEntity = new PedidoPrendasEntity(pedido);
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -28,6 +28,8 @@ public class PedidoPrendasDao {
 		session.save(pedidoEntity);
 		session.getTransaction().commit();
 		session.close();
+		
+		return new PedidoPrendas(pedidoEntity);
 	}
 	
 	public void EliminarPedidoPrendas(PedidoPrendas pedido){

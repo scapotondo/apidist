@@ -3,6 +3,7 @@ package negocio;
 import java.util.ArrayList;
 import java.util.Date;
 
+import dao.PedidoPrendasDao;
 import dto.ItemPrendaDto;
 import dto.PedidoPrendasDto;
 import entity.ItemPrendaEntity;
@@ -12,7 +13,7 @@ public class PedidoPrendas {
 	
 	private int nroPedido;
 	private Date fechaProbableDespacho;
-	private String estado;
+	private EstadoPedidoPrenda estado;
 	private Date fechaGeneracion;
 	private Date fechaRealDespacho;
 	private OrdenDeProduccion ordenProduccion;
@@ -22,7 +23,7 @@ public class PedidoPrendas {
 	public PedidoPrendas(PedidoPrendasEntity pedido){
 		this.nroPedido=pedido.getNroPedido();
 		this.fechaProbableDespacho=pedido.getFechaProbableDespacho();
-		this.estado=pedido.getEstado();
+		this.estado=EstadoPedidoPrenda.fromInt(pedido.getEstado());
 		this.fechaGeneracion=pedido.getFechaGeneracion();
 		this.fechaRealDespacho=pedido.getFechaRealDespacho();
 		this.cliente=new Cliente(pedido.getCliente());
@@ -35,11 +36,15 @@ public class PedidoPrendas {
 		//this.ordenProduccion=new OrdenDeProduccion(pedido.getOrdenProduccion());
 	}
 	
+	public PedidoPrendas(int nroPedido) {
+		this.nroPedido = nroPedido;
+	}
+	
 	public PedidoPrendas(int nroPedido, Date fechaProbableDespacho, String estado, Date fechaGeneracion,
 			Date fechaRealDespacho, OrdenDeProduccion ordenProduccion, Cliente cliente, ArrayList<ItemPrenda> items){
 		this.nroPedido=nroPedido;
 		this.fechaProbableDespacho=fechaProbableDespacho;
-		this.estado=estado;
+		this.estado=EstadoPedidoPrenda.fromString(estado);
 		this.fechaGeneracion=fechaGeneracion;
 		this.fechaRealDespacho=fechaRealDespacho;
 		this.ordenProduccion=ordenProduccion;
@@ -63,11 +68,11 @@ public class PedidoPrendas {
 		this.fechaProbableDespacho = fechaProbableDespacho;
 	}
 
-	public String getEstado() {
+	public EstadoPedidoPrenda getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(EstadoPedidoPrenda estado) {
 		this.estado = estado;
 	}
 
@@ -128,8 +133,11 @@ public class PedidoPrendas {
 		for (ItemPrenda itemPrenda : items) {
 			itemsDto.add(itemPrenda.toDto());
 		}
-		return new PedidoPrendasDto(nroPedido, fechaProbableDespacho, estado, fechaGeneracion, fechaRealDespacho, 
+		return new PedidoPrendasDto(nroPedido, fechaProbableDespacho, estado.toString(), fechaGeneracion, fechaRealDespacho, 
 				ordenProduccion.toDto(), cliente.toDto(), itemsDto);
 	}
 	
+	public void modificame() {
+		PedidoPrendasDao.getInstance().ModificarPedidoPrendas(this);
+	}
 }
