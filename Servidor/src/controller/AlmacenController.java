@@ -11,7 +11,7 @@ import dao.StockPrendaDao;
 import exceptions.ColorException;
 import negocio.ColorPrenda;
 import negocio.EstadoMovimientoMateriaPrima;
-import negocio.EstadoStockPrenda;
+import negocio.ItemPrenda;
 import negocio.MateriaPrima;
 import negocio.MovimientoMateriaPrima;
 import negocio.MovimientoPrenda;
@@ -90,7 +90,6 @@ public class AlmacenController {
 		return false;
 	}
 
-	//TODO: para que sirve este metodo?? para saber si hay MP para producir una Orden de Prod Completa???	
 	public boolean tenesStockMateriaPrimaParaPrenda(Prenda prenda) {
 		Hashtable<MateriaPrima, Integer> materiasPrimasReservadas = this.materiaPrimaReservada();
 
@@ -126,18 +125,17 @@ public class AlmacenController {
 		return true;
 	}
 
-	public void disminuirStockPrenda(Prenda prenda, int cantidad, String talle, String color, String encargado) {
+	public void disminuirStockPrendaDespacho(Prenda prenda, int cantidad, String talle, String color, String encargado) {
 		MovimientoPrenda movimiento;
 		String ubicacion = "";
 		ArrayList<StockPrenda> stockPrendas;
 
-		stockPrendas = StockPrendaDao.getInstance().getStockPrendas();
+		stockPrendas = StockPrendaDao.getInstance().getStockPrendasReservadas(prenda.getCodigo());
 		for (StockPrenda stockPrenda : stockPrendas) {
 			if (cantidad <= 0) {
 				break;
 			}
-			if (stockPrenda.getPrenda().getCodigo() == prenda.getCodigo() && stockPrenda.getColor().equals(color)
-					&& stockPrenda.getTalle().equals(talle)) {
+			if (stockPrenda.getColor().equals(color) && stockPrenda.getTalle().equals(talle)) {
 
 				if (stockPrenda.getCantidad() - cantidad > 0) {
 
@@ -215,9 +213,8 @@ public class AlmacenController {
 
 		String ubicacion = getUbicacionPrendaDisponible();
 
-		StockPrenda stockPrenda = new StockPrenda(ColorPrenda.fromString(color), talle, lote,
-				Calendar.getInstance().getTime(), costoProduccion, cantidad, ubicacion, EstadoStockPrenda.Disponible,
-				prenda);
+		StockPrenda stockPrenda = new StockPrenda(ColorPrenda.fromString(color), talle, lote,Calendar.getInstance().getTime(), 
+				costoProduccion, cantidad, ubicacion,prenda);
 
 		agregarStockPrenda(stockPrenda);
 
@@ -229,6 +226,78 @@ public class AlmacenController {
 		movimiento.saveMe();
 	}
 
+	public void reservarPrendasPedido(ArrayList<ItemPrenda> items){
+		
+		ArrayList<StockPrenda> stockPedidos = new ArrayList<StockPrenda>();
+		
+		for (ItemPrenda itemPrenda : items) {
+			stockPedidos = StockPrendaDao.getInstance().getStockPrendas(itemPrenda.getPrenda().getCodigo());
+			for (StockPrenda stockPrenda : stockPedidos) {
+				if(itemPrenda.getCantidad() == 0){
+					break;
+				}
+				
+				if(stockPrenda.getCantidad() >= itemPrenda.getCantidad()){
+						
+					stockPrenda.reservar(itemPrenda.getCantidad());
+					itemPrenda.setCantidad(0);
+					
+				}else{
+					itemPrenda.disminuirCantidad(stockPrenda.getCantidad());
+						
+					stockPrenda.reservar(stockPrenda.getCantidad());
+				}
+			}
+		}
+	}
+	
+	public String getUbicacionPrendaDisponible() {
+		String ubicacion;
+		for (int calles = 1; calles < callePrendas; calles++) {
+			for (int bloques = 1; bloques < bloque; bloques++) {
+				for (int estantes = 1; estantes < estante; estantes++) {
+					for (int posiciones = 1; posiciones < posicion; posiciones++) {
+
+						if (almacen[calles][bloques][estantes][posiciones] == 0) {
+							if (posiciones < 10)
+								ubicacion = "0" + posiciones;
+							else
+								ubicacion = posiciones + "";
+
+							return getLetraCalle(calles) + "0" + bloques + "0" + estantes + ubicacion;
+						}
+					}
+				}
+			}
+		}
+
+		return null;
+	}
+
+	private void sacarStockPrenda(StockPrenda stockPrenda) {
+		String ubicacion = stockPrenda.getUbicacion();
+
+		int calle = getNumeroCalle(ubicacion.charAt(0) + "");
+		int bloque = Integer.parseInt((ubicacion.charAt(1) + ubicacion.charAt(2) + ""));
+		int estante = Integer.parseInt(ubicacion.charAt(3) + ubicacion.charAt(4) + "");
+		int posicion = Integer.parseInt(ubicacion.charAt(5) + ubicacion.charAt(6) + "");
+
+		almacen[calle][bloque][estante][posicion] = 0;
+	}
+
+	private void agregarStockPrenda(StockPrenda stockPrenda) {
+		String ubicacion = stockPrenda.getUbicacion();
+
+		int calle = getNumeroCalle(ubicacion.charAt(0) + "");
+		int bloque = Integer.parseInt((ubicacion.charAt(1) + ubicacion.charAt(2) + ""));
+		int estante = Integer.parseInt(ubicacion.charAt(3) + ubicacion.charAt(4) + "");
+		int posicion = Integer.parseInt(ubicacion.charAt(5) + ubicacion.charAt(6) + "");
+
+		almacen[calle][bloque][estante][posicion] = stockPrenda.getLote().getNroOrden();
+	}
+
+	
+	
 	public void agregarStockMateriaPrima(MateriaPrima materiaPrima, int cantidad, Float precio) {
 
 		String ubicacion = getUbicacionMateriaPrimaDisponible();
@@ -281,50 +350,6 @@ public class AlmacenController {
 		movimientoMateriaPrimaReservada.saveMe();
 	}
 
-	public String getUbicacionPrendaDisponible() {
-		String ubicacion;
-		for (int calles = 1; calles < callePrendas; calles++) {
-			for (int bloques = 1; bloques < bloque; bloques++) {
-				for (int estantes = 1; estantes < estante; estantes++) {
-					for (int posiciones = 1; posiciones < posicion; posiciones++) {
-
-						if (almacen[calles][bloques][estantes][posiciones] == 0) {
-							if (posiciones < 10)
-								ubicacion = "0" + posiciones;
-							else
-								ubicacion = posiciones + "";
-
-							return getLetraCalle(calles) + "0" + bloques + "0" + estantes + ubicacion;
-						}
-					}
-				}
-			}
-		}
-
-		return null;
-	}
-
-	private void sacarStockPrenda(StockPrenda stockPrenda) {
-		String ubicacion = stockPrenda.getUbicacion();
-
-		int calle = getNumeroCalle(ubicacion.charAt(0) + "");
-		int bloque = Integer.parseInt((ubicacion.charAt(1) + ubicacion.charAt(2) + ""));
-		int estante = Integer.parseInt(ubicacion.charAt(3) + ubicacion.charAt(4) + "");
-		int posicion = Integer.parseInt(ubicacion.charAt(5) + ubicacion.charAt(6) + "");
-
-		almacen[calle][bloque][estante][posicion] = 0;
-	}
-
-	private void agregarStockPrenda(StockPrenda stockPrenda) {
-		String ubicacion = stockPrenda.getUbicacion();
-
-		int calle = getNumeroCalle(ubicacion.charAt(0) + "");
-		int bloque = Integer.parseInt((ubicacion.charAt(1) + ubicacion.charAt(2) + ""));
-		int estante = Integer.parseInt(ubicacion.charAt(3) + ubicacion.charAt(4) + "");
-		int posicion = Integer.parseInt(ubicacion.charAt(5) + ubicacion.charAt(6) + "");
-
-		almacen[calle][bloque][estante][posicion] = stockPrenda.getLote().getNroOrden();
-	}
 
 	private String getUbicacionMateriaPrimaDisponible() {
 		String ubicacion;

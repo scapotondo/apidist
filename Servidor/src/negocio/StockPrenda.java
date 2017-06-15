@@ -1,3 +1,4 @@
+
 package negocio;
 
 import java.util.Date;
@@ -5,7 +6,6 @@ import java.util.Date;
 import dao.StockPrendaDao;
 import dto.StockPrendaDto;
 import entity.StockPrendaEntity;
-import exceptions.ColorException;
 
 public class StockPrenda {
 	
@@ -17,7 +17,7 @@ public class StockPrenda {
 	private float costoProduccion;
 	private int cantidad;
 	private String ubicacion;
-	private EstadoStockPrenda estado;
+	private int cantidadPrendasReservadas;
 	
 	
 	public StockPrenda(StockPrendaEntity stock){
@@ -29,12 +29,12 @@ public class StockPrenda {
 		this.costoProduccion=stock.getCostoProduccion();
 		this.cantidad=stock.getCantidad();
 		this.ubicacion=stock.getUbicacion();
-		this.estado=stock.getEstado();
+		this.cantidadPrendasReservadas=stock.getCantidadPrendasReservadas();
 		this.prenda=new Prenda(stock.getPrenda());
 	}
 	
 	public StockPrenda(ColorPrenda color, String talle, OrdenDeProduccion lote, Date fecha, float costoProduccion, int cantidad,
-			String ubicacion, EstadoStockPrenda estado, Prenda prenda){
+			String ubicacion, Prenda prenda){
 		this.color=color;
 		this.talle=talle;
 		this.lote=lote;
@@ -42,7 +42,7 @@ public class StockPrenda {
 		this.costoProduccion=costoProduccion;
 		this.cantidad=cantidad;
 		this.ubicacion=ubicacion;
-		this.estado=estado;
+		this.cantidadPrendasReservadas=0;
 		this.prenda=prenda;
 	}
 
@@ -102,12 +102,12 @@ public class StockPrenda {
 		this.ubicacion = ubicacion;
 	}
 
-	public EstadoStockPrenda getEstado() {
-		return estado;
+	public int getCantidadPrendasReservadas() {
+		return cantidadPrendasReservadas;
 	}
 
-	public void setEstado(EstadoStockPrenda estado) {
-		this.estado = estado;
+	public void setCantidadPrendasReservadas(int cantidadPrendasReservadas) {
+		this.cantidadPrendasReservadas = cantidadPrendasReservadas;
 	}
 
 	public Prenda getPrenda() {
@@ -120,6 +120,11 @@ public class StockPrenda {
 
 	public void disminuirCantidad(int cantidad){
 		this.cantidad = this.cantidad - cantidad;
+	}
+	
+	public void reservar(int cantidad){
+		this.cantidadPrendasReservadas = this.cantidadPrendasReservadas + cantidad;
+		this.updateMe();
 	}
 	
 	public void saveMe(){
@@ -135,7 +140,7 @@ public class StockPrenda {
 	}
 
 	public StockPrendaDto toDto(){
-		return new StockPrendaDto(color.toString(), talle, lote.toDto(), fecha, costoProduccion, cantidad, ubicacion, estado+"",
+		return new StockPrendaDto(color.toString(), talle, lote.toDto(), fecha, costoProduccion, cantidad, ubicacion, cantidadPrendasReservadas,
 				prenda.toDto());
 	}
 

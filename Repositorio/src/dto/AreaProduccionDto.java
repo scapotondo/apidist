@@ -12,14 +12,8 @@ public class AreaProduccionDto implements Serializable{
 	private ArrayList<OrdenDeProduccionDto> ordenesProduccion;
 	private int codigo;
 	
-	public int getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
-	}
-
+	public AreaProduccionDto(){}
+	
 	public AreaProduccionDto(String nombre, ArrayList<LineaProduccionDto> lineasProduccion, ArrayList<OrdenDeProduccionDto> ordenesProduccion){
 		this.nombre=nombre;
 		this.lineasProduccion= lineasProduccion;
@@ -31,6 +25,14 @@ public class AreaProduccionDto implements Serializable{
 		this.nombre=nombre;
 		this.lineasProduccion= lineasProduccion;
 		this.ordenesProduccion=ordenesProduccion;
+	}
+	
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getNombre() {

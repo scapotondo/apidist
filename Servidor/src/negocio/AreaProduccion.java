@@ -99,6 +99,13 @@ public class AreaProduccion {
 		this.ordenesProduccion.add(orden);
 	}
 	
+	public void liberarLineaProduccion(int nroLinea){
+		for (LineaProduccion lineaProduccion : this.lineasProduccion) {
+			if(lineaProduccion.getNumero() == nroLinea)
+				lineaProduccion.Liberar();
+		}
+	}
+	
 	public AreaProduccionDto toDto(){
 		ArrayList<LineaProduccionDto> lineasProduccionDto = new ArrayList<>();
 		ArrayList<OrdenDeProduccionDto> ordenesProduccionDto = new ArrayList<>();

@@ -1,9 +1,7 @@
 package dao;
 
 import java.util.ArrayList;
-
 import org.hibernate.Session;
-
 import entity.LineaProduccionEntity;
 import hibernate.HibernateUtil;
 import negocio.LineaProduccion;
@@ -39,7 +37,7 @@ public class LineaProduccionDao {
 		
 		return lineasProduccion;
 	}
-	
+
 	public void Modificar(LineaProduccion linea){
 		LineaProduccionEntity lineaEntity = new LineaProduccionEntity(linea);
 		

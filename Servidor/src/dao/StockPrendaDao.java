@@ -97,6 +97,49 @@ public class StockPrendaDao {
 		return stockPrendas;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public ArrayList<StockPrenda> getStockPrendasReservadas(int codigoPrenda){
+		String query = "from StockPrendaEntity WHERE prenda_codigo = ? AND cantidadPrendasReservadas > 0 ORDER BY cantidad ASC";
+		
+		ArrayList<StockPrenda> stockPrendas= new ArrayList<StockPrenda>();
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		ArrayList<StockPrendaEntity> stockPrendasEntity = (ArrayList<StockPrendaEntity>) session.createQuery(query).setParameter(0,codigoPrenda).list();
+		session.getTransaction().commit();
+		session.close();
+		
+		if(stockPrendasEntity == null)
+			return null;
+		
+		for (StockPrendaEntity stockPrendaEntity : stockPrendasEntity) {
+			stockPrendas.add(new StockPrenda(stockPrendaEntity));
+		}
+		
+		return stockPrendas;
+	}
+	@SuppressWarnings("unchecked")
+	public ArrayList<StockPrenda> getStockPrendas(int codigoPrenda){
+		String query = "from StockPrendaEntity WHERE prenda_codigo = ? ORDER BY cantidad ASC";
+		
+		ArrayList<StockPrenda> stockPrendas= new ArrayList<StockPrenda>();
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		ArrayList<StockPrendaEntity> stockPrendasEntity = (ArrayList<StockPrendaEntity>) session.createQuery(query).setParameter(0,codigoPrenda).list();
+		session.getTransaction().commit();
+		session.close();
+		
+		if(stockPrendasEntity == null)
+			return null;
+		
+		for (StockPrendaEntity stockPrendaEntity : stockPrendasEntity) {
+			stockPrendas.add(new StockPrenda(stockPrendaEntity));
+		}
+		
+		return stockPrendas;
+	}
+	
 	public StockPrenda BuscarStockPrenda(int codigo){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();

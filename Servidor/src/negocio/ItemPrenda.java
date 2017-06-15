@@ -98,4 +98,8 @@ public class ItemPrenda {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public void disminuirCantidad(int cant){
+		this.cantidad = this.cantidad - cant;
+	}
 }

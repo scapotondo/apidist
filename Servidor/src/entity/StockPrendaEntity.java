@@ -5,8 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +16,6 @@ import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
 import negocio.ColorPrenda;
-import negocio.EstadoStockPrenda;
 import negocio.StockPrenda;
 
 @Entity
@@ -50,10 +47,7 @@ public class StockPrendaEntity implements Serializable{
 	private float costoProduccion;
 	private int cantidad;
 	private String ubicacion;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "estado")
-	private EstadoStockPrenda estado;
+	private int cantidadPrendasReservadas;
 	
 	@ManyToOne(targetEntity=PrendaEntity.class)
 	private PrendaEntity prenda;
@@ -64,7 +58,7 @@ public class StockPrendaEntity implements Serializable{
 	public StockPrendaEntity(){}
 	
 	public StockPrendaEntity(ColorPrenda color,String talle, Date fecha, float costoProduccion, int cantidad, String ubicacion,
-			EstadoStockPrenda estado,PrendaEntity prenda,OrdenDeProduccionEntity lote){
+			int cantidadPrendasReservadas,PrendaEntity prenda,OrdenDeProduccionEntity lote){
 		
 		this.color=color;
 		this.talle=talle;
@@ -72,7 +66,7 @@ public class StockPrendaEntity implements Serializable{
 		this.costoProduccion=costoProduccion;
 		this.cantidad=cantidad;
 		this.ubicacion=ubicacion;
-		this.estado=estado;
+		this.cantidadPrendasReservadas=cantidadPrendasReservadas;
 		this.prenda=prenda;
 		this.lote=lote;
 	}
@@ -85,7 +79,7 @@ public class StockPrendaEntity implements Serializable{
 		this.costoProduccion=sp.getCostoProduccion();
 		this.cantidad=sp.getCantidad();
 		this.ubicacion=sp.getUbicacion();
-		this.estado=sp.getEstado();
+		this.cantidadPrendasReservadas=sp.getCantidadPrendasReservadas();
 		if(sp.getPrenda()!= null)
 			this.prenda=new PrendaEntity(sp.getPrenda());
 		else
@@ -155,12 +149,12 @@ public class StockPrendaEntity implements Serializable{
 		this.ubicacion = ubicacion;
 	}
 
-	public EstadoStockPrenda getEstado() {
-		return estado;
+	public int getCantidadPrendasReservadas() {
+		return cantidadPrendasReservadas;
 	}
 
-	public void setEstado(EstadoStockPrenda estado) {
-		this.estado = estado;
+	public void setCantidadPrendasReservadas(int cantidadPrendasReservadas) {
+		this.cantidadPrendasReservadas = cantidadPrendasReservadas;
 	}
 
 	public PrendaEntity getPrenda() {

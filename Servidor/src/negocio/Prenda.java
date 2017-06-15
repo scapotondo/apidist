@@ -189,7 +189,6 @@ public class Prenda {
 
 	
 	public float calcularCostoActual(){
-		
 		Float valor = 0F;
 		
 		for (Confeccion confeccion : this.confecciones) {

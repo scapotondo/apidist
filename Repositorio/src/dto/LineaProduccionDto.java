@@ -11,6 +11,8 @@ public class LineaProduccionDto implements Serializable{
 	private Float tiempoLiberarse;
 	private String trabajo;
 	
+	public LineaProduccionDto()	{}
+	
 	public LineaProduccionDto(int numero, String estado, Float tiempoLiberarse, String trabajo){
 		this.numero=numero;
 		this.estado= estado;

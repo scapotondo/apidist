@@ -36,7 +36,6 @@ public class Controller {
 	private ArrayList<Sucursal> sucursales;
 	private AreaProduccion areaProduccion;
 
-	//singleton
 	private Controller(){}
 	public static Controller getInstance(){
 		if(instance==null)
@@ -93,6 +92,7 @@ public class Controller {
 		if (pedido == null)
 			throw new PedidoException("No se encuentra el pedido");
 		
+		//TODO: falta chequear el estado de la cuenta corriente del cliente
 		pedido.setEstado(EstadoPedidoPrenda.PendienteDeAceptacion);
 		pedido.modificame();
 		
@@ -116,7 +116,6 @@ public class Controller {
 		cliente.modificame();
 	}
 	
-	//TODO: cambiar parametro, no puede ser int si viene de la vista, tiene que ser DTO
 	public PedidoPrendas BuscarPedido(int nroPedido){
 		return getPedidoPrendasDao().BuscarPedidoPrendas(nroPedido);
 	}
@@ -147,16 +146,15 @@ public class Controller {
 		if(pedido == null)
 			throw new PedidoException("No se encuentra el pedido");
 		
-		boolean tenesPrendas = true;
-		for (ItemPrenda item : pedido.getItems()) {
+		if(hayStock(pedido.getItems())){
+			AlmacenController.getInstance().reservarPrendasPedido(pedido.getItems());
+			pedido.setEstado(EstadoPedidoPrenda.Despacho);
+			pedido.modificame();
 			
-			if(!AlmacenController.getInstance().tenesStockPrenda(item.getPrenda(), item.getTalle(), item.getColor(), item.getCantidad())){
-			
-				tenesPrendas = false;
-			}
+		}else{
+			//TODO: seguir viendo cuantas prendas le pueden faltar y hacer las ordenes
 		}
 		
-		//TODO: terminar
 	}
 	
 	public void RechazarPedidoCliente(int nroPedido) throws PedidoException{
@@ -185,9 +183,26 @@ public class Controller {
 	public void DisminuirStockDefectuosoAlmacen(String lote,int cantidad){
 		//TODO: terminar
 	}
-	//fin todo
+	
+	private boolean hayStock(ArrayList<ItemPrenda>items){
+		for (ItemPrenda item : items) {
+			
+			if(!AlmacenController.getInstance().tenesStockPrenda(item.getPrenda(), item.getTalle(), item.getColor(), item.getCantidad())){
+			
+				return false;
+			}
+		}
+		return true;
+	}
+	//===========================fin todo
+	
 	
 	public void TrabajoLineaTerminado(int codigoArea, int nroLinea){
+		AreaProduccionDto areaDto = new AreaProduccionDto();
+		areaDto.setCodigo(codigoArea);
+		
+		AreaProduccion area = this.BuscarAreaProduccion(areaDto);
+		area.liberarLineaProduccion(nroLinea);
 		
 	}
 	

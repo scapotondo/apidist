@@ -15,11 +15,11 @@ public class StockPrendaDto implements Serializable{
 	private float costoProduccion;
 	private int cantidad;
 	private String ubicacion;
-	private String estado;
+	private int cantidadPrendasReservadas;
 	private PrendaDto prenda;
 	
 	public StockPrendaDto(String color,String talle,OrdenDeProduccionDto lote,Date fecha,float costoProduccion,int cantidad,
-			String ubicacion,String estado,PrendaDto prenda){
+			String ubicacion,int cantidadPrendasReservadas,PrendaDto prenda){
 		this.color=color;
 		this.talle=talle;
 		this.lote=lote;
@@ -27,7 +27,7 @@ public class StockPrendaDto implements Serializable{
 		this.costoProduccion=costoProduccion;
 		this.cantidad=cantidad;
 		this.ubicacion=ubicacion;
-		this.estado=estado;
+		this.cantidadPrendasReservadas=cantidadPrendasReservadas;
 		this.prenda=prenda;
 	}
 
@@ -87,12 +87,14 @@ public class StockPrendaDto implements Serializable{
 		this.ubicacion = ubicacion;
 	}
 
-	public String getEstado() {
-		return estado;
+
+
+	public int getCantidadPrendasReservadas() {
+		return cantidadPrendasReservadas;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setCantidadPrendasReservadas(int cantidadPrendasReservadas) {
+		this.cantidadPrendasReservadas = cantidadPrendasReservadas;
 	}
 
 	public PrendaDto getPrenda() {
