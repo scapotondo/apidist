@@ -35,6 +35,14 @@ public class ItemPrenda {
 		this.lote = lote;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public int getCantidad() {
 		return cantidad;
 	}
@@ -87,19 +95,16 @@ public class ItemPrenda {
 		return true;
 	}
 	
+	
 	public ItemPrendaDto toDto(){
 		return new ItemPrendaDto(cantidad, talle, color, importe, prenda.toDto(), lote.toDto());
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-	
 	public void disminuirCantidad(int cant){
 		this.cantidad = this.cantidad - cant;
+	}
+	
+	public Float getPrecio(){
+		return this.importe * this.cantidad;
 	}
 }

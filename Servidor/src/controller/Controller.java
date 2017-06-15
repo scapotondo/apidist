@@ -59,14 +59,14 @@ public class Controller {
 			if (prenda == null)
 				throw new PrendaException("No existe la prenda: " + itemDto.getPrenda().getNombre());
 			
+			Float importe = prenda.calcularCostoActual();
 			items.add(new ItemPrenda(itemDto.getCantidad(), 
 					itemDto.getTalle(), 
 					itemDto.getColor(), 
-					itemDto.getImporte(), 
+					importe, 
 					prenda, 
 					null));
 		}
-		
 		PedidoPrendas pedido = new PedidoPrendas(pedidoDto.getNroPedido(), 
 				pedidoDto.getFechaProbableDespacho(),
 				pedidoDto.getEstado(),
@@ -91,8 +91,11 @@ public class Controller {
 		PedidoPrendas pedido = PedidoPrendasDao.getInstance().BuscarPedidoPrendas(pedidoDto.getNroPedido());
 		if (pedido == null)
 			throw new PedidoException("No se encuentra el pedido");
+
+		Float importe = pedido.calcularTotal();
+		if(!cliente.alcanzaCredito(importe))
+			throw new ClienteException("El Cliente no posee credito suficiente para realizar el pedido");
 		
-		//TODO: falta chequear el estado de la cuenta corriente del cliente
 		pedido.setEstado(EstadoPedidoPrenda.PendienteDeAceptacion);
 		pedido.modificame();
 		

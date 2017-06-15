@@ -188,6 +188,13 @@ public class Cliente {
 	}
 	
 	
+	public boolean alcanzaCredito(float monto){
+		if(this.cuentaCorriente - monto < limiteCredito)
+			return false;
+
+		return true;
+	}
+	
 	public ClienteDto toDto(){
 		SucursalDto sucursalDto = this.sucursal.toDto();
 		ArrayList<PedidoPrendasDto> pedidosAceptadosDto= new ArrayList<PedidoPrendasDto>();

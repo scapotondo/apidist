@@ -7,6 +7,9 @@ import dto.LineaProduccionDto;
 import dto.OrdenDeProduccionDto;
 import entity.AreaProduccionEntity;
 import entity.LineaProduccionEntity;
+import entity.OrdenDeProduccionCompletaEntity;
+import entity.OrdenDeProduccionEntity;
+import entity.OrdenDeProduccionParcialEntity;
 
 public class AreaProduccion {
 
@@ -22,13 +25,21 @@ public class AreaProduccion {
 		for (LineaProduccionEntity lineaProduccionEntity : area.getLineasProduccion()) {
 			this.lineasProduccion.add(new LineaProduccion(lineaProduccionEntity));
 		}
-		//falta
-//		this.ordenesProduccion=new ArrayList<>();
-//		for (OrdenDeProduccionEntity OrdenDeProduccionEntity : area.getOrdenesProduccion()) {
-			//TODO: ver esto, falla por ser abstracta la clase
-			//this.ordenesProduccion.add(new OrdenDeProduccion(OrdenDeProduccionEntity);
-//			OrdenDeProduccionEntity.getClass();
-//		}
+		this.ordenesProduccion=new ArrayList<>();
+		
+		OrdenDeProduccion orden = null;
+		
+		for (OrdenDeProduccionEntity OrdenDeProduccionEntity : area.getOrdenesProduccion()) {
+			if(OrdenDeProduccionEntity != null){
+				if(OrdenDeProduccionEntity.getClass().getName().equals("entity.OrdenDeProduccionCompletaEntity"))
+					orden = new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) OrdenDeProduccionEntity);
+				
+				if(OrdenDeProduccionEntity.getClass().getName().equals("entity.OrdenDeProduccionParcialEntity"))
+					orden = new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) OrdenDeProduccionEntity);
+				
+				this.ordenesProduccion.add(orden);
+			}
+		}
 	}
 	
 	public AreaProduccion(String nombre, ArrayList<LineaProduccion> lineasProduccion, ArrayList<OrdenDeProduccion> ordenesProduccion){
@@ -113,9 +124,9 @@ public class AreaProduccion {
 		for (LineaProduccion lineaDeProduccion : lineasProduccion) {
 			lineasProduccionDto.add(lineaDeProduccion.toDto());
 		}
-//		for (OrdenDeProduccion ordenDeProduccion : ordenesProduccion) {
-//			ordenesProduccionDto.add(ordenDeProduccion.toDto());
-//		}
+		for (OrdenDeProduccion ordenDeProduccion : ordenesProduccion) {
+			ordenesProduccionDto.add(ordenDeProduccion.toDto());
+		}
 		return new AreaProduccionDto(this.codigo,nombre, lineasProduccionDto, ordenesProduccionDto);
 	}
 }

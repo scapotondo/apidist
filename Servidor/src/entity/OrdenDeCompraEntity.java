@@ -12,6 +12,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import negocio.OrdenDeCompra;
+import negocio.OrdenProduccionCompleta;
+import negocio.OrdenProduccionParcial;
 
 @Entity
 @Table(name="OrdenDeCompra")
@@ -53,6 +55,8 @@ public class OrdenDeCompraEntity implements Serializable{
 		this.proveedor=proveedor;
 	}
 	
+
+	
 	public OrdenDeCompraEntity(OrdenDeCompra orden){
 		this.id=orden.getId();
 		this.fechaGeneracion=orden.getFechaGeneracion();
@@ -61,8 +65,11 @@ public class OrdenDeCompraEntity implements Serializable{
 		this.cantidad=orden.getCantidad();
 		this.precioUnitario=orden.getPrecioUnitario();
 		
-//		TODO: ver como manejar ordenes de produccion aca tambien
-//		this.ordenProduccion=new OrdenDeProduccionEntity(orden.getOrdenProduccion());
+		if(orden.getOrdenProduccion().getClass().getName().equals("negocio.OrdenProduccionCompleta"))
+			this.ordenProduccion=new OrdenDeProduccionCompletaEntity( (OrdenProduccionCompleta) orden.getOrdenProduccion());
+		
+		if(orden.getOrdenProduccion().getClass().getName().equals("negocio.OrdenProduccionParcial"))
+			this.ordenProduccion=new OrdenDeProduccionParcialEntity((OrdenProduccionParcial) orden.getOrdenProduccion());
 		
 		this.proveedor=new ProveedorEntity(orden.getProveedor());
 		this.materiaPrima= new MateriaPrimaEntity(orden.getMateriaPrima());

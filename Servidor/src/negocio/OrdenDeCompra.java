@@ -4,6 +4,8 @@ import java.util.Date;
 
 import dto.OrdenDeCompraDto;
 import entity.OrdenDeCompraEntity;
+import entity.OrdenDeProduccionCompletaEntity;
+import entity.OrdenDeProduccionParcialEntity;
 
 public class OrdenDeCompra {
 
@@ -28,8 +30,12 @@ public class OrdenDeCompra {
 		this.precioUnitario=oc.getPrecioUnitario();
 		this.materiaPrima= new MateriaPrima(oc.getMateriaPrima());
 		this.proveedor=new Proveedor(oc.getProveedor());
-		//TODO: ver como manejar las ordenes de produccion
-		//this.ordenProduccion=new ;
+		
+		if(oc.getOrdenProduccion().getClass().getName().equals("entity.OrdenDeProduccionCompletaEntity"))
+			this.ordenProduccion=new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) oc.getOrdenProduccion());
+		
+		if(oc.getOrdenProduccion().getClass().getName().equals("entity.OrdenDeProduccionParcialEntity"))
+			this.ordenProduccion=new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) oc.getOrdenProduccion());
 		
 	}
 	

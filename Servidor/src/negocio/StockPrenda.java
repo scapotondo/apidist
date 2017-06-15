@@ -5,6 +5,8 @@ import java.util.Date;
 
 import dao.StockPrendaDao;
 import dto.StockPrendaDto;
+import entity.OrdenDeProduccionCompletaEntity;
+import entity.OrdenDeProduccionParcialEntity;
 import entity.StockPrendaEntity;
 
 public class StockPrenda {
@@ -23,8 +25,13 @@ public class StockPrenda {
 	public StockPrenda(StockPrendaEntity stock){
 		this.color=stock.getColor();
 		this.talle=stock.getTalle();
-		//TODO: ver aca tambien la orden como hacer por ser abstracta
-		//this.lote=new OrdenDeProduccion(stock.getLote());
+
+		if(stock.getLote().getClass().getName().equals("entity.OrdenDeProduccionCompletaEntity"))
+			this.lote=new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) stock.getLote());
+		
+		if(stock.getLote().getClass().getName().equals("entity.OrdenDeProduccionParcialEntity"))
+			this.lote=new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) stock.getLote());
+		
 		this.fecha=stock.getFecha();
 		this.costoProduccion=stock.getCostoProduccion();
 		this.cantidad=stock.getCantidad();

@@ -59,6 +59,7 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 		else
 			this.prenda=new PrendaEntity();
 	}
+	
 	public int getNroOrden() {
 		return nroOrden;
 	}

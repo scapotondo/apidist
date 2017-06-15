@@ -7,6 +7,8 @@ import dao.PedidoPrendasDao;
 import dto.ItemPrendaDto;
 import dto.PedidoPrendasDto;
 import entity.ItemPrendaEntity;
+import entity.OrdenDeProduccionCompletaEntity;
+import entity.OrdenDeProduccionParcialEntity;
 import entity.PedidoPrendasEntity;
 
 public class PedidoPrendas {
@@ -32,8 +34,11 @@ public class PedidoPrendas {
 			this.items.add(new ItemPrenda(itemPrendaEntity));
 		}
 		
-		//TODO: ver como manejar esto ya que op es abstracto
-		//this.ordenProduccion=new OrdenDeProduccion(pedido.getOrdenProduccion());
+		if(pedido.getOrdenProduccion().getClass().getName().equals("entity.OrdenDeProduccionCompletaEntity"))
+			this.ordenProduccion=new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) pedido.getOrdenProduccion());
+		
+		if(pedido.getOrdenProduccion().getClass().getName().equals("entity.OrdenDeProduccionParcialEntity"))
+			this.ordenProduccion=new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) pedido.getOrdenProduccion());
 	}
 	
 	public PedidoPrendas(int nroPedido) {
@@ -116,9 +121,15 @@ public class PedidoPrendas {
 		this.items = items;
 	}
 
-	public void calcularTotal(){
+	public Float calcularTotal(){
 		
+		Float monto =0F;
+		for (ItemPrenda itemPrenda : items) {
+			monto = monto + itemPrenda.getPrecio();
+		}
+		return monto;
 	}
+	
 	//cambiar el void a PedidoPrendasDto
 	public void getPedidoPrendasDto(){
 		

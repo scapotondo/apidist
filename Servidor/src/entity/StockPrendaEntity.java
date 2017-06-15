@@ -16,6 +16,8 @@ import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
 import negocio.ColorPrenda;
+import negocio.OrdenProduccionCompleta;
+import negocio.OrdenProduccionParcial;
 import negocio.StockPrenda;
 
 @Entity
@@ -72,7 +74,6 @@ public class StockPrendaEntity implements Serializable{
 	}
 	
 	public StockPrendaEntity(StockPrenda sp){
-		//terminar
 		this.color=sp.getColor();
 		this.talle=sp.getTalle();
 		this.fecha=sp.getFecha();
@@ -84,11 +85,14 @@ public class StockPrendaEntity implements Serializable{
 			this.prenda=new PrendaEntity(sp.getPrenda());
 		else
 			this.prenda=new PrendaEntity();
-		//TODO: revisar aca las op 
-//		if(sp.getLote()!= null)
-//			this.lote=new OrdenDeProduccionEntity(sp.getLote());
-//		else
-//			this.lote=new OrdenDeProduccionEntity();
+		
+		
+		if(sp.getLote().getClass().getName().equals("negocio.OrdenProduccionCompleta"))
+			this.lote = new OrdenDeProduccionCompletaEntity( (OrdenProduccionCompleta) sp.getLote());
+			
+		if(sp.getLote().getClass().getName().equals("negocio.OrdenProduccionParcial"))
+			this.lote = new OrdenDeProduccionParcialEntity((OrdenProduccionParcial) sp.getLote());
+		
 	}
 	
 	

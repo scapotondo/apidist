@@ -16,7 +16,7 @@ public abstract class OrdenDeProduccion {
 	private PedidoPrendas pedido;
 	private Prenda prenda;
 	
-	
+	public OrdenDeProduccion(){}
 	public OrdenDeProduccion(OrdenDeProduccionEntity op){
 		ArrayList<MateriaPrima> materiasPrimasReservadas = new ArrayList<>();
 		for (MateriaPrimaEntity materiaPrimaEntity : op.getMateriasPrimasReservadas()) {

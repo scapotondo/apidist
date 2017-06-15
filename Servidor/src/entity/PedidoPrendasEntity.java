@@ -19,6 +19,9 @@ import javax.persistence.Table;
 
 import negocio.EstadoPedidoPrenda;
 import negocio.ItemPrenda;
+import negocio.OrdenDeProduccion;
+import negocio.OrdenProduccionCompleta;
+import negocio.OrdenProduccionParcial;
 import negocio.PedidoPrendas;
 
 @Entity
@@ -74,7 +77,13 @@ public class PedidoPrendasEntity implements Serializable{
 		this.cliente=new ClienteEntity(pedido.getCliente());
 		
 		
-		//this.ordenProduccion=pedido.getOrdenProduccion.getOrdenProduccion();
+		if(pedido.getOrdenProduccion().getClass().getName().equals("negocio.OrdenProduccionCompleta"))
+			this.ordenProduccion = new OrdenDeProduccionCompletaEntity( (OrdenProduccionCompleta) pedido.getOrdenProduccion());
+			
+		if(pedido.getOrdenProduccion().getClass().getName().equals("negocio.OrdenProduccionParcial"))
+			this.ordenProduccion = new OrdenDeProduccionParcialEntity((OrdenProduccionParcial) pedido.getOrdenProduccion());
+		
+		
 		ArrayList<ItemPrendaEntity> items = new ArrayList<>();
 		for (ItemPrenda itemPrenda : pedido.getItems()) {
 			items.add(new ItemPrendaEntity(itemPrenda));

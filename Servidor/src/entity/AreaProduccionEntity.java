@@ -8,6 +8,9 @@ import javax.persistence.*;
 
 import negocio.AreaProduccion;
 import negocio.LineaProduccion;
+import negocio.OrdenDeProduccion;
+import negocio.OrdenProduccionCompleta;
+import negocio.OrdenProduccionParcial;
 
 @Entity
 @Table(name="AreaProduccion")
@@ -26,7 +29,7 @@ public class AreaProduccionEntity implements Serializable{
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="areaProduccion_id")
 	private List<OrdenDeProduccionEntity> ordenesProduccion;
-	
+
 	public AreaProduccionEntity(){}
 	
 	public AreaProduccionEntity(AreaProduccion areaProduccion){
@@ -39,9 +42,15 @@ public class AreaProduccionEntity implements Serializable{
 				this.lineasProduccion.add(new LineaProduccionEntity(lineaProduccion));
 			}
 		}
-		
-		//TODO
-		//this.ordenesProduccion = new ArrayList<OrdenDeProduccionEntity>();
+		this.ordenesProduccion = new ArrayList<OrdenDeProduccionEntity>();
+		for (OrdenDeProduccion orden : areaProduccion.getOrdenesProduccion()) {
+			
+			if(orden.getClass().getName().equals("negocio.OrdenProduccionCompleta"))
+				this.ordenesProduccion.add(new OrdenDeProduccionCompletaEntity( (OrdenProduccionCompleta) orden));
+			
+			if(orden.getClass().getName().equals("negocio.OrdenProduccionParcial"))
+				this.ordenesProduccion.add(new OrdenDeProduccionParcialEntity((OrdenProduccionParcial) orden));
+		}
 	}
 
 	public int getCodigo() {
