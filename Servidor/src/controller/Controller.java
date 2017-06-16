@@ -22,7 +22,6 @@ import negocio.Cliente;
 import negocio.EstadoPedidoPrenda;
 import negocio.ItemPrenda;
 import negocio.MateriaPrima;
-import negocio.OrdenDeProduccion;
 import negocio.PedidoPrendas;
 import negocio.Prenda;
 import negocio.Sucursal;
@@ -30,11 +29,6 @@ import negocio.Sucursal;
 public class Controller {
 	private static Controller instance;
 	
-	private ArrayList<PedidoPrendas> pedidos;
-	private ArrayList<OrdenDeProduccion> ordenesProduccion;
-	private ArrayList<MateriaPrima> materiaPrima;
-	private ArrayList<Sucursal> sucursales;
-	private AreaProduccion areaProduccion;
 
 	private Controller(){}
 	public static Controller getInstance(){
