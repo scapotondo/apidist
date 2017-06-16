@@ -150,6 +150,8 @@ public class Prenda {
 	public void setEsDiscontinuo(boolean esDiscontinuo) {
 		this.esDiscontinuo = esDiscontinuo;
 	}
+	
+	//Devuelve la cantidad a producir de un talle 1 y color (ej remera verde Small)
 	public int getCantidadAProducir() {
 		return cantidadAProducir;
 	}
@@ -218,7 +220,6 @@ public class Prenda {
 					
 				}else
 					materiasPrimasNecesarias.put(insumo.getMateriaPrima(), insumo.getCantidad());
-				
 			}
 		}
 		
@@ -261,5 +262,21 @@ public class Prenda {
 	
 	public void modificame() {
 		PrendaDao.getInstance().ModificarPrenda(this);
+	}
+	
+	//Devuelve cuanto tarda en hacerse una sola prenda (ej una remera verde Small) en horas
+	public float calcularCantidadHorasConfeccion() {
+		float total = 0;
+		
+		for(Confeccion confeccion : this.getConfecciones()) {
+			total += confeccion.getTiempoProd();
+		}
+		
+		return total;
+	}
+	
+	//Devuelve cuanto tarda en hacerse una sola prenda (ej una remera verde Small) en dias
+	public int calcularCantidadDiasConfeccion() {
+		return (int) (this.calcularCantidadHorasConfeccion()/24);
 	}
 }
