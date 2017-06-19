@@ -4,7 +4,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Hashtable;
 
 import dao.AreaProduccionDao;
 import dao.ClienteDao;
@@ -31,7 +30,6 @@ import negocio.Prenda;
 import negocio.Sucursal;
 
 public class Controller {
-	private final int DefaultETA = 3; 
 	
 	private static Controller instance;
 
@@ -99,11 +97,9 @@ public class Controller {
 		pedido.setEstado(EstadoPedidoPrenda.PendienteDeAceptacion);
 		pedido.modificame();
 		
-		int eta = calcularFechaProbableDeEntrega(pedido);
-
 		Calendar c = Calendar.getInstance();
 		c.setTime(Date.from(Instant.now()));
-		c.add(Calendar.DATE, eta); 
+		c.add(Calendar.DATE, pedido.estimarCantDiasParaDeEntrega()); 
 
 		pedido.setFechaProbableDespacho(c.getTime());		
 		pedido.modificame();
@@ -114,51 +110,6 @@ public class Controller {
 		
 		cliente.addNuevoPedidoAceptado(pedido);
 		cliente.modificame();
-	}
-
-	//TODO: verificar si esto no es parte del PedidoPrendas para respetar GRASP
-	private int calcularFechaProbableDeEntrega(PedidoPrendas pedido) {
-		Hashtable<Prenda, ArrayList<ItemPrenda>> sinStock = new Hashtable<>();
-		for (ItemPrenda item : pedido.getItems()) {
-			if (!AlmacenController.getInstance().tenesStockPrenda(item.getPrenda(), item.getTalle(), item.getColor(), item.getCantidad())) {
-				ArrayList<ItemPrenda> list = new ArrayList<>();
-				if (sinStock.containsKey(item.getPrenda()))
-					list = sinStock.get(item.getPrenda());
-			
-				list.add(item);
-				
-				sinStock.put(item.getPrenda(), list);
-			}
-		}
-		
-		//ETA por default es 3 dias
-		int eta = DefaultETA;
-		if (!sinStock.isEmpty()) {
-			for(Prenda prenda : sinStock.keySet()) {
-				ArrayList<String> cantColores = new ArrayList<>();
-				ArrayList<String> cantTalles = new ArrayList<>();
-				int cantDiasConfeccion = 0;
-				
-				for(ItemPrenda item : sinStock.get(prenda)) {
-					if (!cantColores.contains(item.getColor()))
-						cantColores.add(item.getColor());
-					
-					if (!cantTalles.contains(item.getTalle()))
-						cantTalles.add(item.getTalle());
-				}
-				
-				cantDiasConfeccion = prenda.calcularCantidadDiasConfeccion()*prenda.getCantidadAProducir();
-				
-				if (cantColores.size() >= 3 || cantTalles.size() >= 3) {
-					cantDiasConfeccion = cantDiasConfeccion*prenda.getTallesValidos().size()*prenda.getColoresValidos().size();
-				} else {
-					cantDiasConfeccion = cantDiasConfeccion*sinStock.get(prenda).size();
-				}
-				
-				if (cantDiasConfeccion > eta) eta = cantDiasConfeccion + DefaultETA;
-			}
-		}
-		return eta;
 	}
 	
 	public PedidoPrendas BuscarPedido(int nroPedido){
@@ -199,7 +150,6 @@ public class Controller {
 		}else{
 			//TODO: seguir viendo cuantas prendas le pueden faltar y hacer las ordenes
 		}
-		
 	}
 	
 	public void RechazarPedidoCliente(int nroPedido) throws PedidoException{
