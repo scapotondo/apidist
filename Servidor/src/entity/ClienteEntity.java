@@ -48,9 +48,6 @@ public class ClienteEntity implements Serializable{
 	@Column(nullable=false)
 	private String direccionFacturacion;
 	
-	@OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL)
-	private List<PedidoPrendasEntity> pedidosAceptados;
-	
 	@ManyToOne(targetEntity=SucursalEntity.class)
 	@Embedded
 	private SucursalEntity sucursal;
@@ -58,7 +55,7 @@ public class ClienteEntity implements Serializable{
 	public ClienteEntity(){}
 	public ClienteEntity(float limiteCredito,String formaPago, float cuentaCorriente, String cuit, String nombre, String razonSocial,
 						String telefono, String direccionEnvio,String direccionFacturacion,
-						ArrayList<PedidoPrendasEntity> pedidosAceptados, SucursalEntity sucursal ){
+						SucursalEntity sucursal ){
 		
 		this.limiteCredito=limiteCredito;
 		this.formaPago=formaPago;
@@ -71,7 +68,6 @@ public class ClienteEntity implements Serializable{
 		this.direccionFacturacion=direccionFacturacion;
 		this.legajo=legajo;
 		this.sucursal=sucursal;
-		this.pedidosAceptados= pedidosAceptados;
 	}
 	
 	public ClienteEntity(Cliente cliente ){
@@ -87,13 +83,6 @@ public class ClienteEntity implements Serializable{
 		this.direccionFacturacion=cliente.getDireccionFacturacion();
 		this.legajo=cliente.getLegajo();
 		this.sucursal=new SucursalEntity(cliente.getSucursal());
-		
-		this.pedidosAceptados= new ArrayList<PedidoPrendasEntity>();
-		if(cliente.getPedidosAceptados()!= null){
-			for (PedidoPrendas pedido : cliente.getPedidosAceptados()) {
-				this.pedidosAceptados.add(new PedidoPrendasEntity(pedido));
-			}
-		}
 	}
 	
 	
@@ -157,19 +146,10 @@ public class ClienteEntity implements Serializable{
 	public void setDireccionFacturacion(String direccionFacturacion) {
 		this.direccionFacturacion = direccionFacturacion;
 	}
-	public List<PedidoPrendasEntity> getPedidosAceptados() {
-		return pedidosAceptados;
-	}
-	public void setPedidosAceptados(List<PedidoPrendasEntity> pedidosAceptados) {
-		this.pedidosAceptados = pedidosAceptados;
-	}
 	public SucursalEntity getSucursal() {
 		return sucursal;
 	}
 	public void setSucursal(SucursalEntity sucursal) {
 		this.sucursal = sucursal;
 	}
-	
-	
-	
 }

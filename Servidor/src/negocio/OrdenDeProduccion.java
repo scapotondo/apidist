@@ -10,7 +10,7 @@ import entity.OrdenDeProduccionEntity;
 public abstract class OrdenDeProduccion {
 	
 	private int nroOrden;
-	private String estado;
+	private EstadoOrdenProduccion estado;
 	private ArrayList<MateriaPrima> materiaPrimaReservada;
 	private int confeccionesTerminadas;
 	private PedidoPrendas pedido;
@@ -31,7 +31,7 @@ public abstract class OrdenDeProduccion {
 		this.prenda=new Prenda(op.getPrenda());
 	}
 	
-	public OrdenDeProduccion(int nroOrden, String estado,ArrayList<MateriaPrima> materiaPrimaReservada, PedidoPrendas pedido, Prenda prenda){
+	public OrdenDeProduccion(int nroOrden, EstadoOrdenProduccion estado,ArrayList<MateriaPrima> materiaPrimaReservada, PedidoPrendas pedido, Prenda prenda){
 		this.nroOrden = nroOrden;
 		this.estado=estado;
 		this.materiaPrimaReservada=materiaPrimaReservada;
@@ -40,6 +40,13 @@ public abstract class OrdenDeProduccion {
 		this.prenda=prenda;
 	}
 	
+	public OrdenDeProduccion(EstadoOrdenProduccion estado,ArrayList<MateriaPrima> materiaPrimaReservada, PedidoPrendas pedido, Prenda prenda){
+		this.estado=estado;
+		this.materiaPrimaReservada=materiaPrimaReservada;
+		this.confeccionesTerminadas=0;
+		this.pedido=pedido;
+		this.prenda=prenda;
+	}
 	
 	public int getNroOrden() {
 		return nroOrden;
@@ -47,10 +54,10 @@ public abstract class OrdenDeProduccion {
 	public void setNroOrden(int nroOrden) {
 		this.nroOrden = nroOrden;
 	}
-	public String getEstado() {
+	public EstadoOrdenProduccion getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(EstadoOrdenProduccion estado) {
 		this.estado = estado;
 	}
 	public ArrayList<MateriaPrima> getMateriaPrimaReservada() {
@@ -87,7 +94,7 @@ public abstract class OrdenDeProduccion {
 			materiaPrimaReservadaDto.add(materiaPrima.toDto());
 		}
 		
-		return new OrdenDeProduccionDto(nroOrden, estado, materiaPrimaReservadaDto, pedido.toDto(), prenda.toDto());
+		return new OrdenDeProduccionDto(nroOrden, estado.toString(), materiaPrimaReservadaDto, pedido.toDto(), prenda.toDto());
 	}
 	
 }

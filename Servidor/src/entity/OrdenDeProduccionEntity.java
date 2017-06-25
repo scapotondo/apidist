@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
+
+import negocio.EstadoOrdenProduccion;
 import negocio.MateriaPrima;
 import negocio.OrdenDeProduccion;
 
@@ -19,7 +24,16 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int nroOrden;
 	
-	private String estado;
+	@Column(columnDefinition="integer", nullable = false)
+    @Type(
+        type = "negocio.EstadoOrdenProduccion", 
+        parameters = { 
+        	@Parameter(name = "enumClass", value = "negocio.EstadoOrdenProduccion"),
+        	@Parameter(name = "identifierMethod", value = "toInt"),
+        	@Parameter(name = "valueOfMethod", value = "fromInt")
+        }
+    )
+	private EstadoOrdenProduccion estado;
 	
 	@OneToMany()
 	private List<MateriaPrimaEntity> materiasPrimasReservadas;
@@ -33,7 +47,7 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	private PedidoPrendasEntity pedidoPrenda;
 	
 	public OrdenDeProduccionEntity(){}
-	public OrdenDeProduccionEntity(int nroOrden, String estado, List<MateriaPrimaEntity> materiaPrimaReservada, PedidoPrendasEntity pedidoPrenda, PrendaEntity prenda){
+	public OrdenDeProduccionEntity(int nroOrden, EstadoOrdenProduccion estado, List<MateriaPrimaEntity> materiaPrimaReservada, PedidoPrendasEntity pedidoPrenda, PrendaEntity prenda){
 		this.estado=estado;
 		this.materiasPrimasReservadas=materiaPrimaReservada;
 		this.confeccionesTerminadas=0;
@@ -66,10 +80,10 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	public void setNroOrden(int nroOrden) {
 		this.nroOrden = nroOrden;
 	}
-	public String getEstado() {
+	public EstadoOrdenProduccion getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(EstadoOrdenProduccion estado) {
 		this.estado = estado;
 	}
 	public List<MateriaPrimaEntity> getMateriasPrimasReservadas() {

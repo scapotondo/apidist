@@ -10,8 +10,8 @@ public class OrdenProduccionParcial extends OrdenDeProduccion {
 	private ArrayList<String> colores;
 	
 	public OrdenProduccionParcial()	{}
-	public OrdenProduccionParcial(int nroOrden, ArrayList<String> talles,ArrayList<String> colores,String estadoo,ArrayList<MateriaPrima> materiaPrimaReservada, PedidoPrendas pedido, Prenda prenda) {
-		super(nroOrden, estadoo,materiaPrimaReservada,pedido,prenda);
+	public OrdenProduccionParcial(int nroOrden, ArrayList<String> talles,ArrayList<String> colores,EstadoOrdenProduccion estado,ArrayList<MateriaPrima> materiaPrimaReservada, PedidoPrendas pedido, Prenda prenda) {
+		super(nroOrden, estado,materiaPrimaReservada,pedido,prenda);
 		this.talles=talles;
 		this.colores=colores;
 	}

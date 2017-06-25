@@ -23,7 +23,6 @@ public class Cliente {
 	private String direccionEnvio;
 	private String direccionFacturacion;
 	private int legajo;
-	private ArrayList<PedidoPrendas> pedidosAceptados;
 	private Sucursal sucursal;
 	
 	
@@ -39,10 +38,6 @@ public class Cliente {
 		this.direccionEnvio=cliente.getDireccionEnvio();
 		this.direccionFacturacion=cliente.getDireccionFacturacion();
 		this.sucursal=new Sucursal(cliente.getSucursal());
-		this.pedidosAceptados= new ArrayList<PedidoPrendas>();
-		for (PedidoPrendasEntity pedidoPrendasEntity : cliente.getPedidosAceptados()) {
-			this.pedidosAceptados.add(new PedidoPrendas(pedidoPrendasEntity));
-		}
 	}
 	
 	public Cliente(ClienteDto clienteDto) throws SucursalException {
@@ -62,7 +57,6 @@ public class Cliente {
 		this.direccionEnvio = clienteDto.getDireccionEnvio();
 		this.direccionFacturacion = clienteDto.getDireccionFacturacion();
 		this.sucursal = sucursal;
-		this.pedidosAceptados = new ArrayList<PedidoPrendas>(); //TODO: pasar pedidos???
 	}
 	
 	public Cliente(float limiteCredito,String formaPago,float cuentaCorriente,String cuit,String nombre, String razonSocial,
@@ -79,16 +73,6 @@ public class Cliente {
 		this.direccionEnvio=direccionEnvio;
 		this.direccionFacturacion=direccionFacturacion;
 		this.sucursal=sucursal;
-		this.pedidosAceptados= pedidosAceptados;
-	}
-	
-	public void addNuevoPedidoAceptado(PedidoPrendas pedido){
-		pedidosAceptados.add(pedido);
-	}
-	
-	public void addNuevoPedidoRechazado(PedidoPrendas pedido, String descripcion){
-		//ver como manejar la descripcion en el pedido rechazado. puede ser agregar un campo en
-		// PedidoPrendas y que si es aceptado diga "Aceptado"
 	}
 	
 	public float getLimiteCredito() {
@@ -171,14 +155,6 @@ public class Cliente {
 		this.legajo = legajo;
 	}
 
-	public ArrayList<PedidoPrendas> getPedidosAceptados() {
-		return pedidosAceptados;
-	}
-
-	public void setPedidosAceptados(ArrayList<PedidoPrendas> pedidosAceptados) {
-		this.pedidosAceptados = pedidosAceptados;
-	}
-
 	public Sucursal getSucursal() {
 		return sucursal;
 	}
@@ -197,14 +173,9 @@ public class Cliente {
 	
 	public ClienteDto toDto(){
 		SucursalDto sucursalDto = this.sucursal.toDto();
-		ArrayList<PedidoPrendasDto> pedidosAceptadosDto= new ArrayList<PedidoPrendasDto>();
-		if(this.pedidosAceptados!=null){
-			for (PedidoPrendas pedidoPrendas : this.pedidosAceptados) {
-				pedidosAceptadosDto.add(pedidoPrendas.toDto());
-			}
-		}
-		return new ClienteDto(limiteCredito, formaPago, cuentaCorriente, cuit, nombre, razonSocial, telefono, direccionEnvio,
-				direccionFacturacion, sucursalDto,pedidosAceptadosDto,this.legajo);
+
+return new ClienteDto(limiteCredito, formaPago, cuentaCorriente, cuit, nombre, razonSocial, telefono, direccionEnvio,
+				direccionFacturacion, sucursalDto, this.legajo);
 	}
 
 	public void saveMe(){

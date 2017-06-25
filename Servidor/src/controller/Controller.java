@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Hashtable;
 
 import dao.AreaProduccionDao;
 import dao.ClienteDao;
@@ -11,6 +12,7 @@ import dao.MateriaPrimaDao;
 import dao.PedidoPrendasDao;
 import dao.SucursalDao;
 import dto.AreaProduccionDto;
+import dto.ClienteDto;
 import dto.ItemPrendaDto;
 import dto.MateriaPrimaDto;
 import dto.PedidoPrendasDto;
@@ -22,9 +24,11 @@ import exceptions.PrendaException;
 import exceptions.SucursalException;
 import negocio.AreaProduccion;
 import negocio.Cliente;
+import negocio.EstadoOrdenProduccion;
 import negocio.EstadoPedidoPrenda;
 import negocio.ItemPrenda;
 import negocio.MateriaPrima;
+import negocio.OrdenProduccionCompleta;
 import negocio.PedidoPrendas;
 import negocio.Prenda;
 import negocio.Sucursal;
@@ -107,9 +111,36 @@ public class Controller {
 		Sucursal sucursal = cliente.getSucursal();
 		sucursal.getPedidos().remove(pedido);
 		sucursal.modificame();
+	}
+	
+	public ArrayList<PedidoPrendasDto> buscarPedidosAprobadosAdmin(ClienteDto clienteDto) throws ClienteException {
+		Cliente cliente = ClienteDao.getInstance().BuscarClientePorId(clienteDto);
+		if (cliente == null)
+			throw new ClienteException("El Cliente no existe");
 		
-		cliente.addNuevoPedidoAceptado(pedido);
-		cliente.modificame();
+		ArrayList<PedidoPrendas> pedidos = PedidoPrendasDao.getInstance().BuscarPedidosPrendasAprobadasAdmin(cliente);
+		
+		ArrayList<PedidoPrendasDto> pedidosDto = new ArrayList<PedidoPrendasDto>();
+		for (PedidoPrendas pedidoPrendas : pedidos) {
+			pedidosDto.add(pedidoPrendas.toDto());
+		}
+		
+		return pedidosDto;
+	}
+	
+	public ArrayList<PedidoPrendasDto> buscarPedidosRechazadosAdmin(ClienteDto clienteDto) throws ClienteException {
+		Cliente cliente = ClienteDao.getInstance().BuscarClientePorId(clienteDto);
+		if (cliente == null)
+			throw new ClienteException("El Cliente no existe");
+		
+		ArrayList<PedidoPrendas> pedidos = PedidoPrendasDao.getInstance().BuscarPedidosPrendasRechazadosAdmin(cliente);
+		
+		ArrayList<PedidoPrendasDto> pedidosDto = new ArrayList<PedidoPrendasDto>();
+		for (PedidoPrendas pedidoPrendas : pedidos) {
+			pedidosDto.add(pedidoPrendas.toDto());
+		}
+		
+		return pedidosDto;
 	}
 	
 	public PedidoPrendas BuscarPedido(int nroPedido){
@@ -131,9 +162,6 @@ public class Controller {
 		Sucursal sucursal = cliente.getSucursal();
 		sucursal.getPedidos().remove(pedido);
 		sucursal.modificame();
-		
-		cliente.addNuevoPedidoRechazado(pedido, descripcion);
-		cliente.modificame();
 	}
 	
 	public void AceptarPedidoCliente(int nroPedido) throws PedidoException{
@@ -142,13 +170,40 @@ public class Controller {
 		if(pedido == null)
 			throw new PedidoException("No se encuentra el pedido");
 		
-		if(hayStock(pedido.getItems())){
+		Hashtable<Prenda, ArrayList<ItemPrenda>> sinStock = getItemsSinStock(pedido.getItems());
+		if(sinStock.isEmpty()) {
 			AlmacenController.getInstance().reservarPrendasPedido(pedido.getItems());
 			pedido.setEstado(EstadoPedidoPrenda.Despacho);
 			pedido.modificame();
-			
-		}else{
-			//TODO: seguir viendo cuantas prendas le pueden faltar y hacer las ordenes
+		} else {
+			for(Prenda prenda : sinStock.keySet()) {
+				ArrayList<String> cantColores = new ArrayList<>();
+				ArrayList<String> cantTalles = new ArrayList<>();
+
+				for(ItemPrenda item : sinStock.get(prenda)) {
+					if (!cantColores.contains(item.getColor()))
+						cantColores.add(item.getColor());
+
+					if (!cantTalles.contains(item.getTalle()))
+						cantTalles.add(item.getTalle());
+				}
+
+				if (cantColores.size() >= 3 || cantTalles.size() >= 3) {
+					//Reservar MP
+					Hashtable<MateriaPrima, Integer> mps = prenda.CalcularCantidadMateriaPrimaTotal();
+					
+					for (MateriaPrima mp : mps.keySet()) {
+						//TODO: get stock reservado para pasarselo a la OP
+						AlmacenController.getInstance().reservarMateriaPrima(mp, (int)mps.get(mp) * prenda.getCantidadAProducir());
+					}
+					
+					//OPC
+//					OrdenProduccionCompleta opc = new OrdenProduccionCompleta(EstadoOrdenProduccion.PENDIENTE, );
+					
+				} else {
+					//OPP
+				}
+			}
 		}
 	}
 	
@@ -162,32 +217,21 @@ public class Controller {
 		pedido.modificame();
 	}
 	
-	//TODO: ver si se pasa o no al almacenController
-	public void GenerarDevolucion(Prenda prenda){
-		//TODO: terminar
-	}
-	
-	public void AumentarRealStockAlmacen(String bulto,int cantidad){
-		//TODO: terminar
-	}
-	
-	public void DisminuirRealStockAlmacen(String bulto,int cantidad){
-		//TODO: terminar
-	}
-	
-	public void DisminuirStockDefectuosoAlmacen(String lote,int cantidad){
-		//TODO: terminar
-	}
-	
-	private boolean hayStock(ArrayList<ItemPrenda>items){
+	private Hashtable<Prenda, ArrayList<ItemPrenda>> getItemsSinStock(ArrayList<ItemPrenda>items){
+		Hashtable<Prenda, ArrayList<ItemPrenda>> sinStock = new Hashtable<>();
 		for (ItemPrenda item : items) {
-			
-			if(!AlmacenController.getInstance().tenesStockPrenda(item.getPrenda(), item.getTalle(), item.getColor(), item.getCantidad())){
-			
-				return false;
+			if (!AlmacenController.getInstance().tenesStockPrenda(item.getPrenda(), item.getTalle(), item.getColor(), item.getCantidad())) {
+				ArrayList<ItemPrenda> list = new ArrayList<>();
+				if (sinStock.containsKey(item.getPrenda()))
+					list = sinStock.get(item.getPrenda());
+
+				list.add(item);
+
+				sinStock.put(item.getPrenda(), list);
 			}
 		}
-		return true;
+		
+		return sinStock;
 	}
 	//===========================fin todo
 	

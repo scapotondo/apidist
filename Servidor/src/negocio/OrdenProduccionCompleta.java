@@ -6,9 +6,14 @@ import entity.OrdenDeProduccionCompletaEntity;
 
 public class OrdenProduccionCompleta extends OrdenDeProduccion{
 
-	public OrdenProduccionCompleta(int nroOrden, String estado,ArrayList<MateriaPrima> materiaPrimaReservada, PedidoPrendas pedido, Prenda prenda) {
-		super(nroOrden, estado,materiaPrimaReservada,pedido,prenda);
+	public OrdenProduccionCompleta(int nroOrden, EstadoOrdenProduccion estado,ArrayList<MateriaPrima> materiaPrimaReservada, PedidoPrendas pedido, Prenda prenda) {
+		super(nroOrden, estado, materiaPrimaReservada, pedido,prenda);
 	}
+	
+	public OrdenProduccionCompleta(EstadoOrdenProduccion estado,ArrayList<MateriaPrima> materiaPrimaReservada, PedidoPrendas pedido, Prenda prenda) {
+		super(estado,materiaPrimaReservada,pedido,prenda);
+	}
+	
 	public OrdenProduccionCompleta(OrdenDeProduccionCompletaEntity lote) {
 		super(lote);
 	}
@@ -22,8 +27,4 @@ public class OrdenProduccionCompleta extends OrdenDeProduccion{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	
-	
-
 }

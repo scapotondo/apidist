@@ -18,12 +18,12 @@ public class ClienteDto implements Serializable{
 	private String direccionEnvio;
 	private String direccionFacturacion;
 	private int legajo;
-	private ArrayList<PedidoPrendasDto> pedidosAceptados;
 	private SucursalDto sucursal;
+
 	public ClienteDto(){}
+	
 	public ClienteDto(float limiteCredito,String formaPago, float cuentaCorriente, String cuit, String nombre, String razonSocial,
-			String telefono, String direccionEnvio,String direccionFacturacion,SucursalDto sucursal,
-			ArrayList<PedidoPrendasDto> pedidosAceptados,int legajo ){
+			String telefono, String direccionEnvio,String direccionFacturacion,SucursalDto sucursal, int legajo ){
 		
 		this.limiteCredito=limiteCredito;
 		this.formaPago=formaPago;
@@ -36,7 +36,6 @@ public class ClienteDto implements Serializable{
 		this.direccionEnvio=direccionEnvio;
 		this.direccionFacturacion=direccionFacturacion;
 		this.sucursal=sucursal;
-		this.pedidosAceptados= pedidosAceptados;
 	}
 
 	public float getLimiteCredito() {
@@ -117,14 +116,6 @@ public class ClienteDto implements Serializable{
 
 	public void setLegajo(int legajo) {
 		this.legajo = legajo;
-	}
-
-	public ArrayList<PedidoPrendasDto> getPedidosAceptados() {
-		return pedidosAceptados;
-	}
-
-	public void setPedidosAceptados(ArrayList<PedidoPrendasDto> pedidosAceptados) {
-		this.pedidosAceptados = pedidosAceptados;
 	}
 
 	public SucursalDto getSucursal() {

@@ -123,7 +123,6 @@ public class AdministracionController {
 		return ClienteDao.getInstance().BuscarClientePorId(clienteDto);
 	}
 
-	
 	public void AltaPrenda(PrendaDto prendaDto) throws ColorException {
 
 		ArrayList<Confeccion> confecciones = new ArrayList<Confeccion>();

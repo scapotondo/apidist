@@ -189,7 +189,6 @@ public class Prenda {
 		this.stock = stock;
 	}
 
-	
 	public float calcularCostoActual(){
 		Float valor = 0F;
 		

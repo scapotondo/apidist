@@ -6,6 +6,7 @@ import org.hibernate.Session;
 
 import entity.PedidoPrendasEntity;
 import hibernate.HibernateUtil;
+import negocio.Cliente;
 import negocio.PedidoPrendas;
 
 public class PedidoPrendasDao {
@@ -98,6 +99,50 @@ public class PedidoPrendasDao {
 		
 		session.beginTransaction();
 		ArrayList<PedidoPrendasEntity> pedidosEntity = (ArrayList<PedidoPrendasEntity>) session.createQuery("from PedidoPrendasEntity WHERE estado = 7").list();
+		session.getTransaction().commit();
+		session.close();
+		
+		if(pedidosEntity == null)
+			return null;
+		
+		ArrayList<PedidoPrendas> pedidos = new ArrayList<PedidoPrendas>();
+		
+		for (PedidoPrendasEntity pedidoPrendasEntity : pedidosEntity) {
+			pedidos.add(new PedidoPrendas(pedidoPrendasEntity));
+		}
+		
+		return pedidos;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<PedidoPrendas> BuscarPedidosPrendasAprobadasAdmin(Cliente cliente){
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		session.beginTransaction();
+		ArrayList<PedidoPrendasEntity> pedidosEntity = (ArrayList<PedidoPrendasEntity>) session.createQuery("from PedidoPrendasEntity WHERE estado = 2 AND cliente_legajo = ?").setParameter(0, cliente.getLegajo()).list();
+		session.getTransaction().commit();
+		session.close();
+		
+		if(pedidosEntity == null)
+			return null;
+		
+		ArrayList<PedidoPrendas> pedidos = new ArrayList<PedidoPrendas>();
+		
+		for (PedidoPrendasEntity pedidoPrendasEntity : pedidosEntity) {
+			pedidos.add(new PedidoPrendas(pedidoPrendasEntity));
+		}
+		
+		return pedidos;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<PedidoPrendas> BuscarPedidosPrendasRechazadosAdmin(Cliente cliente){
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		session.beginTransaction();
+		ArrayList<PedidoPrendasEntity> pedidosEntity = (ArrayList<PedidoPrendasEntity>) session.createQuery("from PedidoPrendasEntity WHERE estado = 5 AND cliente_legajo = ?").setParameter(0, cliente.getLegajo()).list();
 		session.getTransaction().commit();
 		session.close();
 		

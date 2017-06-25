@@ -34,7 +34,7 @@ public class ClienteDao {
 		
 		ClienteEntity clienteEntity = new ClienteEntity(cliente.getLimiteCredito(),cliente.getFormaPago(),cliente.getCuentaCorriente(),
 				cliente.getCuit(),cliente.getNombre(),cliente.getRazonSocial(),cliente.getTelefono(),cliente.getDireccionEnvio(),
-				cliente.getDireccionFacturacion(),new ArrayList<PedidoPrendasEntity>(),new SucursalEntity(sucursal));
+				cliente.getDireccionFacturacion(), new SucursalEntity(sucursal));
 
 		session.save(clienteEntity);
 		session.getTransaction().commit();

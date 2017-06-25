@@ -344,10 +344,11 @@ public class AlmacenController {
 	}
 
 	public void reservarMateriaPrima(MateriaPrima mp, int cantidad) {
-
-		MovimientoMateriaPrima movimientoMateriaPrimaReservada = new MovimientoMateriaPrima(
-				EstadoMovimientoMateriaPrima.Reservar, cantidad, Calendar.getInstance().getTime(), mp);
-		movimientoMateriaPrimaReservada.saveMe();
+//		TODO: cambiar reserva para incluir stock
+		//lote mp
+//		MovimientoMateriaPrima movimientoMateriaPrimaReservada = new MovimientoMateriaPrima(
+//				EstadoMovimientoMateriaPrima.Reservar, cantidad, Calendar.getInstance().getTime(), mp, ArraList<StockMateriaPrima>);
+//		movimientoMateriaPrimaReservada.saveMe();
 	}
 
 

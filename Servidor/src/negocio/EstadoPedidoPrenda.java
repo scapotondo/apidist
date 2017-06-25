@@ -3,12 +3,12 @@ package negocio;
 public enum EstadoPedidoPrenda {
 	Desconocido(0),
 	Nuevo(1),
-	PendienteDeAceptacion(2),
-	EnProduccion(3),
-	Terminado(4),
+	PendienteDeAceptacion(2),  //Aceptado por el Admin
+	EnProduccion(3),		   //Aceptado por el cliente
+	Terminado(4),			   //Ya se despacho
 	RechazadoAdmin(5),
 	CanceladoCliente(6),
-	Despacho(7);
+	Despacho(7);			   //Listo para despachar
 	
 	private int value;
 

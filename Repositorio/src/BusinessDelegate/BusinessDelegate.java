@@ -67,7 +67,7 @@ public class BusinessDelegate {
 			sucursal.setNombre(cadenaNombre);
 			
 			ClienteDto cliente = new ClienteDto(limiteCredito, formaPago, cuentaCorriente, cuit, nombre,
-					razonSocial, telefono, direccionEnvio, direccionFacturacion, sucursal, new ArrayList<>(),0);
+					razonSocial, telefono, direccionEnvio, direccionFacturacion, sucursal, 0);
 			
 			getAdministracionClientes().AltaCliente(cliente);
 			
@@ -124,7 +124,7 @@ public class BusinessDelegate {
 			sucursal.setNombre(cadenaNombre);
 			
 			ClienteDto cliente = new ClienteDto(limiteCredito, formaPago, cuentaCorriente, cuit, nombre,
-					razonSocial, telefono, direccionEnvio, direccionFacturacion, sucursal, new ArrayList<>(),0);
+					razonSocial, telefono, direccionEnvio, direccionFacturacion, sucursal, 0);
 			cliente.setLegajo(legajo);
 			
 			getAdministracionClientes().ModificarCliente(cliente);
