@@ -1,6 +1,7 @@
 package dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -11,15 +12,17 @@ public class MovimientoMateriaPrimaDto implements Serializable{
 	private String estado;
 	private int cantidad;
 	private Date fecha;
-	private MateriaPrimaDto materiaPrima;
+	private ArrayList<StockMateriaPrimaDto> stocksReservados;
 	private int id;
+	private OrdenDeProduccionDto lote;
 	
-	public MovimientoMateriaPrimaDto(int id,String estado, int cantidad, Date fecha, MateriaPrimaDto materiaPrima){
+	public MovimientoMateriaPrimaDto(int id,String estado, int cantidad, Date fecha, ArrayList<StockMateriaPrimaDto> stocksReservados, OrdenDeProduccionDto lote){
 		this.id=id;
 		this.estado=estado;
 		this.cantidad=cantidad;
 		this.fecha=fecha;
-		this.materiaPrima=materiaPrima;
+		this.stocksReservados=stocksReservados;
+		this.lote=lote;
 	}
 
 	public String getEstado() {
@@ -46,12 +49,12 @@ public class MovimientoMateriaPrimaDto implements Serializable{
 		this.fecha = fecha;
 	}
 
-	public MateriaPrimaDto getMateriaPrima() {
-		return materiaPrima;
+	public ArrayList<StockMateriaPrimaDto> getStocksReservados() {
+		return stocksReservados;
 	}
 
-	public void setMateriaPrima(MateriaPrimaDto materiaPrima) {
-		this.materiaPrima = materiaPrima;
+	public void setStocksReservados(ArrayList<StockMateriaPrimaDto> stocksReservados) {
+		this.stocksReservados = stocksReservados;
 	}
 
 	public int getId() {
@@ -60,6 +63,14 @@ public class MovimientoMateriaPrimaDto implements Serializable{
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public OrdenDeProduccionDto getLote() {
+		return lote;
+	}
+
+	public void setLote(OrdenDeProduccionDto lote) {
+		this.lote = lote;
 	}
 	
 	

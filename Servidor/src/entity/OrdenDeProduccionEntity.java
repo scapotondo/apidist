@@ -1,15 +1,12 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.*;
 
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
 import negocio.EstadoOrdenProduccion;
-import negocio.MateriaPrima;
 import negocio.OrdenDeProduccion;
 
 
@@ -20,6 +17,7 @@ import negocio.OrdenDeProduccion;
 @DiscriminatorValue(value="default")
 public abstract class OrdenDeProduccionEntity implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int nroOrden;
@@ -35,9 +33,6 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
     )
 	private EstadoOrdenProduccion estado;
 	
-	@OneToMany()
-	private List<MateriaPrimaEntity> materiasPrimasReservadas;
-	
 	private int confeccionesTerminadas;
 	
 	@ManyToOne()
@@ -47,9 +42,8 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	private PedidoPrendasEntity pedidoPrenda;
 	
 	public OrdenDeProduccionEntity(){}
-	public OrdenDeProduccionEntity(int nroOrden, EstadoOrdenProduccion estado, List<MateriaPrimaEntity> materiaPrimaReservada, PedidoPrendasEntity pedidoPrenda, PrendaEntity prenda){
+	public OrdenDeProduccionEntity(int nroOrden, EstadoOrdenProduccion estado, PedidoPrendasEntity pedidoPrenda, PrendaEntity prenda){
 		this.estado=estado;
-		this.materiasPrimasReservadas=materiaPrimaReservada;
 		this.confeccionesTerminadas=0;
 		this.pedidoPrenda=pedidoPrenda;
 		this.prenda=prenda;
@@ -60,12 +54,6 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 		this.estado=op.getEstado();
 		this.confeccionesTerminadas=op.getConfeccionesTerminadas();
 		this.nroOrden = op.getNroOrden();
-		this.materiasPrimasReservadas= new ArrayList<>();
-		if(op.getMateriaPrimaReservada()!=null){
-			for (MateriaPrima materia : op.getMateriaPrimaReservada()) {
-				this.materiasPrimasReservadas.add(new MateriaPrimaEntity(materia));
-			}
-		}
 		this.pedidoPrenda=new PedidoPrendasEntity(op.getPedido());
 		
 		if(op.getPrenda()!=null)
@@ -85,12 +73,6 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	}
 	public void setEstado(EstadoOrdenProduccion estado) {
 		this.estado = estado;
-	}
-	public List<MateriaPrimaEntity> getMateriasPrimasReservadas() {
-		return materiasPrimasReservadas;
-	}
-	public void setMateriasPrimasReservadas(List<MateriaPrimaEntity> materiaPrimaReservada) {
-		this.materiasPrimasReservadas = materiaPrimaReservada;
 	}
 	public int getConfeccionesTerminadas() {
 		return confeccionesTerminadas;

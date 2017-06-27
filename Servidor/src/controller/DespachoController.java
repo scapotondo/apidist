@@ -7,7 +7,6 @@ import dto.PedidoPrendasDto;
 import negocio.EstadoPedidoPrenda;
 import negocio.ItemPrenda;
 import negocio.PedidoPrendas;
-import negocio.StockPrenda;
 
 public class DespachoController {
 
@@ -23,13 +22,6 @@ public class DespachoController {
 		return instance;
 	}
 	
-	
-	public void completarPedidos(ArrayList<StockPrenda> prendas, PedidoPrendas pedido){
-		
-	}
-	public void armarPedido(PedidoPrendas pedido){
-		
-	}
 	
 	public void despacharPedido(PedidoPrendas pedido, String encargado){
 		for (ItemPrenda item : pedido.getItems()) {

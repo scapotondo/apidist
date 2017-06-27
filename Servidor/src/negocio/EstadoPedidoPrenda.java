@@ -2,7 +2,7 @@ package negocio;
 
 public enum EstadoPedidoPrenda {
 	Desconocido(0),
-	Nuevo(1),
+	Nuevo(1),				   //pendiente para el admin
 	PendienteDeAceptacion(2),  //Aceptado por el Admin
 	EnProduccion(3),		   //Aceptado por el cliente
 	Terminado(4),			   //Ya se despacho

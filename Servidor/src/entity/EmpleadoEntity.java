@@ -20,6 +20,7 @@ import negocio.Rol;
 @Table(name="Empleado")
 public class EmpleadoEntity implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int legajo;

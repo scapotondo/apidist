@@ -4,22 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
+import javax.persistence.*;
 import negocio.EstadoPedidoPrenda;
 import negocio.ItemPrenda;
-import negocio.OrdenDeProduccion;
 import negocio.OrdenProduccionCompleta;
 import negocio.OrdenProduccionParcial;
 import negocio.PedidoPrendas;
@@ -28,6 +15,8 @@ import negocio.PedidoPrendas;
 @Table(name="PedidoPrendas")
 @Embeddable
 public class PedidoPrendasEntity implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

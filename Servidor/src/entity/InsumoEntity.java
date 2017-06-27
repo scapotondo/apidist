@@ -15,6 +15,7 @@ import negocio.Insumo;
 @Table(name="Insumo")
 public class InsumoEntity implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;

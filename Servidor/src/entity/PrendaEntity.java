@@ -26,6 +26,8 @@ import negocio.StockPrenda;
 @Table(name="Prenda")
 public class PrendaEntity implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int codigo;

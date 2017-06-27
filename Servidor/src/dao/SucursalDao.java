@@ -7,10 +7,8 @@ import org.hibernate.Session;
 import dto.SucursalDto;
 import entity.EmpleadoEntity;
 import entity.PedidoPrendasEntity;
-import entity.PrendaEntity;
 import entity.SucursalEntity;
 import hibernate.HibernateUtil;
-import negocio.Prenda;
 import negocio.Sucursal;
 
 public class SucursalDao {

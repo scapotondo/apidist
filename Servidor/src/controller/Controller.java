@@ -28,7 +28,9 @@ import negocio.EstadoOrdenProduccion;
 import negocio.EstadoPedidoPrenda;
 import negocio.ItemPrenda;
 import negocio.MateriaPrima;
+import negocio.OrdenDeProduccion;
 import negocio.OrdenProduccionCompleta;
+import negocio.OrdenProduccionParcial;
 import negocio.PedidoPrendas;
 import negocio.Prenda;
 import negocio.Sucursal;
@@ -71,7 +73,7 @@ public class Controller {
 		}
 		PedidoPrendas pedido = new PedidoPrendas(pedidoDto.getNroPedido(), 
 				pedidoDto.getFechaProbableDespacho(),
-				pedidoDto.getEstado(),
+				EstadoPedidoPrenda.Nuevo,
 				pedidoDto.getFechaGeneracion(),
 				pedidoDto.getFechaRealDespacho(),
 				null,
@@ -183,25 +185,33 @@ public class Controller {
 				for(ItemPrenda item : sinStock.get(prenda)) {
 					if (!cantColores.contains(item.getColor()))
 						cantColores.add(item.getColor());
-
+					
 					if (!cantTalles.contains(item.getTalle()))
 						cantTalles.add(item.getTalle());
 				}
 
+				Hashtable<MateriaPrima, Integer> mps = prenda.CalcularCantidadMateriaPrimaTotal();
+				
 				if (cantColores.size() >= 3 || cantTalles.size() >= 3) {
-					//Reservar MP
-					Hashtable<MateriaPrima, Integer> mps = prenda.CalcularCantidadMateriaPrimaTotal();
+					
+					OrdenProduccionCompleta opc = new OrdenProduccionCompleta(EstadoOrdenProduccion.PENDIENTE, pedido, prenda);
+					
+					int cantidad = prenda.getCantidadOPC();
 					
 					for (MateriaPrima mp : mps.keySet()) {
-						//TODO: get stock reservado para pasarselo a la OP
-						AlmacenController.getInstance().reservarMateriaPrima(mp, (int)mps.get(mp) * prenda.getCantidadAProducir());
+						AlmacenController.getInstance().reservarMateriaPrima(mp, cantidad, opc);
 					}
 					
-					//OPC
-//					OrdenProduccionCompleta opc = new OrdenProduccionCompleta(EstadoOrdenProduccion.PENDIENTE, );
-					
 				} else {
-					//OPP
+					
+					OrdenDeProduccion opp = new OrdenProduccionParcial(cantTalles, cantColores, EstadoOrdenProduccion.PENDIENTE, pedido, prenda);
+					
+					int cantidad = sinStock.get(prenda).size() * prenda.getCantidadAProducir();
+					
+					for (MateriaPrima mp : mps.keySet()) {
+						AlmacenController.getInstance().reservarMateriaPrima(mp, cantidad, opp);
+					}
+					
 				}
 			}
 		}
@@ -233,7 +243,6 @@ public class Controller {
 		
 		return sinStock;
 	}
-	//===========================fin todo
 	
 	
 	public void TrabajoLineaTerminado(int codigoArea, int nroLinea){
@@ -283,7 +292,4 @@ public class Controller {
 		return sucursalesDto;
 	}
 	
-	private Sucursal BuscarSucursal(int nroSucursal){	
-		return SucursalDao.getInstance().getSucursalById(nroSucursal);
-	}
 }

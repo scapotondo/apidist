@@ -1,17 +1,15 @@
 package negocio;
 
-import java.util.ArrayList;
-
 import entity.OrdenDeProduccionCompletaEntity;
 
 public class OrdenProduccionCompleta extends OrdenDeProduccion{
 
-	public OrdenProduccionCompleta(int nroOrden, EstadoOrdenProduccion estado,ArrayList<MateriaPrima> materiaPrimaReservada, PedidoPrendas pedido, Prenda prenda) {
-		super(nroOrden, estado, materiaPrimaReservada, pedido,prenda);
+	public OrdenProduccionCompleta(int nroOrden, EstadoOrdenProduccion estado, PedidoPrendas pedido, Prenda prenda) {
+		super(nroOrden, estado, pedido,prenda);
 	}
 	
-	public OrdenProduccionCompleta(EstadoOrdenProduccion estado,ArrayList<MateriaPrima> materiaPrimaReservada, PedidoPrendas pedido, Prenda prenda) {
-		super(estado,materiaPrimaReservada,pedido,prenda);
+	public OrdenProduccionCompleta(EstadoOrdenProduccion estado, PedidoPrendas pedido, Prenda prenda) {
+		super(estado,pedido,prenda);
 	}
 	
 	public OrdenProduccionCompleta(OrdenDeProduccionCompletaEntity lote) {

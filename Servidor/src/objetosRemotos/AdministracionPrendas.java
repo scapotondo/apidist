@@ -5,7 +5,6 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import controller.AdministracionController;
-import controller.Controller;
 import dto.PrendaDto;
 import interfaces.AdministracionPrendasInterface;
 

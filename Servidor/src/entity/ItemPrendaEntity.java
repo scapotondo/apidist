@@ -19,6 +19,7 @@ import negocio.ItemPrenda;
 @Table(name="ItemPrenda")
 public class ItemPrendaEntity implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;

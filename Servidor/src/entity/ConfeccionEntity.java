@@ -2,18 +2,9 @@ package entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import negocio.Confeccion;
 import negocio.Insumo;
@@ -22,12 +13,14 @@ import negocio.Insumo;
 @Table(name="Confeccion")
 public class ConfeccionEntity implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
 	private Float tiempoProd;
 	private String detalle;
+	private int estado;
 	
 	@OneToOne()
 	private AreaProduccionEntity areaProduccion;
@@ -49,6 +42,7 @@ public class ConfeccionEntity implements Serializable{
 				this.insumos.add(new InsumoEntity(insumo));
 			}
 		}
+		this.estado = confeccion.getEstado().toInt();
 	}
 
 	public int getId() {
@@ -90,6 +84,15 @@ public class ConfeccionEntity implements Serializable{
 	public void setInsumos(List<InsumoEntity> insumos) {
 		this.insumos = insumos;
 	}
+
+	public int getEstado() {
+		return estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+	
 	
 	
 }

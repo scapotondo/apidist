@@ -15,7 +15,7 @@ public class Confeccion {
 	private String detalle;
 	private AreaProduccion areaProduccion;
 	private ArrayList<Insumo> insumos;
-	
+	private EstadoConfeccion estado;
 	
 	public Confeccion(ConfeccionEntity confeccion){
 		this.id=confeccion.getId();
@@ -27,6 +27,7 @@ public class Confeccion {
 		for (InsumoEntity insumoEntity : confeccion.getInsumos()) {
 			this.insumos.add(new Insumo(insumoEntity));
 		}
+		this.estado = EstadoConfeccion.fromInt(confeccion.getEstado());
 	}
 	
 	public int getId() {
@@ -37,19 +38,21 @@ public class Confeccion {
 		this.id = id;
 	}
 
-	public Confeccion(int id, Float tiempoProd, String detalle, AreaProduccion areaProduccion, ArrayList<Insumo> insumos){
+	public Confeccion(int id, Float tiempoProd, String detalle, AreaProduccion areaProduccion, ArrayList<Insumo> insumos, EstadoConfeccion estado){
 		this.id=id;
 		this.tiempoProd=tiempoProd;
 		this.detalle=detalle;
 		this.areaProduccion=areaProduccion;
 		this.insumos=insumos;
+		this.estado = estado;
 	}
 	
-	public Confeccion(Float tiempoProd, String detalle, AreaProduccion areaProduccion, ArrayList<Insumo> insumos){
-		this.tiempoProd=tiempoProd;
-		this.detalle=detalle;
-		this.areaProduccion=areaProduccion;
-		this.insumos=insumos;
+	public Confeccion(Float tiempoProd, String detalle, AreaProduccion areaProduccion, ArrayList<Insumo> insumos, EstadoConfeccion estado){
+		this.tiempoProd = tiempoProd;
+		this.detalle = detalle;
+		this.areaProduccion = areaProduccion;
+		this.insumos = insumos;
+		this.estado = estado;
 	}
 	
 	public ArrayList<Insumo> getInsumos(){
@@ -84,15 +87,21 @@ public class Confeccion {
 		this.insumos = insumos;
 	}
 	
+	public EstadoConfeccion getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadoConfeccion estado) {
+		this.estado = estado;
+	}
+
 	public ConfeccionDto toDto(){
-		
 		ArrayList<InsumoDto> insumosDto= new ArrayList<>();
 		for (Insumo insumo : this.insumos) {
 			insumosDto.add(insumo.toDto());
 		}
 		
-		
-		return new ConfeccionDto(tiempoProd, detalle, areaProduccion.toDto(), insumosDto);
+		return new ConfeccionDto(tiempoProd, detalle, areaProduccion.toDto(), insumosDto, estado.toString());
 	}
 	
 	public void saveMe() {

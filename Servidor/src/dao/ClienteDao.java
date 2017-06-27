@@ -7,7 +7,6 @@ import org.hibernate.Session;
 
 import dto.ClienteDto;
 import entity.ClienteEntity;
-import entity.PedidoPrendasEntity;
 import entity.SucursalEntity;
 import hibernate.HibernateUtil;
 import negocio.Cliente;

@@ -10,11 +10,13 @@ import BusinessDelegate.BusinessDelegate;
 import dto.AreaProduccionDto;
 import dto.ConfeccionDto;
 import dto.InsumoDto;
+import negocio.EstadoConfeccion;
 
 
 public abstract class Confeccion extends javax.swing.JFrame {
 	
-    @SuppressWarnings("rawtypes")
+	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private DefaultListModel model = new DefaultListModel();
     private ArrayList<InsumoDto> insumosDto = new ArrayList<InsumoDto>();
     
@@ -163,7 +165,7 @@ public abstract class Confeccion extends javax.swing.JFrame {
 	    	AreaProduccionDto areaProduccion = (AreaProduccionDto) comboAreas.getSelectedItem();
 	    	
 	        ConfeccionDto confeccion = new ConfeccionDto(Float.parseFloat(fieldTiempo.getText()), fieldDetalle.getText(), 
-	        		areaProduccion, insumosDto);
+	        		areaProduccion, insumosDto, EstadoConfeccion.INCOMPLETO.toString());
 	    	
 	        this.confeccionDto=confeccion;
 	        
@@ -182,7 +184,9 @@ public abstract class Confeccion extends javax.swing.JFrame {
 
     private void agregarInsumoActionPerformed(java.awt.event.ActionEvent evt) {
         new Insumo() {
-            @Override
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void aceptar() {
                 insumosDto.add(insumo);
             }
@@ -191,7 +195,8 @@ public abstract class Confeccion extends javax.swing.JFrame {
 
     public abstract void aceptar();
    
-    private void refresh(){
+    @SuppressWarnings("unchecked")
+	private void refresh(){
         model.removeAllElements();
         for(InsumoDto insumo : insumosDto){
             model.addElement(insumo);

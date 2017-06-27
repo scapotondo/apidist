@@ -6,8 +6,11 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 
 import dao.MovimientoMateriaPrimaDao;
+import dao.PrendaDao;
 import dao.StockMateriaPrimaDao;
 import dao.StockPrendaDao;
+import dto.EmpleadoDto;
+import dto.ItemPrendaDto;
 import exceptions.ColorException;
 import negocio.ColorPrenda;
 import negocio.EstadoMovimientoMateriaPrima;
@@ -98,8 +101,7 @@ public class AlmacenController {
 		// diccionario de materias necesarias
 		Hashtable<MateriaPrima, Integer> materiaPrimaNecesaria = prenda.CalcularCantidadMateriaPrimaTotal();
 
-		// obtengo las keys del diccionario, en este caso son los objetos de
-		// materia prima
+		// obtengo las keys del diccionario, en este caso son los objetos de materia prima
 		Enumeration<MateriaPrima> materiasPrimasKeys = materiaPrimaNecesaria.keys();
 
 		while (materiasPrimasKeys.hasMoreElements()) {
@@ -163,13 +165,18 @@ public class AlmacenController {
 		movimiento.saveMe();
 	}
 
-	public void disminuirStockPrendaPorDeterioro(Prenda prenda, int cantidad, String talle, String color,
-			String encargado, String quienAutorizo, String destino) {
+	public void disminuirStockPrendaPorDeterioro(ItemPrendaDto item, EmpleadoDto encargado, EmpleadoDto quienAutorizo) {
 		MovimientoPrenda movimiento;
 		String ubicacion = "";
+		
 		ArrayList<StockPrenda> stockPrendas;
-
-		if (tenesStockPrenda(prenda, talle, color, cantidad)) {
+		String talle = item.getTalle();
+		String color = item.getColor();
+		int cantidad = item.getCantidad();
+		
+		Prenda prenda = PrendaDao.getInstance().BuscarPrendaPorCodigo(item.getPrenda());
+		
+		if (tenesStockPrenda(prenda,talle, color, cantidad)) {
 
 			stockPrendas = StockPrendaDao.getInstance().getStockPrendas();
 			for (StockPrenda stockPrenda : stockPrendas) {
@@ -201,8 +208,8 @@ public class AlmacenController {
 			}
 		}
 
-		movimiento = new MovimientoPrenda(cantidad, Calendar.getInstance().getTime(), talle, color, encargado,
-				quienAutorizo, ubicacion, prenda);
+		movimiento = new MovimientoPrenda(cantidad, Calendar.getInstance().getTime(), talle, color, encargado.getNombre(),
+				quienAutorizo.getNombre(), ubicacion, prenda);
 		movimiento.saveMe();
 	}
 
@@ -309,12 +316,14 @@ public class AlmacenController {
 		agregarStockMateriaPrima(stock);
 
 		MovimientoMateriaPrima movimiento = new MovimientoMateriaPrima(EstadoMovimientoMateriaPrima.Agregar, cantidad,
-				Calendar.getInstance().getTime(), materiaPrima);
+				Calendar.getInstance().getTime(), stock);
 		movimiento.saveMe();
 	}
 
-	public void disminuirStockMateriaPrima(MateriaPrima materiaPrima, int cantidad) {
-
+	public void disminuirStockMateriaPrima(MateriaPrima materiaPrima, int cantidad, OrdenDeProduccion lote) {
+		
+		ArrayList<StockMateriaPrima> stocksUsados = new ArrayList<StockMateriaPrima>();
+		
 		ArrayList<StockMateriaPrima> stockMateriaPrima = StockMateriaPrimaDao.getInstance().getStockMateriasPrimas();
 		for (StockMateriaPrima stock : stockMateriaPrima) {
 			if (cantidad <= 0)
@@ -324,8 +333,8 @@ public class AlmacenController {
 
 				if (stock.getCantidad() - cantidad > 0) {
 					stock.disminuirCantidad(cantidad);
-
 					cantidad = 0;
+
 				} else {
 					cantidad = cantidad - stock.getCantidad();
 
@@ -335,20 +344,20 @@ public class AlmacenController {
 				}
 
 				stock.updateMe();
+				stocksUsados.add(stock);
 			}
 		}
 
 		MovimientoMateriaPrima movimiento = new MovimientoMateriaPrima(EstadoMovimientoMateriaPrima.Remover, cantidad,
-				Calendar.getInstance().getTime(), materiaPrima);
+				Calendar.getInstance().getTime(), stocksUsados, lote);
 		movimiento.saveMe();
 	}
 
-	public void reservarMateriaPrima(MateriaPrima mp, int cantidad) {
-//		TODO: cambiar reserva para incluir stock
-		//lote mp
-//		MovimientoMateriaPrima movimientoMateriaPrimaReservada = new MovimientoMateriaPrima(
-//				EstadoMovimientoMateriaPrima.Reservar, cantidad, Calendar.getInstance().getTime(), mp, ArraList<StockMateriaPrima>);
-//		movimientoMateriaPrimaReservada.saveMe();
+	public void reservarMateriaPrima(MateriaPrima mp, int cantidad, OrdenDeProduccion lote) {
+		
+		MovimientoMateriaPrima movimientoMateriaPrimaReservada = new MovimientoMateriaPrima(
+				EstadoMovimientoMateriaPrima.Reservar, cantidad, Calendar.getInstance().getTime(), new ArrayList<StockMateriaPrima>(), lote);
+		movimientoMateriaPrimaReservada.saveMe();
 	}
 
 
@@ -484,23 +493,25 @@ public class AlmacenController {
 		Hashtable<MateriaPrima, Integer> materiasPrimasReservadas = new Hashtable<>();
 
 		for (MovimientoMateriaPrima movimientoMateriaPrima : movimientosMateriaPrimaReservada) {
-
-			// si la materia prima existe
-			if (materiasPrimasReservadas.containsKey(movimientoMateriaPrima.getMateriaPrima())) {
-
-				// obtengo la materia prima
-				MateriaPrima materia = movimientoMateriaPrima.getMateriaPrima();
-
-				int cantidadVieja = materiasPrimasReservadas.get(materia);
-				// la cantidad existente la sumo con la nueva
-				int cantidadNueva = cantidadVieja + movimientoMateriaPrima.getCantidad();
-
-				// cambio valores de la materia prima en diccionario
-				materiasPrimasReservadas.replace(materia, cantidadVieja, cantidadNueva);
-
-			} else {
-				materiasPrimasReservadas.put(movimientoMateriaPrima.getMateriaPrima(),
-						movimientoMateriaPrima.getCantidad());
+			for (StockMateriaPrima stockMateriaPrima : movimientoMateriaPrima.getStocksReservados()) {
+				
+				// si la materia prima existe
+				if (materiasPrimasReservadas.containsKey(stockMateriaPrima.getMateriaPrima())) {
+	
+					// obtengo la materia prima
+					MateriaPrima materia = stockMateriaPrima.getMateriaPrima();
+	
+					int cantidadVieja = materiasPrimasReservadas.get(materia);
+					// la cantidad existente la sumo con la nueva
+					int cantidadNueva = cantidadVieja + movimientoMateriaPrima.getCantidad();
+	
+					// cambio valores de la materia prima en diccionario
+					materiasPrimasReservadas.replace(materia, cantidadVieja, cantidadNueva);
+	
+				} else {
+					materiasPrimasReservadas.put(stockMateriaPrima.getMateriaPrima(),
+							movimientoMateriaPrima.getCantidad());
+				}
 			}
 		}
 

@@ -11,6 +11,8 @@ import negocio.OrdenProduccionCompleta;
 @Table(name="OrdenDeProduccion")
 @DiscriminatorValue(value="completa")
 public class OrdenDeProduccionCompletaEntity extends OrdenDeProduccionEntity {
+	private static final long serialVersionUID = 1L;
+	
 	public OrdenDeProduccionCompletaEntity(){}
 	
 	public OrdenDeProduccionCompletaEntity(OrdenProduccionCompleta orden){

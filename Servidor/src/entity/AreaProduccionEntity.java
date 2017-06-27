@@ -16,6 +16,8 @@ import negocio.OrdenProduccionParcial;
 @Table(name="AreaProduccion")
 public class AreaProduccionEntity implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int codigo;

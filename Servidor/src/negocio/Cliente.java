@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import dao.ClienteDao;
 import dao.SucursalDao;
 import dto.ClienteDto;
-import dto.PedidoPrendasDto;
 import dto.SucursalDto;
 import entity.ClienteEntity;
-import entity.PedidoPrendasEntity;
 import exceptions.SucursalException;
 
 public class Cliente {
@@ -44,8 +42,6 @@ public class Cliente {
 		Sucursal sucursal = SucursalDao.getInstance().getSucursalById(clienteDto.getSucursal().getNumero());
 		if (sucursal == null)
 			throw new SucursalException("La sucursal indicada no existe");
-		
-		ArrayList<PedidoPrendas> pedidos = new ArrayList<PedidoPrendas>();
 		
 		this.limiteCredito = clienteDto.getLimiteCredito();
 		this.formaPago = clienteDto.getFormaPago();

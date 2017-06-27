@@ -1,7 +1,6 @@
 package dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 
 public class ClienteDto implements Serializable{

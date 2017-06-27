@@ -19,6 +19,8 @@ import negocio.OrdenProduccionParcial;
 @Table(name="OrdenDeCompra")
 public class OrdenDeCompraEntity implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;

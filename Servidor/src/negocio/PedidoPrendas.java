@@ -48,11 +48,11 @@ public class PedidoPrendas {
 		this.nroPedido = nroPedido;
 	}
 
-	public PedidoPrendas(int nroPedido, Date fechaProbableDespacho, String estado, Date fechaGeneracion,
+	public PedidoPrendas(int nroPedido, Date fechaProbableDespacho, EstadoPedidoPrenda estado, Date fechaGeneracion,
 			Date fechaRealDespacho, OrdenDeProduccion ordenProduccion, Cliente cliente, ArrayList<ItemPrenda> items){
 		this.nroPedido=nroPedido;
 		this.fechaProbableDespacho=fechaProbableDespacho;
-		this.estado=EstadoPedidoPrenda.fromString(estado);
+		this.estado=estado;
 		this.fechaGeneracion=fechaGeneracion;
 		this.fechaRealDespacho=fechaRealDespacho;
 		this.ordenProduccion=ordenProduccion;

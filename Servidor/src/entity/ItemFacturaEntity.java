@@ -14,6 +14,7 @@ import negocio.ItemFactura;
 @Table(name="ItemFactura")
 public class ItemFacturaEntity implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;

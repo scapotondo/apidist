@@ -1,7 +1,6 @@
 package dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 
 public class OrdenDeProduccionDto implements Serializable{
@@ -10,15 +9,13 @@ public class OrdenDeProduccionDto implements Serializable{
 
 	private int nroOrden;
 	private String estado;
-	private ArrayList<MateriaPrimaDto> materiaPrimaReservada;
 	private int confeccionesTerminadas;
 	private PedidoPrendasDto pedido;
 	private PrendaDto prenda;
 	
-	public OrdenDeProduccionDto(int nroOrden, String estado,ArrayList<MateriaPrimaDto> materiaPrimaReservada, PedidoPrendasDto pedido, PrendaDto prenda){
+	public OrdenDeProduccionDto(int nroOrden, String estado, PedidoPrendasDto pedido, PrendaDto prenda){
 		this.nroOrden = nroOrden;
 		this.estado=estado;
-		this.materiaPrimaReservada=materiaPrimaReservada;
 		this.confeccionesTerminadas=0;
 		this.pedido=pedido;
 		this.prenda=prenda;
@@ -38,14 +35,6 @@ public class OrdenDeProduccionDto implements Serializable{
 
 	public void setEstado(String estado) {
 		this.estado = estado;
-	}
-
-	public ArrayList<MateriaPrimaDto> getMateriaPrimaReservada() {
-		return materiaPrimaReservada;
-	}
-
-	public void setMateriaPrimaReservada(ArrayList<MateriaPrimaDto> materiaPrimaReservada) {
-		this.materiaPrimaReservada = materiaPrimaReservada;
 	}
 
 	public int getConfeccionesTerminadas() {

@@ -115,6 +115,28 @@ public class PedidoPrendasDao {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public ArrayList<PedidoPrendas> BuscarPedidosPrendasProduccion(){
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		session.beginTransaction();
+		ArrayList<PedidoPrendasEntity> pedidosEntity = (ArrayList<PedidoPrendasEntity>) session.createQuery("from PedidoPrendasEntity WHERE estado = 3").list();
+		session.getTransaction().commit();
+		session.close();
+		
+		if(pedidosEntity == null)
+			return null;
+		
+		ArrayList<PedidoPrendas> pedidos = new ArrayList<PedidoPrendas>();
+		
+		for (PedidoPrendasEntity pedidoPrendasEntity : pedidosEntity) {
+			pedidos.add(new PedidoPrendas(pedidoPrendasEntity));
+		}
+		
+		return pedidos;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public ArrayList<PedidoPrendas> BuscarPedidosPrendasAprobadasAdmin(Cliente cliente){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();

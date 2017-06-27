@@ -14,6 +14,8 @@ import negocio.OrdenProduccionParcial;
 @DiscriminatorValue(value="parcial")
 public class OrdenDeProduccionParcialEntity extends OrdenDeProduccionEntity {
 	
+	private static final long serialVersionUID = 1L;
+	
 	@ElementCollection
 	private List<String> tallesValidos;
 	
