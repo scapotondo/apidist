@@ -12,6 +12,10 @@ import exceptions.RemoteObjectNotFoundException;
 
 public class EliminarPrenda extends javax.swing.JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<PrendaDto> prendas = new ArrayList<>();
 
     public EliminarPrenda() {

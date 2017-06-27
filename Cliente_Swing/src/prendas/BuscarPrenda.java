@@ -2,8 +2,6 @@ package prendas;
 
 import java.util.ArrayList;
 
-import javax.swing.ComboBoxEditor;
-
 import BusinessDelegate.BusinessDelegate;
 import administracion.MainPrendas;
 import dto.PrendaDto;
@@ -12,7 +10,8 @@ import exceptions.RemoteObjectNotFoundException;
 
 public class BuscarPrenda extends javax.swing.JFrame {
 
-    private ArrayList<PrendaDto> prendas = new ArrayList<>();
+	private static final long serialVersionUID = 1L;
+	private ArrayList<PrendaDto> prendas = new ArrayList<>();
     
     public BuscarPrenda() throws RemoteObjectNotFoundException, ApplicationException {
     	

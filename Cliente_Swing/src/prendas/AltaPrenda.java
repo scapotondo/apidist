@@ -1,6 +1,5 @@
 package prendas;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -16,10 +15,14 @@ import exceptions.RemoteObjectNotFoundException;
 
 public class AltaPrenda extends javax.swing.JFrame {
 
-    private ArrayList<ConfeccionDto> confeccionesDto = new ArrayList<>();
-    private DefaultListModel model = new DefaultListModel();
+	private static final long serialVersionUID = 1L;
+	
+	private ArrayList<ConfeccionDto> confeccionesDto = new ArrayList<>();
+    @SuppressWarnings("rawtypes")
+	private DefaultListModel model = new DefaultListModel();
     
-    public AltaPrenda() {
+    @SuppressWarnings("unchecked")
+	public AltaPrenda() {
         initComponents();
         
         listaConfecciones.setModel(this.model);
@@ -256,7 +259,12 @@ public class AltaPrenda extends javax.swing.JFrame {
     private void confeccionesActionPerformed(java.awt.event.ActionEvent evt) {
        
        new Confeccion() {
-           @Override
+           /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
            public void aceptar() {
                
                 confeccionesDto.add(confeccionDto);
@@ -327,7 +335,8 @@ public class AltaPrenda extends javax.swing.JFrame {
         refresh();
     }
 
-    private void refresh(){
+    @SuppressWarnings("unchecked")
+	private void refresh(){
         model.removeAllElements();
         for(ConfeccionDto confeccion : confeccionesDto){
             model.addElement(confeccion);

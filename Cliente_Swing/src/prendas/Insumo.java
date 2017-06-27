@@ -8,7 +8,11 @@ import dto.MateriaPrimaDto;
 
 public abstract class Insumo extends javax.swing.JFrame {
 
-    protected InsumoDto insumo;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected InsumoDto insumo;
     
     public Insumo() {
         initComponents();

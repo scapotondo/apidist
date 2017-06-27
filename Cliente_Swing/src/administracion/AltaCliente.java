@@ -12,7 +12,8 @@ import exceptions.RemoteObjectNotFoundException;
 
 public class AltaCliente extends javax.swing.JFrame {
    
-    private ArrayList<SucursalDto> sucursalesDto;
+	private static final long serialVersionUID = 1L;
+	private ArrayList<SucursalDto> sucursalesDto;
 	
 	public AltaCliente() {
         

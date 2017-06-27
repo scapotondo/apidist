@@ -12,7 +12,10 @@ import exceptions.ApplicationException;
 import exceptions.RemoteObjectNotFoundException;
 
 public class ModificarPrenda extends javax.swing.JFrame {
-    private int codigo;
+	
+	private static final long serialVersionUID = 1L;
+	
+	private int codigo;
     public ModificarPrenda(PrendaDto prenda) {
         initComponents();
         CargarColoresField(prenda.getColoresValidos());
