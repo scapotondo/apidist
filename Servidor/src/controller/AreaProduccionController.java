@@ -30,8 +30,9 @@ public class AreaProduccionController {
 		for (OrdenDeProduccion ordenIncompleta : ordenesIncompletas) {
 			
 			for (Confeccion confeccion: ordenIncompleta.getPrenda().getConfecciones()) {
-				if(confeccion.getEstado() == EstadoConfeccion.INCOMPLETO && confeccion.getAreaProduccion().getCodigo() == areaProduccion.getCodigo()){
-					ordenesDto.add(ordenIncompleta.toDto());
+				if(confeccion.getEstado() == EstadoConfeccion.INCOMPLETO ){
+					if(confeccion.getAreaProduccion().getCodigo() == areaProduccion.getCodigo())
+						ordenesDto.add(ordenIncompleta.toDto());
 					break;
 				}
 					
