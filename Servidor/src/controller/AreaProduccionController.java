@@ -2,8 +2,13 @@ package controller;
 
 import java.util.ArrayList;
 
+import dao.OrdenDeProduccionDao;
 import dao.PedidoPrendasDao;
+import dto.AreaProduccionDto;
 import dto.OrdenDeProduccionDto;
+import negocio.Confeccion;
+import negocio.EstadoConfeccion;
+import negocio.OrdenDeProduccion;
 import negocio.PedidoPrendas;
 
 public class AreaProduccionController {
@@ -17,13 +22,20 @@ public class AreaProduccionController {
 		return instance;
 	}
 	
-	public ArrayList<OrdenDeProduccionDto> getOrdenesProduccion(){
+	public ArrayList<OrdenDeProduccionDto> getOrdenesProduccion(AreaProduccionDto areaProduccion){
 		ArrayList<OrdenDeProduccionDto> ordenesDto = new ArrayList<OrdenDeProduccionDto>();
 		
-		ArrayList<PedidoPrendas> pedidos = PedidoPrendasDao.getInstance().BuscarPedidosPrendasProduccion();
+		ArrayList<OrdenDeProduccion> ordenesIncompletas = OrdenDeProduccionDao.getInstance().getOrdenesIncompletas();
 		
-		for (PedidoPrendas pedidoPrendas : pedidos) {
-			ordenesDto.add(pedidoPrendas.getOrdenProduccion().toDto());
+		for (OrdenDeProduccion ordenIncompleta : ordenesIncompletas) {
+			
+			for (Confeccion confeccion: ordenIncompleta.getPrenda().getConfecciones()) {
+				if(confeccion.getEstado() == EstadoConfeccion.INCOMPLETO && confeccion.getAreaProduccion().getCodigo() == areaProduccion.getCodigo()){
+					ordenesDto.add(ordenIncompleta.toDto());
+					break;
+				}
+					
+			}
 		}
 		
 		return ordenesDto;
