@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.hibernate.Session;
 
-import dto.OrdenDeProduccionDto;
 import entity.OrdenDeProduccionCompletaEntity;
 import entity.OrdenDeProduccionEntity;
 import entity.OrdenDeProduccionParcialEntity;
@@ -28,6 +27,7 @@ public class OrdenDeProduccionDao {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 
+			@SuppressWarnings("unchecked")
 			ArrayList<OrdenDeProduccionEntity> resultados = (ArrayList<OrdenDeProduccionEntity>) session.createQuery("from OrdenDeProduccionEntity op where op.estado != 3").list();
 			
 			session.getTransaction().commit();

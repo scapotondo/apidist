@@ -3,13 +3,11 @@ package controller;
 import java.util.ArrayList;
 
 import dao.OrdenDeProduccionDao;
-import dao.PedidoPrendasDao;
 import dto.AreaProduccionDto;
 import dto.OrdenDeProduccionDto;
 import negocio.Confeccion;
 import negocio.EstadoConfeccion;
 import negocio.OrdenDeProduccion;
-import negocio.PedidoPrendas;
 
 public class AreaProduccionController {
 
