@@ -6,11 +6,16 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 
 import dao.MovimientoMateriaPrimaDao;
+import dao.MovimientoPrendaDao;
 import dao.PrendaDao;
 import dao.StockMateriaPrimaDao;
 import dao.StockPrendaDao;
 import dto.EmpleadoDto;
 import dto.ItemPrendaDto;
+import dto.MovimientoMateriaPrimaDto;
+import dto.MovimientoPrendaDto;
+import dto.StockMateriaPrimaDto;
+import dto.StockPrendaDto;
 import exceptions.ColorException;
 import negocio.ColorPrenda;
 import negocio.EstadoMovimientoMateriaPrima;
@@ -542,4 +547,48 @@ public class AlmacenController {
 	}
 
 
+	public ArrayList<MovimientoMateriaPrimaDto> getMovimientosMateriaPrima(){
+		ArrayList<MovimientoMateriaPrimaDto> movimientosDto = new ArrayList<MovimientoMateriaPrimaDto>();
+		
+		ArrayList<MovimientoMateriaPrima> movimientos = MovimientoMateriaPrimaDao.getInstance().BuscarMovimientoMateriaPrima();
+		
+		for (MovimientoMateriaPrima movimientoMateriaPrima : movimientos) {
+			movimientosDto.add(movimientoMateriaPrima.toDto());
+		}
+		
+		return movimientosDto;
+	}
+	
+	public ArrayList<MovimientoPrendaDto> getMovimientosPrendas(){
+		ArrayList<MovimientoPrendaDto> movimientosDto = new ArrayList<MovimientoPrendaDto>();
+		
+		ArrayList<MovimientoPrenda> movimientos = MovimientoPrendaDao.getInstance().BuscarMovimientosPrenda();
+		
+		for (MovimientoPrenda movimientoPrenda : movimientos) {
+			movimientosDto.add(movimientoPrenda.toDto());
+		}
+		
+		return movimientosDto;
+	}
+
+	public ArrayList<StockPrendaDto> getStockPrendas(){
+		ArrayList<StockPrendaDto> stockDto = new ArrayList<>();
+		
+		ArrayList<StockPrenda> stock = StockPrendaDao.getInstance().getStockPrendas();
+		
+		for (StockPrenda stockPrenda : stock) {
+			stockDto.add(stockPrenda.toDto());
+		}
+		return stockDto;
+	}
+	
+	public ArrayList<StockMateriaPrimaDto> getStockMateriaPrima(){
+		ArrayList<StockMateriaPrimaDto> stocks = new ArrayList<>();
+		
+		ArrayList<StockMateriaPrima> stock = StockMateriaPrimaDao.getInstance().getStockMateriasPrimas();
+		for (StockMateriaPrima stockMateriaPrima : stock) {
+			stocks.add(stockMateriaPrima.toDto());
+		}
+		return stocks;
+	}
 }

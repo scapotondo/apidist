@@ -82,4 +82,27 @@ private static MovimientoMateriaPrimaDao instance;
 		
 		return movimientosReservados;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<MovimientoMateriaPrima> BuscarMovimientoMateriaPrima(){
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		session.beginTransaction();
+		ArrayList<MovimientoMateriaPrimaEntity> movimientosReservadosEntity = (ArrayList<MovimientoMateriaPrimaEntity>) session.createQuery("from MovimientoMateriaPrimaEntity").list();
+		session.getTransaction().commit();
+		session.close();
+		
+		if(movimientosReservadosEntity == null)
+			return null;
+		
+		ArrayList<MovimientoMateriaPrima> movimientosReservados= new ArrayList<MovimientoMateriaPrima>();
+		
+		for (MovimientoMateriaPrimaEntity movimientoMateriaPrimaEntity : movimientosReservadosEntity) {
+			
+			movimientosReservados.add(new MovimientoMateriaPrima(movimientoMateriaPrimaEntity));
+		}
+		
+		return movimientosReservados;
+	}
 }

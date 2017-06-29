@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 
 import dao.PedidoPrendasDao;
+import dto.EmpleadoDto;
 import dto.PedidoPrendasDto;
 import negocio.EstadoPedidoPrenda;
 import negocio.ItemPrenda;
@@ -23,9 +24,11 @@ public class DespachoController {
 	}
 	
 	
-	public void despacharPedido(PedidoPrendas pedido, String encargado){
+	public void despacharPedido(PedidoPrendasDto pedidoDto, EmpleadoDto encargadoDto){
+		PedidoPrendas pedido = PedidoPrendasDao.getInstance().BuscarPedidoPrendas(pedidoDto.getNroPedido());
+		
 		for (ItemPrenda item : pedido.getItems()) {
-			AlmacenController.getInstance().disminuirStockPrendaDespacho(item.getPrenda(), item.getCantidad(), item.getTalle(), item.getColor(), encargado);
+			AlmacenController.getInstance().disminuirStockPrendaDespacho(item.getPrenda(), item.getCantidad(), item.getTalle(), item.getColor(), encargadoDto.getNombre());
 		}
 		pedido.setEstado(EstadoPedidoPrenda.Terminado);
 		pedido.modificame();

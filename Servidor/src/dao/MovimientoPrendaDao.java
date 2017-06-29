@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.ArrayList;
+
 import org.hibernate.Session;
 
 import dto.MovimientoPrendaDto;
@@ -57,5 +59,28 @@ public class MovimientoPrendaDao {
 			return null;
 		
 		return new MovimientoPrenda(movimientoEntity);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<MovimientoPrenda> BuscarMovimientosPrenda(){
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		session.beginTransaction();
+		ArrayList<MovimientoPrendaEntity> movimientosReservadosEntity = (ArrayList<MovimientoPrendaEntity>) session.createQuery("from MovimientoPrendaEntity").list();
+		session.getTransaction().commit();
+		session.close();
+		
+		if(movimientosReservadosEntity == null)
+			return null;
+		
+		ArrayList<MovimientoPrenda> movimientosReservados= new ArrayList<MovimientoPrenda>();
+		
+		for (MovimientoPrendaEntity movimientoPrendaEntity : movimientosReservadosEntity) {
+			
+			movimientosReservados.add(new MovimientoPrenda(movimientoPrendaEntity));
+		}
+		
+		return movimientosReservados;
 	}
 }

@@ -18,7 +18,7 @@ public class AreaProduccionController {
 
 	private static AreaProduccionController instance;
 
-	public AreaProduccionController getInstance() {
+	public static AreaProduccionController getInstance() {
 		if (instance == null)
 			instance = new AreaProduccionController();
 
