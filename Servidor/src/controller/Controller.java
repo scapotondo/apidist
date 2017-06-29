@@ -17,6 +17,7 @@ import dto.ItemPrendaDto;
 import dto.MateriaPrimaDto;
 import dto.PedidoPrendasDto;
 import dto.SucursalDto;
+import dto.UsuarioDto;
 import exceptions.ClienteException;
 import exceptions.ColorException;
 import exceptions.PedidoException;
@@ -292,4 +293,7 @@ public class Controller {
 		return sucursalesDto;
 	}
 	
+	public UsuarioDto Login(String userName, String password) {
+		return null;
+	}
 }

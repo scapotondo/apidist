@@ -79,6 +79,14 @@ public class BusinessDelegate {
 		}
 	}
 	
+	private AdministracionUsuariosInterface getAdminUsuariosRemoto() throws RemoteObjectNotFoundException {
+		try {
+			return (AdministracionUsuariosInterface)Naming.lookup("//localhost/administracion/usuarios");
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+			throw new RemoteObjectNotFoundException("No se pude encontrar administracion produccion");
+		}
+	}
+	
 	/** Administracion **/
 
 	public void AltaCliente(float limiteCredito,String formaPago,float cuentaCorriente,String cuit,String nombre, 
@@ -338,6 +346,9 @@ public class BusinessDelegate {
 		return getAreaProduccionRemoto().GetPedidosADespachar();
 	}
 	
+	public UsuarioDto Login (String usuario, String password) throws RemoteObjectNotFoundException {
+		return getAdminUsuariosRemoto().Login(usuario, password);
+	}
 }
 
 
