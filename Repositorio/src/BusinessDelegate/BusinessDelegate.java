@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import dto.*;
 import exceptions.ApplicationException;
+import exceptions.AreaProduccionException;
 import exceptions.RemoteObjectNotFoundException;
 import interfaces.*;
 
@@ -42,9 +43,36 @@ public class BusinessDelegate {
 		}
 	}
 	
+	private AdministracionAlmacenInterface getAdministracionAlmacen() throws RemoteObjectNotFoundException {
+		try {
+			return (AdministracionAlmacenInterface)Naming.lookup("//localhost/administracion/almacen");
+			
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+			throw new RemoteObjectNotFoundException("No se pude encontrar Administracion de Prendas");
+		}
+	}
+	
 	private AdministracionProduccionInterface getAreaProduccionRemoto() throws RemoteObjectNotFoundException {
 		try {
 			return (AdministracionProduccionInterface)Naming.lookup("//localhost/administracion/produccion");
+			
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+			throw new RemoteObjectNotFoundException("No se pude encontrar administracion produccion");
+		}
+	}
+	
+	private AdministracionPedidoInterface getAdministracionPedidosRemoto() throws RemoteObjectNotFoundException {
+		try {
+			return (AdministracionPedidoInterface)Naming.lookup("//localhost/administracion/pedidos");
+			
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+			throw new RemoteObjectNotFoundException("No se pude encontrar administracion produccion");
+		}
+	}
+	
+	private AdministracionOrdenesProduccionInterface getAdministracionOrdenesProduccionRemoto() throws RemoteObjectNotFoundException {
+		try {
+			return (AdministracionOrdenesProduccionInterface)Naming.lookup("//localhost/administracion/ordenesProduccion");
 			
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			throw new RemoteObjectNotFoundException("No se pude encontrar administracion produccion");
@@ -247,6 +275,69 @@ public class BusinessDelegate {
 	public ArrayList<PrendaDto> getPrendasDisponibles() throws RemoteException, RemoteObjectNotFoundException {
 		return getAdministracionPrendas().GetPrendasDisponibles();
 	}
+	
+	/** Almacen **/
+	
+	public ArrayList<MovimientoPrendaDto> getMovimientosPrendas() throws RemoteException, RemoteObjectNotFoundException{
+		return getAdministracionAlmacen().getMovimientosPrendas();
+	}
+	
+	public ArrayList<MovimientoMateriaPrimaDto> getMovimientosMateriaPrima()throws RemoteException, RemoteObjectNotFoundException{
+		return getAdministracionAlmacen().getMovimientosMateriaPrima();
+	}
+	
+	public ArrayList<StockMateriaPrimaDto> getStockMateriaPrima() throws RemoteException, RemoteObjectNotFoundException{
+		return getAdministracionAlmacen().getStockMateriaPrima();
+	}
+	
+	public ArrayList<StockPrendaDto> getStockPrendas() throws RemoteException, RemoteObjectNotFoundException{
+		return getAdministracionAlmacen().getStockPrendas();
+	}
+	
+	/** Ordenes Produccion **/
+	
+	public ArrayList<OrdenDeProduccionDto> getOrdenesAreaProduccion(AreaProduccionDto area) throws RemoteException, RemoteObjectNotFoundException{
+		return getAdministracionOrdenesProduccionRemoto().getOrdenesAreaProduccion(area);
+	}
+	
+	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto)throws RemoteObjectNotFoundException, AreaProduccionException{
+		 getAdministracionOrdenesProduccionRemoto().IniciarProduccion(ordenDto, areaDto);
+	}
+	
+	/** Pedidos Prendas **/
+	public PedidoPrendasDto CrearPedido(PedidoPrendasDto pedido) throws RemoteException, RemoteObjectNotFoundException{
+		return getAdministracionPedidosRemoto().CrearPedido(pedido);
+	}
+	
+	public void AprobarPedidoAdmin(PedidoPrendasDto pedidoDto) throws RemoteException, RemoteObjectNotFoundException{
+		getAdministracionPedidosRemoto().AprobarPedidoAdmin(pedidoDto);
+	}
+	
+	public PedidoPrendasDto BuscarPedido(int nroPedido)throws RemoteException, RemoteObjectNotFoundException{
+		return getAdministracionPedidosRemoto().BuscarPedido(nroPedido);
+	}
+	
+	public void RechazarPedidoAdmin(PedidoPrendasDto pedidoDto, String descripcion) throws RemoteException, RemoteObjectNotFoundException{
+		getAdministracionPedidosRemoto().RechazarPedidoAdmin(pedidoDto, descripcion);
+	}
+	
+	public void AceptarPedidoCliente(int nroPedido) throws RemoteException, RemoteObjectNotFoundException{
+		getAdministracionPedidosRemoto().AceptarPedidoCliente(nroPedido);
+	}
+	
+	public void RechazarPedidoCliente(int nroPedido) throws RemoteException, RemoteObjectNotFoundException{
+		getAdministracionPedidosRemoto().RechazarPedidoCliente(nroPedido);
+	}
+	
+	/** Despacho **/
+	public void despacharPedido(PedidoPrendasDto pedidoDto, EmpleadoDto encargadoDto) throws RemoteException, RemoteObjectNotFoundException{
+		getAreaProduccionRemoto().despacharPedido(pedidoDto, encargadoDto);
+	}
+	
+	public ArrayList<PedidoPrendasDto> GetPedidosADespachar() throws RemoteException, RemoteObjectNotFoundException{
+		return getAreaProduccionRemoto().GetPedidosADespachar();
+	}
+	
 }
 
 
