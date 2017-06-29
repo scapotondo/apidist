@@ -13,6 +13,8 @@ public class LineaProduccion {
 	private Float tiempoLiberarse;
 	private String trabajo;
 	
+	public LineaProduccion(){}
+	
 	public LineaProduccion(LineaProduccionEntity linea){
 		this.numero=linea.getNumero();
 		this.estado= linea.getEstado();

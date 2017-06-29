@@ -68,6 +68,17 @@ public abstract class OrdenDeProduccion {
 	}
 	public abstract int getCantidad();
 	
+	public void terminarConfeccion(Confeccion confeccion){
+		int index = 0;
+		for (Confeccion confeccionEvaluada : this.prenda.getConfecciones()) {
+			if(confeccionEvaluada.getId() == confeccion.getId())
+				index = this.prenda.getConfecciones().indexOf(confeccionEvaluada);
+		}
+		confeccion.setEstado(EstadoConfeccion.COMPLETO);
+		
+		this.prenda.getConfecciones().set(index, confeccion);
+		this.prenda.modificame();
+	}
 	
 	public OrdenDeProduccionDto toDto(){
 		

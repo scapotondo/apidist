@@ -17,6 +17,8 @@ public class Confeccion {
 	private ArrayList<Insumo> insumos;
 	private EstadoConfeccion estado;
 	
+	public Confeccion(){}
+	
 	public Confeccion(ConfeccionEntity confeccion){
 		this.id=confeccion.getId();
 		this.tiempoProd=confeccion.getTiempoProd();

@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import org.hibernate.Session;
 
+import dto.OrdenDeProduccionDto;
 import entity.OrdenDeProduccionCompletaEntity;
 import entity.OrdenDeProduccionEntity;
 import entity.OrdenDeProduccionParcialEntity;
+import exceptions.RemoteObjectNotFoundException;
 import hibernate.HibernateUtil;
 import negocio.OrdenDeProduccion;
 import negocio.OrdenProduccionCompleta;
@@ -14,9 +16,9 @@ import negocio.OrdenProduccionParcial;
 
 public class OrdenDeProduccionDao {
 	private static OrdenDeProduccionDao instance;
-	
-	public static OrdenDeProduccionDao getInstance(){
-		if( instance == null )
+
+	public static OrdenDeProduccionDao getInstance() {
+		if (instance == null)
 			instance = new OrdenDeProduccionDao();
 		return instance;
 	}
@@ -28,25 +30,43 @@ public class OrdenDeProduccionDao {
 			session.beginTransaction();
 
 			@SuppressWarnings("unchecked")
-			ArrayList<OrdenDeProduccionEntity> resultados = (ArrayList<OrdenDeProduccionEntity>) session.createQuery("from OrdenDeProduccionEntity op where op.estado != 3").list();
-			
+			ArrayList<OrdenDeProduccionEntity> resultados = (ArrayList<OrdenDeProduccionEntity>) session
+					.createQuery("from OrdenDeProduccionEntity op where op.estado != 3").list();
+
 			session.getTransaction().commit();
 			session.close();
-			
+
 			for (OrdenDeProduccionEntity resultado : resultados) {
-				if(resultado.equals("entity.OrdenDeProduccionCompletaEntity"))
+				if (resultado.equals("entity.OrdenDeProduccionCompletaEntity"))
 					ordenesIncompletas.add(new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) resultado));
-				
-				if(resultado.equals("entity.OrdenDeProduccionParcialEntity"))
+
+				if (resultado.equals("entity.OrdenDeProduccionParcialEntity"))
 					ordenesIncompletas.add(new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) resultado));
-				
+
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return ordenesIncompletas;
 	}
-	
-	
+
+	public OrdenDeProduccion getBuscarOrden(OrdenDeProduccionDto ordenDto) throws RemoteObjectNotFoundException {
+
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		OrdenDeProduccionEntity ordenEntity = session.get(OrdenDeProduccionEntity.class, ordenDto.getNroOrden());
+		session.getTransaction().commit();
+		session.close();
+
+		if (ordenEntity == null)
+			throw new RemoteObjectNotFoundException("No se encontro la orden de produccion");
+
+		if (ordenEntity.equals("entity.OrdenDeProduccionCompletaEntity"))
+			return new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) ordenEntity);
+
+		return new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) ordenEntity);
+
+	}
+
 }
