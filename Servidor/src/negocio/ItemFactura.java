@@ -12,6 +12,12 @@ public class ItemFactura {
 		this.descripcion=descripcion;
 		this.cantidad= cantidad;
 	}
+	
+	public ItemFactura(String descripcion, int cantidad ){
+		
+		this.descripcion=descripcion;
+		this.cantidad= cantidad;
+	}
 
 	
 	public int getId() {

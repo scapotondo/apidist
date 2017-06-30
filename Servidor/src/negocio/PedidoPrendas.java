@@ -133,14 +133,6 @@ public class PedidoPrendas {
 		return monto;
 	}
 
-	//cambiar el void a PedidoPrendasDto
-	public void getPedidoPrendasDto(){
-
-	}
-	public void aprobarPedido(){
-		//TODO: que es esto??	
-	}
-
 	public PedidoPrendasDto toDto(){
 		ArrayList<ItemPrendaDto> itemsDto = new ArrayList<>();
 

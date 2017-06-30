@@ -1,11 +1,18 @@
 package controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import dao.PedidoPrendasDao;
 import dto.EmpleadoDto;
 import dto.PedidoPrendasDto;
+import negocio.Cliente;
 import negocio.EstadoPedidoPrenda;
+import negocio.Factura;
+import negocio.FacturaA;
+import negocio.FacturaB;
+import negocio.ItemFactura;
 import negocio.ItemPrenda;
 import negocio.PedidoPrendas;
 
@@ -32,6 +39,22 @@ public class DespachoController {
 		}
 		pedido.setEstado(EstadoPedidoPrenda.Terminado);
 		pedido.modificame();
+		
+		Factura factura ;
+		
+		Cliente cliente = pedido.getCliente();
+		
+		ArrayList<ItemFactura>itemsFactura = new ArrayList<>();
+		for (ItemPrenda item : pedido.getItems()) {
+			itemsFactura.add(new ItemFactura(item.getPrenda().getDescripcion(), item.getCantidad()));
+		}
+		
+		if(pedido.getCliente().getFormaPago().equals("FACTURAA"))
+			factura = new FacturaA((Date) Calendar.getInstance().getTime(), cliente.getNombre(), cliente.getDireccionFacturacion(), cliente.getCuit(), cliente.getFormaPago(), itemsFactura, pedido.calcularTotal());
+		else
+			factura = new FacturaB((Date) Calendar.getInstance().getTime(), cliente.getNombre(), cliente.getDireccionFacturacion(), cliente.getCuit(), cliente.getFormaPago(), itemsFactura, pedido.calcularTotal());
+	
+		factura.saveMe();
 	}
 	
 	public ArrayList<PedidoPrendasDto> GetPedidosADespachar(){

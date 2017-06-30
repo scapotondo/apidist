@@ -3,6 +3,8 @@ package negocio;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import dao.FacturaDao;
+
 public abstract class Factura {
 	
 	public static final String RAZON_SOCIAL_VENDEDOR = "El caracol S.A.";
@@ -29,7 +31,7 @@ public abstract class Factura {
 	private float precio;
 	
 	public Factura(int nroComprobante, Date fecha, String nombreComprador, String domicilioComprador, String cuit, 
-			String comprador, String condicionesVenta, ArrayList<ItemFactura> items, float precio){
+			 String condicionesVenta, ArrayList<ItemFactura> items, float precio){
 		
 		this.razonSocialVendedor = RAZON_SOCIAL_VENDEDOR;
 		this.domicilioVendedor = DOMICILIO_VENDEDOR;
@@ -45,6 +47,24 @@ public abstract class Factura {
 		this.items = items;
 		this.precio = precio;
 	}
+	
+	public Factura( Date fecha, String nombreComprador, String domicilioComprador, String cuit, String condicionesVenta, 
+			ArrayList<ItemFactura> items, float precio){
+		
+		this.razonSocialVendedor = RAZON_SOCIAL_VENDEDOR;
+		this.domicilioVendedor = DOMICILIO_VENDEDOR;
+		this.telefonoVendedor = TELEFONO_VENDEDOR;
+		this.datosIvaVendedor = DATOS_IVA_VENDEDOR;
+		this.cuitVendedor = CUIT_VENDEDOR;
+		this.fecha = fecha;
+		this.nombreComprador = nombreComprador;
+		this.domicilioComprador = domicilioComprador;
+		this.cuitComprador = cuit;
+		this.condicionesVenta = condicionesVenta;
+		this.items = items;
+		this.precio = precio;
+	}
+
 
 	public String getRazonSocialVendedor() {
 		return razonSocialVendedor;
@@ -152,4 +172,8 @@ public abstract class Factura {
 	
 	public abstract float getTotal();
 
+	
+	public void saveMe(){
+		FacturaDao.getInstance().altaFactura(this);
+	}
 }
