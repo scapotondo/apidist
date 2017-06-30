@@ -362,6 +362,10 @@ public class BusinessDelegate {
 	public UsuarioDto Login (String usuario, String password) throws RemoteObjectNotFoundException, RemoteException {
 		return getAdminUsuariosRemoto().Login(usuario, password);
 	}
+	
+	public UsuarioDto getUser (int codigo) throws RemoteObjectNotFoundException, RemoteException {
+		return getAdminUsuariosRemoto().getUsuario(codigo);
+	}
 }
 
 

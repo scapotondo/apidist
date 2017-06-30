@@ -93,4 +93,8 @@ public class SucursalDto implements Serializable{
 		this.pedidos = pedidos;
 	}
 	
+	@Override
+	public String toString() {
+		return this.nombre;
+	}
 }

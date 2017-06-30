@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import BusinessDelegate.BusinessDelegate;
-import dto.ClienteDto;
-import exceptions.ApplicationException;
+import dto.UsuarioDto;
 import exceptions.RemoteObjectNotFoundException;
 
 /**
@@ -35,22 +34,21 @@ public class Perfil extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
-			int id = 0;
+			int codigo = 0;
 			for (Cookie cookie : request.getCookies()) {
 				if(cookie.getName().equals("clienteId"))
-					id = Integer.parseInt(cookie.getValue());
+					codigo = Integer.parseInt(cookie.getValue());
 			}
 		
-			ClienteDto cliente = new ClienteDto();
-			cliente = BusinessDelegate.getInstance().BuscarCliente(id);
+			UsuarioDto usuario = BusinessDelegate.getInstance().getUser(codigo);
 			
 		
-			request.setAttribute("cliente", cliente);
+			request.setAttribute("usuario", usuario);
 			
 			
 			request.getRequestDispatcher("/cliente/perfil.jsp").forward(request, response);
 			
-		} catch (RemoteObjectNotFoundException | ApplicationException e) {
+		} catch (RemoteObjectNotFoundException e) {
 			e.printStackTrace();
 		}
 		
