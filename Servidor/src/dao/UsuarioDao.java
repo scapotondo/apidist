@@ -26,7 +26,8 @@ public class UsuarioDao {
 		session.beginTransaction();
 		UsuarioEntity usuarioEntity = (UsuarioEntity) session.createQuery("from UsuarioEntity WHERE usuario = ? AND password = ?")
 				.setParameter(0, userName)
-				.setParameter(1, password);
+				.setParameter(1, password)
+				.uniqueResult();
 		session.getTransaction().commit();
 		session.close();
 		

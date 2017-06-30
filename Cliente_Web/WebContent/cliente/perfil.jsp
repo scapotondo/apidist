@@ -11,10 +11,10 @@
 
 
     <!-- Bootstrap core CSS     -->
-    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
     <!--  Material Dashboard CSS    -->
-    <link href="../assets/css/material-dashboard.css" rel="stylesheet"/>
+    <link href="assets/css/material-dashboard.css" rel="stylesheet"/>
 
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -35,10 +35,10 @@
                     <span class="icon-bar"></span>
                 </button>
                 <ul class="nav navbar-nav">
-                    <li><a href="pedidosPendientes.html">Pedidos Pendientes</a></li>
-                    <li><a href="pedidosAceptados.html">Pedidos Aceptados</a></li>
-                    <li><a href="nuevoPedido.html">Generar Pedido</a></li>
-                    <li><a href="perfil.html">Perfil</a></li>
+                    <li><a href="pedidosPendientes.jsp">Pedidos Pendientes</a></li>
+                    <li><a href="pedidosAceptados.jsp">Pedidos Aceptados</a></li>
+                    <li><a href="nuevoPedido.jsp">Generar Pedido</a></li>
+                    <li><a href="${pageContext.request.contextPath}/Perfil">Perfil</a></li>
                     <li><a >Nombre cliente</a></li>
                     <li><a href="" >Log Out</a></li>
                 </ul>

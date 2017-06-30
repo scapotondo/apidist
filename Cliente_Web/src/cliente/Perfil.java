@@ -11,31 +11,24 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class NuevoPedido
  */
-@WebServlet("/NuevoPedido")
-public class NuevoPedido extends HttpServlet {
+@WebServlet("/Perfil")
+public class Perfil extends HttpServlet{
+
 	private static final long serialVersionUID = 1L;
-       
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NuevoPedido() {
+    public Perfil() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
+    
+    /**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("cliente/nuevoPedido.jsp").forward(request, response);
+		request.getRequestDispatcher("/perfil.jsp").forward(request, response);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
+	
+	
 }

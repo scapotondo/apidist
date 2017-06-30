@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +25,6 @@ public class Login extends HttpServlet {
      */
     public Login() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -49,17 +49,19 @@ public class Login extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		//TODO: chequear que se encontro el usuario con exception del server?
 		
 		String page = "/login.jsp";
 				
 		switch (usuario.getRol()) {
 		case Cliente:
-			page = "/cliente/pedidosPendientes.jsp";
+			page = "/cliente/perfil.jsp";
 			break;
 		default:
 			break;
 		}
+		
+		Cookie coockie = new Cookie("clienteId", usuario.getCliente().getLegajo()+"");
+		response.addCookie(coockie);
 		
 		request.getRequestDispatcher(page).forward(request, response);
 	}
