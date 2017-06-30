@@ -20,7 +20,7 @@ public class FacturaA extends Factura{
 
 	@Override
 	public float getTotal() {
-		return (float) (this.getPrecio() * 1.21);
+		return (float) (this.getPrecio() + this.getIva());
 	}
 	
 }

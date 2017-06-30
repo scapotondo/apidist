@@ -10,7 +10,10 @@ import entity.ClienteEntity;
 import exceptions.SucursalException;
 
 public class Cliente {
-
+	
+	public static final String FACTURAA = "Factura A";
+	public static final String FACTURAB = "Factura B";
+	
 	private float limiteCredito;
 	private String formaPago;
 	private float cuentaCorriente;

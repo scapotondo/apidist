@@ -7,8 +7,6 @@ public class NewClass {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	
-            	//HibernateUtil.datos();
-                
             	MainAdministracion ma= new MainAdministracion();
                 ma.setLocationRelativeTo(null);
                 ma.setVisible(true);            

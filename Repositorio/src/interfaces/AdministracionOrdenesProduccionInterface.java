@@ -13,6 +13,6 @@ public interface AdministracionOrdenesProduccionInterface extends Remote{
 
 	public ArrayList<OrdenDeProduccionDto> getOrdenesAreaProduccion(AreaProduccionDto area) throws RemoteException;
 	
-	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto)throws RemoteObjectNotFoundException, AreaProduccionException;
+	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto)throws RemoteException, RemoteObjectNotFoundException, AreaProduccionException;
 	
 }

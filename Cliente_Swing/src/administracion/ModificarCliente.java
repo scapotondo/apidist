@@ -12,21 +12,21 @@ import exceptions.*;
 
 public class ModificarCliente extends javax.swing.JFrame {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private ArrayList<SucursalDto> sucursalesDto;
 	
     public ModificarCliente(ClienteDto cliente) {
         initComponents();
+        formasDePagoCombo.addItem("Factura A");
+        formasDePagoCombo.addItem("Factura B");
+        
         legajoField.setText(cliente.getLegajo()+"");
         cuentaCorrienteField.setText(cliente.getCuentaCorriente()+"");
         cuitField.setText(cliente.getCuit()+"");
         direccionEnvioField.setText(cliente.getDireccionEnvio());
         direccionFacturacionField.setText(cliente.getDireccionFacturacion());
-        formaPagoField.setText(cliente.getFormaPago());
+        formasDePagoCombo.setSelectedItem(cliente.getFormaPago());
         limiteCreditoField.setText(cliente.getLimiteCredito()+"");
         nombreField.setText(cliente.getNombre());
         razonSocialField.setText(cliente.getRazonSocial());
@@ -55,7 +55,6 @@ public class ModificarCliente extends javax.swing.JFrame {
         labelCuentaCorriente = new javax.swing.JLabel();
         cuentaCorrienteField = new javax.swing.JTextField();
         formaPagoLabel = new javax.swing.JLabel();
-        formaPagoField = new javax.swing.JTextField();
         limiteCreditoLabel = new javax.swing.JLabel();
         limiteCreditoField = new javax.swing.JTextField();
         razonSocialLabel = new javax.swing.JLabel();
@@ -71,6 +70,7 @@ public class ModificarCliente extends javax.swing.JFrame {
         legajoLabel = new javax.swing.JLabel();
         legajoField = new javax.swing.JTextField();
         comboSucursal = new javax.swing.JComboBox<>();
+        formasDePagoCombo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -140,13 +140,13 @@ public class ModificarCliente extends javax.swing.JFrame {
                             .addComponent(cuentaCorrienteField, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cuitField, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(nombreField, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(formaPagoField)
                             .addComponent(limiteCreditoField, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(razonSocialField, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                             .addComponent(telefonoField)
                             .addComponent(direccionEnvioField)
                             .addComponent(legajoField)
-                            .addComponent(comboSucursal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(comboSucursal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(formasDePagoCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(aceptar)
@@ -174,10 +174,10 @@ public class ModificarCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCuentaCorriente)
                     .addComponent(cuentaCorrienteField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(formaPagoLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(formaPagoField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(formaPagoLabel)
+                    .addComponent(formasDePagoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(limiteCreditoLabel, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -218,16 +218,16 @@ public class ModificarCliente extends javax.swing.JFrame {
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
     	try {
-    		if(limiteCreditoField.getText().equals("")|| formaPagoField.getText().equals("")||
+    		if(limiteCreditoField.getText().equals("")|| direccionFacturacionField.getText().equals("")||
     				   cuentaCorrienteField.getText().equals("")|| cuitField.getText().equals("")||nombreField.getText().equals("")||
     						razonSocialField.getText().equals("")|| telefonoField.getText().equals("")||
-    						direccionEnvioField.getText().equals("")||direccionFacturacionField.getText().equals(""))
+    						direccionEnvioField.getText().equals(""))
     	    			
     	    	JOptionPane.showMessageDialog(null, "Por favor complete todos los campos");
     	    		
     	   else{
     		
-				BusinessDelegate.getInstance().ModificarCliente(Float.parseFloat(limiteCreditoField.getText()), formaPagoField.getText(),
+				BusinessDelegate.getInstance().ModificarCliente(Float.parseFloat(limiteCreditoField.getText()), formasDePagoCombo.getSelectedItem()+"",
 						Float.parseFloat(cuentaCorrienteField.getText()), cuitField.getText(),nombreField.getText(),
 						razonSocialField.getText(), telefonoField.getText(), direccionEnvioField.getText(), 
 						direccionFacturacionField.getText(), comboSucursal.getSelectedItem()+"",
@@ -258,8 +258,8 @@ public class ModificarCliente extends javax.swing.JFrame {
     private javax.swing.JLabel direccionEnvioLabel;
     private javax.swing.JTextField direccionFacturacionField;
     private javax.swing.JLabel direccionFacturacionLabel;
-    private javax.swing.JTextField formaPagoField;
     private javax.swing.JLabel formaPagoLabel;
+    private javax.swing.JComboBox<String> formasDePagoCombo;
     private javax.swing.JLabel labelCuentaCorriente;
     private javax.swing.JLabel labelCuit;
     private javax.swing.JLabel labelNombre;

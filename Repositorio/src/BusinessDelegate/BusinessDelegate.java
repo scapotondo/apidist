@@ -308,7 +308,7 @@ public class BusinessDelegate {
 		return getAdministracionOrdenesProduccionRemoto().getOrdenesAreaProduccion(area);
 	}
 	
-	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto)throws RemoteObjectNotFoundException, AreaProduccionException{
+	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto)throws RemoteObjectNotFoundException, AreaProduccionException, RemoteException{
 		 getAdministracionOrdenesProduccionRemoto().IniciarProduccion(ordenDto, areaDto);
 	}
 	
@@ -346,7 +346,7 @@ public class BusinessDelegate {
 		return getAreaProduccionRemoto().GetPedidosADespachar();
 	}
 	
-	public UsuarioDto Login (String usuario, String password) throws RemoteObjectNotFoundException {
+	public UsuarioDto Login (String usuario, String password) throws RemoteObjectNotFoundException, RemoteException {
 		return getAdminUsuariosRemoto().Login(usuario, password);
 	}
 }

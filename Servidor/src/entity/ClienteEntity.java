@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import org.hibernate.annotations.Type;
 import negocio.Cliente;
 
 @Entity
@@ -15,6 +16,7 @@ public class ClienteEntity implements Serializable{
 	private int legajo;
 	
 	@Column(nullable=false)
+	@Type(type = "float")
 	private float limiteCredito;
 	
 	@Column(nullable=false)
@@ -35,8 +37,7 @@ public class ClienteEntity implements Serializable{
 	@Column(nullable=false)
 	private String direccionFacturacion;
 	
-	@ManyToOne(targetEntity=SucursalEntity.class)
-	@Embedded
+	@ManyToOne()
 	private SucursalEntity sucursal;
 	
 	public ClienteEntity(){}

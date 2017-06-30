@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +19,6 @@ import negocio.PedidoPrendas;
 import negocio.Sucursal;
 
 @Entity
-@Embeddable
 @Table(name="Sucursal")
 public class SucursalEntity implements Serializable{
 	

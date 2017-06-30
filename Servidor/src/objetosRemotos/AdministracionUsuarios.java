@@ -9,18 +9,14 @@ import interfaces.AdministracionUsuariosInterface;
 
 public class AdministracionUsuarios extends UnicastRemoteObject implements AdministracionUsuariosInterface{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 692523953057761750L;
 
 	public AdministracionUsuarios() throws RemoteException {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public UsuarioDto Login(String userName, String password) {
+	public UsuarioDto Login(String userName, String password)throws RemoteException {
 		return Controller.getInstance().Login(userName, password);
 	}
 }

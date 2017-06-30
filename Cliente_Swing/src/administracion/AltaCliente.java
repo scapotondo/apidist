@@ -19,6 +19,9 @@ public class AltaCliente extends javax.swing.JFrame {
         
     	initComponents();
     	
+    	formaDePagoCombo.addItem("Factura A");
+    	formaDePagoCombo.addItem("Factura B");
+    	
     	sucursalesDto= BusinessDelegate.getInstance().GetSucursales();
     	
     	for (SucursalDto sucursalDto : sucursalesDto) {
@@ -26,7 +29,7 @@ public class AltaCliente extends javax.swing.JFrame {
 		}
     }
 
-    private void initComponents() {
+	private void initComponents() {
 
         labelNombre = new javax.swing.JLabel();
         nombreField = new javax.swing.JTextField();
@@ -35,7 +38,6 @@ public class AltaCliente extends javax.swing.JFrame {
         labelCuentaCorriente = new javax.swing.JLabel();
         cuentaCorrienteField = new javax.swing.JTextField();
         formaPagoLabel = new javax.swing.JLabel();
-        formaPagoField = new javax.swing.JTextField();
         limiteCreditoLabel = new javax.swing.JLabel();
         limiteCreditoField = new javax.swing.JTextField();
         razonSocialLabel = new javax.swing.JLabel();
@@ -50,6 +52,7 @@ public class AltaCliente extends javax.swing.JFrame {
         cancelar = new javax.swing.JButton();
         labelNroSucursal = new javax.swing.JLabel();
         comboSucursal = new javax.swing.JComboBox<>();
+        formaDePagoCombo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,21 +115,20 @@ public class AltaCliente extends javax.swing.JFrame {
                                 .addComponent(direccionFacturacionLabel))
                             .addComponent(labelNroSucursal))
                         .addGap(10, 10, 10)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(direccionFacturacionField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                        .addComponent(nombreField, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(cuitField, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(cuentaCorrienteField, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(formaPagoField, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(limiteCreditoField, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(razonSocialField, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(telefonoField, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(direccionEnvioField, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(comboSucursal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(direccionFacturacionField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(nombreField)
+                    .addComponent(cuitField)
+                    .addComponent(cuentaCorrienteField)
+                    .addComponent(limiteCreditoField)
+                    .addComponent(razonSocialField)
+                    .addComponent(telefonoField)
+                    .addComponent(direccionEnvioField)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(47, 47, 47)
-                        .addComponent(cancelar)))
+                        .addComponent(cancelar))
+                    .addComponent(comboSucursal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(formaDePagoCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(91, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -140,18 +142,15 @@ public class AltaCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cuitField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelCuit))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelCuentaCorriente)
-                            .addComponent(cuentaCorrienteField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(formaPagoLabel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(formaPagoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelCuentaCorriente)
+                    .addComponent(cuentaCorrienteField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(formaPagoLabel)
+                    .addComponent(formaDePagoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(limiteCreditoLabel)
                     .addComponent(limiteCreditoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -175,7 +174,7 @@ public class AltaCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNroSucursal)
                     .addComponent(comboSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aceptar)
                     .addComponent(cancelar))
@@ -183,22 +182,22 @@ public class AltaCliente extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
        
     	try {
     		
-    		if(limiteCreditoField.getText().equals("")|| formaPagoField.getText().equals("")||
-			   cuentaCorrienteField.getText().equals("")|| cuitField.getText().equals("")||nombreField.getText().equals("")||
-					razonSocialField.getText().equals("")|| telefonoField.getText().equals("")||
-					direccionEnvioField.getText().equals("")||direccionFacturacionField.getText().equals(""))
+    		if(limiteCreditoField.getText().equals("")|| cuentaCorrienteField.getText().equals("")||
+    				cuitField.getText().equals("")||nombreField.getText().equals("")|| razonSocialField.getText().equals("")||
+    				telefonoField.getText().equals("")|| direccionEnvioField.getText().equals("") || 
+    				direccionFacturacionField.getText().equals(""))
     			
     			JOptionPane.showMessageDialog(null, "Por favor complete todos los campos");
     		
     		else{
-    		
-	    		BusinessDelegate.getInstance().AltaCliente(Float.parseFloat(limiteCreditoField.getText()), formaPagoField.getText(),
+    			String formaDePago = formaDePagoCombo.getSelectedItem() + "";
+	    		BusinessDelegate.getInstance().AltaCliente(Float.parseFloat(limiteCreditoField.getText()), formaDePago,
 						Float.parseFloat(cuentaCorrienteField.getText()), cuitField.getText(),nombreField.getText(),
 						razonSocialField.getText(), telefonoField.getText(), direccionEnvioField.getText(), 
 						direccionFacturacionField.getText(), comboSucursal.getSelectedItem()+"");
@@ -227,13 +226,14 @@ public class AltaCliente extends javax.swing.JFrame {
 
     private javax.swing.JButton aceptar;
     private javax.swing.JButton cancelar;
+    private javax.swing.JComboBox<String> comboSucursal;
     private javax.swing.JTextField cuentaCorrienteField;
     private javax.swing.JTextField cuitField;
     private javax.swing.JTextField direccionEnvioField;
     private javax.swing.JLabel direccionEnvioLabel;
     private javax.swing.JTextField direccionFacturacionField;
     private javax.swing.JLabel direccionFacturacionLabel;
-    private javax.swing.JTextField formaPagoField;
+    private javax.swing.JComboBox<String> formaDePagoCombo;
     private javax.swing.JLabel formaPagoLabel;
     private javax.swing.JLabel labelCuentaCorriente;
     private javax.swing.JLabel labelCuit;
@@ -242,7 +242,6 @@ public class AltaCliente extends javax.swing.JFrame {
     private javax.swing.JTextField limiteCreditoField;
     private javax.swing.JLabel limiteCreditoLabel;
     private javax.swing.JTextField nombreField;
-    private javax.swing.JComboBox<String> comboSucursal;
     private javax.swing.JTextField razonSocialField;
     private javax.swing.JLabel razonSocialLabel;
     private javax.swing.JTextField telefonoField;

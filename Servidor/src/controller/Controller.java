@@ -11,6 +11,7 @@ import dao.ClienteDao;
 import dao.MateriaPrimaDao;
 import dao.PedidoPrendasDao;
 import dao.SucursalDao;
+import dao.UsuarioDao;
 import dto.AreaProduccionDto;
 import dto.ClienteDto;
 import dto.ItemPrendaDto;
@@ -23,6 +24,7 @@ import exceptions.ColorException;
 import exceptions.PedidoException;
 import exceptions.PrendaException;
 import exceptions.SucursalException;
+import exceptions.UsuarioException;
 import negocio.AreaProduccion;
 import negocio.Cliente;
 import negocio.EstadoOrdenProduccion;
@@ -294,6 +296,11 @@ public class Controller {
 	}
 	
 	public UsuarioDto Login(String userName, String password) {
+		try {
+			return UsuarioDao.getInstance().login(userName, password);
+		} catch (UsuarioException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }

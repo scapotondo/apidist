@@ -5,12 +5,10 @@ import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import negocio.OrdenProduccionParcial;
 
 @Entity
-@Table(name="OrdenDeProduccion")
 @DiscriminatorValue(value="parcial")
 public class OrdenDeProduccionParcialEntity extends OrdenDeProduccionEntity {
 	

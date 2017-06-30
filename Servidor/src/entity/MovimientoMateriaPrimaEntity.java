@@ -29,7 +29,6 @@ public class MovimientoMateriaPrimaEntity implements Serializable{
 	private List<StockMateriaPrimaEntity> stocksReservados;
 	
 	@ManyToOne()
-	@Column(nullable=true)
 	private OrdenDeProduccionEntity lote;
 	
 	public MovimientoMateriaPrimaEntity(){}
