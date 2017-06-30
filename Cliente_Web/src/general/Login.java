@@ -1,7 +1,6 @@
 package general;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,16 +42,13 @@ public class Login extends HttpServlet {
 		String userName = request.getParameter("usuario");
 		String password = request.getParameter("password");
 		
-		if (userName == null || userName.trim().isEmpty() || 
-				password == null == password.trim().isEmpty()){
-			//TODO: mostrar un error
-		}
-		
 		try {
 			usuario = BusinessDelegate.getInstance().Login(userName, password);
+		
 		} catch (RemoteObjectNotFoundException e) {
-			// TODO: mostrar mensaje de error
+			e.printStackTrace();
 		}
+		
 		//TODO: chequear que se encontro el usuario con exception del server?
 		
 		String page = "/login.jsp";

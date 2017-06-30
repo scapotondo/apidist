@@ -6,18 +6,20 @@ public class UsuarioDto implements Serializable {
 
 	private static final long serialVersionUID = 9062961408595506567L;
 
-	RolUsuarioEnum rol;
-	String userName;
-	String password;
-	int codigo;
+	private RolUsuarioEnum rol;
+	private String userName;
+	private String password;
+	private int codigo;
+	private ClienteDto cliente;
 	
 	public UsuarioDto(){}
 	
-	public UsuarioDto(int codigo, String password, String userName, RolUsuarioEnum rol){
+	public UsuarioDto(int codigo, String password, String userName, RolUsuarioEnum rol, ClienteDto cliente){
 		this.codigo = codigo;
 		this.password = password;
 		this.userName = userName;
 		this.rol = rol;
+		this.cliente = cliente;
 	}
 	
 	public RolUsuarioEnum getRol() {
@@ -44,4 +46,13 @@ public class UsuarioDto implements Serializable {
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
+
+	public ClienteDto getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(ClienteDto cliente) {
+		this.cliente = cliente;
+	}
+	
 }

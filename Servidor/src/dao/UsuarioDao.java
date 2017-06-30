@@ -7,6 +7,7 @@ import dto.UsuarioDto;
 import entity.UsuarioEntity;
 import exceptions.UsuarioException;
 import hibernate.HibernateUtil;
+import negocio.Cliente;
 
 public class UsuarioDao {
 
@@ -31,8 +32,9 @@ public class UsuarioDao {
 		
 		if(usuarioEntity == null)
 			throw new UsuarioException("El usuario no existe");
+		Cliente cliente = new Cliente(usuarioEntity.getCliente());
 		
-		return new UsuarioDto(usuarioEntity.getCodigo(), usuarioEntity.getPassword(), usuarioEntity.getUsuario(), RolUsuarioEnum.fromString(usuarioEntity.getRol()));
+		return new UsuarioDto(usuarioEntity.getCodigo(), usuarioEntity.getPassword(), usuarioEntity.getUsuario(), RolUsuarioEnum.fromString(usuarioEntity.getRol()), cliente.toDto());
 	}
 	
 }

@@ -22,6 +22,8 @@ public class ItemFacturaEntity implements Serializable{
 	private String descripcion;
 	private int cantidad;
 	
+	public ItemFacturaEntity(){}
+	
 	public ItemFacturaEntity(String descripcion, int cantidad ){
 		
 		this.descripcion=descripcion;

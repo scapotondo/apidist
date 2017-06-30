@@ -6,11 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
+
 @Entity
-@Table(name="Sucursal")
+@Table(name="Usuario")
 public class UsuarioEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -22,6 +24,10 @@ public class UsuarioEntity implements Serializable {
 	private String password;
 	
 	private String rol;
+	
+	@OneToOne()
+	private ClienteEntity cliente;
+	
 	
 	public UsuarioEntity(){}
 	
@@ -56,6 +62,16 @@ public class UsuarioEntity implements Serializable {
 
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
+	}
+
+
+	public ClienteEntity getCliente() {
+		return cliente;
+	}
+
+
+	public void setCliente(ClienteEntity cliente) {
+		this.cliente = cliente;
 	}
 	
 	

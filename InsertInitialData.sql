@@ -1,5 +1,6 @@
 Use ApiDist;
 
+
 INSERT INTO Sucursal 
 VALUES (1, "Avenida Siempre Viva 123", "Siempre Viva");
 
@@ -25,6 +26,20 @@ VALUES(3, 100, '20-17254357-7', 'Av.San Juan 1444', 'Av.Independencia 1000', 'cr
 
 INSERT into Cliente
 VALUES(4, 200, '20-17254356-7', 'Av.San Juan 432', 'Av.Independencia 444', 'credito', 400, 'Carlos Perez', 'empresa 4', '4321-6549', 4);
+
+
+
+INSERT INTO Usuario 
+VALUES(1,'password','CLIENTE','cliente',1);
+
+INSERT INTO Usuario 
+VALUES(2,'password','ADMIN','admin',1);
+
+INSERT INTO Usuario 
+VALUES(3,'password','ALMACEN','almacen',2);
+
+INSERT INTO Usuario 
+VALUES(4,'password','DESPACHO','despacho',3);
 
 
 
