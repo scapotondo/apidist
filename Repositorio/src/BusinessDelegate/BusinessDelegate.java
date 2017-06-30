@@ -363,8 +363,18 @@ public class BusinessDelegate {
 		return getAdminUsuariosRemoto().Login(usuario, password);
 	}
 
-	public ArrayList<PedidoPrendasDto> getPedidosAceptados() {
-		// TODO Auto-generated method stub
+	public UsuarioDto getUser (int codigo) throws RemoteObjectNotFoundException, RemoteException {
+		return getAdminUsuariosRemoto().getUsuario(codigo);
+	}
+
+	public ArrayList<PedidoPrendasDto> getPedidosAceptados(ClienteDto cliente) {
+		try {
+			return getAdministracionPedidosRemoto().getPedidosAceptados(cliente);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (RemoteObjectNotFoundException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }

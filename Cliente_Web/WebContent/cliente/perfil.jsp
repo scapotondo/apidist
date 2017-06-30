@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import= "dto.UsuarioDto"%>
 <%@ page import= "dto.ClienteDto"%>
 <!doctype html>
 <html >
@@ -26,7 +27,8 @@
 
 <body>
 <% 
-	ClienteDto cliente = (ClienteDto) request.getAttribute("cliente");
+	UsuarioDto usuario = (UsuarioDto) request.getAttribute("usuario");
+	ClienteDto cliente = usuario.getCliente();
 %>
 
 <div class="wrapper">
@@ -49,19 +51,19 @@
                                         <div class="col-md-3">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">legajo</label>
-                                                <input type="text" class="form-control" value="<%= cliente.getLegajo() %>" disabled>
+                                                <input type="text" class="form-control" value="<%=cliente.getLegajo()  %>" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-5">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Usuario</label>
-                                                <input type="text" class="form-control"  disabled>
+                                                <input type="text" class="form-control" value="<%= usuario.getUserName() %>" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Password</label>
-                                                <input type="text" class="form-control" disabled>
+                                                <input type="text" class="form-control" value="********" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -70,13 +72,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Nombre</label>
-                                                <input type="text" class="form-control" disabled>
+                                                <input type="text" class="form-control" value="<%=cliente.getNombre()  %>" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Telefono</label>
-                                                <input type="text" class="form-control" disabled>
+                                                <input type="text" class="form-control" value="<%=cliente.getTelefono()  %>" disabled>
                                             </div>
                                         </div>
 
@@ -86,7 +88,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Direccion Envio</label>
-                                                <input type="text" class="form-control" disabled>
+                                                <input type="text" class="form-control" value="<%=cliente.getDireccionEnvio()  %>" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -95,7 +97,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Direccion Facturacion</label>
-                                                <input type="text" class="form-control" disabled>
+                                                <input type="text" class="form-control" value="<%=cliente.getDireccionFacturacion()  %>" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -104,13 +106,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Razon Social</label>
-                                                <input type="text" class="form-control" disabled>
+                                                <input type="text" class="form-control" value="<%=cliente.getRazonSocial()  %>" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Forma de Pago</label>
-                                                <input type="text" class="form-control" disabled>
+                                                <input type="text" class="form-control" value="<%=cliente.getFormaPago()  %>" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -119,13 +121,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Limite de Credito</label>
-                                                <input type="text" class="form-control" disabled>
+                                                <input type="text" class="form-control" value="<%=cliente.getLimiteCredito()  %>" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Cuenta Corriente</label>
-                                                <input type="text" class="form-control" disabled>
+                                                <input type="text" class="form-control" value="<%=cliente.getCuentaCorriente()  %>"disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -134,7 +136,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Sucursal</label>
-                                                <input type="text" class="form-control" disabled>
+                                                <input type="text" class="form-control" value="<%=cliente.getSucursal()  %>"disabled>
                                             </div>
                                         </div>
 

@@ -45,25 +45,24 @@ public class Login extends HttpServlet {
 		try {
 			usuario = BusinessDelegate.getInstance().Login(userName, password);
 		
+		
+			String page = "/login.jsp";
+					
+			switch (usuario.getRol()) {
+			case Cliente:
+				page = request.getContextPath()+"/Perfil";
+				break;
+			default:
+				break;
+			}
+			
+			Cookie coockie = new Cookie("usuario", usuario.getCodigo()+"");
+			response.addCookie(coockie);
+			
+			response.sendRedirect(page);
 		} catch (RemoteObjectNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		
-		String page = "/login.jsp";
-				
-		switch (usuario.getRol()) {
-		case Cliente:
-			page = request.getContextPath()+"/Perfil";
-			break;
-		default:
-			break;
-		}
-		
-		Cookie coockie = new Cookie("usuario", usuario.getCodigo()+"");
-		response.addCookie(coockie);
-		
-		response.sendRedirect(page);
 		
 	}
 }

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import BusinessDelegate.BusinessDelegate;
 import dto.PedidoPrendasDto;
 import dto.UsuarioDto;
+import exceptions.RemoteObjectNotFoundException;
 
 /**
  * Servlet implementation class PedidosAceptados
@@ -41,7 +42,11 @@ public class PedidosAceptados extends HttpServlet {
 		}
 	
 		UsuarioDto usuario = new UsuarioDto();
-		usuario = BusinessDelegate.getInstance().getUser(codigo);
+		try {
+			usuario = BusinessDelegate.getInstance().getUser(codigo);
+		} catch (RemoteObjectNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		ArrayList<PedidoPrendasDto> pedidosAceptados = BusinessDelegate.getInstance().getPedidosAceptados(usuario.getCliente());
 		

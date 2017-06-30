@@ -2,8 +2,10 @@ package objetosRemotos;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 import controller.Controller;
+import dto.ClienteDto;
 import dto.PedidoPrendasDto;
 import interfaces.AdministracionPedidoInterface;
 
@@ -39,6 +41,10 @@ public class AdministracionPedidos extends UnicastRemoteObject implements Admini
 
 	public void RechazarPedidoCliente(int nroPedido) throws RemoteException {
 		Controller.getInstance().RechazarPedidoCliente(nroPedido);
+	}
+
+	public ArrayList<PedidoPrendasDto> getPedidosAceptados(ClienteDto cliente) throws RemoteException {
+		return Controller.getInstance().getPedidosAceptados(cliente);
 	}
 	
 }
