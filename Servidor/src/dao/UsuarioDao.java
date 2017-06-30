@@ -38,4 +38,19 @@ public class UsuarioDao {
 		return new UsuarioDto(usuarioEntity.getCodigo(), usuarioEntity.getPassword(), usuarioEntity.getUsuario(), RolUsuarioEnum.fromString(usuarioEntity.getRol()), cliente.toDto());
 	}
 	
+	
+	public UsuarioDto getUsuario(int codigo) throws UsuarioException{
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		UsuarioEntity usuarioEntity = session.get(UsuarioEntity.class, codigo);
+		session.getTransaction().commit();
+		session.close();
+		
+		if(usuarioEntity == null)
+			throw new UsuarioException("El usuario no existe");
+		Cliente cliente = new Cliente(usuarioEntity.getCliente());
+		
+		return new UsuarioDto(usuarioEntity.getCodigo(), usuarioEntity.getPassword(), usuarioEntity.getUsuario(), RolUsuarioEnum.fromString(usuarioEntity.getRol()), cliente.toDto());
+	}
 }

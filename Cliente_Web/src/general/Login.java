@@ -54,17 +54,16 @@ public class Login extends HttpServlet {
 				
 		switch (usuario.getRol()) {
 		case Cliente:
-			page = "/Perfil";
+			page = request.getContextPath()+"/Perfil";
 			break;
 		default:
 			break;
 		}
 		
-		Cookie coockie = new Cookie("clienteId", usuario.getCliente().getLegajo()+"");
+		Cookie coockie = new Cookie("usuario", usuario.getCodigo()+"");
 		response.addCookie(coockie);
 		
 		response.sendRedirect(page);
 		
-//		request.getRequestDispatcher(page).forward(request, response);
 	}
 }

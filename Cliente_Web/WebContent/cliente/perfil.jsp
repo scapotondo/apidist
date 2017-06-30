@@ -49,13 +49,13 @@
                                         <div class="col-md-3">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">legajo</label>
-                                                <input type="text" class="form-control" disabled>
+                                                <input type="text" class="form-control" value="<%= cliente.getLegajo() %>" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-5">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Usuario</label>
-                                                <input type="text" class="form-control" disabled>
+                                                <input type="text" class="form-control"  disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-4">

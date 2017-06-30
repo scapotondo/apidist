@@ -303,4 +303,13 @@ public class Controller {
 		}
 		return null;
 	}
+	
+	public UsuarioDto getUsuario(int codigo) {
+		try {
+			return UsuarioDao.getInstance().getUsuario(codigo);
+		} catch (UsuarioException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

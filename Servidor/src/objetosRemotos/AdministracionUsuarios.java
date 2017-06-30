@@ -1,4 +1,4 @@
-package objetosRemotos;
+	package objetosRemotos;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -18,5 +18,10 @@ public class AdministracionUsuarios extends UnicastRemoteObject implements Admin
 	@Override
 	public UsuarioDto Login(String userName, String password)throws RemoteException {
 		return Controller.getInstance().Login(userName, password);
+	}
+
+	@Override
+	public UsuarioDto getUsuario(int codigo) throws RemoteException {
+		return Controller.getInstance().getUsuario(codigo);
 	}
 }
