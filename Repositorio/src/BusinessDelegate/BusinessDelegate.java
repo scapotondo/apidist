@@ -138,7 +138,20 @@ public class BusinessDelegate {
 			cliente.setNombre(nombreCliente);
 			
 			return getAdministracionClientes().BuscarClientePorId(cliente);
-			//TODO: faltan exceptions
+			
+		} catch (RemoteException e) {
+			throw new ApplicationException(e.getMessage());
+		}
+	}
+	
+
+	public ClienteDto BuscarCliente(int legajo) throws RemoteObjectNotFoundException, ApplicationException {
+		
+		try {
+			ClienteDto cliente = new ClienteDto();
+			cliente.setLegajo(legajo);
+			
+			return getAdministracionClientes().BuscarClientePorId(cliente);
 			
 		} catch (RemoteException e) {
 			throw new ApplicationException(e.getMessage());

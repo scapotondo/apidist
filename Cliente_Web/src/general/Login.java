@@ -54,7 +54,7 @@ public class Login extends HttpServlet {
 				
 		switch (usuario.getRol()) {
 		case Cliente:
-			page = "/cliente/perfil.jsp";
+			page = "/Perfil";
 			break;
 		default:
 			break;
@@ -63,6 +63,8 @@ public class Login extends HttpServlet {
 		Cookie coockie = new Cookie("clienteId", usuario.getCliente().getLegajo()+"");
 		response.addCookie(coockie);
 		
-		request.getRequestDispatcher(page).forward(request, response);
+		response.sendRedirect(page);
+		
+//		request.getRequestDispatcher(page).forward(request, response);
 	}
 }

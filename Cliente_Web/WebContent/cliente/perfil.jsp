@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ page import= "dto.ClienteDto"%>
 <!doctype html>
 <html >
 <head>
@@ -22,6 +25,9 @@
 </head>
 
 <body>
+<% 
+	ClienteDto cliente = (ClienteDto) request.getAttribute("cliente");
+%>
 
 <div class="wrapper">
 
@@ -39,7 +45,7 @@
                     <li><a href="pedidosAceptados.jsp">Pedidos Aceptados</a></li>
                     <li><a href="nuevoPedido.jsp">Generar Pedido</a></li>
                     <li><a href="${pageContext.request.contextPath}/Perfil">Perfil</a></li>
-                    <li><a >Nombre cliente</a></li>
+                    <li><a >nombre cliente</a></li>
                     <li><a href="" >Log Out</a></li>
                 </ul>
             </div>
