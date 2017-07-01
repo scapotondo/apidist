@@ -212,7 +212,7 @@ public class Prenda {
 		}
 		
 		return new PrendaDto(tallesValidos, coloresValidosDto, codigo, esDiscontinuo, cantidadAProducir, nombre, descripcion,
-				porcentajeGanancia, confeccionesDto, stockDto);
+				porcentajeGanancia, confeccionesDto, stockDto, this.calcularCostoActual());
 	}
 	
 	public void saveMe() {

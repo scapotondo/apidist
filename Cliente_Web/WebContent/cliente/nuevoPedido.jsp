@@ -1,4 +1,7 @@
 <!doctype html>
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@page import="dto.PrendaDto"%>
+<%@page import="java.util.ArrayList"%>
 <html >
 <head>
     <meta charset="utf-8" />
@@ -19,12 +22,60 @@
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+    
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+    	$(function() {
+		    $('#prendasSelect').on('change', function(){
+		    	var codigo = $('#prendasSelect').val();
+		    	if (codigo != 'null') {
+		            $.get("GetPrenda", 
+		            	{ codigoPrenda : $('#prendasSelect').val() }, 
+			            function(response) {   
+							fillSelect($('#coloresSelect'), response.Colores);
+					      	fillSelect($('#tallesSelect'), response.Talles);
+					      	$('#precioTxt').val(response.Precio);
+			        });
+		    	} else {
+		    		$('#coloresSelect').find('option').remove();
+		    		$('#tallesSelect').find('option').remove();
+		    	}
+	        });
+	        
+	        function fillSelect(select, items) {
+	   			select.find('option').remove();
+	
+	            $.each(items, function(index, value) {
+	        		$('<option>').val(value).text(value).appendTo(select);
+		      	});
+			}
+			
+			$('#addBtn').on('click', function() {
+				var codigo = $('#prendasSelect').val();
+				if (codigo != 'null') {
+					var color = $('#coloresSelect').val();
+					var talle = $('#tallesSelect').val();
+					var cantidad = $('#cantidadTxt').val();
+					var subtotal = cantidad*$('#precioTxt').val();
+					$('<option>').val(codigo + "-" + color + "-" + talle + "-" + cantidad).text($('#prendasSelect option:selected').text() + " - " + color + " - " + talle + " - " + cantidad + " - " + subtotal).appendTo($('#listaDeItems'));
+					$('#totalTxt').val(parseFloat($('#totalTxt').val())+subtotal);
+				}
+			});
+			
+			$('#submitBtn').click(function () {
+				$('#listaDeItems option').each(function () {
+		            $(this).attr('selected', true);
+		        });
+			});
+		});
+    </script>
 </head>
 
 <body>
 
 <div class="wrapper">
-
+	<% ArrayList<PrendaDto> prendas = (ArrayList<PrendaDto>) request.getAttribute("prendas");%>
+	
     <%@include file="generalNav.jsp" %>
 
     <div class="main-panel">
@@ -38,13 +89,43 @@
                                 <h4 class="title"> Generar Pedido</h4>
                             </div>
                             <div class="card-content">
-                                <form>
+                                <form action="${pageContext.request.contextPath}/NuevoPedido" method="post">
                                     <div class="row">
-                                    
-                                    
-                                    </div>
-                                    
-                                    
+                                    	<label for="prendasSelect">Prenda:</label>
+	                                    <select id="prendasSelect">
+	                                    	<option value="null">- Seleccionar -</option>
+	                                    	<% 	if (prendas != null) { 
+	                                    			for (PrendaDto prenda : prendas) { %>
+												<option value="<%= prenda.getCodigo() %>"><%= prenda.getDescripcion() %></option>
+											<% 		}
+												} %>
+	  									</select>
+	  									
+	  									<label for="precioTxt">Precio:</label>
+	  									<input type="text" id="precioTxt" disabled="disabled">
+	  									
+	  									<label for="coloresSelect">Color:</label>
+	  									<select id="coloresSelect">
+	  									</select>
+	  									
+	  									<label for="tallesSelect">Talles:</label>
+	  									<select id="tallesSelect">
+	  									</select>
+	  									
+	  									<label for="cantidadTxt">Cantidad:</label>
+	  									<input id="cantidadTxt" name="cantidad" type="text">
+	  									
+	  									<input id="addBtn" type="button" value="Agregar">
+									</div>
+									<div> 
+										<select id="listaDeItems" name="items[]" size="10" multiple="multiple">
+										</select>
+										<label for="totalTxt">Total:</label>
+										<input type="text" id="totalTxt" disabled="disabled">
+									</div>
+									<div>
+										<input id="submitBtn" type="submit" value="Realizar pedido">
+									</div>
                                 </form>
                             </div>
                         </div>
