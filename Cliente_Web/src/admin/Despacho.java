@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import BusinessDelegate.BusinessDelegate;
-import dto.OrdenDeProduccionDto;
+import dto.EmpleadoDto;
 import dto.PedidoPrendasDto;
 import dto.UsuarioDto;
 import exceptions.RemoteObjectNotFoundException;
@@ -50,6 +50,10 @@ public class Despacho extends HttpServlet{
 			request.setAttribute("usuario", usuario);
 			request.setAttribute("pedidos", pedidos);
 			
+			String idPedido = request.getParameter("IdPedido");
+			if(idPedido != null){
+				doPost(request,response);
+			}
 			
 			request.getRequestDispatcher("/admin/despacho.jsp").forward(request, response);
 			
@@ -63,7 +67,28 @@ public class Despacho extends HttpServlet{
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			int codigo = 0;
+			for (Cookie cookie : request.getCookies()) {
+				if(cookie.getName().equals("usuario"))
+					codigo = Integer.parseInt(cookie.getValue());
+			}
 		
+			UsuarioDto usuario = BusinessDelegate.getInstance().getUser(codigo);
+			
+			EmpleadoDto empleado = new EmpleadoDto();
+			empleado.setNombre(usuario.getUserName());
+			
+			String idPedido = request.getParameter("IdPedido");
+			
+			PedidoPrendasDto pedido = new PedidoPrendasDto();
+			pedido.setNroPedido(Integer.parseInt(idPedido));
+		
+		
+			BusinessDelegate.getInstance().despacharPedido(pedido, empleado);
+		} catch (RemoteObjectNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 }
 

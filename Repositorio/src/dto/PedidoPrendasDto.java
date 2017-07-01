@@ -18,6 +18,8 @@ public class PedidoPrendasDto implements Serializable{
 	private ClienteDto cliente;
 	private ArrayList<ItemPrendaDto> items;
 	
+	public PedidoPrendasDto(){}
+	
 	public PedidoPrendasDto(int nroPedido, Date fechaProbableDespacho, String estado, Date fechaGeneracion,
 			Date fechaRealDespacho, OrdenDeProduccionDto ordenProduccion, ClienteDto cliente, ArrayList<ItemPrendaDto> items){
 		this.nroPedido=nroPedido;

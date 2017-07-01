@@ -69,19 +69,25 @@
 	                            <div class="card-content table-responsive">
 	                                <table class="table">
 	                                    <thead class="text-info">
-	                                    <th>Pedido</th>
-	                                    <th>Fecha Probable Despacho</th>
-	                                    <th>Cliente</th>
-	                                    <th>Despachar</th>
+		                                    <th>Pedido</th>
+		                                    <th>Fecha Probable Despacho</th>
+		                                    <th>Cliente</th>
+		                                    <th>Despachar</th>
 	                                    </thead>
 	                                    <tbody>
-	                                    <tr>
-	                                        <td>1</td>
-	                                        <td>11/11/17</td>
-	                                        <td>Nombre Cliente</td>
-	                                        <td><a href=""><i class="material-icons">done</i></a></td>
-	                                    </tr>
-	
+	                                    	<%
+	                                    		if(pedidos != null){
+	                                    			for(PedidoPrendasDto pedido : pedidos){
+	                                    	%>
+					                                    <tr>
+					                                        <td><%= pedido.getNroPedido() %></td>
+					                                        <td><%= pedido.getFechaRealDespacho() %></td>
+					                                        <td><%= pedido.getCliente().getNombre() %></td>
+					                                        <td><a href="Despacho?IdPedido=<%= pedido.getNroPedido() %>"><i class="material-icons">done</i></a></td>
+					                                    </tr>
+											<%		}
+	                                    		}
+											%>
 	                                    </tbody>
 	                                </table>
 	                            </div>
