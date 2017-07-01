@@ -50,7 +50,7 @@ public class Login extends HttpServlet {
 					
 			switch (usuario.getRol()) {
 			case Cliente:
-				page = request.getContextPath()+"/Perfil";
+				page = request.getContextPath()+"/PedidosPendientes";
 				break;
 			default:
 				break;

@@ -1,5 +1,6 @@
 package controller;
 
+import java.rmi.RemoteException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -218,6 +219,28 @@ public class Controller {
 				}
 			}
 		}
+	}
+	
+	public ArrayList<PedidoPrendasDto> getPedidosPendientesAceptacionCliente(ClienteDto cliente)throws RemoteException {
+		ArrayList<PedidoPrendasDto> pedidosDto = new ArrayList<PedidoPrendasDto>();
+		
+		ArrayList<PedidoPrendas> pedidos = PedidoPrendasDao.getInstance().getPedidosPedientesAprobacionCliente(cliente);
+		for (PedidoPrendas pedidoPrendas : pedidos) {
+			pedidosDto.add(pedidoPrendas.toDto());
+		}
+		
+		return pedidosDto;
+	}
+
+	public ArrayList<PedidoPrendasDto> getPedidosPendientesAceptacionAdmin(ClienteDto cliente) throws RemoteException {
+		ArrayList<PedidoPrendasDto> pedidosDto = new ArrayList<PedidoPrendasDto>();
+		
+		ArrayList<PedidoPrendas> pedidos = PedidoPrendasDao.getInstance().getPedidosPedientesAprobacionAdmin(cliente);
+		for (PedidoPrendas pedidoPrendas : pedidos) {
+			pedidosDto.add(pedidoPrendas.toDto());
+		}
+		
+		return pedidosDto;
 	}
 	
 	public void RechazarPedidoCliente(int nroPedido) throws PedidoException{

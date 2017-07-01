@@ -46,5 +46,13 @@ public class AdministracionPedidos extends UnicastRemoteObject implements Admini
 	public ArrayList<PedidoPrendasDto> getPedidosAceptados(ClienteDto cliente) throws RemoteException {
 		return Controller.getInstance().getPedidosAceptados(cliente);
 	}
+
+	public ArrayList<PedidoPrendasDto> getPedidosPendientesAceptacionCliente(ClienteDto cliente)throws RemoteException {
+		return Controller.getInstance().getPedidosPendientesAceptacionCliente(cliente);
+	}
+
+	public ArrayList<PedidoPrendasDto> getPedidosPendientesAceptacionAdmin(ClienteDto cliente) throws RemoteException {
+		return Controller.getInstance().getPedidosPendientesAceptacionAdmin(cliente);
+	}
 	
 }

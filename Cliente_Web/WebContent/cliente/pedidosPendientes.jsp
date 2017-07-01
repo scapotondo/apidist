@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ page import= "dto.UsuarioDto"%>
+<%@ page import= "dto.PedidoPrendasDto"%>
 <!doctype html>
 <html >
 <head>
@@ -22,7 +26,10 @@
 </head>
 
 <body>
-
+<%
+	ArrayList<PedidoPrendasDto> pedidosPendientes = (ArrayList<PedidoPrendasDto>)request.getAttribute("pedidosPendientes");
+	UsuarioDto usuario = request.getAttribute("usuario");
+%>
 <div class="wrapper">
 
     <%@include file="generalNav.jsp" %>
@@ -40,19 +47,24 @@
                             <div class="card-content table-responsive">
                                 <table class="table">
                                     <thead class="text-info">
-                                    <th>Pedido</th>
-                                    <th>Fecha Probable Despacho</th>
-                                    <th>Aceptar</th>
-                                    <th>Rechazar</th>
+	                                    <th>Pedido</th>
+	                                    <th>Fecha Probable Despacho</th>
+	                                    <th>Aceptar</th>
+	                                    <th>Rechazar</th>
                                     </thead>
+                                    
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>11/11/17</td>
-                                        <td><a href=""> <i class="material-icons">done</i> </a></td>
-                                        <td><a href=""> <i class="material-icons" style="color:red">clear</i> </a></td>
-                                    </tr>
-
+                                    	<%
+                                    		for(PedidoPrendasDto pedido : pedidosPendientes){
+                                    	%>
+		                                    <tr>
+		                                        <td><%= pedido.getNroPedido() %></td>
+		                                        <td><%= pedido.getFechaProbableDespacho() %></td>
+		                                        <td><a href="PedidosPendientes?action=aceptar"> <i class="material-icons">done</i> </a></td>
+		                                        <td><a href="PedidosPendientes?action=rechazar"> <i class="material-icons" style="color:red">clear</i> </a></td>
+		                                    </tr>
+		                                    
+										<% } %>
                                     </tbody>
                                 </table>
                             </div>

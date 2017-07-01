@@ -1,11 +1,19 @@
 package cliente;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import BusinessDelegate.BusinessDelegate;
+import dto.PedidoPrendasDto;
+import dto.UsuarioDto;
+import exceptions.RemoteObjectNotFoundException;
 
 /**
  * Servlet implementation class PedidosPendientes
@@ -25,7 +33,25 @@ public class PedidosPendientes extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("cliente/pedidosPendientes.jsp").forward(request, response);
+		try {
+			int codigo = 0;
+			for (Cookie cookie : request.getCookies()) {
+				if(cookie.getName().equals("usuario"))
+					codigo = Integer.parseInt(cookie.getValue());
+			}
+		
+			UsuarioDto usuario = BusinessDelegate.getInstance().getUser(codigo);
+	
+			ArrayList<PedidoPrendasDto> pedidosPendientes = BusinessDelegate.getInstance().getPedidosPendientesAceptacionCliente(usuario.getCliente());
+			
+			request.setAttribute("pedidosPendientes", pedidosPendientes);
+			request.setAttribute("usuario", usuario);
+			
+			request.getRequestDispatcher("cliente/pedidosPendientes.jsp").forward(request, response);
+		} catch (RemoteObjectNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

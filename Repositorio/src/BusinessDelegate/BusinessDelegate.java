@@ -350,6 +350,29 @@ public class BusinessDelegate {
 		getAdministracionPedidosRemoto().RechazarPedidoCliente(nroPedido);
 	}
 	
+	public ArrayList<PedidoPrendasDto> getPedidosPendientesAceptacionCliente(ClienteDto cliente){
+		
+		try {
+			return getAdministracionPedidosRemoto().getPedidosPendientesAceptacionCliente(cliente);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (RemoteObjectNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ArrayList<PedidoPrendasDto> getPedidosPendientesAceptacionAdmin(ClienteDto cliente){
+		try {
+			return getAdministracionPedidosRemoto().getPedidosPendientesAceptacionAdmin(cliente);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (RemoteObjectNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	/** Despacho **/
 	public void despacharPedido(PedidoPrendasDto pedidoDto, EmpleadoDto encargadoDto) throws RemoteException, RemoteObjectNotFoundException{
 		getAreaProduccionRemoto().despacharPedido(pedidoDto, encargadoDto);

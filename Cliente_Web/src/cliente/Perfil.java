@@ -36,7 +36,7 @@ public class Perfil extends HttpServlet{
 		try {
 			int codigo = 0;
 			for (Cookie cookie : request.getCookies()) {
-				if(cookie.getName().equals("clienteId"))
+				if(cookie.getName().equals("usuario"))
 					codigo = Integer.parseInt(cookie.getValue());
 			}
 		
