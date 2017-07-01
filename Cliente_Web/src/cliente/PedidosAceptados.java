@@ -36,10 +36,11 @@ public class PedidosAceptados extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int codigo = 0;
 		for (Cookie cookie : request.getCookies()) {
-			if(cookie.getName().equals("clienteId"));
-		
-			codigo = Integer.parseInt(cookie.getValue());
+			if(cookie.getName().equals("usuario"))
+				codigo = Integer.parseInt(cookie.getValue() + "");
 		}
+		
+		
 	
 		UsuarioDto usuario = new UsuarioDto();
 		try {
@@ -50,7 +51,9 @@ public class PedidosAceptados extends HttpServlet {
 		
 		ArrayList<PedidoPrendasDto> pedidosAceptados = BusinessDelegate.getInstance().getPedidosAceptados(usuario.getCliente());
 		
-		request.getRequestDispatcher("cliente/pedidosPendientes.jsp").forward(request, response);
+		request.setAttribute("pedidosAceptados", pedidosAceptados);
+		
+		request.getRequestDispatcher("cliente/pedidosAceptados.jsp").forward(request, response);
 	}
 
 	/**
