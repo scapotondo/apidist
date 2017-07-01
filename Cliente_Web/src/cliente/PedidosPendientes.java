@@ -47,7 +47,14 @@ public class PedidosPendientes extends HttpServlet {
 			request.setAttribute("pedidosPendientes", pedidosPendientes);
 			request.setAttribute("usuario", usuario);
 			
-			request.getRequestDispatcher("cliente/pedidosPendientes.jsp").forward(request, response);
+			String action = request.getParameter("action");
+			String numeroPedido = request.getParameter("nro");
+			
+			if(action!= null && numeroPedido!= null){
+				doPost(request,response);
+			}else
+				request.getRequestDispatcher("cliente/pedidosPendientes.jsp").forward(request, response);
+		
 		} catch (RemoteObjectNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -58,7 +65,23 @@ public class PedidosPendientes extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		try {
+			String action = request.getParameter("action");
+			String numeroPedido = request.getParameter("nro");
+			
+			if(action.equals("aceptar"))
+				BusinessDelegate.getInstance().AceptarPedidoCliente(Integer.parseInt(numeroPedido));
+				
+			if(action.equals("rechazar"))
+				BusinessDelegate.getInstance().RechazarPedidoCliente(Integer.parseInt(numeroPedido));;
+				
+			response.sendRedirect(request.getContextPath()+"/PedidosPendientes");
+		
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (RemoteObjectNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

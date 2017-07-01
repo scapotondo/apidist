@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import= "dto.UsuarioDto"%>
 <%@ page import= "dto.PedidoPrendasDto"%>
+<%@page import="java.util.ArrayList"%>
 <!doctype html>
 <html >
 <head>
@@ -28,7 +29,7 @@
 <body>
 <%
 	ArrayList<PedidoPrendasDto> pedidosPendientes = (ArrayList<PedidoPrendasDto>)request.getAttribute("pedidosPendientes");
-	UsuarioDto usuario = request.getAttribute("usuario");
+	UsuarioDto usuario = (UsuarioDto)request.getAttribute("usuario");
 %>
 <div class="wrapper">
 
@@ -54,14 +55,15 @@
                                     </thead>
                                     
                                     <tbody>
+		                                    
                                     	<%
                                     		for(PedidoPrendasDto pedido : pedidosPendientes){
                                     	%>
 		                                    <tr>
 		                                        <td><%= pedido.getNroPedido() %></td>
 		                                        <td><%= pedido.getFechaProbableDespacho() %></td>
-		                                        <td><a href="PedidosPendientes?action=aceptar"> <i class="material-icons">done</i> </a></td>
-		                                        <td><a href="PedidosPendientes?action=rechazar"> <i class="material-icons" style="color:red">clear</i> </a></td>
+		                                        <td><a href="PedidosPendientes?action=aceptar&nro=<%= pedido.getNroPedido() %>"> <i class="material-icons">done</i> </a></td>
+		                                        <td><a href="PedidosPendientes?action=rechazar&nro=<%= pedido.getNroPedido() %>"> <i class="material-icons" style="color:red">clear</i> </a></td>
 		                                    </tr>
 		                                    
 										<% } %>

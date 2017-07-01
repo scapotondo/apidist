@@ -32,8 +32,7 @@
 
 <body>
 	<%
-		ArrayList<PedidoPrendasDto> pedidosAceptados = (ArrayList<PedidoPrendasDto>) request
-				.getAttribute("pedidosAceptados");
+		ArrayList<PedidoPrendasDto> pedidosAceptados = (ArrayList<PedidoPrendasDto>) request.getAttribute("pedidosAceptados");
 	%>
 
 
@@ -61,16 +60,14 @@
 										<tbody>
 
 											<%
-												for (PedidoPrendasDto pedido : pedidosAceptados) {
+											  	for (PedidoPrendasDto pedido : pedidosAceptados) {
 											%>
-											<tr>
-												<td><%= pedido.getNroPedido() %></td>
-												<td><%= pedido.getFechaRealDespacho() %></td>
-												<td><%= pedido.getCliente().getNombre() %></td>
-											</tr>
-											<%
-												}
-											%>
+												<tr>
+													<td><%= pedido.getNroPedido() %></td>
+													<td><%= pedido.getFechaRealDespacho() %></td>
+													<td><%= pedido.getCliente().getNombre() %></td>
+												</tr>
+											<% } %>
 										</tbody>
 									</table>
 								</div>
@@ -81,7 +78,6 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 
 <!--   Core JS Files   -->

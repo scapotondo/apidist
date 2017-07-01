@@ -8,6 +8,7 @@
 </head>
 
 <body>
+	
  	<div class="login">
 		<h1>Login</h1>
 	    <form method="post" action="${pageContext.request.contextPath}/Login">
@@ -19,5 +20,6 @@
 	</div>
   
     <script src="js/index.js"></script>
+    
 </body>
 </html>
