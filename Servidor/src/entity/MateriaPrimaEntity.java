@@ -31,7 +31,9 @@ public class MateriaPrimaEntity implements Serializable{
 	@OneToMany(mappedBy="materiaPrima",cascade = CascadeType.ALL)
 	private List<StockMateriaPrimaEntity> stock;
 	
-	public MateriaPrimaEntity(){}
+	public MateriaPrimaEntity(){
+		this.stock = new ArrayList<>();
+	}
 	public MateriaPrimaEntity(MateriaPrima materiaPrima){
 		this.codigo = materiaPrima.getCodigo();
 		this.nombre = materiaPrima.getNombre();

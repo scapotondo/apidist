@@ -51,7 +51,9 @@ public class PrendaEntity implements Serializable{
 	@OneToMany(mappedBy="prenda", cascade = CascadeType.ALL)
 	private List<StockPrendaEntity> stock;
 	
-	public PrendaEntity(){}
+	public PrendaEntity(){
+		this.stock = new ArrayList<>();
+	}
 	
 	public PrendaEntity(int codigo, boolean esDiscontinuo, int cantidadAProducir, String nombre, String descripcion, 
 			float porsentajeGanancia, ArrayList<String>tallesValidos, ArrayList<Integer>coloresValidos,
