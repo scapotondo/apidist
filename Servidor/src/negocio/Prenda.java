@@ -189,11 +189,6 @@ public class Prenda {
 		return materiasPrimasNecesarias;
 	}
 	
-	//TODO: nose si va aca, revisar
-	public boolean hayStockSuficiente(int cantidad){
-		return true;
-	}
-	
 	public PrendaDto toDto(){
 		ArrayList<ConfeccionDto> confeccionesDto =new ArrayList<>();
 		ArrayList<StockPrendaDto> stockDto = new ArrayList<>();

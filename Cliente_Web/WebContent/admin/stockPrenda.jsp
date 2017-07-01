@@ -1,4 +1,7 @@
 <!doctype html>
+<%@page import="dto.StockPrendaDto"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dto.UsuarioDto"%>
 <html >
 <head>
     <meta charset="utf-8" />
@@ -23,7 +26,10 @@
 <body>
 
 <div class="wrapper">
-
+	<%
+		UsuarioDto usuario = (UsuarioDto) request.getAttribute("usuario");
+		ArrayList<StockPrendaDto> stocks = (ArrayList<StockPrendaDto>) request.getAttribute("stocks");
+	%>
     <%@include file="sidebar.jsp" %>
     <div class="main-panel">
         <nav class="navbar navbar-transparent navbar-absolute">
@@ -39,27 +45,13 @@
                 <a class="navbar-brand" >Stock Prendas</a>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="material-icons">notifications</i>
-                                <span class="notification">5</span> <!-- hace el cosito rojo -->
-                                <p class="hidden-lg hidden-md">Notifications</p>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Ejemplo de notificacion</a></li>
-
-                            </ul>
-                        </li>
                         <li>
-                            <a href="user.html" >
+                            <a href="${pageContext.request.contextPath}/User" >
                                 <i class="material-icons">person</i>
                                 <p class="hidden-lg hidden-md">Profile</p>
                             </a>
                         </li>
                     </ul>
-
-
                 </div>
             </div>
         </nav>
@@ -67,8 +59,6 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-
-
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header" data-background-color="red">
@@ -84,12 +74,19 @@
                                         <th>Cantidad</th>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Pantalon negro</td>
-                                            <td>xs</td>
-                                            <td>Negro</td>
-                                            <td>100</td>
-                                        </tr>
+                                    	<% 
+                                    		if(stocks != null){
+                                    			for(StockPrendaDto stock : stocks){
+                                    	%>
+			                                        <tr>
+			                                            <td><%= stock.getPrenda().getNombre() %></td>
+			                                            <td><%= stock.getTalle() %></td>
+			                                            <td><%= stock.getColor() %></td>
+			                                            <td><%= stock.getCantidad() %></td>
+			                                        </tr>
+                                        <%		}
+                                    		}
+                                        %>
                                     </tbody>
                                 </table>
                             </div>

@@ -72,17 +72,20 @@
 		                                    <th>Pedido</th>
 		                                    <th>Fecha Probable Despacho</th>
 		                                    <th>Cliente</th>
+		                                    <th>Gerente</th>
 		                                    <th>Despachar</th>
 	                                    </thead>
 	                                    <tbody>
 	                                    	<%
 	                                    		if(pedidos != null){
 	                                    			for(PedidoPrendasDto pedido : pedidos){
+	                                    				
 	                                    	%>
 					                                    <tr>
 					                                        <td><%= pedido.getNroPedido() %></td>
 					                                        <td><%= pedido.getFechaRealDespacho() %></td>
 					                                        <td><%= pedido.getCliente().getNombre() %></td>
+					                                        <td><%= pedido.getCliente().getSucursal().getGerente().getNombre() %></td>
 					                                        <td><a href="Despacho?IdPedido=<%= pedido.getNroPedido() %>"><i class="material-icons">done</i></a></td>
 					                                    </tr>
 											<%		}

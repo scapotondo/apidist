@@ -11,22 +11,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import BusinessDelegate.BusinessDelegate;
-import dto.PedidoPrendasDto;
+import dto.StockPrendaDto;
 import dto.UsuarioDto;
 import exceptions.RemoteObjectNotFoundException;
 
 /**
- * Servlet implementation class Sucursal
+ * Servlet implementation class StockPrenda
  */
-@WebServlet("/Sucursal")
-public class Sucursal extends HttpServlet{
+@WebServlet("/StockPrenda")
+public class StockPrenda extends HttpServlet{
 	
 	private static final long serialVersionUID = 1L;
 
 	 /**
      * @see HttpServlet#HttpServlet()
      */
-    public Sucursal() {
+    public StockPrenda() {
         super();
     }
     
@@ -44,19 +44,13 @@ public class Sucursal extends HttpServlet{
 			}
 		
 			UsuarioDto usuario = BusinessDelegate.getInstance().getUser(codigo);
-			ArrayList<PedidoPrendasDto> pedidos = BusinessDelegate.getInstance().getPedidosPendientesAceptacionAdmin();
+			
+			ArrayList<StockPrendaDto> stocks = BusinessDelegate.getInstance().getStockPrendas();
 			
 			request.setAttribute("usuario", usuario);
-			request.setAttribute("pedidos", pedidos);
-			
-			String action = request.getParameter("action");
-			String nro = request.getParameter("nro");
-			
-			if(action != null && nro != null)
-				if(action.equals("aprobar") || action.equals("rechazar"))
-					doPost(request, response);
-			
-			request.getRequestDispatcher("/admin/sucursal.jsp").forward(request, response);
+			request.setAttribute("stocks", stocks);
+		
+			request.getRequestDispatcher("/admin/stockPrenda.jsp").forward(request, response);
 			
 		} catch (RemoteObjectNotFoundException e) {
 			e.printStackTrace();
@@ -68,22 +62,6 @@ public class Sucursal extends HttpServlet{
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			String action = request.getParameter("action");
-			int numeroPedido = Integer.parseInt(request.getParameter("nro"));
-			
-			PedidoPrendasDto pedido = BusinessDelegate.getInstance().BuscarPedido(numeroPedido);
-			
-			if(action.equals("aprobar"))
-				BusinessDelegate.getInstance().AprobarPedidoAdmin(pedido);
-			else
-				BusinessDelegate.getInstance().RechazarPedidoAdmin(pedido, "rechazado");
-			
-		} catch (RemoteObjectNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 }
-
-

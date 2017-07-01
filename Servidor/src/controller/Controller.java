@@ -234,10 +234,10 @@ public class Controller {
 		return pedidosDto;
 	}
 
-	public ArrayList<PedidoPrendasDto> getPedidosPendientesAceptacionAdmin(ClienteDto cliente) throws RemoteException {
+	public ArrayList<PedidoPrendasDto> getPedidosPendientesAceptacionAdmin() throws RemoteException {
 		ArrayList<PedidoPrendasDto> pedidosDto = new ArrayList<PedidoPrendasDto>();
 		
-		ArrayList<PedidoPrendas> pedidos = PedidoPrendasDao.getInstance().getPedidosPedientesAprobacionAdmin(cliente);
+		ArrayList<PedidoPrendas> pedidos = PedidoPrendasDao.getInstance().getPedidosPedientesAprobacionAdmin();
 		for (PedidoPrendas pedidoPrendas : pedidos) {
 			pedidosDto.add(pedidoPrendas.toDto());
 		}

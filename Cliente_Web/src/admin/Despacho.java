@@ -68,23 +68,12 @@ public class Despacho extends HttpServlet{
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			int codigo = 0;
-			for (Cookie cookie : request.getCookies()) {
-				if(cookie.getName().equals("usuario"))
-					codigo = Integer.parseInt(cookie.getValue());
-			}
-		
-			UsuarioDto usuario = BusinessDelegate.getInstance().getUser(codigo);
+			String idPedido = request.getParameter("IdPedido");
+			PedidoPrendasDto pedido = BusinessDelegate.getInstance().BuscarPedido(Integer.parseInt(idPedido));
 			
 			EmpleadoDto empleado = new EmpleadoDto();
-			empleado.setNombre(usuario.getUserName());
+			empleado.setNombre(pedido.getCliente().getSucursal().getGerente().getNombre());
 			
-			String idPedido = request.getParameter("IdPedido");
-			
-			PedidoPrendasDto pedido = new PedidoPrendasDto();
-			pedido.setNroPedido(Integer.parseInt(idPedido));
-		
-		
 			BusinessDelegate.getInstance().despacharPedido(pedido, empleado);
 		} catch (RemoteObjectNotFoundException e) {
 			e.printStackTrace();

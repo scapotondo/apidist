@@ -1,4 +1,6 @@
 <!doctype html>
+<%@page import="dto.PedidoPrendasDto"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="dto.UsuarioDto"%>
 <html >
 <head>
@@ -24,6 +26,7 @@
 <body>
 	<%
 		UsuarioDto usuario = (UsuarioDto) request.getAttribute("usuario");
+		ArrayList<PedidoPrendasDto> pedidos = (ArrayList<PedidoPrendasDto>)request.getAttribute("pedidos");
 	%>
 	<div class="wrapper">
 		<%@include file="sidebar.jsp" %>
@@ -58,9 +61,8 @@
 	            <div class="container-fluid">
 	                <div class="row">
 	                    <div class="col-md-3">
-	                        <a href="stockPrenda.html" class="btn btn-facebook " target="_blank">Ver Stock Prendas</a>
+	                        <a href="${pageContext.request.contextPath}/StockPrenda" class="btn btn-facebook " target="_blank">Ver Stock Prendas</a>
 	                    </div>
-	
 	                    <div class="col-md-12">
 	                        <div class="card">
 	                            <div class="card-header" data-background-color="red">
@@ -70,39 +72,44 @@
 	                            <div class="card-content table-responsive">
 	                                <table class="table">
 	                                    <thead class="text-info">
-	                                    <th>Numero</th>
-	                                    <th>Cliente</th>
-	                                    <th>Items</th>
-	                                    <th>Fecha Generacion</th>
-	                                    <th>Estado</th>
-	                                    <th>Aprobar</th>
-	                                    <th>Rechazar</th>
+		                                    <th>Numero</th>
+		                                    <th>Cliente</th>
+		                                    <th>Items</th>
+		                                    <th>Fecha Generacion</th>
+		                                    <th>Estado</th>
+		                                    <th>Aprobar</th>
+		                                    <th>Rechazar</th>
 	                                    </thead>
 	                                    <tbody>
-	                                    <tr>
-	                                        <td>1</td>
-	                                        <td>Cliente Pedido</td>
-	                                        <td>
-	                                            <a href="itemsPedido.html" class="btn btn-facebook " target="_blank">Ver Items</a>
-	                                        </td>
-	                                        <td>24/12/16</td>
-	                                        <td>En Proceso</td>
-	                                        <td><a href=""> <i class="material-icons">done</i> </a></td>
-	                                        <td><a href=""> <i class="material-icons" style="color:red">clear</i> </a></td>
-	                                    </tr>
-	
+	                                    	<%	
+	                                    		if(pedidos != null){
+	                                    			for(PedidoPrendasDto pedido : pedidos){
+	                                    	%>
+				                                    <tr>
+				                                        <td><%= pedido.getNroPedido() %></td>
+				                                        <td><%= pedido.getCliente().getNombre() %></td>
+				                                        <td>
+				                                            <a href="ItemsPedido?numero=<%= pedido.getNroPedido() %>" class="btn btn-facebook " target="_blank">Ver Items</a>
+				                                        </td>
+				                                        <td><%= pedido.getFechaGeneracion() %></td>
+				                                        <td><%= pedido.getEstado() %></td>
+				                                        <td><a href="Sucursal?action=aprobar&nro=<%=pedido.getNroPedido() %>"> <i class="material-icons">done</i> </a></td>
+				                                        <td><a href="Sucursal?action=rechazar&nro=<%=pedido.getNroPedido() %>"> <i class="material-icons" style="color:red">clear</i> </a></td>
+				                                    </tr>
+				                                    
+											<%		}
+												}
+											%>
 	                                    </tbody>
 	                                </table>
 	                            </div>
 	                        </div>
 	                    </div>
-	
 	                </div>
 	            </div>
 	        </div>
 	    </div>
 	</div>
-
 </body>
 
 <!--   Core JS Files   -->

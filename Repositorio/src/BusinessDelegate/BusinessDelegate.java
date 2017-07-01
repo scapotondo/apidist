@@ -405,9 +405,9 @@ public class BusinessDelegate {
 		return null;
 	}
 
-	public ArrayList<PedidoPrendasDto> getPedidosPendientesAceptacionAdmin(ClienteDto cliente) {
+	public ArrayList<PedidoPrendasDto> getPedidosPendientesAceptacionAdmin() {
 		try {
-			return getAdministracionPedidosRemoto().getPedidosPendientesAceptacionAdmin(cliente);
+			return getAdministracionPedidosRemoto().getPedidosPendientesAceptacionAdmin();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (RemoteObjectNotFoundException e) {

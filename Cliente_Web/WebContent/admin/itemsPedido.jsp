@@ -1,4 +1,7 @@
 <!doctype html>
+<%@page import="dto.ItemPrendaDto"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dto.UsuarioDto"%>
 <html >
 <head>
     <meta charset="utf-8" />
@@ -21,92 +24,82 @@
 </head>
 
 <body>
-
-<div class="wrapper">
-
-	<%@include file="sidebar.jsp" %>
-
-    <div class="main-panel">
-        <nav class="navbar navbar-transparent navbar-absolute">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <a class="navbar-brand" >Items del pedido 1</a>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="material-icons">notifications</i>
-                                <span class="notification">5</span> <!-- hace el cosito rojo -->
-                                <p class="hidden-lg hidden-md">Notifications</p>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Ejemplo de notificacion</a></li>
-
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="user.html" >
-                                <i class="material-icons">person</i>
-                                <p class="hidden-lg hidden-md">Profile</p>
-                            </a>
-                        </li>
-                    </ul>
-
-
-                </div>
-            </div>
-        </nav>
-
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header" data-background-color="red">
-                                <h4 class="title">Items</h4>
-                                <p class="category">Unidades que componen un pedido</p>
-                            </div>
-                            <div class="card-content table-responsive">
-                                <table class="table">
-                                    <thead class="text-info">
-                                    <th>Prenda</th>
-                                    <th>Talle</th>
-                                    <th>Color</th>
-                                    <th>Cantidad</th>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Pantalon negro</td>
-                                        <td>xs</td>
-                                        <td>Negro</td>
-                                        <td>1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Remera roja</td>
-                                        <td>s</td>
-                                        <td>Roja</td>
-                                        <td>2</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+	<%
+		UsuarioDto usuario = (UsuarioDto) request.getAttribute("usuario");
+		ArrayList<ItemPrendaDto> items = (ArrayList<ItemPrendaDto>) request.getAttribute("items");
+	%>
+	<div class="wrapper">
+	
+		<%@include file="sidebar.jsp" %>
+	
+	    <div class="main-panel">
+	        <nav class="navbar navbar-transparent navbar-absolute">
+	            <div class="container-fluid">
+	                <div class="navbar-header">
+	                    <button type="button" class="navbar-toggle" data-toggle="collapse">
+	                        <span class="sr-only">Toggle navigation</span>
+	                        <span class="icon-bar"></span>
+	                        <span class="icon-bar"></span>
+	                        <span class="icon-bar"></span>
+	                    </button>
+	                </div>
+	                <a class="navbar-brand" >Items del pedido 1</a>
+	                <div class="collapse navbar-collapse">
+	                    <ul class="nav navbar-nav navbar-right">
+	                        <li>
+	                            <a href="${pageContext.request.contextPath}/User" >
+	                                <i class="material-icons">person</i>
+	                                <p class="hidden-lg hidden-md">Profile</p>
+	                            </a>
+	                        </li>
+	                    </ul>
+	                </div>
+	            </div>
+	        </nav>
+	
+	        <div class="content">
+	            <div class="container-fluid">
+	                <div class="row">
+	
+	                    <div class="col-md-12">
+	                        <div class="card">
+	                            <div class="card-header" data-background-color="red">
+	                                <h4 class="title">Items</h4>
+	                                <p class="category">Unidades que componen un pedido</p>
+	                            </div>
+	                            <div class="card-content table-responsive">
+	                                <table class="table">
+	                                    <thead class="text-info">
+		                                    <th>Prenda</th>
+		                                    <th>Talle</th>
+		                                    <th>Color</th>
+		                                    <th>Cantidad</th>
+	                                    </thead>
+	                                    <tbody>
+	                                    	<%
+	                                    		if(items != null){
+	                                    			for(ItemPrendaDto item : items){
+	                                    	%>
+					                                    <tr>
+					                                        <td><%= item.getPrenda().getNombre() %></td>
+					                                        <td><%= item.getTalle() %></td>
+					                                        <td><%= item.getColor() %></td>
+					                                        <td><%= item.getCantidad() %></td>
+					                                    </tr>
+	                                  		<%		}
+	                                  			}
+	                                  		%>
+	                                    </tbody>
+	                                </table>
+	                            </div>
+	                        </div>
+	                    </div>
+	
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 
 </body>
 
@@ -122,6 +115,6 @@
 <script src="assets/js/bootstrap-notify.js"></script>
 
 <!-- Material Dashboard javascript methods -->
-<script src="../assets/js/material-dashboard.js"></script>
+<script src="assets/js/material-dashboard.js"></script>
 
 </html>
