@@ -1,4 +1,6 @@
 <!doctype html>
+<%@page import="dto.OrdenDeCompraDto"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="dto.UsuarioDto"%>
 <html >
 <head>
@@ -24,6 +26,7 @@
 <body>
 	<%
 		UsuarioDto usuario = (UsuarioDto) request.getAttribute("usuario");
+		ArrayList<OrdenDeCompraDto> ordenesCompra = (ArrayList<OrdenDeCompraDto>) request.getAttribute("ordenes");
 	%>
 	<div class="wrapper">
 	
@@ -66,27 +69,33 @@
 	                            <div class="card-content table-responsive">
 	                                <table class="table">
 	                                    <thead class="text-info">
-	                                    <th>Id</th>
-	                                    <th>Orden de Produccion</th>
-	                                    <th>Proveedor</th>
-	                                    <th>Materia Prima</th>
-	                                    <th>Cantidad</th>
-	                                    <th>Precio Unitario</th>
-	                                    <th>Fecha Probable Despacho</th>
-	                                    <th>Aceptar</th>
+		                                    <th>Orden de Compra</th>
+		                                    <th>Proveedor</th>
+		                                    <th>Orden de Produccion</th>
+		                                    <th>Materia Prima</th>
+		                                    <th>Cantidad</th>
+		                                    <th>Precio Unitario</th>
+		                                    <th>Fecha Probable Despacho</th>
+		                                    <th>Aceptar</th>
 	                                    </thead>
 	                                    <tbody>
-	                                    <tr>
-	                                        <td>1</td>
-	                                        <td>1</td>
-	                                        <td>Proveedor 1</td>
-	                                        <td>Botones</td>
-	                                        <td>500</td>
-	                                        <td>3</td>
-	                                        <td>12/09/23</td>
-	                                        <td><a href=""><i class="material-icons">done</i></a></td>
-	                                    </tr>
-	
+	                                    	<%
+	                                    		if(ordenesCompra!= null){
+	                                    			for(OrdenDeCompraDto orden :ordenesCompra){
+	                                    	%>
+					                                    <tr>
+					                                        <td><%= orden.getId() %></td>
+					                                        <td><%= orden.getProveedor().getNombre() %></td>
+					                                        <td><%= orden.getOrdenProduccion().getNroOrden() %></td>
+					                                        <td><%= orden.getMateriaPrima().getNombre() %></td>
+					                                        <td><%= orden.getCantidad() %></td>
+					                                        <td><%= orden.getPrecioUnitario() %></td>
+					                                        <td><%= orden.getFechaProbableDespacho() %></td>
+					                                        <td><a href="AreaCompras?id=<%= orden.getId() %>"><i class="material-icons">done</i></a></td>
+					                                    </tr>
+											<%		}
+	                                    		}
+											%>
 	                                    </tbody>
 	                                </table>
 	                            </div>

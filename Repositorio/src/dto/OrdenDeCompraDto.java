@@ -16,9 +16,12 @@ public class OrdenDeCompraDto implements Serializable{
 	private float precioUnitario;
 	private OrdenDeProduccionDto ordenProduccion;
 	private ProveedorDto proveedor;
+	private MateriaPrimaDto materiaPrima;
+	
+	public OrdenDeCompraDto(){}
 	
 	public OrdenDeCompraDto(Date fechaGeneracion,Date fechaProbableDespacho,Date fechaRealDespacho,int cantidad,
-			float precioUnitario,OrdenDeProduccionDto ordenProduccion,ProveedorDto proveedor, int id){
+			float precioUnitario,OrdenDeProduccionDto ordenProduccion,ProveedorDto proveedor, int id, MateriaPrimaDto materiaPrima){
 		this.fechaGeneracion=fechaGeneracion;
 		this.fechaProbableDespacho=fechaProbableDespacho;
 		this.fechaRealDespacho=fechaRealDespacho;
@@ -27,7 +30,22 @@ public class OrdenDeCompraDto implements Serializable{
 		this.ordenProduccion=ordenProduccion;
 		this.proveedor=proveedor;
 		this.id = id;
+		this.materiaPrima = materiaPrima;
 	}
+	
+	
+
+	public MateriaPrimaDto getMateriaPrima() {
+		return materiaPrima;
+	}
+
+
+
+	public void setMateriaPrima(MateriaPrimaDto materiaPrima) {
+		this.materiaPrima = materiaPrima;
+	}
+
+
 
 	public Date getFechaGeneracion() {
 		return fechaGeneracion;

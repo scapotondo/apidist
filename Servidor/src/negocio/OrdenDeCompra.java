@@ -146,7 +146,7 @@ public class OrdenDeCompra {
 	
 	public OrdenDeCompraDto toDto(){
 		return new OrdenDeCompraDto(fechaGeneracion, fechaProbableDespacho, fechaRealDespacho, cantidad, precioUnitario,
-				ordenProduccion.toDto(), proveedor.toDto(), id);
+				ordenProduccion.toDto(), proveedor.toDto(), id, this.materiaPrima.toDto());
 	}
 	
 	public void saveMe(){

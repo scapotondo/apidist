@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import BusinessDelegate.BusinessDelegate;
 import dto.OrdenDeCompraDto;
 import dto.UsuarioDto;
+import exceptions.ApplicationException;
 import exceptions.RemoteObjectNotFoundException;
 
 /**
@@ -45,13 +46,19 @@ public class AreaCompras extends HttpServlet{
 		
 			UsuarioDto usuario = BusinessDelegate.getInstance().getUser(codigo);
 			
-			ArrayList<OrdenDeCompraDto> ordenesCompra ;
+			ArrayList<OrdenDeCompraDto> ordenesCompra = BusinessDelegate.getInstance().getOrdenesCompraPendientes();
 			
 			request.setAttribute("usuario", usuario);
+			request.setAttribute("ordenes", ordenesCompra);
+			
+			String id = request.getParameter("id");
+			if(id != null){
+				doPost(request,response);
+			}
 			
 			request.getRequestDispatcher("/admin/areaCompras.jsp").forward(request, response);
 			
-		} catch (RemoteObjectNotFoundException e) {
+		} catch (RemoteObjectNotFoundException | ApplicationException e) {
 			e.printStackTrace();
 		}
 		
@@ -61,6 +68,17 @@ public class AreaCompras extends HttpServlet{
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			OrdenDeCompraDto orden = new OrdenDeCompraDto();
+			Integer id = Integer.parseInt(request.getParameter("id"));
+			orden.setId(id);
 		
+			BusinessDelegate.getInstance().comprar(orden);
+			
+		} catch (RemoteObjectNotFoundException e) {
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
 	}
 }
