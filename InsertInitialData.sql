@@ -180,7 +180,6 @@ INSERT into Proveedor
 VALUES(5, 'cbu', 'cuit', 'Avellaneda 500', 'Proveedor 5', '4302-6581' );
 
 
-
 -- PRENDA 1
 INSERT INTO Prenda
 VALUES (1, 100, "Remera cuello redondo", 0, "Remera", 10);
@@ -201,7 +200,7 @@ VALUES (1, 'l'); -- Talle l
 
 
 INSERT INTO Confeccion
-VALUES (1, 'Tela necesaria', 3.5, 1, 1); -- confeccion(id, detalle, tiempoProd, areaProd_codigo, prenda_id)
+VALUES (1, 'Tela necesaria',1 , 3.5, 1, 1); -- confeccion(id, detalle, estado , tiempoProd, areaProd_codigo, prenda_id)
 
 
 INSERT INTO Insumo
@@ -236,7 +235,7 @@ VALUES (2, 'xl'); -- Talle xl
 
 
 INSERT INTO Confeccion
-VALUES (2, 'Algodon necesario', 5.5, 2, 2); -- confeccion(id, detalle, tiempoProd, areaProd_codigo, prenda_id)
+VALUES (2, 'Algodon necesario',1, 5.5, 2, 2); -- confeccion(id, detalle, estado ,tiempoProd, areaProd_codigo, prenda_id)
 
 
 INSERT INTO Insumo
@@ -259,41 +258,9 @@ VALUES (3, 'm'); -- Talle m
 
 
 INSERT INTO Confeccion
-VALUES (3, 'Botones necesarios', 1.5, 3, 3); -- confeccion(id, detalle, tiempoProd, areaProd_codigo, prenda_id)
+VALUES (3, 'Botones necesarios', 1, 5, 3, 3); -- confeccion(id, detalle, estado ,tiempoProd, areaProd_codigo, prenda_id)
 
 
 INSERT INTO Insumo
 VALUES (3, 5, 0, 1, 3); -- Insumo (id, cantidad, desperdicio, codigo materia prima, confeccion_id)
-
-
-INSERT into StockPrenda
-VALUES(1, 100, 1, 30, 'Disponible', NOW(), 's', 'A010101', 1, 1);
-
-INSERT into StockPrenda
-VALUES(2, 100, 2, 50, 'Disponible', NOW(), 'm', 'A010102', 2, 2);
-
-INSERT into StockPrenda
-VALUES(3, 100, 2, 10, 'Disponible', NOW(), 's', 'A010103', 3, 3);
-
-
-
-INSERT into OrdenDeProduccion
-VALUES('', 1, 1, 'Finalizado', 1, 1, 1);
-
-INSERT into OrdenDeProduccion
-VALUES('', 2, 1, 'Finalizado', 2, 2, 2);
-
-INSERT into OrdenDeProduccion
-VALUES('', 3, 1, 'Finalizado', 3, 3, 3);
-
-
-INSERT into PedidoPrendas
-VALUES(1, 'Completo', NOW(), NOW(), NOW(), 1, 1,1);
-
-INSERT into PedidoPrendas
-VALUES(2, 'Completo', NOW(), NOW(), NOW(), 2, 2,2);
-
-INSERT into PedidoPrendas
-VALUES(3, 'Completo', NOW(), NOW(), NOW(), 3, 3,3);
-
 
