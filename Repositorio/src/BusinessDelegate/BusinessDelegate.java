@@ -434,9 +434,20 @@ public class BusinessDelegate {
 		return getAdminUsuariosRemoto().getUsuario(codigo);
 	}
 
-	public ArrayList<PedidoPrendasDto> getPedidosAceptados() {
+	public ArrayList<PedidoPrendasDto> getPedidosDespacho() {
 		try {
-			return getAdministracionPedidosRemoto().getPedidosAceptados();
+			return getAdministracionPedidosRemoto().getPedidosDespacho();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (RemoteObjectNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ArrayList<PedidoPrendasDto> getPedidosAceptados(ClienteDto cliente) {
+		try {
+			return getAdministracionPedidosRemoto().getPedidosAceptados(cliente);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (RemoteObjectNotFoundException e) {

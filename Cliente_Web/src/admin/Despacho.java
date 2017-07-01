@@ -45,9 +45,11 @@ public class Despacho extends HttpServlet{
 			}
 		
 			UsuarioDto usuario = BusinessDelegate.getInstance().getUser(codigo);
-			ArrayList<PedidoPrendasDto> pedidos = BusinessDelegate.getInstance().getPedidosPendientesAceptacionAdmin();
+			ArrayList<PedidoPrendasDto> pedidos = BusinessDelegate.getInstance().getPedidosDespacho();
 			
 			request.setAttribute("usuario", usuario);
+			request.setAttribute("pedidos", pedidos);
+			
 			
 			request.getRequestDispatcher("/admin/despacho.jsp").forward(request, response);
 			

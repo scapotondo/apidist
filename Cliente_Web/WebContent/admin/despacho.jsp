@@ -1,4 +1,6 @@
 <!doctype html>
+<%@page import="dto.PedidoPrendasDto"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="dto.UsuarioDto"%>
 <html >
 <head>
@@ -24,6 +26,7 @@
 <body>
 	<%
 		UsuarioDto usuario = (UsuarioDto) request.getAttribute("usuario");
+		ArrayList<PedidoPrendasDto> pedidos = (ArrayList<PedidoPrendasDto>) request.getAttribute("pedidos");
 	%>
 	<div class="wrapper">
 	
