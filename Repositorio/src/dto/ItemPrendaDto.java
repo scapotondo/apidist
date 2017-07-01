@@ -13,6 +13,13 @@ public class ItemPrendaDto implements Serializable{
 	private PrendaDto prenda;
 	private OrdenDeProduccionDto lote;
 	
+	public ItemPrendaDto(int cantidad, String talle, String color, PrendaDto prenda){
+		this.cantidad=cantidad;
+		this.talle=talle;
+		this.color=color;
+		this.prenda=prenda;
+	}
+	
 	public ItemPrendaDto(int cantidad, String talle, String color,float importe, PrendaDto prenda, OrdenDeProduccionDto lote ){
 		this.cantidad=cantidad;
 		this.talle=talle;

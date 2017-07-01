@@ -3,7 +3,6 @@
 	<name>Cliente_Web</name>
 	<comment></comment>
 	<projects>
-		<project>Repositorio</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

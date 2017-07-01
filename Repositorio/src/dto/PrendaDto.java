@@ -18,27 +18,53 @@ public class PrendaDto implements Serializable{
 	private float porcentajeGanancia;
 	private ArrayList<ConfeccionDto> confecciones;
 	private ArrayList<StockPrendaDto> stock;
+	private float precio;
 	
 	public PrendaDto(int codigo) {
 		this.codigo=codigo;
 	}
 	
-	public PrendaDto(ArrayList<String> tallesValidos,ArrayList<String> coloresValidos,int codigo,boolean esDiscontinuo,
-			int cantidadAProducir,String nombre,String descripcion,float porsentajeGanancia,ArrayList<ConfeccionDto> confecciones,
+	public PrendaDto(ArrayList<String> tallesValidos, ArrayList<String> coloresValidos, int codigo, boolean esDiscontinuo,
+			int cantidadAProducir, String nombre, String descripcion, float porsentajeGanancia, ArrayList<ConfeccionDto> confecciones,
 			ArrayList<StockPrendaDto> stock){
 		this(codigo);
 		
-		this.tallesValidos=tallesValidos;
-		this.coloresValidos=coloresValidos;
-		this.esDiscontinuo=esDiscontinuo;
-		this.cantidadAProducir=cantidadAProducir;
-		this.nombre=nombre;
-		this.descripcion=descripcion;
-		this.porcentajeGanancia=porsentajeGanancia;
-		this.confecciones=confecciones;
-		this.stock=stock;
+		this.tallesValidos = tallesValidos;
+		this.coloresValidos = coloresValidos;
+		this.esDiscontinuo = esDiscontinuo;
+		this.cantidadAProducir = cantidadAProducir;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.porcentajeGanancia = porsentajeGanancia;
+		this.confecciones = confecciones;
+		this.stock = stock;
+	}
+	
+	public PrendaDto(ArrayList<String> tallesValidos, ArrayList<String> coloresValidos, int codigo, boolean esDiscontinuo,
+			int cantidadAProducir, String nombre, String descripcion, float porsentajeGanancia, ArrayList<ConfeccionDto> confecciones,
+			ArrayList<StockPrendaDto> stock, float precio){
+		this(codigo);
+		
+		this.tallesValidos = tallesValidos;
+		this.coloresValidos = coloresValidos;
+		this.esDiscontinuo = esDiscontinuo;
+		this.cantidadAProducir = cantidadAProducir;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.porcentajeGanancia = porsentajeGanancia;
+		this.confecciones = confecciones;
+		this.stock = stock;
+		this.precio = precio;
 	}
 
+	public float getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(float precio) {
+		this.precio = precio;
+	}
+	
 	public ArrayList<String> getTallesValidos() {
 		return tallesValidos;
 	}

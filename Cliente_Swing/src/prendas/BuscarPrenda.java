@@ -88,7 +88,10 @@ public class BuscarPrenda extends javax.swing.JFrame {
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {
         try {
-			PrendaDto prendaModificar = BusinessDelegate.getInstance().buscarPrendaPorCodigo(comboPrendas.getSelectedItem()+"");
+        	String [] partes = ((String) comboPrendas.getSelectedItem()).split("-");
+			int codigo = Integer.parseInt(partes[1]);
+			
+			PrendaDto prendaModificar = BusinessDelegate.getInstance().buscarPrendaPorCodigo(codigo);
 		
 			ModificarPrenda mp  = new ModificarPrenda(prendaModificar);
 	        mp.setLocationRelativeTo(null);

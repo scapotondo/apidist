@@ -7,7 +7,10 @@ import java.util.Date;
 
 public class PedidoPrendasDto implements Serializable{
 	
-	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3693520197628887358L;
 	
 	private int nroPedido;
 	private Date fechaProbableDespacho;
@@ -19,6 +22,13 @@ public class PedidoPrendasDto implements Serializable{
 	private ArrayList<ItemPrendaDto> items;
 	
 	public PedidoPrendasDto(){}
+	
+	public PedidoPrendasDto(Date fechaGeneracion, ClienteDto cliente, ArrayList<ItemPrendaDto> items){
+		this.estado="Nuevo";
+		this.fechaGeneracion=fechaGeneracion;
+		this.cliente=cliente;
+		this.items=items;
+	}
 	
 	public PedidoPrendasDto(int nroPedido, Date fechaProbableDespacho, String estado, Date fechaGeneracion,
 			Date fechaRealDespacho, OrdenDeProduccionDto ordenProduccion, ClienteDto cliente, ArrayList<ItemPrendaDto> items){
@@ -95,6 +105,4 @@ public class PedidoPrendasDto implements Serializable{
 	public void setItems(ArrayList<ItemPrendaDto> items) {
 		this.items = items;
 	}
-	
-
 }
