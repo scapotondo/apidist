@@ -198,7 +198,6 @@ public class PedidoPrendasDao {
 			}
 			
 			return pedidosAceptados;
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
