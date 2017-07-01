@@ -8,6 +8,7 @@ import java.util.Hashtable;
 import dao.MovimientoMateriaPrimaDao;
 import dao.MovimientoPrendaDao;
 import dao.PrendaDao;
+import dao.ProveedorDao;
 import dao.StockMateriaPrimaDao;
 import dao.StockPrendaDao;
 import dto.EmpleadoDto;
@@ -19,12 +20,15 @@ import dto.StockPrendaDto;
 import exceptions.ColorException;
 import negocio.ColorPrenda;
 import negocio.EstadoMovimientoMateriaPrima;
+import negocio.EstadoOrdenProduccion;
 import negocio.ItemPrenda;
 import negocio.MateriaPrima;
 import negocio.MovimientoMateriaPrima;
 import negocio.MovimientoPrenda;
+import negocio.OrdenDeCompra;
 import negocio.OrdenDeProduccion;
 import negocio.Prenda;
+import negocio.Proveedor;
 import negocio.StockMateriaPrima;
 import negocio.StockPrenda;
 
@@ -360,9 +364,35 @@ public class AlmacenController {
 
 	public void reservarMateriaPrima(MateriaPrima mp, int cantidad, OrdenDeProduccion lote) {
 		
-		MovimientoMateriaPrima movimientoMateriaPrimaReservada = new MovimientoMateriaPrima(
-				EstadoMovimientoMateriaPrima.Reservar, cantidad, Calendar.getInstance().getTime(), new ArrayList<StockMateriaPrima>(), lote);
-		movimientoMateriaPrimaReservada.saveMe();
+		ArrayList<StockMateriaPrima> materiasPrimas = StockMateriaPrimaDao.getInstance().getStockMateriasPrimas();
+		Float precio = 0f;
+		for (StockMateriaPrima stockMateriaPrima : materiasPrimas) {
+			if(stockMateriaPrima.getMateriaPrima().getCodigo() == mp.getCodigo()){
+				if(stockMateriaPrima.getCantidad() >= cantidad)
+					cantidad = 0;
+				else
+					cantidad = cantidad - stockMateriaPrima.getCantidad();
+				
+				precio = stockMateriaPrima.getPrecioFinalCompra();
+			}
+			
+		}
+		
+		if(cantidad == 0){
+		
+			MovimientoMateriaPrima movimientoMateriaPrimaReservada = new MovimientoMateriaPrima(
+					EstadoMovimientoMateriaPrima.Reservar, cantidad, Calendar.getInstance().getTime(), new ArrayList<StockMateriaPrima>(), lote);
+			movimientoMateriaPrimaReservada.saveMe();
+			
+		}else{
+			Proveedor proveedor = ProveedorDao.getInstance().getProveedores().get(0);
+			OrdenDeCompra ordenDeCompra = new OrdenDeCompra(Calendar.getInstance().getTime(), Calendar.getInstance().getTime(),
+					Calendar.getInstance().getTime(), mp.getMinimo(), precio, lote, proveedor, OrdenDeCompra.PENDIENTE);
+			ordenDeCompra.saveMe();
+			
+			lote.setEstado(EstadoOrdenProduccion.MATERIAPRIMA);
+			lote.modificame();
+		}
 	}
 
 

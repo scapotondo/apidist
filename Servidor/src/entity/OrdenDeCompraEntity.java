@@ -33,6 +33,7 @@ public class OrdenDeCompraEntity implements Serializable{
 	private Date fechaRealDespacho;
 	private int cantidad;
 	private float precioUnitario;
+	private String estado;
 	
 	@OneToOne()
 	@JoinColumn(name="nroOrden")
@@ -45,7 +46,7 @@ public class OrdenDeCompraEntity implements Serializable{
 	public OrdenDeCompraEntity(){}
 	
 	public OrdenDeCompraEntity(int id,MateriaPrimaEntity materiaPrima,Date fechaGeneracion,Date fechaProbableDespacho,
-			Date fechaRealDespacho,int cantidad,float precioUnitario,OrdenDeProduccionEntity ordenProduccion,ProveedorEntity proveedor){
+			Date fechaRealDespacho,int cantidad,float precioUnitario,OrdenDeProduccionEntity ordenProduccion,ProveedorEntity proveedor, String estado){
 		this.id=id;
 		this.materiaPrima= materiaPrima;
 		this.fechaGeneracion=fechaGeneracion;
@@ -55,6 +56,7 @@ public class OrdenDeCompraEntity implements Serializable{
 		this.precioUnitario=precioUnitario;
 		this.ordenProduccion=ordenProduccion;
 		this.proveedor=proveedor;
+		this.estado = estado;
 	}
 	
 
@@ -75,6 +77,7 @@ public class OrdenDeCompraEntity implements Serializable{
 		
 		this.proveedor=new ProveedorEntity(orden.getProveedor());
 		this.materiaPrima= new MateriaPrimaEntity(orden.getMateriaPrima());
+		this.estado= orden.getEstado();
 	}
 
 	public int getId() {
@@ -148,6 +151,13 @@ public class OrdenDeCompraEntity implements Serializable{
 	public void setProveedor(ProveedorEntity proveedor) {
 		this.proveedor = proveedor;
 	}
-	
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 	
 }

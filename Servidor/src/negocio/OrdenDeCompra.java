@@ -1,13 +1,19 @@
+
 package negocio;
 
 import java.util.Date;
 
+import dao.OrdenDeCompraDao;
 import dto.OrdenDeCompraDto;
 import entity.OrdenDeCompraEntity;
 import entity.OrdenDeProduccionCompletaEntity;
 import entity.OrdenDeProduccionParcialEntity;
 
 public class OrdenDeCompra {
+	
+	public static final String PENDIENTE = "pendiente";
+	public static final String REALIZADA = "realizada";
+	
 
 	private int id;
 	
@@ -19,7 +25,7 @@ public class OrdenDeCompra {
 	private OrdenDeProduccion ordenProduccion;
 	private Proveedor proveedor;
 	private MateriaPrima materiaPrima;
-	
+	private String estado;
 	
 
 	public OrdenDeCompra(OrdenDeCompraEntity oc){
@@ -37,10 +43,11 @@ public class OrdenDeCompra {
 		if(oc.getOrdenProduccion().getClass().getName().equals("entity.OrdenDeProduccionParcialEntity"))
 			this.ordenProduccion=new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) oc.getOrdenProduccion());
 		
+		this.estado = oc.getEstado(); 
 	}
 	
 	public OrdenDeCompra(Date fechaGeneracion,Date fechaProbableDespacho,Date fechaRealDespacho,int cantidad,
-			float precioUnitario,OrdenDeProduccion ordenProduccion,Proveedor proveedor){
+			float precioUnitario,OrdenDeProduccion ordenProduccion,Proveedor proveedor, String estado){
 		this.fechaGeneracion=fechaGeneracion;
 		this.fechaProbableDespacho=fechaProbableDespacho;
 		this.fechaRealDespacho=fechaRealDespacho;
@@ -48,6 +55,7 @@ public class OrdenDeCompra {
 		this.precioUnitario=precioUnitario;
 		this.ordenProduccion=ordenProduccion;
 		this.proveedor=proveedor;
+		this.estado = estado;
 	}
 	
 	public int getId() {
@@ -121,6 +129,16 @@ public class OrdenDeCompra {
 	public void setProveedor(Proveedor proveedor) {
 		this.proveedor = proveedor;
 	}
+	
+	
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 
 	public float calcularPrecioFinal(){
 		return this.precioUnitario*this.cantidad;
@@ -128,6 +146,10 @@ public class OrdenDeCompra {
 	
 	public OrdenDeCompraDto toDto(){
 		return new OrdenDeCompraDto(fechaGeneracion, fechaProbableDespacho, fechaRealDespacho, cantidad, precioUnitario,
-				ordenProduccion.toDto(), proveedor.toDto());
+				ordenProduccion.toDto(), proveedor.toDto(), id);
+	}
+	
+	public void saveMe(){
+		OrdenDeCompraDao.getInstance().crearOrdenDeCompra(this);
 	}
 }

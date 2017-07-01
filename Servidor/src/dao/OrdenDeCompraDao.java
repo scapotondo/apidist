@@ -79,4 +79,27 @@ public class OrdenDeCompraDao {
 		session.getTransaction().commit();
 		session.close();
 	}
+
+	public ArrayList<OrdenDeCompra> getOrdenesDeCompraPendientes(){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		ArrayList<OrdenDeCompraEntity> ordenesDeCompraEntity = (ArrayList<OrdenDeCompraEntity>) session.createQuery("from OrdenDeCompraEntity WHERE estado = ?")
+																.setParameter(0, OrdenDeCompra.PENDIENTE)
+																.list();
+		session.getTransaction().commit();
+		session.close();
+		
+		if(ordenesDeCompraEntity == null)
+			return null;
+		
+		ArrayList<OrdenDeCompra> ordenesDeCompra = new ArrayList<OrdenDeCompra>();
+		
+		for (OrdenDeCompraEntity orden : ordenesDeCompraEntity) {
+			ordenesDeCompra.add(new OrdenDeCompra(orden));
+		}
+		
+		return ordenesDeCompra;
+	}
 }

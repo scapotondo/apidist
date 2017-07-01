@@ -8,6 +8,7 @@ public class OrdenDeCompraDto implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
+	private int id;
 	private Date fechaGeneracion;
 	private Date fechaProbableDespacho;
 	private Date fechaRealDespacho;
@@ -17,7 +18,7 @@ public class OrdenDeCompraDto implements Serializable{
 	private ProveedorDto proveedor;
 	
 	public OrdenDeCompraDto(Date fechaGeneracion,Date fechaProbableDespacho,Date fechaRealDespacho,int cantidad,
-			float precioUnitario,OrdenDeProduccionDto ordenProduccion,ProveedorDto proveedor){
+			float precioUnitario,OrdenDeProduccionDto ordenProduccion,ProveedorDto proveedor, int id){
 		this.fechaGeneracion=fechaGeneracion;
 		this.fechaProbableDespacho=fechaProbableDespacho;
 		this.fechaRealDespacho=fechaRealDespacho;
@@ -25,6 +26,7 @@ public class OrdenDeCompraDto implements Serializable{
 		this.precioUnitario=precioUnitario;
 		this.ordenProduccion=ordenProduccion;
 		this.proveedor=proveedor;
+		this.id = id;
 	}
 
 	public Date getFechaGeneracion() {
@@ -82,5 +84,14 @@ public class OrdenDeCompraDto implements Serializable{
 	public void setProveedor(ProveedorDto proveedor) {
 		this.proveedor = proveedor;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	
 }

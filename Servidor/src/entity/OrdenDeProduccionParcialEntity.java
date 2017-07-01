@@ -6,7 +6,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 
-import negocio.OrdenProduccionParcial;
+import negocio.OrdenDeProduccion;
 
 @Entity
 @DiscriminatorValue(value="parcial")
@@ -22,7 +22,7 @@ public class OrdenDeProduccionParcialEntity extends OrdenDeProduccionEntity {
 	
 	public OrdenDeProduccionParcialEntity(){}
 	
-	public OrdenDeProduccionParcialEntity(OrdenProduccionParcial orden){
+	public OrdenDeProduccionParcialEntity(OrdenDeProduccion orden){
 		super(orden);
 		this.tallesValidos = orden.getTalles();
 		this.coloresValidos = orden.getColores();

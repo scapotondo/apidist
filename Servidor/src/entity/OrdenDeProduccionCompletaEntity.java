@@ -4,7 +4,7 @@ package entity;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import negocio.OrdenProduccionCompleta;
+import negocio.OrdenDeProduccion;
 
 @Entity 
 @DiscriminatorValue(value="completa")
@@ -13,7 +13,7 @@ public class OrdenDeProduccionCompletaEntity extends OrdenDeProduccionEntity {
 	
 	public OrdenDeProduccionCompletaEntity(){}
 	
-	public OrdenDeProduccionCompletaEntity(OrdenProduccionCompleta orden){
+	public OrdenDeProduccionCompletaEntity(OrdenDeProduccion orden){
 		super(orden);
 	}
 	

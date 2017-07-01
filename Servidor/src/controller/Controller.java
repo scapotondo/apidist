@@ -198,7 +198,8 @@ public class Controller {
 				
 				if (cantColores.size() >= 3 || cantTalles.size() >= 3) {
 					
-					OrdenProduccionCompleta opc = new OrdenProduccionCompleta(EstadoOrdenProduccion.PENDIENTE, pedido, prenda);
+					OrdenDeProduccion opc = new OrdenProduccionCompleta(EstadoOrdenProduccion.PENDIENTE, pedido, prenda);
+					opc.saveMe();
 					
 					int cantidad = prenda.getCantidadOPC();
 					
@@ -209,6 +210,7 @@ public class Controller {
 				} else {
 					
 					OrdenDeProduccion opp = new OrdenProduccionParcial(cantTalles, cantColores, EstadoOrdenProduccion.PENDIENTE, pedido, prenda);
+					opp.saveMe();
 					
 					int cantidad = sinStock.get(prenda).size() * prenda.getCantidadAProducir();
 					

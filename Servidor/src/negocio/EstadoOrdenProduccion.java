@@ -5,7 +5,8 @@ import exceptions.ColorException;
 public enum EstadoOrdenProduccion {
 	PENDIENTE(1),
 	PRODUCCION(2),
-	TERMINADA(3);
+	TERMINADA(3),
+	MATERIAPRIMA(4);
 	
 	private int value;
 
@@ -22,8 +23,9 @@ public enum EstadoOrdenProduccion {
 		case 1: return PENDIENTE;
 		case 2: return PRODUCCION;
 		case 3: return TERMINADA;
+		case 4: return MATERIAPRIMA;
 		default:
-			throw new ColorException("No se encuentra el color para el valor: " + value);
+			throw new ColorException("No se encuentra la materia Prima  para el valor: " + value);
 		}
 	}
 
@@ -35,6 +37,8 @@ public enum EstadoOrdenProduccion {
 			return "Produccion";
 		case TERMINADA:
 			return "Terminada";
+		case MATERIAPRIMA:
+			return "MateriaPrima";
 		default:
 			return "INVALID";
 		}
@@ -48,6 +52,8 @@ public enum EstadoOrdenProduccion {
 			return PRODUCCION;
 		case "TERMINADA":
 			return TERMINADA;
+		case "MATERIAPRIMA":
+			return MATERIAPRIMA;
 		default:
 			throw new Exception("El estado '" + estado + "' no existe");
 		}

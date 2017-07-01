@@ -66,6 +66,7 @@
 	                            <div class="card-content table-responsive">
 	                                <table class="table">
 	                                    <thead class="text-info">
+	                                    <th>Id</th>
 	                                    <th>Orden de Produccion</th>
 	                                    <th>Proveedor</th>
 	                                    <th>Materia Prima</th>
@@ -76,6 +77,7 @@
 	                                    </thead>
 	                                    <tbody>
 	                                    <tr>
+	                                        <td>1</td>
 	                                        <td>1</td>
 	                                        <td>Proveedor 1</td>
 	                                        <td>Botones</td>
@@ -90,7 +92,6 @@
 	                            </div>
 	                        </div>
 	                    </div>
-	
 	                </div>
 	            </div>
 	        </div>

@@ -1,5 +1,7 @@
 package negocio;
 
+import java.util.List;
+
 import entity.OrdenDeProduccionCompletaEntity;
 
 public class OrdenProduccionCompleta extends OrdenDeProduccion{
@@ -24,5 +26,15 @@ public class OrdenProduccionCompleta extends OrdenDeProduccion{
 	public int getCantidad() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<String> getTalles() {
+		return null;
+	}
+
+	@Override
+	public List<String> getColores() {
+		return null;
 	}
 }

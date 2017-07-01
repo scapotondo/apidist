@@ -1,20 +1,16 @@
+
 package controller;
 
 import java.util.ArrayList;
 
-import negocio.MateriaPrima;
+import dao.OrdenDeCompraDao;
+import dto.OrdenDeCompraDto;
+import negocio.EstadoOrdenProduccion;
 import negocio.OrdenDeCompra;
 
 
 public class AreaComprasController {
 	private static AreaComprasController instance;
-	
-	private ArrayList<OrdenDeCompra> ordenesCompras;
-	
-
-	private AreaComprasController(){
-		this.ordenesCompras = new ArrayList<OrdenDeCompra>();
-	}
 	
 	public static AreaComprasController getInstance(){
 		if(instance == null)
@@ -24,8 +20,16 @@ public class AreaComprasController {
 	}
 	
 	
-	public void comprar(MateriaPrima materiaPrima,int cantidad){
+	public void comprar(OrdenDeCompraDto ordenDto){
+		OrdenDeCompra orden = OrdenDeCompraDao.getInstance().getById(ordenDto.getId());
+		Float precio = orden.getCantidad() * orden.getPrecioUnitario();
 		
+		AlmacenController.getInstance().agregarStockMateriaPrima(orden.getMateriaPrima(), orden.getCantidad(), precio);
+		
+		orden.setEstado(OrdenDeCompra.REALIZADA);
+		orden.getOrdenProduccion().setEstado(EstadoOrdenProduccion.PENDIENTE);
+		
+		AlmacenController.getInstance().reservarMateriaPrima(orden.getMateriaPrima(), orden.getCantidad(), orden.getOrdenProduccion());
 	}
 	public void generarNotaDeCredito(){
 		
@@ -37,16 +41,4 @@ public class AreaComprasController {
 		return null;
 	}
 
-	public ArrayList<OrdenDeCompra> getOrdenesCompras() {
-		return ordenesCompras;
-	}
-
-	public void setOrdenesCompras(ArrayList<OrdenDeCompra> ordenesCompras) {
-		this.ordenesCompras = ordenesCompras;
-	}
-	
-	public void RechazarOrdenDeCompra(int nroCompra){
-		//TODO: terminar
-	}
-	
 }

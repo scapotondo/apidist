@@ -51,7 +51,8 @@ public class AreaProduccionController {
 
 		if (area.hayLineasLibres()) {
 			Confeccion confeccion = new Confeccion();
-
+			
+			//toma la primer confeccion con estado incompleto
 			for (Confeccion confeccionEvaluada : orden.getPrenda().getConfecciones()) {
 				if (confeccionEvaluada.getEstado().equals(EstadoConfeccion.INCOMPLETO)) {
 					confeccion = confeccionEvaluada;
