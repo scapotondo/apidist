@@ -28,17 +28,25 @@ public class AreaComprasController {
 		
 		orden.setEstado(OrdenDeCompra.REALIZADA);
 		orden.getOrdenProduccion().setEstado(EstadoOrdenProduccion.PENDIENTE);
+		orden.getOrdenProduccion().modificame();
+		orden.modificame();
 		
 		AlmacenController.getInstance().reservarMateriaPrima(orden.getMateriaPrima(), orden.getCantidad(), orden.getOrdenProduccion());
 	}
-	public void generarNotaDeCredito(){
+	
+	public ArrayList<OrdenDeCompraDto> getOrdenesPendientes(){
+		ArrayList<OrdenDeCompraDto> ordenesDto = new ArrayList<OrdenDeCompraDto>();
+		ArrayList<OrdenDeCompra> ordenes = OrdenDeCompraDao.getInstance().getOrdenesDeCompraPendientes();
 		
-	}
-	public void generarNotaDeDebito(){
+		if(ordenes == null)
+			return null;
 		
+		for (OrdenDeCompra ordenDeCompra : ordenes) {
+			ordenesDto.add(ordenDeCompra.toDto());
+		}
+		
+		return ordenesDto;
 	}
-	public ArrayList<Integer> getNroOrdenCompra(){
-		return null;
-	}
+	
 
 }

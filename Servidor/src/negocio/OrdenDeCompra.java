@@ -152,4 +152,8 @@ public class OrdenDeCompra {
 	public void saveMe(){
 		OrdenDeCompraDao.getInstance().crearOrdenDeCompra(this);
 	}
+	
+	public void modificame(){
+		OrdenDeCompraDao.getInstance().modificarOrdenDeCompra(this);
+	}
 }

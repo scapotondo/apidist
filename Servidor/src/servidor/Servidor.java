@@ -5,6 +5,7 @@ import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 
 import interfaces.*;
+import interfaces.AdministracionOrdenesCompra;
 import objetosRemotos.*;
 
 public class Servidor {
@@ -28,6 +29,7 @@ public class Servidor {
     	AdministracionPedidoInterface adminPedidos;
     	AdministracionAlmacenInterface adminAlmacen;
     	AdministracionUsuariosInterface adminUsuarios;
+    	AdministracionOrdenesCompra adminOrdenesCompra;
     	
     	try {
     		
@@ -40,7 +42,7 @@ public class Servidor {
     		adminPedidos = new AdministracionPedidos();
     		adminAlmacen = new AdministracionAlmacen();
     		adminUsuarios = new AdministracionUsuarios();
-    				
+    		adminOrdenesCompra = new objetosRemotos.AdministracionOrdenesCompra();
     		
             Naming.rebind ("//localhost/administracion/clientes", adminClientes);
             System.out.println("Fijado en //localhost/administracion/clientes");
@@ -62,6 +64,9 @@ public class Servidor {
             
             Naming.rebind ("//localhost/administracion/usuarios", adminUsuarios);
             System.out.println("Fijado en //localhost/administracion/usuarios");
+
+            Naming.rebind ("//localhost/administracion/ordenesCompra", adminOrdenesCompra);
+            System.out.println("Fijado en //localhost/administracion/ordenesCompra");
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -48,7 +48,7 @@ public class BusinessDelegate {
 			return (AdministracionAlmacenInterface)Naming.lookup("//localhost/administracion/almacen");
 			
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
-			throw new RemoteObjectNotFoundException("No se pude encontrar Administracion de Prendas");
+			throw new RemoteObjectNotFoundException("No se pude encontrar Administracion de almacen");
 		}
 	}
 	
@@ -66,7 +66,7 @@ public class BusinessDelegate {
 			return (AdministracionPedidoInterface)Naming.lookup("//localhost/administracion/pedidos");
 			
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
-			throw new RemoteObjectNotFoundException("No se pude encontrar administracion produccion");
+			throw new RemoteObjectNotFoundException("No se pude encontrar administracion pedidos");
 		}
 	}
 	
@@ -75,7 +75,7 @@ public class BusinessDelegate {
 			return (AdministracionOrdenesProduccionInterface)Naming.lookup("//localhost/administracion/ordenesProduccion");
 			
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
-			throw new RemoteObjectNotFoundException("No se pude encontrar administracion produccion");
+			throw new RemoteObjectNotFoundException("No se pude encontrar administracion ordenesProduccion");
 		}
 	}
 	
@@ -83,9 +83,39 @@ public class BusinessDelegate {
 		try {
 			return (AdministracionUsuariosInterface)Naming.lookup("//localhost/administracion/usuarios");
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
-			throw new RemoteObjectNotFoundException("No se pude encontrar administracion produccion");
+			throw new RemoteObjectNotFoundException("No se pude encontrar administracion usuarios");
 		}
 	}
+	
+	private AdministracionOrdenesCompra getAdminOrdenesCompraRemoto() throws RemoteObjectNotFoundException {
+		try {
+			return (AdministracionOrdenesCompra)Naming.lookup("//localhost/administracion/ordenesCompra");
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+			throw new RemoteObjectNotFoundException("No se pude encontrar administracion ordenesCompra");
+		}
+	}
+	/** Ordenes de Compra **/
+	
+	public ArrayList<OrdenDeCompraDto> getOrdenesCompraPendientes() throws RemoteObjectNotFoundException, ApplicationException {
+		
+		try {
+			return getAdminOrdenesCompraRemoto().getOrdenesPendientes();
+			
+		} catch (RemoteException e) {
+			throw new ApplicationException(e.getMessage());
+		}
+	}
+	
+	public void comprar(OrdenDeCompraDto orden) throws RemoteObjectNotFoundException, ApplicationException {
+		
+		try {
+			getAdminOrdenesCompraRemoto().aceptarOrden(orden);;
+			
+		} catch (RemoteException e) {
+			throw new ApplicationException(e.getMessage());
+		}
+	}
+	
 	
 	/** Administracion **/
 
