@@ -52,6 +52,13 @@ public class Login extends HttpServlet {
 				case Cliente:
 					page = request.getContextPath()+"/PedidosPendientes";
 					break;
+				case Admin: 
+				case Almacen: 
+					page = request.getContextPath()+"/Almacen";
+					break;
+				case Despacho:
+					page = request.getContextPath()+"/Despacho";
+					break;
 				default:
 					break;
 				}

@@ -10,10 +10,10 @@
     <meta name="viewport" content="width=device-width" />
 
     <!-- Bootstrap core CSS     -->
-    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
     <!--  Material Dashboard CSS    -->
-    <link href="../assets/css/material-dashboard.css" rel="stylesheet"/>
+    <link href="assets/css/material-dashboard.css" rel="stylesheet"/>
 
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -24,43 +24,7 @@
 
 <div class="wrapper">
 
-    <div class="sidebar" data-color="orange" data-image="../assets/img/sidebar-1.jpg">
-
-        <div class="logo">
-            <a href="" class="simple-text">
-                TPO
-            </a>
-        </div>
-
-        <div class="sidebar-wrapper">
-            <ul class="nav">
-                <li class="">
-                    <a href="almacen.html">
-                        <i class="material-icons">store</i>
-                        <p>Almacen</p>
-                    </a>
-                </li>
-                <li class="">
-                    <a href="areaCompras.html">
-                        <i class="material-icons">store</i>
-                        <p>Area Compras</p>
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="despacho.html">
-                        <i class="material-icons">store</i>
-                        <p>Despacho</p>
-                    </a>
-                </li>
-                <li class="">
-                    <a href="sucursal.html">
-                        <i class="material-icons">store</i>
-                        <p>Sucursales</p>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+	<%@include file="sidebar.jsp" %>
 
     <div class="main-panel">
         <nav class="navbar navbar-transparent navbar-absolute">
@@ -73,7 +37,7 @@
                         <span class="icon-bar"></span>
                     </button>
                 </div>
-                <a class="navbar-brand" >Despacho</a>
+                <a class="navbar-brand" >Items del pedido 1</a>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
 
@@ -104,28 +68,34 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
+
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header" data-background-color="red">
-                                <h4 class="title">Pedidos Aprobados</h4>
-                                <p class="category">Despacho de pedidos</p>
+                                <h4 class="title">Items</h4>
+                                <p class="category">Unidades que componen un pedido</p>
                             </div>
                             <div class="card-content table-responsive">
                                 <table class="table">
                                     <thead class="text-info">
-                                    <th>Pedido</th>
-                                    <th>Fecha Probable Despacho</th>
-                                    <th>Cliente</th>
-                                    <th>Despachar</th>
+                                    <th>Prenda</th>
+                                    <th>Talle</th>
+                                    <th>Color</th>
+                                    <th>Cantidad</th>
                                     </thead>
                                     <tbody>
                                     <tr>
+                                        <td>Pantalon negro</td>
+                                        <td>xs</td>
+                                        <td>Negro</td>
                                         <td>1</td>
-                                        <td>11/11/17</td>
-                                        <td>Nombre Cliente</td>
-                                        <td><a href=""><i class="material-icons">done</i></a></td>
                                     </tr>
-
+                                    <tr>
+                                        <td>Remera roja</td>
+                                        <td>s</td>
+                                        <td>Roja</td>
+                                        <td>2</td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -141,15 +111,15 @@
 </body>
 
 <!--   Core JS Files   -->
-<script src="../assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>
-<script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="../assets/js/material.min.js" type="text/javascript"></script>
+<script src="assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="assets/js/material.min.js" type="text/javascript"></script>
 
 <!--  Charts Plugin -->
-<script src="../assets/js/chartist.min.js"></script>
+<script src="assets/js/chartist.min.js"></script>
 
 <!--  Notifications Plugin    -->
-<script src="../assets/js/bootstrap-notify.js"></script>
+<script src="assets/js/bootstrap-notify.js"></script>
 
 <!-- Material Dashboard javascript methods -->
 <script src="../assets/js/material-dashboard.js"></script>

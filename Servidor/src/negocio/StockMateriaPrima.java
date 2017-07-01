@@ -1,3 +1,4 @@
+
 package negocio;
 
 import java.util.Date;
@@ -99,7 +100,7 @@ public class StockMateriaPrima {
 	}
 	
 	public StockMateriaPrimaDto toDto(){
-		return new StockMateriaPrimaDto(numero, fechaRecepcion, precioFinalCompra, cantidad, ubicacion);
+		return new StockMateriaPrimaDto(numero, fechaRecepcion, precioFinalCompra, cantidad, ubicacion, this.materiaPrima.toDto());
 	}
 	
 	public void saveMe(){

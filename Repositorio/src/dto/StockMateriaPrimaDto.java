@@ -13,16 +13,17 @@ public class StockMateriaPrimaDto implements Serializable{
 	private float precioFinalCompra;
 	private int cantidad;
 	private String ubicacion;
+	private MateriaPrimaDto materiaPrima;
 	
-	public StockMateriaPrimaDto(int numero, Date fechaRecepcion,float precioFinalCompra,int cantidad,String ubicacion){
+	public StockMateriaPrimaDto(int numero, Date fechaRecepcion, float precioFinalCompra, int cantidad, String ubicacion, 
+			MateriaPrimaDto materiaPrima ){
 		this.numero= numero;
 		this.fechaRecepcion=fechaRecepcion;
 		this.precioFinalCompra=precioFinalCompra;
 		this.cantidad=cantidad;
 		this.ubicacion=ubicacion;
+		this.materiaPrima = materiaPrima;
 	}
-
-
 
 	public int getNumero() {
 		return numero;
@@ -63,5 +64,14 @@ public class StockMateriaPrimaDto implements Serializable{
 	public void setUbicacion(String ubicacion) {
 		this.ubicacion = ubicacion;
 	}
+
+	public MateriaPrimaDto getMateriaPrima() {
+		return materiaPrima;
+	}
+
+	public void setMateriaPrima(MateriaPrimaDto materiaPrima) {
+		this.materiaPrima = materiaPrima;
+	}
+	
 	
 }
