@@ -275,14 +275,9 @@ public class BusinessDelegate {
 		}
 	}
 
-	public PrendaDto buscarPrendaPorCodigo(String cadena) throws RemoteObjectNotFoundException, ApplicationException {
+	public PrendaDto buscarPrendaPorCodigo(int codigo) throws RemoteObjectNotFoundException, ApplicationException {
 		try {
-			String[] partes = cadena.split("-");
-			String nombre = partes[0];
-			int codigo = Integer.parseInt(partes[1]);
-
 			PrendaDto prendaDto = new PrendaDto(codigo);
-			prendaDto.setNombre(nombre);
 
 			return getAdministracionPrendas().BuscarPrendaPorNumero(prendaDto);
 		} catch (RemoteException e) {
