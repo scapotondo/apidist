@@ -338,9 +338,9 @@ public class Controller {
 		return null;
 	}
 
-	public ArrayList<PedidoPrendasDto> getPedidosAceptados(ClienteDto cliente) {
+	public ArrayList<PedidoPrendasDto> getPedidosAceptados() {
 		try {
-			ArrayList<PedidoPrendas> pedidos = PedidoPrendasDao.getInstance().getPedidosAceptados(cliente); 
+			ArrayList<PedidoPrendas> pedidos = PedidoPrendasDao.getInstance().getPedidosAceptados(); 
 			ArrayList<PedidoPrendasDto> pedidosDto = new ArrayList<PedidoPrendasDto>(); 
 			
 			for (PedidoPrendas pedido : pedidos) {

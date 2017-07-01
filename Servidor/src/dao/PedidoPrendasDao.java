@@ -181,14 +181,14 @@ public class PedidoPrendasDao {
 		return pedidos;
 	}
 	
-	public ArrayList<PedidoPrendas> getPedidosAceptados(ClienteDto cliente) {
+	public ArrayList<PedidoPrendas> getPedidosAceptados() {
 		ArrayList<PedidoPrendas> pedidosAceptados = new ArrayList<PedidoPrendas>();
 		try {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			
 			session.beginTransaction();
 			@SuppressWarnings({ "unchecked" })
-			ArrayList<PedidoPrendasEntity> pedidosEntity = (ArrayList<PedidoPrendasEntity>) session.createQuery("from PedidoPrendasEntity where cliente_legajo = ? and estado = 3").setParameter(0,  cliente.getLegajo()).list();
+			ArrayList<PedidoPrendasEntity> pedidosEntity = (ArrayList<PedidoPrendasEntity>) session.createQuery("from PedidoPrendasEntity whereestado = 3").list();
 			session.getTransaction().commit();
 			session.close();
 			

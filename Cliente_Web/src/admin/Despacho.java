@@ -1,6 +1,7 @@
 package admin;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import BusinessDelegate.BusinessDelegate;
+import dto.OrdenDeProduccionDto;
+import dto.PedidoPrendasDto;
 import dto.UsuarioDto;
 import exceptions.RemoteObjectNotFoundException;
 
@@ -42,8 +45,8 @@ public class Despacho extends HttpServlet{
 			}
 		
 			UsuarioDto usuario = BusinessDelegate.getInstance().getUser(codigo);
+			ArrayList<PedidoPrendasDto> pedidos = BusinessDelegate.getInstance().getPedidosPendientesAceptacionAdmin();
 			
-		
 			request.setAttribute("usuario", usuario);
 			
 			request.getRequestDispatcher("/admin/despacho.jsp").forward(request, response);
