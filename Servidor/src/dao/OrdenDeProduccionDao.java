@@ -69,7 +69,7 @@ public class OrdenDeProduccionDao {
 
 	}
 	
-	public void crearOrden(OrdenDeProduccion orden){
+	public OrdenDeProduccion crearOrden(OrdenDeProduccion orden){
 		OrdenDeProduccionEntity ordenEntity;
 		
 		if (orden.getClass().equals("entity.OrdenProduccionCompleta"))
@@ -80,8 +80,14 @@ public class OrdenDeProduccionDao {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(ordenEntity);
+		session.flush();
 		session.getTransaction().commit();
 		session.close();
+		
+		if (orden.getClass().equals("entity.OrdenProduccionCompleta"))
+			return  new OrdenProduccionCompleta(ordenEntity);
+		else
+			return new OrdenProduccionParcial(ordenEntity, (ArrayList<String>)orden.getTalles(), (ArrayList<String>)orden.getColores());
 	}
 	
 	public void modificame(OrdenDeProduccion orden){

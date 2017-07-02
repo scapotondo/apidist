@@ -28,6 +28,7 @@ public class PedidoPrendasDao {
 		
 		session.beginTransaction();
 		session.save(pedidoEntity);
+		session.flush();
 		session.getTransaction().commit();
 		session.close();
 		

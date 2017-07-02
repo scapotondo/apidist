@@ -3,9 +3,6 @@ package entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
-
 import negocio.EstadoOrdenProduccion;
 import negocio.OrdenDeProduccion;
 
@@ -22,16 +19,7 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int nroOrden;
 	
-	@Column(columnDefinition="integer", nullable = false)
-    @Type(
-        type = "negocio.EstadoOrdenProduccion", 
-        parameters = { 
-        	@Parameter(name = "enumClass", value = "negocio.EstadoOrdenProduccion"),
-        	@Parameter(name = "identifierMethod", value = "toInt"),
-        	@Parameter(name = "valueOfMethod", value = "fromInt")
-        }
-    )
-	private EstadoOrdenProduccion estado;
+	private int estado;
 	
 	private int confeccionesTerminadas;
 	
@@ -43,7 +31,7 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	
 	public OrdenDeProduccionEntity(){}
 	public OrdenDeProduccionEntity(int nroOrden, EstadoOrdenProduccion estado, PedidoPrendasEntity pedidoPrenda, PrendaEntity prenda){
-		this.estado=estado;
+		this.estado = estado.toInt();
 		this.confeccionesTerminadas=0;
 		this.pedidoPrenda=pedidoPrenda;
 		this.prenda=prenda;
@@ -51,7 +39,7 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	}
 	
 	public OrdenDeProduccionEntity(OrdenDeProduccion op){
-		this.estado=op.getEstado();
+		this.estado=op.getEstado().toInt();
 		this.confeccionesTerminadas=op.getConfeccionesTerminadas();
 		this.nroOrden = op.getNroOrden();
 		this.pedidoPrenda=new PedidoPrendasEntity(op.getPedido());
@@ -68,11 +56,15 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	public void setNroOrden(int nroOrden) {
 		this.nroOrden = nroOrden;
 	}
-	public EstadoOrdenProduccion getEstado() {
+	
+	public int getEstado() {
 		return estado;
 	}
-	public void setEstado(EstadoOrdenProduccion estado) {
+	public void setEstado(int estado) {
 		this.estado = estado;
+	}
+	public void setPrenda(PrendaEntity prenda) {
+		this.prenda = prenda;
 	}
 	public int getConfeccionesTerminadas() {
 		return confeccionesTerminadas;

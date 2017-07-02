@@ -198,7 +198,7 @@ public class Controller {
 				} else {
 					
 					OrdenDeProduccion opp = new OrdenProduccionParcial(cantTalles, cantColores, EstadoOrdenProduccion.PENDIENTE, pedido, prenda);
-					opp.saveMe();
+					opp = opp.saveMe();
 					
 					int cantidad = sinStock.get(prenda).size() * prenda.getCantidadAProducir();
 					

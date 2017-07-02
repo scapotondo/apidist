@@ -54,10 +54,12 @@ public class OrdenDeCompraDao {
 	}
 	
 	public void crearOrdenDeCompra(OrdenDeCompra ordenDeCompra){
+		OrdenDeCompraEntity ordenEntity = new OrdenDeCompraEntity(ordenDeCompra);
+		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		session.beginTransaction();
-		session.save(new OrdenDeCompraEntity(ordenDeCompra));
+		session.save(ordenEntity);
 		session.getTransaction().commit();
 		session.close();
 	}

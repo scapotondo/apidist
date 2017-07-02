@@ -3,6 +3,7 @@ package negocio;
 import java.util.List;
 
 import entity.OrdenDeProduccionCompletaEntity;
+import entity.OrdenDeProduccionEntity;
 
 public class OrdenProduccionCompleta extends OrdenDeProduccion{
 
@@ -15,6 +16,10 @@ public class OrdenProduccionCompleta extends OrdenDeProduccion{
 	}
 	
 	public OrdenProduccionCompleta(OrdenDeProduccionCompletaEntity lote) {
+		super(lote);
+	}
+	
+	public OrdenProduccionCompleta(OrdenDeProduccionEntity lote) {
 		super(lote);
 	}
 	

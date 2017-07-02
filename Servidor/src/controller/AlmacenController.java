@@ -386,8 +386,9 @@ public class AlmacenController {
 			
 		}else{
 			Proveedor proveedor = ProveedorDao.getInstance().getProveedores().get(0);
+			
 			OrdenDeCompra ordenDeCompra = new OrdenDeCompra(Calendar.getInstance().getTime(), Calendar.getInstance().getTime(),
-					Calendar.getInstance().getTime(), mp.getMinimo(), precio, lote, proveedor, OrdenDeCompra.PENDIENTE);
+					Calendar.getInstance().getTime(), mp.getMinimo(), precio, lote, proveedor, OrdenDeCompra.PENDIENTE, mp);
 			ordenDeCompra.saveMe();
 			
 			lote.setEstado(EstadoOrdenProduccion.MATERIAPRIMA);

@@ -37,7 +37,7 @@ public class PedidoPrendasEntity implements Serializable{
 	@ManyToOne()
 	private ClienteEntity cliente;
 	
-	@OneToOne()
+	@OneToOne(cascade = {CascadeType.ALL})
 	private OrdenDeProduccionEntity ordenProduccion;
 	
 	@OneToMany(cascade = CascadeType.ALL)

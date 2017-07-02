@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.ArrayList;
 
+import entity.OrdenDeProduccionEntity;
 import entity.OrdenDeProduccionParcialEntity;
 
 public class OrdenProduccionParcial extends OrdenDeProduccion {
@@ -27,6 +28,13 @@ public class OrdenProduccionParcial extends OrdenDeProduccion {
 		this.talles=(ArrayList<String>) lote.getTallesValidos();
 		this.colores=(ArrayList<String>) lote.getColoresValidos();
 	}
+	
+	public OrdenProduccionParcial(OrdenDeProduccionEntity lote, ArrayList<String> talles, ArrayList<String> colores) {
+		super(lote);
+		this.talles=talles;
+		this.colores=colores;
+	}
+	
 	
 	@Override
 	public int getCantidad() {

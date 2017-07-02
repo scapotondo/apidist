@@ -5,6 +5,7 @@ import java.util.List;
 import dao.OrdenDeProduccionDao;
 import dto.OrdenDeProduccionDto;
 import entity.OrdenDeProduccionEntity;
+import exceptions.ColorException;
 
 public abstract class OrdenDeProduccion {
 	
@@ -16,12 +17,16 @@ public abstract class OrdenDeProduccion {
 	
 	public OrdenDeProduccion(){}
 	public OrdenDeProduccion(OrdenDeProduccionEntity op){
-		
-		this.nroOrden = op.getNroOrden();
-		this.estado=op.getEstado();
-		this.confeccionesTerminadas=op.getConfeccionesTerminadas();
-		this.pedido=new PedidoPrendas(op.getPedidoPrenda());
-		this.prenda=new Prenda(op.getPrenda());
+		try {
+			this.nroOrden = op.getNroOrden();
+			this.estado=EstadoOrdenProduccion.fromInt(op.getEstado());
+			this.confeccionesTerminadas=op.getConfeccionesTerminadas();
+			this.pedido=new PedidoPrendas(op.getPedidoPrenda());
+			this.prenda=new Prenda(op.getPrenda());
+			
+		} catch (ColorException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public OrdenDeProduccion(int nroOrden, EstadoOrdenProduccion estado, PedidoPrendas pedido, Prenda prenda){
@@ -93,8 +98,8 @@ public abstract class OrdenDeProduccion {
 		}
 	}
 	
-	public void saveMe(){
-		OrdenDeProduccionDao.getInstance().crearOrden(this);
+	public OrdenDeProduccion saveMe(){
+		 return OrdenDeProduccionDao.getInstance().crearOrden(this);
 	}
 	
 	public void modificame(){

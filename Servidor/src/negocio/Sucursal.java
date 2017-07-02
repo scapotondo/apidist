@@ -3,9 +3,7 @@ package negocio;
 import java.util.ArrayList;
 
 import dao.SucursalDao;
-import dto.ClienteDto;
 import dto.EmpleadoDto;
-import dto.PedidoPrendasDto;
 import dto.SucursalDto;
 import entity.EmpleadoEntity;
 import entity.SucursalEntity;

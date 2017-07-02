@@ -364,16 +364,19 @@ public class BusinessDelegate {
 			throws RemoteObjectNotFoundException, AreaProduccionException, RemoteException {
 		getAdministracionOrdenesProduccionRemoto().IniciarProduccion(ordenDto, areaDto);
 	}
-	
-	
 
-	/** Pedidos Prendas 
-	 * @throws PedidoException **/
-	public PedidoPrendasDto CrearPedido(PedidoPrendasDto pedido) throws RemoteException, RemoteObjectNotFoundException, PedidoException {
+	/**
+	 * Pedidos Prendas
+	 * 
+	 * @throws PedidoException
+	 **/
+	public PedidoPrendasDto CrearPedido(PedidoPrendasDto pedido)
+			throws RemoteException, RemoteObjectNotFoundException, PedidoException {
 		return getAdministracionPedidosRemoto().CrearPedido(pedido);
 	}
 
-	public void AprobarPedidoAdmin(PedidoPrendasDto pedidoDto) throws RemoteException, RemoteObjectNotFoundException, PedidoException {
+	public void AprobarPedidoAdmin(PedidoPrendasDto pedidoDto)
+			throws RemoteException, RemoteObjectNotFoundException, PedidoException {
 		getAdministracionPedidosRemoto().AprobarPedidoAdmin(pedidoDto);
 	}
 
@@ -386,11 +389,13 @@ public class BusinessDelegate {
 		getAdministracionPedidosRemoto().RechazarPedidoAdmin(pedidoDto, descripcion);
 	}
 
-	public void AceptarPedidoCliente(int nroPedido) throws RemoteException, RemoteObjectNotFoundException, PedidoException {
+	public void AceptarPedidoCliente(int nroPedido)
+			throws RemoteException, RemoteObjectNotFoundException, PedidoException {
 		getAdministracionPedidosRemoto().AceptarPedidoCliente(nroPedido);
 	}
 
-	public void RechazarPedidoCliente(int nroPedido) throws RemoteException, RemoteObjectNotFoundException, PedidoException {
+	public void RechazarPedidoCliente(int nroPedido)
+			throws RemoteException, RemoteObjectNotFoundException, PedidoException {
 		getAdministracionPedidosRemoto().RechazarPedidoCliente(nroPedido);
 	}
 
@@ -445,7 +450,7 @@ public class BusinessDelegate {
 		}
 		return null;
 	}
-	
+
 	public ArrayList<PedidoPrendasDto> getPedidosAceptados(ClienteDto cliente) {
 		try {
 			return getAdministracionPedidosRemoto().getPedidosAceptados(cliente);

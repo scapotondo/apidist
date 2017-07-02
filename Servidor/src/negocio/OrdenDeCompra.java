@@ -47,7 +47,7 @@ public class OrdenDeCompra {
 	}
 	
 	public OrdenDeCompra(Date fechaGeneracion,Date fechaProbableDespacho,Date fechaRealDespacho,int cantidad,
-			float precioUnitario,OrdenDeProduccion ordenProduccion,Proveedor proveedor, String estado){
+			float precioUnitario,OrdenDeProduccion ordenProduccion,Proveedor proveedor, String estado , MateriaPrima materiaPrima){
 		this.fechaGeneracion=fechaGeneracion;
 		this.fechaProbableDespacho=fechaProbableDespacho;
 		this.fechaRealDespacho=fechaRealDespacho;
@@ -56,6 +56,7 @@ public class OrdenDeCompra {
 		this.ordenProduccion=ordenProduccion;
 		this.proveedor=proveedor;
 		this.estado = estado;
+		this.materiaPrima = materiaPrima;
 	}
 	
 	public int getId() {
