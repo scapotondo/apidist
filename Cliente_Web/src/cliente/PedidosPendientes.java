@@ -73,13 +73,13 @@ public class PedidosPendientes extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String action = request.getParameter("action");
-			String numeroPedido = request.getParameter("nro");
+			int numeroPedido = Integer.parseInt(request.getParameter("nro"));
 			
 			if(action.equals("aceptar"))
-				BusinessDelegate.getInstance().AceptarPedidoCliente(Integer.parseInt(numeroPedido));
+				BusinessDelegate.getInstance().AceptarPedidoCliente(numeroPedido);
 				
 			if(action.equals("rechazar"))
-				BusinessDelegate.getInstance().RechazarPedidoCliente(Integer.parseInt(numeroPedido));;
+				BusinessDelegate.getInstance().RechazarPedidoCliente(numeroPedido);;
 				
 			response.sendRedirect(request.getContextPath()+"/PedidosPendientes");
 		

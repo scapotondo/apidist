@@ -57,16 +57,18 @@
                                     <tbody>
 		                                    
                                     	<%
-                                    		for(PedidoPrendasDto pedido : pedidosPendientes){
+                                    		if(pedidosPendientes.size() >0){
+                                    			for(PedidoPrendasDto pedido : pedidosPendientes){
                                     	%>
-		                                    <tr>
-		                                        <td><%= pedido.getNroPedido() %></td>
-		                                        <td><%= pedido.getFechaProbableDespacho() %></td>
-		                                        <td><a href="PedidosPendientes?action=aceptar&nro=<%= pedido.getNroPedido() %>"> <i class="material-icons">done</i> </a></td>
-		                                        <td><a href="PedidosPendientes?action=rechazar&nro=<%= pedido.getNroPedido() %>"> <i class="material-icons" style="color:red">clear</i> </a></td>
-		                                    </tr>
-		                                    
-										<% } %>
+				                                    <tr>
+				                                        <td><%= pedido.getNroPedido() %></td>
+				                                        <td><%= pedido.getFechaProbableDespacho() %></td>
+				                                        <td><a href="PedidosPendientes?action=aceptar&nro=<%= pedido.getNroPedido() %>"> <i class="material-icons">done</i> </a></td>
+				                                        <td><a href="PedidosPendientes?action=rechazar&nro=<%= pedido.getNroPedido() %>"> <i class="material-icons" style="color:red">clear</i> </a></td>
+				                                    </tr>
+										<% 		}
+											}
+                                    	%>
                                     </tbody>
                                 </table>
                             </div>

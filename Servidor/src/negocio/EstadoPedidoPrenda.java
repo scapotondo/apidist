@@ -8,7 +8,8 @@ public enum EstadoPedidoPrenda {
 	Terminado(4),			   //Ya se despacho
 	RechazadoAdmin(5),
 	CanceladoCliente(6),
-	Despacho(7);			   //Listo para despachar
+	Despacho(7),			   //Listo para despachar
+	EsperandoMateriaPrima(8);	//Listo para despachar
 	
 	private int value;
 
@@ -30,6 +31,7 @@ public enum EstadoPedidoPrenda {
 		case 5: return RechazadoAdmin;
 		case 6: return CanceladoCliente;
 		case 7: return Despacho;
+		case 8: return EsperandoMateriaPrima;
 		default:
 			return Desconocido;
 		}
@@ -53,6 +55,8 @@ public enum EstadoPedidoPrenda {
 			return "Cancelado";
 		case Despacho:
 			return "Despacho";
+		case EsperandoMateriaPrima:
+			return "EsperandoMateriaPrima";
 		default:
 			return "Desconocido";
 		}
@@ -76,6 +80,8 @@ public enum EstadoPedidoPrenda {
 			return CanceladoCliente;
 		case "DESPACHO":
 			return Despacho;
+		case "ESPERANDOMATERIAPRIMA":
+			return EsperandoMateriaPrima;
 		default:
 			return Desconocido;
 		}

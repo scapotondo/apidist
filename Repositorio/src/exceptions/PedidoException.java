@@ -1,6 +1,5 @@
 package exceptions;
 
-import java.rmi.RemoteException;
 
 public class PedidoException extends Exception {
 	/**

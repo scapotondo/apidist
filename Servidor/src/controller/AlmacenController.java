@@ -21,12 +21,14 @@ import exceptions.ColorException;
 import negocio.ColorPrenda;
 import negocio.EstadoMovimientoMateriaPrima;
 import negocio.EstadoOrdenProduccion;
+import negocio.EstadoPedidoPrenda;
 import negocio.ItemPrenda;
 import negocio.MateriaPrima;
 import negocio.MovimientoMateriaPrima;
 import negocio.MovimientoPrenda;
 import negocio.OrdenDeCompra;
 import negocio.OrdenDeProduccion;
+import negocio.PedidoPrendas;
 import negocio.Prenda;
 import negocio.Proveedor;
 import negocio.StockMateriaPrima;
@@ -377,12 +379,15 @@ public class AlmacenController {
 			}
 			
 		}
-		
+		PedidoPrendas pedido = lote.getPedido();
 		if(cantidad == 0){
 		
 			MovimientoMateriaPrima movimientoMateriaPrimaReservada = new MovimientoMateriaPrima(
 					EstadoMovimientoMateriaPrima.Reservar, cantidad, Calendar.getInstance().getTime(), new ArrayList<StockMateriaPrima>(), lote);
 			movimientoMateriaPrimaReservada.saveMe();
+			
+			pedido.setEstado(EstadoPedidoPrenda.EnProduccion);
+			pedido.modificame();
 			
 		}else{
 			Proveedor proveedor = ProveedorDao.getInstance().getProveedores().get(0);
@@ -393,6 +398,9 @@ public class AlmacenController {
 			
 			lote.setEstado(EstadoOrdenProduccion.MATERIAPRIMA);
 			lote.modificame();
+			
+			pedido.setEstado(EstadoPedidoPrenda.EsperandoMateriaPrima);
+			pedido.modificame();
 		}
 	}
 

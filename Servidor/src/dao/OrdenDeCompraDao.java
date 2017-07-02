@@ -15,7 +15,7 @@ public class OrdenDeCompraDao {
 	
 	public static OrdenDeCompraDao getInstance(){
 		if(instance == null)
-			return new OrdenDeCompraDao();
+			instance = new OrdenDeCompraDao();
 		return instance;
 	}
 	
