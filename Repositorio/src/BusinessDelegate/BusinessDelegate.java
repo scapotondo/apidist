@@ -351,6 +351,10 @@ public class BusinessDelegate {
 	public ArrayList<StockPrendaDto> getStockPrendas() throws RemoteException, RemoteObjectNotFoundException {
 		return getAdministracionAlmacen().getStockPrendas();
 	}
+	
+	public void ModificarStockPrenda(StockPrendaDto stockDto, EmpleadoDto empleadoDto, EmpleadoDto quienAutorizoDto, ModificacionStockDto modifDto) throws ApplicationException, RemoteObjectNotFoundException {
+		getAdministracionAlmacen().modificarStockPrenda(stockDto, empleadoDto, quienAutorizoDto, modifDto);
+	}
 
 	/** Ordenes Produccion **/
 

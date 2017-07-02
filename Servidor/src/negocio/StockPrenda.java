@@ -20,9 +20,10 @@ public class StockPrenda {
 	private int cantidad;
 	private String ubicacion;
 	private int cantidadPrendasReservadas;
-	
+	private int codigo;
 	
 	public StockPrenda(StockPrendaEntity stock){
+		this.codigo=stock.getCodigo();
 		this.color=stock.getColor();
 		this.talle=stock.getTalle();
 
@@ -39,7 +40,7 @@ public class StockPrenda {
 		this.cantidadPrendasReservadas=stock.getCantidadPrendasReservadas();
 		this.prenda=new Prenda(stock.getPrenda());
 	}
-	
+
 	public StockPrenda(ColorPrenda color, String talle, OrdenDeProduccion lote, Date fecha, float costoProduccion, int cantidad,
 			String ubicacion, Prenda prenda){
 		this.color=color;
@@ -51,6 +52,14 @@ public class StockPrenda {
 		this.ubicacion=ubicacion;
 		this.cantidadPrendasReservadas=0;
 		this.prenda=prenda;
+	}
+	
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
 	public ColorPrenda getColor() {
@@ -135,7 +144,7 @@ public class StockPrenda {
 	}
 	
 	public void saveMe(){
-		StockPrendaDao.getInstance().CrearStockPrenda(this);
+		codigo = StockPrendaDao.getInstance().CrearStockPrenda(this).codigo;
 	}
 
 	public void updateMe(){
@@ -147,7 +156,7 @@ public class StockPrenda {
 	}
 
 	public StockPrendaDto toDto(){
-		return new StockPrendaDto(color.toString(), talle, lote.toDto(), fecha, costoProduccion, cantidad, ubicacion, cantidadPrendasReservadas,
+		return new StockPrendaDto(codigo, color.toString(), talle, lote.toDto(), fecha, costoProduccion, cantidad, ubicacion, cantidadPrendasReservadas,
 				prenda.toDto());
 	}
 

@@ -34,18 +34,6 @@ public class MovimientoPrendaDao {
 		session.close();
 	}
 	
-	public void EliminarMovimientoPrenda(MovimientoPrenda movimiento){
-		
-		MovimientoPrendaEntity movimientoEntity = new MovimientoPrendaEntity(movimiento);
-		
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		session.beginTransaction();
-		session.delete(movimientoEntity);
-		session.getTransaction().commit();
-		session.close();
-	}
-	
 	public MovimientoPrenda BuscarMovimientoPrenda(MovimientoPrendaDto movimiento){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();

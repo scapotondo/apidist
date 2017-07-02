@@ -1,6 +1,5 @@
 package exceptions;
 
-
 public class PedidoException extends Exception {
 	/**
 	 * 

@@ -2,20 +2,36 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
+
 import negocio.MovimientoPrenda;
+import negocio.TipoMovimientoStockPrendaEnum;
 
 @Entity
 @Table(name="MovimiendoPrenda")
 public class MovimientoPrendaEntity implements Serializable{
+
+
+	public TipoMovimientoStockPrendaEnum getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoMovimientoStockPrendaEnum tipo) {
+		this.tipo = tipo;
+	}
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -24,39 +40,46 @@ public class MovimientoPrendaEntity implements Serializable{
 	
 	private int cantidad;
 	private Date fecha;
-	private String talle;
-	private String color;
 	private String encargado;
 	private String quienAutorizo;
 	private String destino;
 	
-	@ManyToOne()
 	@JoinColumn(name="codigoPrenda")
 	private PrendaEntity prenda;
 	
-	public MovimientoPrendaEntity(){}
+	@Column(columnDefinition="integer", nullable = false)
+    @Type(
+        type = "negocio.TipoMovimientoStockPrendaEnum", 
+        parameters = { 
+        	@Parameter(name = "enumClass", value = "negocio.TipoMovimientoStockPrendaEnum"),
+        	@Parameter(name = "identifierMethod", value = "toInt"),
+        	@Parameter(name = "valueOfMethod", value = "fromInt")
+        }
+    )
+	private TipoMovimientoStockPrendaEnum tipo;
 	
-	public MovimientoPrendaEntity(int cantidad, Date fecha, String talle, String color, String encargado, String quienAutorizo,
-			String destino){
-		
-		this.cantidad=cantidad;
-		this.fecha=fecha;
-		this.talle=talle;
-		this.color=color;
-		this.encargado=encargado;
-		this.quienAutorizo=quienAutorizo;
-		this.destino=destino;
-	} 
+	@ManyToMany()
+	@JoinColumn(name="codigoPrenda")
+	private List<StockPrendaEntity> lotes;
+	
+	public MovimientoPrendaEntity(){}
 	
 	public MovimientoPrendaEntity(MovimientoPrenda movimiento){
 		this.id = movimiento.getId();
 		this.cantidad=movimiento.getCantidad();
 		this.fecha=movimiento.getFecha();
-		this.talle=movimiento.getTalle();
-		this.color=movimiento.getColor();
 		this.encargado=movimiento.getEncargado();
 		this.quienAutorizo=movimiento.getQuienAutorizo();
 		this.destino=movimiento.getDestino();
+		this.tipo=movimiento.getTipo();
+	}
+	
+	public List<StockPrendaEntity> getLotes() {
+		return lotes;
+	}
+
+	public void setLotes(List<StockPrendaEntity> lotes) {
+		this.lotes = lotes;
 	}
 
 	public int getId() {
@@ -81,22 +104,6 @@ public class MovimientoPrendaEntity implements Serializable{
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
-	}
-
-	public String getTalle() {
-		return talle;
-	}
-
-	public void setTalle(String talle) {
-		this.talle = talle;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
 	}
 
 	public String getEncargado() {
