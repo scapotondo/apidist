@@ -8,7 +8,6 @@ import dto.EmpleadoDto;
 import dto.PedidoPrendasDto;
 import dto.SucursalDto;
 import entity.EmpleadoEntity;
-import entity.PedidoPrendasEntity;
 import entity.SucursalEntity;
 
 public class Sucursal {
@@ -19,7 +18,6 @@ public class Sucursal {
 	private ArrayList<String> horarios;
 	private Empleado gerente;
 	private ArrayList<Empleado> empleados;
-	private ArrayList<PedidoPrendas> pedidos;
 	
 	Sucursal(SucursalEntity sucursal, boolean crearPedidos){
 		this.numero = sucursal.getNumero();
@@ -27,17 +25,12 @@ public class Sucursal {
 		this.direccion = sucursal.getDireccion();
 		this.horarios = new ArrayList<>();
 		this.empleados = new ArrayList<>();
-		this.pedidos = new ArrayList<>();
 
 		for (EmpleadoEntity empleado : sucursal.getEmpleados())
 			empleados.add(new Empleado(empleado));
 		
 		for (String horario : sucursal.getHorarios())
 			horarios.add(horario);
-		
-		if (crearPedidos)
-			for (PedidoPrendasEntity pedido : sucursal.getPedidos())
-				pedidos.add(new PedidoPrendas(pedido));
 	}
 	
 	public Sucursal(SucursalEntity sucursal){
@@ -46,10 +39,6 @@ public class Sucursal {
 	
 	public Sucursal(SucursalEntity sucursal, Cliente cliente){
 		this(sucursal, false);
-		
-		this.pedidos = new ArrayList<>();
-		for (PedidoPrendasEntity pedido : sucursal.getPedidos())
-			pedidos.add(new PedidoPrendas(pedido, cliente));
 	}
 	
 	public Sucursal(int numero, String nombre, String direccion, ArrayList<String> horarios, Empleado gerente,
@@ -60,7 +49,6 @@ public class Sucursal {
 		this.horarios = horarios;
 		this.gerente = gerente;
 		this.empleados = empleados;
-		this.pedidos = pedidos;
 	}
 	
 	public int getNumero() {
@@ -111,20 +99,8 @@ public class Sucursal {
 		this.empleados = empleados;
 	}
 
-	public ArrayList<PedidoPrendas> getPedidos() {
-		return pedidos;
-	}
-
-	public void setPedidos(ArrayList<PedidoPrendas> pedidos) {
-		this.pedidos = pedidos;
-	}
-
 	public void aceptarPedido(PedidoPrendas pedido){
 		
-	}
-	
-	public void addNuevoPedido(PedidoPrendas pedido){
-		pedidos.add(pedido);
 	}
 	
 	public void rechazarPedido(PedidoPrendas pedido, String descripcion){
@@ -134,12 +110,6 @@ public class Sucursal {
 	public SucursalDto toDto(){
 		ArrayList<EmpleadoDto> empleadosDto = new ArrayList<EmpleadoDto>();
 		ArrayList<PedidoPrendasDto> pedidosDto = new ArrayList<PedidoPrendasDto>();
-		
-		if(this.pedidos != null){
-			for (PedidoPrendas pedidoPrendas : this.pedidos) {
-				pedidosDto.add(pedidoPrendas.toDto());
-			}
-		}
 		
 		if(this.empleados!= null){
 			for (Empleado empleado : this.empleados) {
@@ -153,12 +123,6 @@ public class Sucursal {
 	public SucursalDto toDto(ClienteDto cliente){
 		ArrayList<EmpleadoDto> empleadosDto = new ArrayList<EmpleadoDto>();
 		ArrayList<PedidoPrendasDto> pedidosDto = new ArrayList<PedidoPrendasDto>();
-		
-		if(this.pedidos != null){
-			for (PedidoPrendas pedidoPrendas : this.pedidos) {
-				pedidosDto.add(pedidoPrendas.toDto(cliente));
-			}
-		}
 		
 		if(this.empleados!= null){
 			for (Empleado empleado : this.empleados) {

@@ -227,6 +227,7 @@ public class PedidoPrendasDao {
 		return null;
 	}
 	
+	//TODO: esto no deberia ser por Sucursal?? Dependiendo de que sucursal es el empleado que abre la pagina
 	public ArrayList<PedidoPrendas> getPedidosPedientesAprobacionAdmin() {
 		ArrayList<PedidoPrendas> pedidosAceptados = new ArrayList<PedidoPrendas>();
 		try {

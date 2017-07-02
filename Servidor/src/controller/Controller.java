@@ -84,11 +84,7 @@ public class Controller {
 				cliente,
 				items);
 		
-		pedido = getPedidoPrendasDao().CrearPedidoPrendas(pedido);
-		cliente.getSucursal().addNuevoPedido(pedido);
-		cliente.getSucursal().modificame();
-		
-		return pedido.toDto();
+		return getPedidoPrendasDao().CrearPedidoPrendas(pedido).toDto();
 	}
 	
 	public void AprobarPedidoAdmin(PedidoPrendasDto pedidoDto) throws ClienteException, PedidoException{
@@ -113,10 +109,6 @@ public class Controller {
 
 		pedido.setFechaProbableDespacho(c.getTime());		
 		pedido.modificame();
-		
-		Sucursal sucursal = cliente.getSucursal();
-		sucursal.getPedidos().remove(pedido);
-		sucursal.modificame();
 	}
 	
 	public ArrayList<PedidoPrendasDto> buscarPedidosAprobadosAdmin(ClienteDto clienteDto) throws ClienteException {
@@ -164,10 +156,6 @@ public class Controller {
 		
 		pedido.setEstado(EstadoPedidoPrenda.RechazadoAdmin);
 		pedido.modificame();
-		
-		Sucursal sucursal = cliente.getSucursal();
-		sucursal.getPedidos().remove(pedido);
-		sucursal.modificame();
 	}
 	
 	public void AceptarPedidoCliente(int nroPedido) throws PedidoException{

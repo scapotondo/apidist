@@ -16,7 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import negocio.Empleado;
-import negocio.PedidoPrendas;
 import negocio.Sucursal;
 
 @Entity
@@ -43,14 +42,9 @@ public class SucursalEntity implements Serializable{
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="sucursal_id")
-	private List<PedidoPrendasEntity> pedidos;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="sucursal_id")
 	private List<EmpleadoEntity> empleados;
 	
 	public SucursalEntity(){
-		pedidos = new ArrayList<>();
 	}
 	public SucursalEntity(int numero, String nombre, String direccion, List<String> horarios,
 			List<EmpleadoEntity> empleados, List<PedidoPrendasEntity> pedidos){
@@ -58,7 +52,6 @@ public class SucursalEntity implements Serializable{
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.horarios = horarios;
-		this.pedidos = pedidos;
 		this.empleados = empleados;
 	}
 	
@@ -67,13 +60,7 @@ public class SucursalEntity implements Serializable{
 		this.nombre = sucursal.getNombre();
 		this.direccion = sucursal.getDireccion();
 		this.horarios = sucursal.getHorarios();
-		this.pedidos= new ArrayList<PedidoPrendasEntity>();
 		this.empleados=new ArrayList<EmpleadoEntity>();
-		
-		ArrayList<PedidoPrendas> pedidosNegocio = sucursal.getPedidos();
-		if(pedidosNegocio != null && crearPedidos)
-			for (PedidoPrendas pedido : pedidosNegocio) 
-				this.pedidos.add(new PedidoPrendasEntity(pedido));
 		
 		if(sucursal.getEmpleados()!=null)
 			for (Empleado empleado : sucursal.getEmpleados()) 
@@ -86,11 +73,6 @@ public class SucursalEntity implements Serializable{
 	
 	public SucursalEntity(Sucursal sucursal, ClienteEntity clienteEntity) {
 		this(sucursal, false);
-		
-		ArrayList<PedidoPrendas> pedidosNegocio = sucursal.getPedidos();
-		if(pedidosNegocio != null)
-			for (PedidoPrendas pedido : pedidosNegocio)
-				this.pedidos.add(new PedidoPrendasEntity(pedido, clienteEntity));
 	}
 	
 	public int getNumero() {
@@ -122,12 +104,6 @@ public class SucursalEntity implements Serializable{
 	}
 	public void setCliente(List<ClienteEntity> cliente) {
 		this.cliente = cliente;
-	}
-	public List<PedidoPrendasEntity> getPedidos() {
-		return pedidos;
-	}
-	public void setPedidos(List<PedidoPrendasEntity> pedidos) {
-		this.pedidos = pedidos;
 	}
 	public List<EmpleadoEntity> getEmpleados() {
 		return empleados;
