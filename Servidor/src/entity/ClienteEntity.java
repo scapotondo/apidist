@@ -69,7 +69,7 @@ public class ClienteEntity implements Serializable{
 		this.direccionEnvio=cliente.getDireccionEnvio();
 		this.direccionFacturacion=cliente.getDireccionFacturacion();
 		this.legajo=cliente.getLegajo();
-		this.sucursal=new SucursalEntity(cliente.getSucursal());
+		this.sucursal=new SucursalEntity(cliente.getSucursal(), this);
 	}
 	
 	

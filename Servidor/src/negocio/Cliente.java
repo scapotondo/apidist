@@ -38,7 +38,7 @@ public class Cliente {
 		this.telefono=cliente.getTelefono();
 		this.direccionEnvio=cliente.getDireccionEnvio();
 		this.direccionFacturacion=cliente.getDireccionFacturacion();
-		this.sucursal=new Sucursal(cliente.getSucursal());
+		this.sucursal=new Sucursal(cliente.getSucursal(), this);
 	}
 	
 	public Cliente(ClienteDto clienteDto) throws SucursalException {
@@ -171,10 +171,14 @@ public class Cliente {
 	}
 	
 	public ClienteDto toDto(){
-		SucursalDto sucursalDto = this.sucursal.toDto();
-
-return new ClienteDto(limiteCredito, formaPago, cuentaCorriente, cuit, nombre, razonSocial, telefono, direccionEnvio,
-				direccionFacturacion, sucursalDto, this.legajo);
+		ClienteDto cliente = new ClienteDto(limiteCredito, formaPago, cuentaCorriente, cuit, nombre, razonSocial, telefono, direccionEnvio,
+				direccionFacturacion, this.legajo);
+		
+		SucursalDto sucursalDto = this.sucursal.toDto(cliente);
+		
+		cliente.setSucursal(sucursalDto);
+		
+		return cliente;
 	}
 
 	public void saveMe(){

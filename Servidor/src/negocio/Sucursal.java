@@ -3,6 +3,7 @@ package negocio;
 import java.util.ArrayList;
 
 import dao.SucursalDao;
+import dto.ClienteDto;
 import dto.EmpleadoDto;
 import dto.PedidoPrendasDto;
 import dto.SucursalDto;
@@ -20,28 +21,35 @@ public class Sucursal {
 	private ArrayList<Empleado> empleados;
 	private ArrayList<PedidoPrendas> pedidos;
 	
-	public Sucursal(SucursalEntity sucursal){
-		ArrayList<Empleado> emp = new ArrayList<>();
-		for (EmpleadoEntity empleado : sucursal.getEmpleados()) {
-			emp.add(new Empleado(empleado));
-		}
-		
-		ArrayList<PedidoPrendas> ped = new ArrayList<>();
-		for (PedidoPrendasEntity pedido : sucursal.getPedidos()) {
-			ped.add(new PedidoPrendas(pedido));
-		}
-		
-		ArrayList<String> hor=new ArrayList<>();
-		for (String horario : sucursal.getHorarios()) {
-			hor.add(horario);
-		}
-		
+	Sucursal(SucursalEntity sucursal, boolean crearPedidos){
 		this.numero = sucursal.getNumero();
 		this.nombre = sucursal.getNombre();
 		this.direccion = sucursal.getDireccion();
-		this.horarios = hor;
-		this.empleados = emp;
-		this.pedidos = ped;
+		this.horarios = new ArrayList<>();
+		this.empleados = new ArrayList<>();
+		this.pedidos = new ArrayList<>();
+
+		for (EmpleadoEntity empleado : sucursal.getEmpleados())
+			empleados.add(new Empleado(empleado));
+		
+		for (String horario : sucursal.getHorarios())
+			horarios.add(horario);
+		
+		if (crearPedidos)
+			for (PedidoPrendasEntity pedido : sucursal.getPedidos())
+				pedidos.add(new PedidoPrendas(pedido));
+	}
+	
+	public Sucursal(SucursalEntity sucursal){
+		this(sucursal, true);
+	}
+	
+	public Sucursal(SucursalEntity sucursal, Cliente cliente){
+		this(sucursal, false);
+		
+		this.pedidos = new ArrayList<>();
+		for (PedidoPrendasEntity pedido : sucursal.getPedidos())
+			pedidos.add(new PedidoPrendas(pedido, cliente));
 	}
 	
 	public Sucursal(int numero, String nombre, String direccion, ArrayList<String> horarios, Empleado gerente,
@@ -130,6 +138,25 @@ public class Sucursal {
 		if(this.pedidos != null){
 			for (PedidoPrendas pedidoPrendas : this.pedidos) {
 				pedidosDto.add(pedidoPrendas.toDto());
+			}
+		}
+		
+		if(this.empleados!= null){
+			for (Empleado empleado : this.empleados) {
+				empleadosDto.add(empleado.toDto());
+			}
+		}
+		
+		return new SucursalDto(numero, nombre, direccion, horarios, empleadosDto, pedidosDto);
+	}
+	
+	public SucursalDto toDto(ClienteDto cliente){
+		ArrayList<EmpleadoDto> empleadosDto = new ArrayList<EmpleadoDto>();
+		ArrayList<PedidoPrendasDto> pedidosDto = new ArrayList<PedidoPrendasDto>();
+		
+		if(this.pedidos != null){
+			for (PedidoPrendas pedidoPrendas : this.pedidos) {
+				pedidosDto.add(pedidoPrendas.toDto(cliente));
 			}
 		}
 		

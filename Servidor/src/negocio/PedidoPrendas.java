@@ -6,6 +6,7 @@ import java.util.Hashtable;
 
 import controller.AlmacenController;
 import dao.PedidoPrendasDao;
+import dto.ClienteDto;
 import dto.ItemPrendaDto;
 import dto.PedidoPrendasDto;
 import entity.ItemPrendaEntity;
@@ -26,23 +27,27 @@ public class PedidoPrendas {
 	private ArrayList<ItemPrenda> items;
 
 	public PedidoPrendas(PedidoPrendasEntity pedido){
+		this(pedido, new Cliente(pedido.getCliente()));
+	}
+	
+	public PedidoPrendas(PedidoPrendasEntity pedido, Cliente cliente){
 		this.nroPedido=pedido.getNroPedido();
 		this.fechaProbableDespacho=pedido.getFechaProbableDespacho();
 		this.estado=EstadoPedidoPrenda.fromInt(pedido.getEstado());
 		this.fechaGeneracion=pedido.getFechaGeneracion();
 		this.fechaRealDespacho=pedido.getFechaRealDespacho();
-		this.cliente=new Cliente(pedido.getCliente());
+		this.cliente=cliente;
 		this.items=new ArrayList<ItemPrenda>();
-		for (ItemPrendaEntity itemPrendaEntity : pedido.getItems()) {
+		
+		for (ItemPrendaEntity itemPrendaEntity : pedido.getItems())
 			this.items.add(new ItemPrenda(itemPrendaEntity));
-		}
+
 		if(pedido.getOrdenProduccion() != null){
 			if(pedido.getOrdenProduccion().getClass().getName().equals("entity.OrdenDeProduccionCompletaEntity"))
 				this.ordenProduccion=new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) pedido.getOrdenProduccion());
 	
 			if(pedido.getOrdenProduccion().getClass().getName().equals("entity.OrdenDeProduccionParcialEntity"))
 				this.ordenProduccion=new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) pedido.getOrdenProduccion());
-	
 		}
 	}
 
@@ -136,13 +141,17 @@ public class PedidoPrendas {
 	}
 
 	public PedidoPrendasDto toDto(){
+		return toDto(cliente.toDto());
+	}
+	
+	public PedidoPrendasDto toDto(ClienteDto cliente){
 		ArrayList<ItemPrendaDto> itemsDto = new ArrayList<>();
 
-		for (ItemPrenda itemPrenda : items) {
+		for (ItemPrenda itemPrenda : items) 
 			itemsDto.add(itemPrenda.toDto());
-		}
+
 		return new PedidoPrendasDto(nroPedido, fechaProbableDespacho, estado.toString(), fechaGeneracion, fechaRealDespacho, 
-				ordenProduccion.toDto(), cliente.toDto(), itemsDto);
+				ordenProduccion.toDto(), cliente, itemsDto);
 	}
 
 	public void modificame() {

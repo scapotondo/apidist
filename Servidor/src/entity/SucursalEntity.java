@@ -62,23 +62,35 @@ public class SucursalEntity implements Serializable{
 		this.empleados = empleados;
 	}
 	
-	public SucursalEntity(Sucursal sucursal) {
+	SucursalEntity(Sucursal sucursal, boolean crearPedidos) {
 		this.numero = sucursal.getNumero();
 		this.nombre = sucursal.getNombre();
 		this.direccion = sucursal.getDireccion();
 		this.horarios = sucursal.getHorarios();
 		this.pedidos= new ArrayList<PedidoPrendasEntity>();
-		if(sucursal.getPedidos()!= null){
-			for (PedidoPrendas pedido : sucursal.getPedidos()) {
-				this.pedidos.add(new PedidoPrendasEntity(pedido));
-			}	
-		}
 		this.empleados=new ArrayList<EmpleadoEntity>();
-		if(sucursal.getEmpleados()!=null){
-			for (Empleado empleado : sucursal.getEmpleados()) {
+		
+		ArrayList<PedidoPrendas> pedidosNegocio = sucursal.getPedidos();
+		if(pedidosNegocio != null && crearPedidos)
+			for (PedidoPrendas pedido : pedidosNegocio) 
+				this.pedidos.add(new PedidoPrendasEntity(pedido));
+		
+		if(sucursal.getEmpleados()!=null)
+			for (Empleado empleado : sucursal.getEmpleados()) 
 				this.empleados.add(new EmpleadoEntity(empleado));
-			}
-		}
+	}
+
+	public SucursalEntity(Sucursal sucursal) {
+		this(sucursal, true);
+	}
+	
+	public SucursalEntity(Sucursal sucursal, ClienteEntity clienteEntity) {
+		this(sucursal, false);
+		
+		ArrayList<PedidoPrendas> pedidosNegocio = sucursal.getPedidos();
+		if(pedidosNegocio != null)
+			for (PedidoPrendas pedido : pedidosNegocio)
+				this.pedidos.add(new PedidoPrendasEntity(pedido, clienteEntity));
 	}
 	
 	public int getNumero() {

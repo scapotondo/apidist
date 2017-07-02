@@ -57,13 +57,13 @@ public class PedidoPrendasEntity implements Serializable{
 		this.items=items;
 	}
 	
-	public PedidoPrendasEntity(PedidoPrendas pedido){
-//		this.nroPedido=pedido.getNroPedido();
+	public PedidoPrendasEntity(PedidoPrendas pedido, ClienteEntity cliente){
+		this.nroPedido=pedido.getNroPedido();
 		this.fechaProbableDespacho=pedido.getFechaProbableDespacho();
 		this.estado=pedido.getEstado().toInt();
 		this.fechaGeneracion=pedido.getFechaGeneracion();
 		this.fechaRealDespacho=pedido.getFechaProbableDespacho();
-		this.cliente=new ClienteEntity(pedido.getCliente());
+		this.cliente=cliente;
 		
 		if (pedido.getOrdenProduccion() != null) {
 			if(pedido.getOrdenProduccion().getClass().getName().equals("negocio.OrdenProduccionCompleta"))
@@ -78,6 +78,10 @@ public class PedidoPrendasEntity implements Serializable{
 			items.add(new ItemPrendaEntity(itemPrenda));
 		
 		this.items=items;
+	}
+	
+	public PedidoPrendasEntity(PedidoPrendas pedido){
+		this(pedido, new ClienteEntity(pedido.getCliente()));
 	}
 	
 	public int getNroPedido() {

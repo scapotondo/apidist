@@ -23,6 +23,13 @@ public class ClienteDto implements Serializable{
 	
 	public ClienteDto(float limiteCredito,String formaPago, float cuentaCorriente, String cuit, String nombre, String razonSocial,
 			String telefono, String direccionEnvio,String direccionFacturacion,SucursalDto sucursal, int legajo ){
+		this(limiteCredito, formaPago, cuentaCorriente, cuit, nombre, razonSocial, telefono, direccionEnvio, direccionFacturacion, legajo);
+		
+		this.sucursal=sucursal;
+	}
+	
+	public ClienteDto(float limiteCredito,String formaPago, float cuentaCorriente, String cuit, String nombre, String razonSocial,
+			String telefono, String direccionEnvio,String direccionFacturacion, int legajo) {
 		
 		this.limiteCredito=limiteCredito;
 		this.formaPago=formaPago;
@@ -34,7 +41,6 @@ public class ClienteDto implements Serializable{
 		this.telefono=telefono;
 		this.direccionEnvio=direccionEnvio;
 		this.direccionFacturacion=direccionFacturacion;
-		this.sucursal=sucursal;
 	}
 
 	public float getLimiteCredito() {
