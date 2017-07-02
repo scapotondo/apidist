@@ -55,7 +55,7 @@ public class ItemsPedido extends HttpServlet{
 			request.setAttribute("usuario", usuario);
 			request.setAttribute("items", items);
 			
-			request.getRequestDispatcher("/admin/iremsPedido.jsp").forward(request, response);
+			request.getRequestDispatcher("/admin/itemsPedido.jsp").forward(request, response);
 		} catch (RemoteObjectNotFoundException e) {
 			e.printStackTrace();
 		}

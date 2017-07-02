@@ -13,6 +13,8 @@ public class OrdenDeProduccionDto implements Serializable{
 	private PedidoPrendasDto pedido;
 	private PrendaDto prenda;
 	
+	public OrdenDeProduccionDto(){}
+	
 	public OrdenDeProduccionDto(int nroOrden, String estado, PedidoPrendasDto pedido, PrendaDto prenda){
 		this.nroOrden = nroOrden;
 		this.estado=estado;

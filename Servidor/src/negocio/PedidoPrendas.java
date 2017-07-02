@@ -8,6 +8,7 @@ import controller.AlmacenController;
 import dao.PedidoPrendasDao;
 import dto.ClienteDto;
 import dto.ItemPrendaDto;
+import dto.OrdenDeProduccionDto;
 import dto.PedidoPrendasDto;
 import entity.ItemPrendaEntity;
 import entity.OrdenDeProduccionCompletaEntity;
@@ -146,12 +147,16 @@ public class PedidoPrendas {
 	
 	public PedidoPrendasDto toDto(ClienteDto cliente){
 		ArrayList<ItemPrendaDto> itemsDto = new ArrayList<>();
-
-		for (ItemPrenda itemPrenda : items) 
-			itemsDto.add(itemPrenda.toDto());
-
+		if(this.items!= null){
+			for (ItemPrenda itemPrenda : this.items) 
+				itemsDto.add(itemPrenda.toDto());
+		}
+		OrdenDeProduccionDto orden = new OrdenDeProduccionDto();
+		if(this.ordenProduccion != null)
+			orden = this.ordenProduccion.toDto();
+		
 		return new PedidoPrendasDto(nroPedido, fechaProbableDespacho, estado.toString(), fechaGeneracion, fechaRealDespacho, 
-				ordenProduccion.toDto(), cliente, itemsDto);
+				orden, cliente, itemsDto);
 	}
 
 	public void modificame() {
