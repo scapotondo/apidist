@@ -8,6 +8,7 @@ import javax.persistence.PersistenceException;
 import org.hibernate.HibernateException;
 
 import controller.Controller;
+import dto.EmpleadoDto;
 import dto.UsuarioDto;
 import exceptions.UsuarioException;
 import interfaces.AdministracionUsuariosInterface;
@@ -50,5 +51,10 @@ public class AdministracionUsuarios extends UnicastRemoteObject implements Admin
 		} catch (HibernateException ex) {
 			throw new UsuarioException(ex.getMessage());
 		}
+	}
+
+	@Override
+	public EmpleadoDto getEmpleado(EmpleadoDto empleado) throws UsuarioException {
+		return Controller.getInstance().getEmpleado(empleado);
 	}
 }

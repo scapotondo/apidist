@@ -39,6 +39,6 @@ public class AdministracionAlmacen extends UnicastRemoteObject implements Admini
 	}
 
 	public void modificarStockPrenda(StockPrendaDto stockDto, EmpleadoDto empleadoDto, EmpleadoDto quienAutorizoDto, ModificacionStockDto modifDto) throws ApplicationException {
-		AlmacenController.getInstance().modificarStockPrendaAdmin(stockDto, empleadoDto, quienAutorizoDto, modifDto);
+			AlmacenController.getInstance().modificarStockPrendaAdmin(stockDto, empleadoDto, quienAutorizoDto, modifDto);
 	}
 }

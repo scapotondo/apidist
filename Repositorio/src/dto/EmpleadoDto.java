@@ -24,7 +24,10 @@ public class EmpleadoDto implements Serializable{
 		this.rolUsuario = rolUsuario;
 	}
 
-	
+	public EmpleadoDto(int legajo) {
+		this.legajo = legajo;
+	}
+
 	public String getRolUsuario() {
 		return rolUsuario;
 	}

@@ -11,26 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
-
 import negocio.MovimientoPrenda;
-import negocio.TipoMovimientoStockPrendaEnum;
 
 @Entity
 @Table(name="MovimiendoPrenda")
 public class MovimientoPrendaEntity implements Serializable{
-
-
-	public TipoMovimientoStockPrendaEnum getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(TipoMovimientoStockPrendaEnum tipo) {
-		this.tipo = tipo;
-	}
 
 	private static final long serialVersionUID = 1L;
 	
@@ -44,22 +32,15 @@ public class MovimientoPrendaEntity implements Serializable{
 	private String quienAutorizo;
 	private String destino;
 	
+	@ManyToOne()
 	@JoinColumn(name="codigoPrenda")
 	private PrendaEntity prenda;
 	
-	@Column(columnDefinition="integer", nullable = false)
-    @Type(
-        type = "negocio.TipoMovimientoStockPrendaEnum", 
-        parameters = { 
-        	@Parameter(name = "enumClass", value = "negocio.TipoMovimientoStockPrendaEnum"),
-        	@Parameter(name = "identifierMethod", value = "toInt"),
-        	@Parameter(name = "valueOfMethod", value = "fromInt")
-        }
-    )
-	private TipoMovimientoStockPrendaEnum tipo;
+	@Column(nullable = false)
+	private int tipo;
 	
 	@ManyToMany()
-	@JoinColumn(name="codigoPrenda")
+	@JoinColumn(name="codigo_Lote")
 	private List<StockPrendaEntity> lotes;
 	
 	public MovimientoPrendaEntity(){}
@@ -71,7 +52,15 @@ public class MovimientoPrendaEntity implements Serializable{
 		this.encargado=movimiento.getEncargado();
 		this.quienAutorizo=movimiento.getQuienAutorizo();
 		this.destino=movimiento.getDestino();
-		this.tipo=movimiento.getTipo();
+		this.tipo=movimiento.getTipo().toInt();
+	}
+	
+	public int getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
 	}
 	
 	public List<StockPrendaEntity> getLotes() {

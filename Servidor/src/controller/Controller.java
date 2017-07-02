@@ -9,12 +9,14 @@ import java.util.Hashtable;
 
 import dao.AreaProduccionDao;
 import dao.ClienteDao;
+import dao.EmpleadoDao;
 import dao.MateriaPrimaDao;
 import dao.PedidoPrendasDao;
 import dao.SucursalDao;
 import dao.UsuarioDao;
 import dto.AreaProduccionDto;
 import dto.ClienteDto;
+import dto.EmpleadoDto;
 import dto.ItemPrendaDto;
 import dto.MateriaPrimaDto;
 import dto.PedidoPrendasDto;
@@ -307,6 +309,10 @@ public class Controller {
 		}
 		
 		return sucursalesDto;
+	}
+	
+	public EmpleadoDto getEmpleado(EmpleadoDto empleado) throws UsuarioException {
+		return EmpleadoDao.getInstance().getEmpleado(empleado.getLegajo()).toDto();
 	}
 	
 	public UsuarioDto LoginCliente(String userName, String password) {

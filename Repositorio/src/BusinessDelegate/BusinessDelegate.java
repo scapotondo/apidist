@@ -352,7 +352,7 @@ public class BusinessDelegate {
 		return getAdministracionAlmacen().getStockPrendas();
 	}
 	
-	public void ModificarStockPrenda(StockPrendaDto stockDto, EmpleadoDto empleadoDto, EmpleadoDto quienAutorizoDto, ModificacionStockDto modifDto) throws ApplicationException, RemoteObjectNotFoundException {
+	public void ModificarStockPrenda(StockPrendaDto stockDto, EmpleadoDto empleadoDto, EmpleadoDto quienAutorizoDto, ModificacionStockDto modifDto) throws RemoteObjectNotFoundException, RemoteException, ApplicationException {
 		getAdministracionAlmacen().modificarStockPrenda(stockDto, empleadoDto, quienAutorizoDto, modifDto);
 	}
 
@@ -449,6 +449,10 @@ public class BusinessDelegate {
 	
 	public UsuarioDto getUserEmpleado(int codigo) throws RemoteObjectNotFoundException, RemoteException, UsuarioException {
 		return getAdminUsuariosRemoto().getUsuarioEmpleado(codigo);
+	}
+	
+	public EmpleadoDto getEmpleado (EmpleadoDto empleado) throws RemoteObjectNotFoundException, UsuarioException, RemoteException {
+		return getAdminUsuariosRemoto().getEmpleado(empleado);
 	}
 
 	public ArrayList<PedidoPrendasDto> getPedidosDespacho() {

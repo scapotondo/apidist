@@ -22,5 +22,5 @@ public interface AdministracionAlmacenInterface extends Remote{
 	
 	public ArrayList<StockPrendaDto> getStockPrendas() throws RemoteException;
 
-	public void modificarStockPrenda(StockPrendaDto stockDto, EmpleadoDto empleadoDto, EmpleadoDto quienAutorizoDto, ModificacionStockDto modifDto) throws ApplicationException;
+	public void modificarStockPrenda(StockPrendaDto stockDto, EmpleadoDto empleadoDto, EmpleadoDto quienAutorizoDto, ModificacionStockDto modifDto) throws RemoteException, ApplicationException;
 }

@@ -7,6 +7,7 @@ import dao.MovimientoPrendaDao;
 import dto.MovimientoPrendaDto;
 import entity.MovimientoPrendaEntity;
 import entity.StockPrendaEntity;
+import exceptions.ApplicationException;
 
 public class MovimientoPrenda {
 
@@ -38,7 +39,14 @@ public class MovimientoPrenda {
 		this.quienAutorizo=movimiento.getQuienAutorizo();
 		this.destino=movimiento.getDestino();
 		this.prenda=new Prenda(movimiento.getPrenda());
-		this.tipo=movimiento.getTipo();
+		
+		try {
+			this.tipo=TipoMovimientoStockPrendaEnum.fromInt(movimiento.getTipo());
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		this.lotes = new ArrayList<>();
 		
 		for (StockPrendaEntity stockPrendaEntity : movimiento.getLotes()) 
