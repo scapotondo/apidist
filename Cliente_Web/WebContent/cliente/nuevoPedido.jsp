@@ -49,16 +49,40 @@
 	        		$('<option>').val(value).text(value).appendTo(select);
 		      	});
 			}
+	        
+	        function validarCantidad(){
+	        	
+	        		if( $('#prendasSelect').val() == 'null' ){	
+	        			alert("Debe seleccionar una prenda");
+	        			return false;
+	        		}else if( !$('#cantidadTxt').val()){
+	        			alert("Debe ingresar una cantidad");
+	        			return false;
+	        		}else if( $('#cantidadTxt').val() <= 0){
+	        			alert("Debe ingresar una cantidad mayor a cero");
+	        			return false;
+	        		}
+	        		
+	        		return true;
+	        }
+	        
+	        var total = 0;
 			
 			$('#addBtn').on('click', function() {
+				
+				if( validarCantidad() ){
 				var codigo = $('#prendasSelect').val();
-				if (codigo != 'null') {
-					var color = $('#coloresSelect').val();
-					var talle = $('#tallesSelect').val();
-					var cantidad = $('#cantidadTxt').val();
-					var subtotal = cantidad*$('#precioTxt').val();
-					$('<option>').val(codigo + "-" + color + "-" + talle + "-" + cantidad).text($('#prendasSelect option:selected').text() + " - " + color + " - " + talle + " - " + cantidad + " - " + subtotal).appendTo($('#listaDeItems'));
-					$('#totalTxt').val(parseFloat($('#totalTxt').val())+subtotal);
+					if (codigo != 'null') {
+						var color = $('#coloresSelect').val();
+						var talle = $('#tallesSelect').val();
+						var cantidad = $('#cantidadTxt').val();
+						var subtotal = cantidad*$('#precioTxt').val();
+						
+						total += subtotal;
+						$('#totalTxt').val(total);
+						
+						$('<option>').val(codigo + "-" + color + "-" + talle + "-" + cantidad).text($('#prendasSelect option:selected').text() + " - " + color + " - " + talle + " - " + cantidad + " - " + subtotal).appendTo($('#listaDeItems'));
+					}
 				}
 			});
 			
@@ -115,16 +139,16 @@
 	  									<label for="cantidadTxt">Cantidad:</label>
 	  									<input id="cantidadTxt" name="cantidad" type="text">
 	  									
-	  									<input id="addBtn" type="button" value="Agregar">
+	  									<input id="addBtn" style="border: 1px;" type="button" value="Agregar">
 									</div>
 									<div> 
-										<select id="listaDeItems" name="items[]" size="10" multiple="multiple">
+										<select id="listaDeItems" class="listaDeItems" style="width: 25em; height: 15em;" name="items[]" size="10" multiple="multiple">
 										</select>
 										<label for="totalTxt">Total:</label>
 										<input type="text" id="totalTxt" disabled="disabled">
 									</div>
 									<div>
-										<input id="submitBtn" type="submit" value="Realizar pedido">
+										<input id="submitBtn" style="border: 1px;" type="submit" value="Realizar pedido">
 									</div>
                                 </form>
                             </div>
