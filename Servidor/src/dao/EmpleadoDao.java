@@ -2,14 +2,9 @@ package dao;
 
 import org.hibernate.Session;
 
-import dto.EmpleadoDto;
-import dto.RolUsuarioEnum;
-import dto.UsuarioDto;
-import entity.ClienteEntity;
 import entity.EmpleadoEntity;
 import exceptions.UsuarioException;
 import hibernate.HibernateUtil;
-import negocio.Cliente;
 import negocio.Empleado;
 
 public class EmpleadoDao {

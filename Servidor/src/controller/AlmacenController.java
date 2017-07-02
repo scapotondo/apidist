@@ -360,9 +360,11 @@ public class AlmacenController {
 	}
 
 	public void reservarMateriaPrima(MateriaPrima mp, int cantidad, OrdenDeProduccion lote) {
-		
-		ArrayList<StockMateriaPrima> materiasPrimas = StockMateriaPrimaDao.getInstance().getStockMateriasPrimas();
+		int cantidadOriginal = cantidad;
 		Float precio = 0f;
+		ArrayList<StockMateriaPrima> stocksUsados = new ArrayList<StockMateriaPrima>();
+		ArrayList<StockMateriaPrima> materiasPrimas = StockMateriaPrimaDao.getInstance().getStockMateriasPrimas();
+		
 		for (StockMateriaPrima stockMateriaPrima : materiasPrimas) {
 			if(stockMateriaPrima.getMateriaPrima().getCodigo() == mp.getCodigo()){
 				if(stockMateriaPrima.getCantidad() >= cantidad)
@@ -371,14 +373,16 @@ public class AlmacenController {
 					cantidad = cantidad - stockMateriaPrima.getCantidad();
 				
 				precio = stockMateriaPrima.getPrecioFinalCompra();
+				stocksUsados.add(stockMateriaPrima);
 			}
-			
 		}
+		
 		PedidoPrendas pedido = lote.getPedido();
+		
 		if(cantidad == 0){
 		
 			MovimientoMateriaPrima movimientoMateriaPrimaReservada = new MovimientoMateriaPrima(
-					EstadoMovimientoMateriaPrima.Reservar, cantidad, Calendar.getInstance().getTime(), new ArrayList<StockMateriaPrima>(), lote);
+					EstadoMovimientoMateriaPrima.Reservar, cantidadOriginal, Calendar.getInstance().getTime(), stocksUsados, lote);
 			movimientoMateriaPrimaReservada.saveMe();
 			
 			pedido.setEstado(EstadoPedidoPrenda.EnProduccion);

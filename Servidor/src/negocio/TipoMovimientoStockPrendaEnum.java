@@ -1,7 +1,6 @@
 package negocio;
 
 import exceptions.ApplicationException;
-import exceptions.ColorException;
 
 public enum TipoMovimientoStockPrendaEnum {
 	Sistema(1),
