@@ -10,37 +10,48 @@ public class MovimientoPrendaDto implements Serializable{
 
 	private int cantidad;
 	private Date fecha;
-	private String talle;
-	private String color;
 	private String encargado;
 	private String quienAutorizo;
 	private String destino;
-	private PrendaDto prenda;
 	private int id;
+	private String tipo; 
+	private PrendaDto prenda;
 	
-	public MovimientoPrendaDto(int id,int cantidad, Date fecha, String talle, String color, String encargado, String quienAutorizo,
-			String destino, PrendaDto prenda){
+	public MovimientoPrendaDto(int id,int cantidad, Date fecha, String encargado, String quienAutorizo,
+			String destino, PrendaDto prenda, String tipo){
 		this.id= id;
 		this.cantidad=cantidad;
 		this.fecha=fecha;
-		this.talle=talle;
-		this.color=color;
 		this.encargado=encargado;
 		this.quienAutorizo=quienAutorizo;
 		this.destino=destino;
+		this.tipo=tipo;
 		this.prenda=prenda;
 	}
 	
+	public PrendaDto getPrenda() {
+		return prenda;
+	}
 
+	public void setPrenda(PrendaDto prenda) {
+		this.prenda = prenda;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	
 	public int getId() {
 		return id;
 	}
 
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
 
 	public int getCantidad() {
 		return cantidad;
@@ -56,22 +67,6 @@ public class MovimientoPrendaDto implements Serializable{
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
-	}
-
-	public String getTalle() {
-		return talle;
-	}
-
-	public void setTalle(String talle) {
-		this.talle = talle;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
 	}
 
 	public String getEncargado() {
@@ -97,13 +92,4 @@ public class MovimientoPrendaDto implements Serializable{
 	public void setDestino(String destino) {
 		this.destino = destino;
 	}
-
-	public PrendaDto getPrenda() {
-		return prenda;
-	}
-
-	public void setPrenda(PrendaDto prenda) {
-		this.prenda = prenda;
-	}
-	
 }

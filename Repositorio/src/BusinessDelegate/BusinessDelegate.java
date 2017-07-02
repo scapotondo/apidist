@@ -351,6 +351,10 @@ public class BusinessDelegate {
 	public ArrayList<StockPrendaDto> getStockPrendas() throws RemoteException, RemoteObjectNotFoundException {
 		return getAdministracionAlmacen().getStockPrendas();
 	}
+	
+	public void ModificarStockPrenda(StockPrendaDto stockDto, EmpleadoDto empleadoDto, EmpleadoDto quienAutorizoDto, ModificacionStockDto modifDto) throws RemoteObjectNotFoundException, RemoteException, ApplicationException {
+		getAdministracionAlmacen().modificarStockPrenda(stockDto, empleadoDto, quienAutorizoDto, modifDto);
+	}
 
 	/** Ordenes Produccion **/
 
@@ -431,7 +435,7 @@ public class BusinessDelegate {
 		return getAreaProduccionRemoto().GetPedidosADespachar();
 	}
 
-	public UsuarioDto LoginCliente(String usuario, String password) throws RemoteObjectNotFoundException, RemoteException {
+	public UsuarioDto LoginCliente(String usuario, String password) throws RemoteObjectNotFoundException, RemoteException, UsuarioException {
 		return getAdminUsuariosRemoto().LoginCliente(usuario, password);
 	}
 
@@ -445,6 +449,10 @@ public class BusinessDelegate {
 	
 	public UsuarioDto getUserEmpleado(int codigo) throws RemoteObjectNotFoundException, RemoteException, UsuarioException {
 		return getAdminUsuariosRemoto().getUsuarioEmpleado(codigo);
+	}
+	
+	public EmpleadoDto getEmpleado (EmpleadoDto empleado) throws RemoteObjectNotFoundException, UsuarioException, RemoteException {
+		return getAdminUsuariosRemoto().getEmpleado(empleado);
 	}
 
 	public ArrayList<PedidoPrendasDto> getPedidosDespacho() {

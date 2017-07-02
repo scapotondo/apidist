@@ -7,16 +7,16 @@ import java.util.Hashtable;
 
 import dao.MovimientoMateriaPrimaDao;
 import dao.MovimientoPrendaDao;
-import dao.PrendaDao;
 import dao.ProveedorDao;
 import dao.StockMateriaPrimaDao;
 import dao.StockPrendaDao;
 import dto.EmpleadoDto;
-import dto.ItemPrendaDto;
+import dto.ModificacionStockDto;
 import dto.MovimientoMateriaPrimaDto;
 import dto.MovimientoPrendaDto;
 import dto.StockMateriaPrimaDto;
 import dto.StockPrendaDto;
+import exceptions.ApplicationException;
 import exceptions.ColorException;
 import negocio.ColorPrenda;
 import negocio.EstadoMovimientoMateriaPrima;
@@ -33,6 +33,7 @@ import negocio.Prenda;
 import negocio.Proveedor;
 import negocio.StockMateriaPrima;
 import negocio.StockPrenda;
+import negocio.TipoMovimientoStockPrendaEnum;
 
 public class AlmacenController {
 
@@ -137,13 +138,50 @@ public class AlmacenController {
 
 		return true;
 	}
+	
+	private StockPrenda buscarStockPrendaPorCodigo(int codigo) {
+		return StockPrendaDao.getInstance().BuscarStockPrenda(codigo);
+	}
+	
+	public void modificarStockPrendaAdmin(StockPrendaDto stockDto, EmpleadoDto empleadoDto, EmpleadoDto quienAutorizoDto, ModificacionStockDto modifDto) throws ApplicationException {
+		if (stockDto == null)
+			return;
+		
+		StockPrenda stock = buscarStockPrendaPorCodigo(stockDto.getCodigo());
+		
+		ArrayList<StockPrenda> stocks = new ArrayList<>();
+		stocks.add(stock);
+		
+		int cantidad = modifDto.getCantidad();
+		if (cantidad < 0) 
+			disminuirStockPrenda(stock.getPrenda(), cantidad, stock.getTalle(), stock.getColor().toString(), empleadoDto.getNombre(), quienAutorizoDto.getNombre(), stocks, TipoMovimientoStockPrendaEnum.fromString(modifDto.getTipo()));
+		else if (cantidad > 0) 
+			aumentarStockPrendaDiferenciaInventario(stock, cantidad, empleadoDto.getNombre(), quienAutorizoDto.getNombre());
+	}
+	
+	public void aumentarStockPrendaDiferenciaInventario(StockPrenda stock, int cantidad, String nombreEmpleado, String nombreAutorizo) {
+		stock.setCantidad(stock.getCantidad() + cantidad);
+		stock.updateMe();
+		
+		ArrayList<StockPrenda> stocks = new ArrayList<>();
+		stocks.add(stock);
+		
+		MovimientoPrenda movimiento = new MovimientoPrenda(cantidad, Calendar.getInstance().getTime(), nombreEmpleado,
+				nombreAutorizo, stock.getUbicacion(), stock.getPrenda(), TipoMovimientoStockPrendaEnum.DiferenciaInventario, stocks);
+		movimiento.saveMe();
+	}
 
 	public void disminuirStockPrendaDespacho(Prenda prenda, int cantidad, String talle, String color, String encargado) {
-		MovimientoPrenda movimiento;
-		String ubicacion = "";
-		ArrayList<StockPrenda> stockPrendas;
+		ArrayList<StockPrenda> stockPrendas = StockPrendaDao.getInstance().getStockPrendasReservadas(prenda.getCodigo());
+		
+		disminuirStockPrenda(prenda, cantidad, talle, color, encargado, "sistema", stockPrendas, TipoMovimientoStockPrendaEnum.Sistema);
+	}
 
-		stockPrendas = StockPrendaDao.getInstance().getStockPrendasReservadas(prenda.getCodigo());
+	private void disminuirStockPrenda(Prenda prenda, int cantidad, String talle, String color, String encargado, String quienAutoriza,
+			ArrayList<StockPrenda> stockPrendas, TipoMovimientoStockPrendaEnum tipo) {
+		String ubicacion = "";
+		ArrayList<StockPrenda> stockPrendaUsados = new ArrayList<>();
+		
 		for (StockPrenda stockPrenda : stockPrendas) {
 			if (cantidad <= 0) {
 				break;
@@ -168,59 +206,13 @@ public class AlmacenController {
 				}
 
 				stockPrenda.updateMe();
+				
+				stockPrendaUsados.add(stockPrenda);
 			}
 		}
 
-		movimiento = new MovimientoPrenda(cantidad, Calendar.getInstance().getTime(), talle, color, encargado,
-				"sistema", ubicacion, prenda);
-		movimiento.saveMe();
-	}
-
-	public void disminuirStockPrendaPorDeterioro(ItemPrendaDto item, EmpleadoDto encargado, EmpleadoDto quienAutorizo) {
-		MovimientoPrenda movimiento;
-		String ubicacion = "";
-		
-		ArrayList<StockPrenda> stockPrendas;
-		String talle = item.getTalle();
-		String color = item.getColor();
-		int cantidad = item.getCantidad();
-		
-		Prenda prenda = PrendaDao.getInstance().BuscarPrendaPorCodigo(item.getPrenda());
-		
-		if (tenesStockPrenda(prenda,talle, color, cantidad)) {
-
-			stockPrendas = StockPrendaDao.getInstance().getStockPrendas();
-			for (StockPrenda stockPrenda : stockPrendas) {
-				if (cantidad <= 0) {
-					break;
-				}
-
-				if (stockPrenda.getPrenda().getCodigo() == prenda.getCodigo() && stockPrenda.getColor().equals(color)
-						&& stockPrenda.getTalle().equals(talle)) {
-
-					if (stockPrenda.getCantidad() - cantidad > 0) {
-
-						stockPrenda.disminuirCantidad(cantidad);
-
-						ubicacion = stockPrenda.getUbicacion();
-						cantidad = 0;
-					} else {
-
-						cantidad = cantidad - stockPrenda.getCantidad();
-
-						stockPrenda.setCantidad(0);
-
-						ubicacion = "0";
-
-						sacarStockPrenda(stockPrenda);
-					}
-					stockPrenda.updateMe();
-				}
-			}
-		}
-
-		movimiento = new MovimientoPrenda(cantidad, Calendar.getInstance().getTime(), talle, color, encargado.getNombre(),
-				quienAutorizo.getNombre(), ubicacion, prenda);
+		MovimientoPrenda movimiento = new MovimientoPrenda(cantidad, Calendar.getInstance().getTime(), encargado,
+				quienAutoriza, ubicacion, prenda, tipo, stockPrendaUsados);
 		movimiento.saveMe();
 	}
 
@@ -238,8 +230,11 @@ public class AlmacenController {
 
 		stockPrenda.saveMe();
 
-		MovimientoPrenda movimiento = new MovimientoPrenda(cantidad, Calendar.getInstance().getTime(), talle, color,
-				"sistema", "sistema", ubicacion, prenda);
+		ArrayList<StockPrenda> stockUtilizado = new ArrayList<>();
+		stockUtilizado.add(stockPrenda);
+		
+		MovimientoPrenda movimiento = new MovimientoPrenda(cantidad, Calendar.getInstance().getTime(),
+				"sistema", "sistema", ubicacion, prenda, TipoMovimientoStockPrendaEnum.Sistema, stockUtilizado);
 
 		movimiento.saveMe();
 	}

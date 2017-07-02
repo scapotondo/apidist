@@ -64,7 +64,7 @@
 	                    <div class="col-md-8">
 	                        <div class="card">
 	                            <div class="card-header" data-background-color="orange">
-	                                <h4 class="title"> Disminuir Stock Prenda</h4>
+	                                <h4 class="title"> Modificar Stock Prenda</h4>
 	                            </div>
 	                            <div class="card-content">
 	                                
@@ -72,19 +72,28 @@
 	                                    <div class="row">
 	                                        <div class="col-md-5">
 	                                            <div class="form-group label-floating">
-	                                                <select class="form-control" name="prenda">
+	                                                <select class="form-control" name="stockPrenda">
 	                                                    <option value="">Seleccione un stock</option>
 	                                                    <%
 	                                                    	if(stockPrendas!= null){
 	                                                    		for(StockPrendaDto stock : stockPrendas){
 	                                                    %>
-			                                                   		<option value="<%=stock.getPrenda().getDescripcion()%> - <%=stock.getUbicacion() %>"></option>
-			                                                   		<input type="hidden" name="stockId" value="Norway">
+			                                                   		<option value="<%=stock.getCodigo()%>"><%=stock.getPrenda().getDescripcion()%> - <%=stock.getUbicacion() %> - <%=stock.getTalle() %> - <%=stock.getColor() %></option>
 	                                                   	<% 		} 
 	                                                    	}
 	                                                   	%>
 	                                                </select>
 	                                            </div>
+	                                        </div>
+	                                    </div>
+	
+										<div class="row">
+	                                        <div class="col-md-4">
+	                                            	<select class="form-control" name="tipoMovimiento">
+	                                                    <option value="">Seleccione el tipo de movimiento</option>
+			                                            <option value="Por Deterioro">Por Deterioro</option>
+			                                            <option value="Diferencia Inventario">Diferencia Inventario</option>
+	                                                </select>
 	                                        </div>
 	                                    </div>
 	
@@ -95,34 +104,13 @@
 	                                                <input type="text" name="cantidad" class="form-control">
 	                                            </div>
 	                                        </div>
-	                                        <div class="col-md-4">
-	                                            <div class="form-group label-floating">
-	                                                <label class="control-label">Talle</label>
-	                                                <input type="text" name="talle" class="form-control" >
-	                                            </div>
-	                                        </div>
-	                                        <div class="col-md-4">
-	                                            <div class="form-group label-floating">
-	                                                <label class="control-label">Color</label>
-	                                                <input type="text" name="color" class="form-control" >
-	                                            </div>
-	                                        </div>
-	
-	                                    </div>
-	
-	                                    <div class="row">
-	                                        <div class="col-md-6">
-	                                            <div class="form-group label-floating">
-	                                                <label class="control-label">Encargado</label>
-	                                                <input type="text" name="encargado" class="form-control" >
-	                                            </div>
-	                                        </div>
 	                                        <div class="col-md-6">
 	                                            <div class="form-group label-floating">
 	                                                <label class="control-label">Quien autoriza</label>
 	                                                <input type="text" name="autoriza" class="form-control" >
 	                                            </div>
 	                                        </div>
+	                                        
 	                                    </div>
 	
 	                                    <button class="btn btn-google ">Aceptar</button>

@@ -5,10 +5,13 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import controller.AlmacenController;
+import dto.EmpleadoDto;
+import dto.ModificacionStockDto;
 import dto.MovimientoMateriaPrimaDto;
 import dto.MovimientoPrendaDto;
 import dto.StockMateriaPrimaDto;
 import dto.StockPrendaDto;
+import exceptions.ApplicationException;
 import interfaces.AdministracionAlmacenInterface;
 
 public class AdministracionAlmacen extends UnicastRemoteObject implements AdministracionAlmacenInterface{
@@ -35,4 +38,7 @@ public class AdministracionAlmacen extends UnicastRemoteObject implements Admini
 		return AlmacenController.getInstance().getStockPrendas();
 	}
 
+	public void modificarStockPrenda(StockPrendaDto stockDto, EmpleadoDto empleadoDto, EmpleadoDto quienAutorizoDto, ModificacionStockDto modifDto) throws ApplicationException {
+			AlmacenController.getInstance().modificarStockPrendaAdmin(stockDto, empleadoDto, quienAutorizoDto, modifDto);
+	}
 }

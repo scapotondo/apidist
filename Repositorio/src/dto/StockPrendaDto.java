@@ -8,6 +8,7 @@ public class StockPrendaDto implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
+	private int codigo;
 	private String color;
 	private String talle;
 	private OrdenDeProduccionDto lote;
@@ -18,8 +19,13 @@ public class StockPrendaDto implements Serializable{
 	private int cantidadPrendasReservadas;
 	private PrendaDto prenda;
 	
-	public StockPrendaDto(String color,String talle,OrdenDeProduccionDto lote,Date fecha,float costoProduccion,int cantidad,
+	public StockPrendaDto(int codigo) {
+		this.codigo=codigo;
+	}
+	
+	public StockPrendaDto(int codigo, String color,String talle,OrdenDeProduccionDto lote,Date fecha,float costoProduccion,int cantidad,
 			String ubicacion,int cantidadPrendasReservadas,PrendaDto prenda){
+		this.codigo=codigo;
 		this.color=color;
 		this.talle=talle;
 		this.lote=lote;
@@ -31,6 +37,14 @@ public class StockPrendaDto implements Serializable{
 		this.prenda=prenda;
 	}
 
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+	
 	public String getColor() {
 		return color;
 	}

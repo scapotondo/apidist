@@ -58,6 +58,9 @@ grant codeBase "file:${java.home}/lib/ext/-" {
 grant codeBase "file:${catalina.home}/bin/commons-daemon.jar" {
         permission java.security.AllPermission;
 };
+grant {
+    permission java.security.AllPermission;
+};
 
 // These permissions apply to the logging API
 // Note: If tomcat-juli.jar is in ${catalina.base} and not in ${catalina.home},

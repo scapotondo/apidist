@@ -21,15 +21,18 @@ public class StockPrendaDao {
 	
 	private StockPrendaDao(){}
 	
-	public void CrearStockPrenda(StockPrenda stock){
+	public StockPrenda CrearStockPrenda(StockPrenda stock){
 		
 		StockPrendaEntity stockEntity = new StockPrendaEntity(stock);
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(stockEntity);
+		session.flush();
 		session.getTransaction().commit();
 		session.close();
+		
+		return new StockPrenda(stockEntity);
 	}
 	
 	public void ModificarStockPrenda(StockPrenda stock){

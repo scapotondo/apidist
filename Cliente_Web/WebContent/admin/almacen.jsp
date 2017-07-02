@@ -69,7 +69,7 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-md-3">
-							<a href="${pageContext.request.contextPath}/DisminuirPrendas" class="btn btn-facebook ">Daños stock prenda</a>
+							<a href="${pageContext.request.contextPath}/ModificarStockPrendas" class="btn btn-facebook ">Modificar stock prenda</a>
 						</div>
 						<div class="col-md-12">
 							<div class="card">
@@ -153,8 +153,6 @@
 										<thead class="text-info">
 											<th>Id</th>
 											<th>Prenda</th>
-											<th>Color</th>
-											<th>Talle</th>
 											<th>Cantidad</th>
 											<th>Destino</th>
 											<th>Encargado</th>
@@ -169,8 +167,6 @@
 														<tr>
 															<td><%= movimiento.getId() %></td>
 															<td><%= movimiento.getPrenda().getNombre() %></td>
-															<td><%= movimiento.getColor() %></td>
-															<td><%= movimiento.getTalle() %></td>
 															<td><%= movimiento.getCantidad() %></td>
 															<td><%= movimiento.getDestino() %></td>
 															<td><%= movimiento.getEncargado() %></td>

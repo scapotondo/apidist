@@ -7,4 +7,10 @@ public class UsuarioException extends Exception{
 	public UsuarioException(String mensaje){
 		super(mensaje);
 	}
+	
+	public UsuarioException(String message, StackTraceElement[] stackTrace) {
+		super(message);
+		
+		this.setStackTrace(stackTrace);
+	}
 }

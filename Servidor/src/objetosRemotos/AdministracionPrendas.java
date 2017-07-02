@@ -48,5 +48,4 @@ public class AdministracionPrendas extends UnicastRemoteObject implements Admini
 	public ArrayList<PrendaDto> GetPrendasDisponibles() throws RemoteException {
 		return AdministracionController.getInstance().GetPrendasDisponibles();
 	}
-
 }
