@@ -49,23 +49,26 @@ public class AreaProduccion extends HttpServlet{
 			}
 			
 			UsuarioDto usuario = BusinessDelegate.getInstance().getUserEmpleado(codigo);
-
-			String id = request.getParameter("id");
-			
-			
-			AreaProduccionDto area = new AreaProduccionDto();
-			
-			area.setCodigo(Integer.parseInt(id));
-			
-			ArrayList<OrdenDeProduccionDto> ordenes = BusinessDelegate.getInstance().getOrdenesAreaProduccion(area);
-			
-			
 			request.setAttribute("usuario", usuario);
-			request.setAttribute("ordenes", ordenes);
+			
+			
+			String id = request.getParameter("id");
+			if(id != null){
+				
+				AreaProduccionDto area = new AreaProduccionDto();
+				
+				area.setCodigo(Integer.parseInt(id));
+				
+				ArrayList<OrdenDeProduccionDto> ordenes = BusinessDelegate.getInstance().getOrdenesAreaProduccion(area);
+				request.setAttribute("ordenes", ordenes);
+				
+				request.setAttribute("id", Integer.parseInt(id));
+			}	
 			
 			if(request.getParameter("confeccionId") != null && request.getParameter("nroOrden")!= null){
 				doPost(request,response);
 			}
+			
 			request.getRequestDispatcher("/admin/areaProduccion.jsp").forward(request, response);
 			
 		} catch (RemoteObjectNotFoundException | UsuarioException e) {
@@ -85,7 +88,7 @@ public class AreaProduccion extends HttpServlet{
 			OrdenDeProduccionDto orden = BusinessDelegate.getInstance().getOrdenProduccion(nroOrden);
 			ConfeccionDto confeccion = BusinessDelegate.getInstance().getConfeccion(confeccionId);
 			
-			String id = request.getParameter("codigo");
+			String id = request.getParameter("area");
 			
 			AreaProduccionDto area = new AreaProduccionDto();
 			area.setCodigo(Integer.parseInt(id));

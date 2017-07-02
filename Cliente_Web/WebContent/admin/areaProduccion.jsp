@@ -29,6 +29,7 @@
 <body>
 	<%
 		UsuarioDto usuario = (UsuarioDto) request.getAttribute("usuario");
+		Integer id = (Integer) request.getAttribute("id");
 		ArrayList<OrdenDeProduccionDto> ordenes = (ArrayList<OrdenDeProduccionDto>) request.getAttribute("ordenes");
 	%>
 	<div class="wrapper">
@@ -83,7 +84,7 @@
 	                                    			for(OrdenDeProduccionDto orden : ordenes){
 	                                    				ConfeccionDto confeccion = new ConfeccionDto(); 
 	                                    				for(ConfeccionDto confeccionLista : orden.getPrenda().getConfecciones()){
-	                                    					if(confeccionLista.getEstado().equals("INCOMPLETO")){
+	                                    					if(confeccionLista.getEstado().equals("Incompleto")){
 	                                    						confeccion = confeccionLista;
 	                                    						break;
 	                                    					}
@@ -93,7 +94,7 @@
 					                                        <td><%= orden.getNroOrden()%></td>
 					                                        <td><%= orden.getPedido().getNroPedido()%></td>
 					                                        <td><%= confeccion.getDetalle()%></td>
-					                                        <td><a href="AreaProduccion?confeccionId=<%=confeccion.getId() %>&nroOrden=<%= orden.getNroOrden() %>"><i class="material-icons">done</i></a></td>
+					                                        <td><a href="AreaProduccion?area=<%= id %>&confeccionId=<%=confeccion.getId() %>&nroOrden=<%= orden.getNroOrden() %>"><i class="material-icons">done</i></a></td>
 					                                    </tr>
 											<%		}
 	                                    		}

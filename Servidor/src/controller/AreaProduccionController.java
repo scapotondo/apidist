@@ -50,8 +50,9 @@ public class AreaProduccionController {
 
 	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto , ConfeccionDto confeccionDto)
 			throws RemoteObjectNotFoundException, AreaProduccionException, ApplicationException {
+		
 		AreaProduccion area = AreaProduccionDao.getInstance().getById(areaDto);
-		OrdenDeProduccion orden = OrdenDeProduccionDao.getInstance().getBuscarOrden(ordenDto);
+		OrdenDeProduccion orden = OrdenDeProduccionDao.getInstance().getBuscarOrden(ordenDto); 
 		Confeccion confeccion = ConfeccionDao.getInstance().buscarConfeccion(confeccionDto);
 		
 		if (area.hayLineasLibres()) {
