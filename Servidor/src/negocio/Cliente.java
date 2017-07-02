@@ -164,7 +164,7 @@ public class Cliente {
 	
 	
 	public boolean alcanzaCredito(float monto){
-		if(this.cuentaCorriente - monto < limiteCredito)
+		if(this.cuentaCorriente - monto < -limiteCredito)
 			return false;
 
 		return true;
