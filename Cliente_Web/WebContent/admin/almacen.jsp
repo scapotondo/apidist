@@ -153,8 +153,6 @@
 										<thead class="text-info">
 											<th>Id</th>
 											<th>Prenda</th>
-											<th>Color</th>
-											<th>Talle</th>
 											<th>Cantidad</th>
 											<th>Destino</th>
 											<th>Encargado</th>
