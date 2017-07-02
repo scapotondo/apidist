@@ -2,6 +2,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import dao.OrdenDeCompraDao;
 import dto.OrdenDeCompraDto;
@@ -27,6 +28,7 @@ public class AreaComprasController {
 		AlmacenController.getInstance().agregarStockMateriaPrima(orden.getMateriaPrima(), orden.getCantidad(), precio);
 		
 		orden.setEstado(OrdenDeCompra.REALIZADA);
+		orden.setFechaRealDespacho(Calendar.getInstance().getTime());
 		orden.getOrdenProduccion().setEstado(EstadoOrdenProduccion.PENDIENTE);
 		orden.getOrdenProduccion().modificame();
 		orden.modificame();

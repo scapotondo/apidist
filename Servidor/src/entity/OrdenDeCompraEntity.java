@@ -3,6 +3,7 @@ package entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,6 +31,8 @@ public class OrdenDeCompraEntity implements Serializable{
 	
 	private Date fechaGeneracion;
 	private Date fechaProbableDespacho;
+	
+	@Column(nullable=true)
 	private Date fechaRealDespacho;
 	private int cantidad;
 	private float precioUnitario;

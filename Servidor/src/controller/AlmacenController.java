@@ -1,7 +1,9 @@
 package controller;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -391,8 +393,12 @@ public class AlmacenController {
 		}else{
 			Proveedor proveedor = ProveedorDao.getInstance().getProveedores().get(0);
 			
-			OrdenDeCompra ordenDeCompra = new OrdenDeCompra(Calendar.getInstance().getTime(), Calendar.getInstance().getTime(),
-					Calendar.getInstance().getTime(), mp.getMinimo(), precio, lote, proveedor, OrdenDeCompra.PENDIENTE, mp);
+			Calendar fechaProbableEntrega = Calendar.getInstance();
+			fechaProbableEntrega.setTime(Date.from(Instant.now()));
+			fechaProbableEntrega.add(Calendar.DATE, 5);
+			
+			OrdenDeCompra ordenDeCompra = new OrdenDeCompra(Calendar.getInstance().getTime(), fechaProbableEntrega.getTime(),
+					null, mp.getMinimo(), precio, lote, proveedor, OrdenDeCompra.PENDIENTE, mp);
 			ordenDeCompra.saveMe();
 			
 			lote.setEstado(EstadoOrdenProduccion.MATERIAPRIMA);

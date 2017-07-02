@@ -166,6 +166,10 @@ public class Controller {
 		if(pedido == null)
 			throw new PedidoException("No se encuentra el pedido");
 		
+		Cliente cliente = pedido.getCliente();
+		cliente.setCuentaCorriente(cliente.getCuentaCorriente() - pedido.calcularTotal());
+		cliente.modificame();
+		
 		Hashtable<Prenda, ArrayList<ItemPrenda>> sinStock = getItemsSinStock(pedido.getItems());
 		if(sinStock.isEmpty()) {
 			AlmacenController.getInstance().reservarPrendasPedido(pedido.getItems());
