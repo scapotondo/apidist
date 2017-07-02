@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -37,19 +38,19 @@ public class SucursalEntity implements Serializable{
 	@ElementCollection
 	private List<String> horarios;
 	
-	@OneToMany(mappedBy="sucursal")
+	@OneToMany(mappedBy="sucursal",cascade = CascadeType.ALL)
 	private List<ClienteEntity> cliente;
 	
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="sucursal_id")
 	private List<PedidoPrendasEntity> pedidos;
 	
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="sucursal_id")
 	private List<EmpleadoEntity> empleados;
 	
 	public SucursalEntity(){
-		pedidos = new ArrayList<PedidoPrendasEntity>();
+		pedidos = new ArrayList<>();
 	}
 	public SucursalEntity(int numero, String nombre, String direccion, List<String> horarios,
 			List<EmpleadoEntity> empleados, List<PedidoPrendasEntity> pedidos){

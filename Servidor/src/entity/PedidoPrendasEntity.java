@@ -34,7 +34,7 @@ public class PedidoPrendasEntity implements Serializable{
 	@Column(nullable=true)
 	private Date fechaRealDespacho;
 	
-	@ManyToOne(targetEntity=ClienteEntity.class)
+	@ManyToOne()
 	private ClienteEntity cliente;
 	
 	@OneToOne()
@@ -58,7 +58,7 @@ public class PedidoPrendasEntity implements Serializable{
 	}
 	
 	public PedidoPrendasEntity(PedidoPrendas pedido){
-		this.nroPedido=pedido.getNroPedido();
+//		this.nroPedido=pedido.getNroPedido();
 		this.fechaProbableDespacho=pedido.getFechaProbableDespacho();
 		this.estado=pedido.getEstado().toInt();
 		this.fechaGeneracion=pedido.getFechaGeneracion();
