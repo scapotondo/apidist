@@ -41,7 +41,7 @@ public class MateriaPrimaEntity implements Serializable{
 		this.stock = new ArrayList<StockMateriaPrimaEntity>();
 		if(materiaPrima.getStock() != null){
 			for (StockMateriaPrima stockMateriaPrima : materiaPrima.getStock()) {
-				this.stock.add(new StockMateriaPrimaEntity(stockMateriaPrima));
+				this.stock.add(new StockMateriaPrimaEntity(stockMateriaPrima, this));
 			}
 		}
 	}
