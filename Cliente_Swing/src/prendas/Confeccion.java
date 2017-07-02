@@ -10,7 +10,6 @@ import BusinessDelegate.BusinessDelegate;
 import dto.AreaProduccionDto;
 import dto.ConfeccionDto;
 import dto.InsumoDto;
-import negocio.EstadoConfeccion;
 
 
 public abstract class Confeccion extends javax.swing.JFrame {
@@ -165,7 +164,7 @@ public abstract class Confeccion extends javax.swing.JFrame {
 	    	AreaProduccionDto areaProduccion = (AreaProduccionDto) comboAreas.getSelectedItem();
 	    	
 	        ConfeccionDto confeccion = new ConfeccionDto(Float.parseFloat(fieldTiempo.getText()), fieldDetalle.getText(), 
-	        		areaProduccion, insumosDto, EstadoConfeccion.INCOMPLETO.toString());
+	        		areaProduccion, insumosDto, "Incompleto");
 	    	
 	        this.confeccionDto=confeccion;
 	        
