@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import BusinessDelegate.BusinessDelegate;
 import dto.PedidoPrendasDto;
 import dto.UsuarioDto;
+import exceptions.PedidoException;
 import exceptions.RemoteObjectNotFoundException;
+import exceptions.UsuarioException;
 
 /**
  * Servlet implementation class PedidosPendientes
@@ -55,7 +57,7 @@ public class PedidosPendientes extends HttpServlet {
 			}else
 				request.getRequestDispatcher("cliente/pedidosPendientes.jsp").forward(request, response);
 		
-		} catch (RemoteObjectNotFoundException e) {
+		} catch (RemoteObjectNotFoundException | UsuarioException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -77,11 +79,9 @@ public class PedidosPendientes extends HttpServlet {
 				
 			response.sendRedirect(request.getContextPath()+"/PedidosPendientes");
 		
-		} catch (NumberFormatException e) {
+		} catch (NumberFormatException | RemoteObjectNotFoundException | PedidoException e) {
 			e.printStackTrace();
-		} catch (RemoteObjectNotFoundException e) {
-			e.printStackTrace();
-		}
+		} 
 	}
 
 }

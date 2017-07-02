@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import BusinessDelegate.BusinessDelegate;
 import dto.UsuarioDto;
 import exceptions.RemoteObjectNotFoundException;
+import exceptions.UsuarioException;
 
 /**
  * Servlet implementation class NuevoPedido
@@ -48,7 +49,7 @@ public class Perfil extends HttpServlet{
 			
 			request.getRequestDispatcher("/cliente/perfil.jsp").forward(request, response);
 			
-		} catch (RemoteObjectNotFoundException e) {
+		} catch (RemoteObjectNotFoundException | UsuarioException e) {
 			e.printStackTrace();
 		}
 		

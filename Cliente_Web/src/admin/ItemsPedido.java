@@ -15,6 +15,7 @@ import dto.ItemPrendaDto;
 import dto.PedidoPrendasDto;
 import dto.UsuarioDto;
 import exceptions.RemoteObjectNotFoundException;
+import exceptions.UsuarioException;
 
 /**
  * Servlet implementation class Sucursal
@@ -56,7 +57,7 @@ public class ItemsPedido extends HttpServlet{
 			request.setAttribute("items", items);
 			
 			request.getRequestDispatcher("/admin/itemsPedido.jsp").forward(request, response);
-		} catch (RemoteObjectNotFoundException e) {
+		} catch (RemoteObjectNotFoundException | UsuarioException e) {
 			e.printStackTrace();
 		}
 	}

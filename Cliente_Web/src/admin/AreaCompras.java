@@ -15,6 +15,7 @@ import dto.OrdenDeCompraDto;
 import dto.UsuarioDto;
 import exceptions.ApplicationException;
 import exceptions.RemoteObjectNotFoundException;
+import exceptions.UsuarioException;
 
 /**
  * Servlet implementation class AreaCompras
@@ -58,7 +59,7 @@ public class AreaCompras extends HttpServlet{
 			
 			request.getRequestDispatcher("/admin/areaCompras.jsp").forward(request, response);
 			
-		} catch (RemoteObjectNotFoundException | ApplicationException e) {
+		} catch (RemoteObjectNotFoundException | ApplicationException | UsuarioException e) {
 			e.printStackTrace();
 		}
 		

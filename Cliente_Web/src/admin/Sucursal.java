@@ -13,7 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import BusinessDelegate.BusinessDelegate;
 import dto.PedidoPrendasDto;
 import dto.UsuarioDto;
+import exceptions.ApplicationException;
+import exceptions.PedidoException;
 import exceptions.RemoteObjectNotFoundException;
+import exceptions.UsuarioException;
 
 /**
  * Servlet implementation class Sucursal
@@ -58,7 +61,7 @@ public class Sucursal extends HttpServlet{
 			
 			request.getRequestDispatcher("/admin/sucursal.jsp").forward(request, response);
 			
-		} catch (RemoteObjectNotFoundException e) {
+		} catch (RemoteObjectNotFoundException | UsuarioException e) {
 			e.printStackTrace();
 		}
 		
@@ -79,7 +82,7 @@ public class Sucursal extends HttpServlet{
 			else
 				BusinessDelegate.getInstance().RechazarPedidoAdmin(pedido, "rechazado");
 			
-		} catch (RemoteObjectNotFoundException e) {
+		} catch (RemoteObjectNotFoundException | ApplicationException | PedidoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

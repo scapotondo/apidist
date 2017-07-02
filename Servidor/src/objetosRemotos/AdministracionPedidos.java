@@ -4,9 +4,13 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+import org.hibernate.HibernateException;
+
 import controller.Controller;
 import dto.ClienteDto;
 import dto.PedidoPrendasDto;
+import exceptions.ApplicationException;
+import exceptions.PedidoException;
 import interfaces.AdministracionPedidoInterface;
 
 public class AdministracionPedidos extends UnicastRemoteObject implements AdministracionPedidoInterface {
@@ -17,11 +21,15 @@ public class AdministracionPedidos extends UnicastRemoteObject implements Admini
 		super();
 	}
 
-	public PedidoPrendasDto CrearPedido(PedidoPrendasDto pedido) throws RemoteException {
-		return Controller.getInstance().CrearPedidoPrendas(pedido);
+	public PedidoPrendasDto CrearPedido(PedidoPrendasDto pedido) throws RemoteException, PedidoException {
+		try {
+			return Controller.getInstance().CrearPedidoPrendas(pedido);
+		} catch (HibernateException ex) {
+			throw new PedidoException(ex.getMessage(), ex.getStackTrace());
+		}
 	}
 
-	public void AprobarPedidoAdmin(PedidoPrendasDto pedidoDto) throws RemoteException {
+	public void AprobarPedidoAdmin(PedidoPrendasDto pedidoDto) throws RemoteException, PedidoException {
 		Controller.getInstance().AprobarPedidoAdmin(pedidoDto);
 	}
 
@@ -29,17 +37,20 @@ public class AdministracionPedidos extends UnicastRemoteObject implements Admini
 		return Controller.getInstance().BuscarPedido(nroPedido).toDto();
 	}
 
-	public void RechazarPedidoAdmin(PedidoPrendasDto pedidoDto, String descripcion) throws RemoteException {
+	public void RechazarPedidoAdmin(PedidoPrendasDto pedidoDto, String descripcion) throws RemoteException, ApplicationException, PedidoException {
+		try{
 		Controller.getInstance().RechazarPedidoAdmin(pedidoDto,descripcion);
-		
+		} catch (HibernateException ex) {
+			throw new ApplicationException(ex.getMessage());
+		}
 	}
 
-	public void AceptarPedidoCliente(int nroPedido) throws RemoteException {
+	public void AceptarPedidoCliente(int nroPedido) throws RemoteException, PedidoException {
 		Controller.getInstance().AceptarPedidoCliente(nroPedido);
 		
 	}
 
-	public void RechazarPedidoCliente(int nroPedido) throws RemoteException {
+	public void RechazarPedidoCliente(int nroPedido) throws RemoteException, PedidoException {
 		Controller.getInstance().RechazarPedidoCliente(nroPedido);
 	}
 

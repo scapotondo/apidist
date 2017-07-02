@@ -1,8 +1,6 @@
 package exceptions;
 
-import java.rmi.RemoteException;
-
-public class UsuarioException extends RemoteException{
+public class UsuarioException extends Exception{
 
 	private static final long serialVersionUID = 1L;
 

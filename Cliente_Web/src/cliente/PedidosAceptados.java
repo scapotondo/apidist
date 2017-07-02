@@ -14,6 +14,7 @@ import BusinessDelegate.BusinessDelegate;
 import dto.PedidoPrendasDto;
 import dto.UsuarioDto;
 import exceptions.RemoteObjectNotFoundException;
+import exceptions.UsuarioException;
 
 /**
  * Servlet implementation class PedidosAceptados
@@ -45,7 +46,7 @@ public class PedidosAceptados extends HttpServlet {
 		UsuarioDto usuario = new UsuarioDto();
 		try {
 			usuario = BusinessDelegate.getInstance().getUser(codigo);
-		} catch (RemoteObjectNotFoundException e) {
+		} catch (RemoteObjectNotFoundException | UsuarioException e) {
 			e.printStackTrace();
 		}
 		

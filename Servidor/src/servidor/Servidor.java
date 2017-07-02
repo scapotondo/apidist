@@ -1,8 +1,7 @@
 
 package servidor;
 
-import java.rmi.Naming;
-import java.rmi.RMISecurityManager;
+import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
 
 import interfaces.*;
@@ -21,6 +20,7 @@ public class Servidor {
 		iniciar();
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void iniciar() {
     	
     	AdministracionClientesInterface adminClientes;

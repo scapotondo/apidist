@@ -14,6 +14,7 @@ import BusinessDelegate.BusinessDelegate;
 import dto.StockPrendaDto;
 import dto.UsuarioDto;
 import exceptions.RemoteObjectNotFoundException;
+import exceptions.UsuarioException;
 
 /**
  * Servlet implementation class StockPrenda
@@ -52,7 +53,7 @@ public class StockPrenda extends HttpServlet{
 		
 			request.getRequestDispatcher("/admin/stockPrenda.jsp").forward(request, response);
 			
-		} catch (RemoteObjectNotFoundException e) {
+		} catch (RemoteObjectNotFoundException | UsuarioException e) {
 			e.printStackTrace();
 		}
 		

@@ -17,6 +17,7 @@ import dto.StockMateriaPrimaDto;
 import dto.StockPrendaDto;
 import dto.UsuarioDto;
 import exceptions.RemoteObjectNotFoundException;
+import exceptions.UsuarioException;
 
 /**
  * Servlet implementation class Almacen
@@ -61,7 +62,7 @@ public class Almacen extends HttpServlet{
 			
 			request.getRequestDispatcher("/admin/almacen.jsp").forward(request, response);
 			
-		} catch (RemoteObjectNotFoundException e) {
+		} catch (RemoteObjectNotFoundException | UsuarioException e) {
 			e.printStackTrace();
 		}
 		

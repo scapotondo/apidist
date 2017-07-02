@@ -2,7 +2,7 @@ package exceptions;
 
 import java.rmi.RemoteException;
 
-public class PedidoException extends RemoteException {
+public class PedidoException extends Exception {
 	/**
 	 * 
 	 */
@@ -10,5 +10,11 @@ public class PedidoException extends RemoteException {
 
 	public PedidoException (String message) {
 		super(message);
+	}
+	
+	public PedidoException (String message, StackTraceElement[] stackTrace) {
+		super(message);
+		
+		this.setStackTrace(stackTrace);
 	}
 }

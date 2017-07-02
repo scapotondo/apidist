@@ -3,20 +3,24 @@ package BusinessDelegate;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
+import java.rmi.*;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import dto.*;
 import exceptions.ApplicationException;
 import exceptions.AreaProduccionException;
+import exceptions.PedidoException;
 import exceptions.RemoteObjectNotFoundException;
+import exceptions.UsuarioException;
 import interfaces.*;
 
 public class BusinessDelegate {
 	private static BusinessDelegate instance;
 
+	@SuppressWarnings("deprecation")
 	private BusinessDelegate() {
-
+		System.setSecurityManager(new RMISecurityManager());
 	}
 
 	public static BusinessDelegate getInstance() {
@@ -363,12 +367,13 @@ public class BusinessDelegate {
 	
 	
 
-	/** Pedidos Prendas **/
-	public PedidoPrendasDto CrearPedido(PedidoPrendasDto pedido) throws RemoteException, RemoteObjectNotFoundException {
+	/** Pedidos Prendas 
+	 * @throws PedidoException **/
+	public PedidoPrendasDto CrearPedido(PedidoPrendasDto pedido) throws RemoteException, RemoteObjectNotFoundException, PedidoException {
 		return getAdministracionPedidosRemoto().CrearPedido(pedido);
 	}
 
-	public void AprobarPedidoAdmin(PedidoPrendasDto pedidoDto) throws RemoteException, RemoteObjectNotFoundException {
+	public void AprobarPedidoAdmin(PedidoPrendasDto pedidoDto) throws RemoteException, RemoteObjectNotFoundException, PedidoException {
 		getAdministracionPedidosRemoto().AprobarPedidoAdmin(pedidoDto);
 	}
 
@@ -377,15 +382,15 @@ public class BusinessDelegate {
 	}
 
 	public void RechazarPedidoAdmin(PedidoPrendasDto pedidoDto, String descripcion)
-			throws RemoteException, RemoteObjectNotFoundException {
+			throws RemoteException, RemoteObjectNotFoundException, ApplicationException, PedidoException {
 		getAdministracionPedidosRemoto().RechazarPedidoAdmin(pedidoDto, descripcion);
 	}
 
-	public void AceptarPedidoCliente(int nroPedido) throws RemoteException, RemoteObjectNotFoundException {
+	public void AceptarPedidoCliente(int nroPedido) throws RemoteException, RemoteObjectNotFoundException, PedidoException {
 		getAdministracionPedidosRemoto().AceptarPedidoCliente(nroPedido);
 	}
 
-	public void RechazarPedidoCliente(int nroPedido) throws RemoteException, RemoteObjectNotFoundException {
+	public void RechazarPedidoCliente(int nroPedido) throws RemoteException, RemoteObjectNotFoundException, PedidoException {
 		getAdministracionPedidosRemoto().RechazarPedidoCliente(nroPedido);
 	}
 
@@ -426,7 +431,7 @@ public class BusinessDelegate {
 		return getAdminUsuariosRemoto().Login(usuario, password);
 	}
 
-	public UsuarioDto getUser(int codigo) throws RemoteObjectNotFoundException, RemoteException {
+	public UsuarioDto getUser(int codigo) throws RemoteObjectNotFoundException, RemoteException, UsuarioException {
 		return getAdminUsuariosRemoto().getUsuario(codigo);
 	}
 

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import BusinessDelegate.BusinessDelegate;
 import dto.UsuarioDto;
 import exceptions.RemoteObjectNotFoundException;
+import exceptions.UsuarioException;
 
 /**
  * Servlet implementation class User
@@ -48,7 +49,7 @@ public class User extends HttpServlet{
 			
 			request.getRequestDispatcher("/admin/user.jsp").forward(request, response);
 			
-		} catch (RemoteObjectNotFoundException e) {
+		} catch (RemoteObjectNotFoundException | UsuarioException e) {
 			e.printStackTrace();
 		}
 		

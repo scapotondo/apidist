@@ -15,6 +15,7 @@ import dto.EmpleadoDto;
 import dto.PedidoPrendasDto;
 import dto.UsuarioDto;
 import exceptions.RemoteObjectNotFoundException;
+import exceptions.UsuarioException;
 
 /**
  * Servlet implementation class Despacho
@@ -57,7 +58,7 @@ public class Despacho extends HttpServlet{
 			
 			request.getRequestDispatcher("/admin/despacho.jsp").forward(request, response);
 			
-		} catch (RemoteObjectNotFoundException e) {
+		} catch (RemoteObjectNotFoundException | UsuarioException e) {
 			e.printStackTrace();
 		}
 		
