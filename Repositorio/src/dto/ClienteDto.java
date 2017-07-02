@@ -18,18 +18,23 @@ public class ClienteDto implements Serializable{
 	private String direccionFacturacion;
 	private int legajo;
 	private SucursalDto sucursal;
+	private String usuario;
+	private String password;
+	private String rol = "CLIENTE";
 
 	public ClienteDto(){}
 	
 	public ClienteDto(float limiteCredito,String formaPago, float cuentaCorriente, String cuit, String nombre, String razonSocial,
-			String telefono, String direccionEnvio,String direccionFacturacion,SucursalDto sucursal, int legajo ){
-		this(limiteCredito, formaPago, cuentaCorriente, cuit, nombre, razonSocial, telefono, direccionEnvio, direccionFacturacion, legajo);
+			String telefono, String direccionEnvio,String direccionFacturacion,SucursalDto sucursal, int legajo, String usuario,
+			String password ){
+		this(limiteCredito, formaPago, cuentaCorriente, cuit, nombre, razonSocial, telefono, direccionEnvio, direccionFacturacion, legajo,
+				usuario, password);
 		
 		this.sucursal=sucursal;
 	}
 	
 	public ClienteDto(float limiteCredito,String formaPago, float cuentaCorriente, String cuit, String nombre, String razonSocial,
-			String telefono, String direccionEnvio,String direccionFacturacion, int legajo) {
+			String telefono, String direccionEnvio,String direccionFacturacion, int legajo, String usuario, String password) {
 		
 		this.limiteCredito=limiteCredito;
 		this.formaPago=formaPago;
@@ -41,6 +46,8 @@ public class ClienteDto implements Serializable{
 		this.telefono=telefono;
 		this.direccionEnvio=direccionEnvio;
 		this.direccionFacturacion=direccionFacturacion;
+		this.usuario = usuario;
+		this.password = password;
 	}
 
 	public float getLimiteCredito() {
@@ -130,4 +137,25 @@ public class ClienteDto implements Serializable{
 	public void setSucursal(SucursalDto sucursal) {
 		this.sucursal = sucursal;
 	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRol() {
+		return rol;
+	}
+	
 }

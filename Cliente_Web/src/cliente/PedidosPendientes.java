@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import BusinessDelegate.BusinessDelegate;
+import dto.ClienteDto;
 import dto.PedidoPrendasDto;
 import dto.UsuarioDto;
+import exceptions.ApplicationException;
 import exceptions.PedidoException;
 import exceptions.RemoteObjectNotFoundException;
 import exceptions.UsuarioException;
@@ -42,9 +44,10 @@ public class PedidosPendientes extends HttpServlet {
 					codigo = Integer.parseInt(cookie.getValue());
 			}
 		
-			UsuarioDto usuario = BusinessDelegate.getInstance().getUser(codigo);
-	
-			ArrayList<PedidoPrendasDto> pedidosPendientes = BusinessDelegate.getInstance().getPedidosPendientesAceptacionCliente(usuario.getCliente());
+			UsuarioDto usuario = BusinessDelegate.getInstance().getUserCliente(codigo);
+			ClienteDto cliente = BusinessDelegate.getInstance().BuscarCliente(usuario.getCodigo());
+			
+			ArrayList<PedidoPrendasDto> pedidosPendientes = BusinessDelegate.getInstance().getPedidosPendientesAceptacionCliente(cliente);
 			
 			request.setAttribute("pedidosPendientes", pedidosPendientes);
 			request.setAttribute("usuario", usuario);
@@ -58,7 +61,8 @@ public class PedidosPendientes extends HttpServlet {
 				request.getRequestDispatcher("cliente/pedidosPendientes.jsp").forward(request, response);
 		
 		} catch (RemoteObjectNotFoundException | UsuarioException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
 	}

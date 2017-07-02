@@ -45,7 +45,7 @@ public class Despacho extends HttpServlet{
 					codigo = Integer.parseInt(cookie.getValue());
 			}
 		
-			UsuarioDto usuario = BusinessDelegate.getInstance().getUser(codigo);
+			UsuarioDto usuario = BusinessDelegate.getInstance().getUserEmpleado(codigo);
 			ArrayList<PedidoPrendasDto> pedidos = BusinessDelegate.getInstance().getPedidosDespacho();
 			
 			request.setAttribute("usuario", usuario);

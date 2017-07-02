@@ -1,6 +1,7 @@
 package negocio;
 
 import dto.EmpleadoDto;
+import dto.RolUsuarioEnum;
 import entity.EmpleadoEntity;
 
 public class Empleado {
@@ -10,6 +11,9 @@ public class Empleado {
 	private String telefono;
 	private int legajo;
 	private Rol rol;
+	private String usuario;
+	private String password;
+	private RolUsuarioEnum rolUsuario;
 	
 	public Empleado (EmpleadoEntity empleado){
 		this.nombre=empleado.getNombre();
@@ -17,14 +21,21 @@ public class Empleado {
 		this.telefono=empleado.getTelefono();
 		this.legajo=empleado.getLegajo();
 		this.rol=empleado.getRol();
+		this.usuario = empleado.getUsuario();
+		this.password = empleado.getPassword();
+		this.rolUsuario = RolUsuarioEnum.fromString(empleado.getRolUsuario());
 	}
 	
-	public Empleado(String nombre, String domicilio, String telefono, int legajo,Rol rol){
+	public Empleado(String nombre, String domicilio, String telefono, int legajo,Rol rol, String usuario, String password,
+			RolUsuarioEnum rolUsuario){
 		this.nombre=nombre;
 		this.domicilio=domicilio;
 		this.telefono=telefono;
 		this.legajo=legajo;
 		this.rol=rol;
+		this.usuario = usuario;
+		this.password = password;
+		this.rolUsuario = rolUsuario;
 	}
 
 	public Rol getRol() {
@@ -66,8 +77,33 @@ public class Empleado {
 	public void setLegajo(int legajo) {
 		this.legajo = legajo;
 	}
+	
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public RolUsuarioEnum getRolUsuario() {
+		return rolUsuario;
+	}
+
+	public void setRolUsuario(RolUsuarioEnum rolUsuario) {
+		this.rolUsuario = rolUsuario;
+	}
+
 	public EmpleadoDto toDto(){
-		return new EmpleadoDto(this.nombre, this.domicilio, this.telefono, this.legajo, this.rol+"");
+		return new EmpleadoDto(this.nombre, this.domicilio, this.telefono, this.legajo, this.rol+"", this.rolUsuario.toString());
 	}
 	
 }

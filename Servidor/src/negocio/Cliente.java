@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import dao.ClienteDao;
 import dao.SucursalDao;
 import dto.ClienteDto;
-import dto.SucursalDto;
 import entity.ClienteEntity;
 import exceptions.SucursalException;
 
@@ -25,6 +24,8 @@ public class Cliente {
 	private String direccionFacturacion;
 	private int legajo;
 	private Sucursal sucursal;
+	private String usuario;
+	private String password;
 	
 	
 	public Cliente(ClienteEntity cliente ){
@@ -39,6 +40,8 @@ public class Cliente {
 		this.direccionEnvio=cliente.getDireccionEnvio();
 		this.direccionFacturacion=cliente.getDireccionFacturacion();
 		this.sucursal=new Sucursal(cliente.getSucursal(), this);
+		this.usuario= cliente.getUsuario();
+		this.password= cliente. getPassword();
 	}
 	
 	public Cliente(ClienteDto clienteDto) throws SucursalException {
@@ -56,11 +59,13 @@ public class Cliente {
 		this.direccionEnvio = clienteDto.getDireccionEnvio();
 		this.direccionFacturacion = clienteDto.getDireccionFacturacion();
 		this.sucursal = sucursal;
+		this.usuario= clienteDto.getUsuario();
+		this.password = clienteDto.getPassword();
 	}
 	
 	public Cliente(float limiteCredito,String formaPago,float cuentaCorriente,String cuit,String nombre, String razonSocial,
 			String telefono, String direccionEnvio,String direccionFacturacion, Sucursal sucursal,
-			ArrayList<PedidoPrendas> pedidosAceptados){
+			ArrayList<PedidoPrendas> pedidosAceptados, String usuario, String password){
 		
 		this.limiteCredito=limiteCredito;
 		this.formaPago=formaPago;
@@ -72,6 +77,9 @@ public class Cliente {
 		this.direccionEnvio=direccionEnvio;
 		this.direccionFacturacion=direccionFacturacion;
 		this.sucursal=sucursal;
+		this.usuario = usuario;
+		this.password = password;
+		
 	}
 	
 	public float getLimiteCredito() {
@@ -162,7 +170,22 @@ public class Cliente {
 		this.sucursal = sucursal;
 	}
 	
-	
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public boolean alcanzaCredito(float monto){
 		if(this.cuentaCorriente - monto < -limiteCredito)
 			return false;
@@ -172,7 +195,7 @@ public class Cliente {
 	
 	public ClienteDto toDto(){
 		return new ClienteDto(limiteCredito, formaPago, cuentaCorriente, cuit, nombre, razonSocial, telefono, direccionEnvio,
-				direccionFacturacion, this.sucursal.toDto(), this.legajo);
+				direccionFacturacion, this.sucursal.toDto(), this.legajo, this.usuario, this.password);
 	}
 
 	public void saveMe(){

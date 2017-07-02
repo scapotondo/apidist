@@ -53,6 +53,10 @@ public class AltaCliente extends javax.swing.JFrame {
         labelNroSucursal = new javax.swing.JLabel();
         comboSucursal = new javax.swing.JComboBox<>();
         formaDePagoCombo = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        usuarioField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        passwordField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,14 +94,28 @@ public class AltaCliente extends javax.swing.JFrame {
 
         labelNroSucursal.setText("Sucursal");
 
+        jLabel1.setText("Usuario");
+
+        jLabel2.setText("Password");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(84, 84, 84)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(aceptar)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(labelNroSucursal)
+                                .addComponent(direccionFacturacionLabel)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2)))
+                        .addGap(10, 10, 10))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelNombre)
                             .addComponent(labelCuit)
@@ -107,14 +125,7 @@ public class AltaCliente extends javax.swing.JFrame {
                             .addComponent(razonSocialLabel)
                             .addComponent(telefonoLabel)
                             .addComponent(direccionEnvioLabel))
-                        .addGap(41, 41, 41))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(aceptar)
-                                .addComponent(direccionFacturacionLabel))
-                            .addComponent(labelNroSucursal))
-                        .addGap(10, 10, 10)))
+                        .addGap(41, 41, 41)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(direccionFacturacionField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                     .addComponent(nombreField)
@@ -128,8 +139,10 @@ public class AltaCliente extends javax.swing.JFrame {
                         .addGap(47, 47, 47)
                         .addComponent(cancelar))
                     .addComponent(comboSucursal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(formaDePagoCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(91, Short.MAX_VALUE))
+                    .addComponent(formaDePagoCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(usuarioField)
+                    .addComponent(passwordField))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,10 +184,18 @@ public class AltaCliente extends javax.swing.JFrame {
                     .addComponent(direccionFacturacionLabel)
                     .addComponent(direccionFacturacionField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comboSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelNroSucursal, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelNroSucursal)
-                    .addComponent(comboSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                    .addComponent(usuarioField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aceptar)
                     .addComponent(cancelar))
@@ -191,7 +212,8 @@ public class AltaCliente extends javax.swing.JFrame {
     		if(limiteCreditoField.getText().equals("")|| cuentaCorrienteField.getText().equals("")||
     				cuitField.getText().equals("")||nombreField.getText().equals("")|| razonSocialField.getText().equals("")||
     				telefonoField.getText().equals("")|| direccionEnvioField.getText().equals("") || 
-    				direccionFacturacionField.getText().equals(""))
+    				direccionFacturacionField.getText().equals("") || usuarioField.getText().equals("") ||
+    				passwordField.getText().equals(""))
     			
     			JOptionPane.showMessageDialog(null, "Por favor complete todos los campos");
     		
@@ -200,7 +222,8 @@ public class AltaCliente extends javax.swing.JFrame {
 	    		BusinessDelegate.getInstance().AltaCliente(Float.parseFloat(limiteCreditoField.getText()), formaDePago,
 						Float.parseFloat(cuentaCorrienteField.getText()), cuitField.getText(),nombreField.getText(),
 						razonSocialField.getText(), telefonoField.getText(), direccionEnvioField.getText(), 
-						direccionFacturacionField.getText(), comboSucursal.getSelectedItem()+"");
+						direccionFacturacionField.getText(), comboSucursal.getSelectedItem()+"" , usuarioField.getText(), 
+						passwordField.getText());
 	    		
 	    		atras();
 	    		JOptionPane.showMessageDialog(null, "El cliente fue creado");
@@ -235,6 +258,8 @@ public class AltaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel direccionFacturacionLabel;
     private javax.swing.JComboBox<String> formaDePagoCombo;
     private javax.swing.JLabel formaPagoLabel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel labelCuentaCorriente;
     private javax.swing.JLabel labelCuit;
     private javax.swing.JLabel labelNombre;
@@ -242,9 +267,11 @@ public class AltaCliente extends javax.swing.JFrame {
     private javax.swing.JTextField limiteCreditoField;
     private javax.swing.JLabel limiteCreditoLabel;
     private javax.swing.JTextField nombreField;
+    private javax.swing.JTextField passwordField;
     private javax.swing.JTextField razonSocialField;
     private javax.swing.JLabel razonSocialLabel;
     private javax.swing.JTextField telefonoField;
     private javax.swing.JLabel telefonoLabel;
+    private javax.swing.JTextField usuarioField;
 }
 

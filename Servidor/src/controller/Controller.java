@@ -308,18 +308,36 @@ public class Controller {
 		return sucursalesDto;
 	}
 	
-	public UsuarioDto Login(String userName, String password) {
+	public UsuarioDto LoginCliente(String userName, String password) {
 		try {
-			return UsuarioDao.getInstance().login(userName, password);
+			return UsuarioDao.getInstance().loginCliente(userName, password);
 		} catch (UsuarioException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
-	public UsuarioDto getUsuario(int codigo) {
+	public UsuarioDto getUsuarioCliente(int codigo) {
 		try {
-			return UsuarioDao.getInstance().getUsuario(codigo);
+			return UsuarioDao.getInstance().getUsuarioCliente(codigo);
+		} catch (UsuarioException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public UsuarioDto LoginEmpleado(String userName, String password) {
+		try {
+			return UsuarioDao.getInstance().loginEmpleado(userName, password);
+		} catch (UsuarioException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public UsuarioDto getUsuarioEmpleado(int codigo) {
+		try {
+			return UsuarioDao.getInstance().getUsuarioEmpleado(codigo);
 		} catch (UsuarioException e) {
 			e.printStackTrace();
 		}

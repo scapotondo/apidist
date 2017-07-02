@@ -10,16 +10,14 @@ public class UsuarioDto implements Serializable {
 	private String userName;
 	private String password;
 	private int codigo;
-	private ClienteDto cliente;
 	
 	public UsuarioDto(){}
 	
-	public UsuarioDto(int codigo, String password, String userName, RolUsuarioEnum rol, ClienteDto cliente){
+	public UsuarioDto(int codigo, String password, String userName, RolUsuarioEnum rol){
 		this.codigo = codigo;
 		this.password = password;
 		this.userName = userName;
 		this.rol = rol;
-		this.cliente = cliente;
 	}
 	
 	public RolUsuarioEnum getRol() {
@@ -47,12 +45,4 @@ public class UsuarioDto implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public ClienteDto getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(ClienteDto cliente) {
-		this.cliente = cliente;
-	}
-	
 }

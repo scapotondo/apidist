@@ -42,7 +42,7 @@ public class User extends HttpServlet{
 					codigo = Integer.parseInt(cookie.getValue());
 			}
 		
-			UsuarioDto usuario = BusinessDelegate.getInstance().getUser(codigo);
+			UsuarioDto usuario = BusinessDelegate.getInstance().getUserEmpleado(codigo);
 			
 		
 			request.setAttribute("usuario", usuario);

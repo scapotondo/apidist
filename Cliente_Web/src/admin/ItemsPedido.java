@@ -45,7 +45,7 @@ public class ItemsPedido extends HttpServlet{
 					codigo = Integer.parseInt(cookie.getValue());
 			}
 		
-			UsuarioDto usuario = BusinessDelegate.getInstance().getUser(codigo);
+			UsuarioDto usuario = BusinessDelegate.getInstance().getUserEmpleado(codigo);
 			
 			String numero = request.getParameter("numero");
 			

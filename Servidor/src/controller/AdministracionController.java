@@ -66,7 +66,9 @@ public class AdministracionController {
 				clienteDto.getDireccionEnvio(),
 				clienteDto.getDireccionFacturacion(),
 				sucursal,
-				new ArrayList<PedidoPrendas>()
+				new ArrayList<PedidoPrendas>(), 
+				clienteDto.getUsuario(),
+				clienteDto.getPassword()
 				);
 
 		cliente.saveMe();
@@ -97,6 +99,8 @@ public class AdministracionController {
 		cliente.setDireccionEnvio(clienteDto.getDireccionEnvio());
 		cliente.setDireccionFacturacion(clienteDto.getDireccionFacturacion());
 		cliente.setSucursal(sucursal);
+		cliente.setUsuario(clienteDto.getUsuario());
+		cliente.setPassword(clienteDto.getPassword());
 		
 		cliente.modificame();
 	}

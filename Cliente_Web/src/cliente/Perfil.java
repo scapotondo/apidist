@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import BusinessDelegate.BusinessDelegate;
+import dto.ClienteDto;
 import dto.UsuarioDto;
+import exceptions.ApplicationException;
 import exceptions.RemoteObjectNotFoundException;
 import exceptions.UsuarioException;
 
@@ -41,15 +43,19 @@ public class Perfil extends HttpServlet{
 					codigo = Integer.parseInt(cookie.getValue());
 			}
 		
-			UsuarioDto usuario = BusinessDelegate.getInstance().getUser(codigo);
+			UsuarioDto usuario = BusinessDelegate.getInstance().getUserCliente(codigo);
 			
-		
+			ClienteDto cliente = BusinessDelegate.getInstance().BuscarCliente(usuario.getCodigo());
+			
 			request.setAttribute("usuario", usuario);
+			request.setAttribute("cliente", cliente);
 			
 			
 			request.getRequestDispatcher("/cliente/perfil.jsp").forward(request, response);
 			
 		} catch (RemoteObjectNotFoundException | UsuarioException e) {
+			e.printStackTrace();
+		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
 		

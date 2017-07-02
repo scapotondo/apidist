@@ -38,35 +38,42 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UsuarioDto usuario = null;
+		UsuarioDto usuarioCliente = null;
+		UsuarioDto usuarioEmpleado = null;
 		String userName = request.getParameter("usuario");
 		String password = request.getParameter("password");
 		String page = request.getContextPath()+"/Login";
-		
+		Cookie coockie;
 		try {
-			usuario = BusinessDelegate.getInstance().Login(userName, password);
+			usuarioCliente = BusinessDelegate.getInstance().LoginCliente(userName, password);
 			
-			if(usuario!= null){
-						
-				switch (usuario.getRol()) {
-				case Cliente:
-					page = request.getContextPath()+"/PedidosPendientes";
-					break;
-				case Admin: 
-				case Almacen: 
-					page = request.getContextPath()+"/Almacen";
-					break;
-				case Despacho:
-					page = request.getContextPath()+"/Despacho";
-					break;
-				default:
-					break;
+			if(usuarioCliente == null){
+				
+				usuarioEmpleado = BusinessDelegate.getInstance().LoginEmpleado(userName, password);
+				if(usuarioEmpleado != null){
+					switch (usuarioEmpleado.getRol()) {
+						case Admin: 
+						case Almacen: 
+							page = request.getContextPath()+"/Almacen";
+							break;
+						case Despacho:
+							page = request.getContextPath()+"/Despacho";
+							break;
+						default:
+							break;
+					}
 				}
 				
-				Cookie coockie = new Cookie("usuario", usuario.getCodigo()+"");
-				response.addCookie(coockie);
+				coockie = new Cookie("usuario", usuarioEmpleado.getCodigo()+"");
 				
+			}else{
+				page = request.getContextPath()+"/PedidosPendientes";
+				
+				coockie = new Cookie("usuario", usuarioCliente.getCodigo()+"");
 			}
+			
+			if(coockie != null)
+				response.addCookie(coockie);
 			
 			response.sendRedirect(page);
 		} catch (RemoteObjectNotFoundException e) {

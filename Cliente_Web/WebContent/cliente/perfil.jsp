@@ -28,7 +28,7 @@
 <body>
 <% 
 	UsuarioDto usuario = (UsuarioDto) request.getAttribute("usuario");
-	ClienteDto cliente = usuario.getCliente();
+	ClienteDto cliente = (ClienteDto) request.getAttribute("cliente");
 %>
 
 <div class="wrapper">

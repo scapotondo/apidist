@@ -27,19 +27,27 @@ public class EmpleadoEntity implements Serializable{
 	private String nombre;
 	private String domicilio;
 	private String telefono;
+	private String usuario;
+	private String password;
+	private String rolUsuario;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "rol")
 	private Rol rol;
 	
 	public EmpleadoEntity(){}
-	public EmpleadoEntity(String nombre, String domicilio, String telefono, int legajo,Rol rol){
+	public EmpleadoEntity(String nombre, String domicilio, String telefono, int legajo,Rol rol, String usuario, String password, 
+			String rolUsuario){
 		this.nombre=nombre;
 		this.domicilio=domicilio;
 		this.telefono=telefono;
 		this.legajo=legajo;
 		this.rol=rol;
+		this.usuario = usuario;
+		this.password = password;
+		this.rolUsuario = rolUsuario;
 	}
+	
 	public EmpleadoEntity(Empleado empleado){
 		this.nombre = empleado.getNombre();
 		this.domicilio = empleado.getDomicilio();
@@ -47,6 +55,9 @@ public class EmpleadoEntity implements Serializable{
 		this.legajo = empleado.getLegajo();
 		this.rol=empleado.getRol();
 		this.legajo = empleado.getLegajo();		
+		this.usuario = empleado.getUsuario();
+		this.password = empleado.getPassword();
+		this.rolUsuario = empleado.getRolUsuario().toString();
 	}
 	public Rol getRol() {
 		return rol;
@@ -78,6 +89,25 @@ public class EmpleadoEntity implements Serializable{
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-
+	public String getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getRolUsuario() {
+		return rolUsuario;
+	}
+	public void setRolUsuario(String rolUsuario) {
+		this.rolUsuario = rolUsuario;
+	}
+	
+	
 	
 }

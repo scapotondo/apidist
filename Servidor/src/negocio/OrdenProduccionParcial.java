@@ -25,8 +25,16 @@ public class OrdenProduccionParcial extends OrdenDeProduccion {
 	
 	public OrdenProduccionParcial(OrdenDeProduccionParcialEntity lote) {
 		super(lote);
-		this.talles=(ArrayList<String>) lote.getTallesValidos();
-		this.colores=(ArrayList<String>) lote.getColoresValidos();
+		this.talles=new ArrayList<String>();
+		this.colores = new ArrayList<String>();
+		
+		for (String talle : lote.getTallesValidos()) {
+			this.talles.add(talle);
+		}
+		
+		for (String color : lote.getColoresValidos()) {
+			this.colores.add(color);
+		}
 	}
 	
 	public OrdenProduccionParcial(OrdenDeProduccionEntity lote, ArrayList<String> talles, ArrayList<String> colores) {

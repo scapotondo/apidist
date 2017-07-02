@@ -16,68 +16,55 @@ VALUES (4, "Tatooine 523", "Tatooine");
 
 
 INSERT into Cliente
-VALUES(1, 50, '20-17254359-7', 'Av.San Juan 123', 'Av.Independencia 100', 'credito', 100, 'Juan Perez', 'empresa 1', '4321-6543', 1);
+VALUES(1, 50, '20-17254359-7', 'Av.San Juan 123', 'Av.Independencia 100', 'credito', 100, 'Juan Perez','password', 'empresa 1', '4321-6543','cliente', 1);
 
 INSERT into Cliente
-VALUES(2, 60, '20-17254358-7', 'Av.San Juan 143', 'Av.Independencia 500', 'credito', 200, 'Sebastian Perez', 'empresa 2', '4321-6542', 2);
+VALUES(2, 60, '20-17254358-7', 'Av.San Juan 143', 'Av.Independencia 500', 'credito', 200, 'Sebastian Perez','password', 'empresa 2', '4321-6542', 'cliente', 2);
 
 INSERT into Cliente
-VALUES(3, 100, '20-17254357-7', 'Av.San Juan 1444', 'Av.Independencia 1000', 'credito', 300, 'Martin Perez', 'empresa 3', '4321-6541', 3);
+VALUES(3, 100, '20-17254357-7', 'Av.San Juan 1444', 'Av.Independencia 1000', 'credito', 300, 'Martin Perez', 'password', 'empresa 3', '4321-6541', 'cliente',3);
 
 INSERT into Cliente
-VALUES(4, 200, '20-17254356-7', 'Av.San Juan 432', 'Av.Independencia 444', 'credito', 400, 'Carlos Perez', 'empresa 4', '4321-6549', 4);
+VALUES(4, 200, '20-17254356-7', 'Av.San Juan 432', 'Av.Independencia 444', 'credito', 400, 'Carlos Perez', 'password','empresa 4', '4321-6549', 'cliente',4);
 
-
-
-INSERT INTO Usuario 
-VALUES(1,'password','CLIENTE','cliente',1);
-
-INSERT INTO Usuario 
-VALUES(2,'password','ADMIN','admin',1);
-
-INSERT INTO Usuario 
-VALUES(3,'password','ALMACEN','almacen',2);
-
-INSERT INTO Usuario 
-VALUES(4,'password','DESPACHO','despacho',3);
 
 
 
 INSERT into Empleado 
-VALUES(1, 'Av. garay 123', 'Juan Perez', 'Empleado', '4312-1234', 1);
+VALUES(1, 'Av. garay 123', 'Juan Perez', 'password','Empleado', 'ALMACEN', '4312-1234', 'almacen',1);
 
 INSERT into Empleado 
-VALUES(2, 'Av. Independencia 123', 'Sebastian Rodriguez', 'Empleado', '4301-1237', 1);
+VALUES(2, 'Av. Independencia 123', 'Sebastian Rodriguez', 'password','Empleado', 'ALMACEN', '4301-1237','almacen1', 1);
 
 INSERT into Empleado 
-VALUES(3, 'Av. San Juan 123', 'Julian Gomez', 'Gerente', '4307-1234', 1);
+VALUES(3, 'Av. San Juan 123', 'Julian Gomez', 'password','Gerente', 'ADMIN','4307-1234', 'admin',1);
 
 INSERT into Empleado 
-VALUES(4, 'Av. garay 122', 'Juan Rodriguez', 'Empleado', '4312-1232', 2);
+VALUES(4, 'Av. garay 122', 'Juan Rodriguez', 'password','Empleado', 'ALMACEN','4312-1232','almacen2', 2);
 
 INSERT into Empleado 
-VALUES(5, 'Av. Independencia 3000', 'Sebastian Diaz', 'Empleado', '4301-1233', 2);
+VALUES(5, 'Av. Independencia 3000', 'Sebastian Diaz', 'password','Empleado', 'ALMACEN','4301-1233','almacen3', 2);
 
 INSERT into Empleado 
-VALUES(6, 'Av. San Juan 696', 'Oscar Fernandez', 'Gerente', '4307-1231', 2);
+VALUES(6, 'Av. San Juan 696', 'Oscar Fernandez', 'password','Gerente', 'ADMIN','4307-1231','admin1', 2);
 
 INSERT into Empleado 
-VALUES(7, 'Av. garay 122', 'Ramon Rodriguez', 'Empleado', '4312-1235', 3);
+VALUES(7, 'Av. garay 122', 'Ramon Rodriguez', 'password','Empleado', 'ALMACEN', '4312-1235','almacen4', 3);
 
 INSERT into Empleado 
-VALUES(8, 'Av. Independencia 532', 'Javier Diaz', 'Empleado', '4301-6378', 3);
+VALUES(8, 'Av. Independencia 532', 'Javier Diaz', 'password','Empleado','ALMACEN', '4301-6378','almacen5', 3);
 
 INSERT into Empleado 
-VALUES(9, 'Av. San Juan 3242', 'Carlos Fernandez', 'Gerente', '4307-4904', 3);
+VALUES(9, 'Av. San Juan 3242', 'Carlos Fernandez', 'password','Gerente', 'ADMIN','4307-4904','admin2', 3);
 
 INSERT into Empleado 
-VALUES(10, 'Av. garay 2345', 'Ramon Gomez', 'Empleado', '4312-1235', 4);
+VALUES(10, 'Av. garay 2345', 'Ramon Gomez', 'password','Empleado', 'DESPACHO', '4312-1235','despacho', 4);
 
 INSERT into Empleado 
-VALUES(11, 'Av. Independencia 665', 'Javier Fernandez', 'Empleado', '4301-6378', 4);
+VALUES(11, 'Av. Independencia 665', 'Javier Fernandez', 'password','Empleado','DESPACHO', '4301-6378','despacho1', 4);
 
 INSERT into Empleado 
-VALUES(12, 'Av. San Juan 900', 'Carlos Diaz', 'Gerente', '4307-4904', 4);
+VALUES(12, 'Av. San Juan 900', 'Carlos Diaz', 'password','Gerente', 'ADMIN','4307-4904','admin3', 4);
 
 
 

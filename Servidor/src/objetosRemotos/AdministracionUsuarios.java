@@ -19,14 +19,28 @@ public class AdministracionUsuarios extends UnicastRemoteObject implements Admin
 	}
 
 	@Override
-	public UsuarioDto Login(String userName, String password)throws RemoteException {
-		return Controller.getInstance().Login(userName, password);
+	public UsuarioDto LoginCliente(String userName, String password)throws RemoteException {
+		return Controller.getInstance().LoginCliente(userName, password);
 	}
 
 	@Override
-	public UsuarioDto getUsuario(int codigo) throws RemoteException, UsuarioException {
+	public UsuarioDto getUsuarioCliente(int codigo) throws RemoteException, UsuarioException {
 		try {
-			return Controller.getInstance().getUsuario(codigo);
+			return Controller.getInstance().getUsuarioCliente(codigo);
+		} catch (HibernateException ex) {
+			throw new UsuarioException(ex.getMessage());
+		}
+	}
+	
+	@Override
+	public UsuarioDto LoginEmpleado(String userName, String password)throws RemoteException {
+		return Controller.getInstance().LoginEmpleado(userName, password);
+	}
+	
+	@Override
+	public UsuarioDto getUsuarioEmpleado(int codigo) throws RemoteException, UsuarioException {
+		try {
+			return Controller.getInstance().getUsuarioEmpleado(codigo);
 		} catch (HibernateException ex) {
 			throw new UsuarioException(ex.getMessage());
 		}

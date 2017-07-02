@@ -44,7 +44,7 @@ public class StockPrenda extends HttpServlet{
 					codigo = Integer.parseInt(cookie.getValue());
 			}
 		
-			UsuarioDto usuario = BusinessDelegate.getInstance().getUser(codigo);
+			UsuarioDto usuario = BusinessDelegate.getInstance().getUserEmpleado(codigo);
 			
 			ArrayList<StockPrendaDto> stocks = BusinessDelegate.getInstance().getStockPrendas();
 			

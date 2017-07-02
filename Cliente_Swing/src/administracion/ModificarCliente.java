@@ -32,10 +32,12 @@ public class ModificarCliente extends javax.swing.JFrame {
         razonSocialField.setText(cliente.getRazonSocial());
         telefonoField.setText(cliente.getTelefono());
         
+        usuarioField.setText(cliente.getUsuario());
+        passwordField.setText(cliente.getPassword());
+        
         sucursalesDto= BusinessDelegate.getInstance().GetSucursales();
-    	
+        
     	for (SucursalDto sucursalDto : sucursalesDto) {
-    		
 			comboSucursal.addItem(sucursalDto.getNombre() + " -" + sucursalDto.getNumero());
 			
 			if(sucursalDto.getNumero()==cliente.getSucursal().getNumero())
@@ -71,6 +73,10 @@ public class ModificarCliente extends javax.swing.JFrame {
         legajoField = new javax.swing.JTextField();
         comboSucursal = new javax.swing.JComboBox<>();
         formasDePagoCombo = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        usuarioField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        passwordField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,6 +118,10 @@ public class ModificarCliente extends javax.swing.JFrame {
 
         legajoField.setEditable(false);
 
+        jLabel1.setText("Usuario");
+
+        jLabel2.setText("Password");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -131,12 +141,11 @@ public class ModificarCliente extends javax.swing.JFrame {
                             .addComponent(labelNroSucursal)
                             .addComponent(labelCuentaCorriente)
                             .addComponent(direccionEnvioLabel)
-                            .addComponent(legajoLabel))
+                            .addComponent(legajoLabel)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(direccionFacturacionField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                .addGap(6, 6, 6))
                             .addComponent(cuentaCorrienteField, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cuitField, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(nombreField, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -146,70 +155,81 @@ public class ModificarCliente extends javax.swing.JFrame {
                             .addComponent(direccionEnvioField)
                             .addComponent(legajoField)
                             .addComponent(comboSucursal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(formasDePagoCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(formasDePagoCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(usuarioField)
+                            .addComponent(direccionFacturacionField)
+                            .addComponent(passwordField)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(aceptar)
-                        .addGap(60, 60, 60)
+                        .addGap(61, 61, 61)
                         .addComponent(cancelar)
-                        .addGap(62, 62, 62)))
+                        .addGap(60, 60, 60)))
                 .addGap(77, 77, 77))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(legajoLabel)
                     .addComponent(legajoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNombre)
                     .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCuit)
                     .addComponent(cuitField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCuentaCorriente)
                     .addComponent(cuentaCorrienteField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(formaPagoLabel)
                     .addComponent(formasDePagoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(limiteCreditoLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(limiteCreditoField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(limiteCreditoLabel)
+                    .addComponent(limiteCreditoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(razonSocialLabel)
                     .addComponent(razonSocialField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(telefonoLabel)
                     .addComponent(telefonoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(direccionEnvioLabel)
                     .addComponent(direccionEnvioField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(direccionFacturacionLabel)
                     .addComponent(direccionFacturacionField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNroSucursal)
                     .addComponent(comboSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(usuarioField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(aceptar)
                     .addComponent(cancelar)))
         );
 
         pack();
-    }// </editor-fold>                        
+    }                       
 
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,7 +251,7 @@ public class ModificarCliente extends javax.swing.JFrame {
 						Float.parseFloat(cuentaCorrienteField.getText()), cuitField.getText(),nombreField.getText(),
 						razonSocialField.getText(), telefonoField.getText(), direccionEnvioField.getText(), 
 						direccionFacturacionField.getText(), comboSucursal.getSelectedItem()+"",
-						Integer.parseInt(legajoField.getText()));
+						Integer.parseInt(legajoField.getText()) , usuarioField.getText(), passwordField.getText());
 				
 				JOptionPane.showMessageDialog(null, "El cliente fue modificado");
 				atras();
@@ -260,6 +280,8 @@ public class ModificarCliente extends javax.swing.JFrame {
     private javax.swing.JLabel direccionFacturacionLabel;
     private javax.swing.JLabel formaPagoLabel;
     private javax.swing.JComboBox<String> formasDePagoCombo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel labelCuentaCorriente;
     private javax.swing.JLabel labelCuit;
     private javax.swing.JLabel labelNombre;
@@ -269,8 +291,10 @@ public class ModificarCliente extends javax.swing.JFrame {
     private javax.swing.JTextField limiteCreditoField;
     private javax.swing.JLabel limiteCreditoLabel;
     private javax.swing.JTextField nombreField;
+    private javax.swing.JTextField passwordField;
     private javax.swing.JTextField razonSocialField;
     private javax.swing.JLabel razonSocialLabel;
     private javax.swing.JTextField telefonoField;
     private javax.swing.JLabel telefonoLabel;
+    private javax.swing.JTextField usuarioField;
 }

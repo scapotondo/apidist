@@ -46,7 +46,7 @@ public class Sucursal extends HttpServlet{
 					codigo = Integer.parseInt(cookie.getValue());
 			}
 		
-			UsuarioDto usuario = BusinessDelegate.getInstance().getUser(codigo);
+			UsuarioDto usuario = BusinessDelegate.getInstance().getUserEmpleado(codigo);
 			ArrayList<PedidoPrendasDto> pedidos = BusinessDelegate.getInstance().getPedidosPendientesAceptacionAdmin();
 			
 			request.setAttribute("usuario", usuario);

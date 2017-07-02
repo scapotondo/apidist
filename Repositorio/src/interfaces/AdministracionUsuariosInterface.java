@@ -7,7 +7,12 @@ import dto.UsuarioDto;
 import exceptions.UsuarioException;
 
 public interface AdministracionUsuariosInterface extends Remote {
-	public UsuarioDto Login (String userName, String password) throws RemoteException;
 	
-	public UsuarioDto getUsuario (int codigo) throws RemoteException, UsuarioException;
+	public UsuarioDto LoginCliente(String userName, String password) throws RemoteException;
+	
+	public UsuarioDto LoginEmpleado(String userName, String password) throws RemoteException;
+	
+	public UsuarioDto getUsuarioCliente (int codigo) throws RemoteException, UsuarioException;
+	
+	public UsuarioDto getUsuarioEmpleado (int codigo) throws RemoteException, UsuarioException;
 }

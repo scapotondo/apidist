@@ -45,7 +45,7 @@ public class AreaCompras extends HttpServlet{
 					codigo = Integer.parseInt(cookie.getValue());
 			}
 		
-			UsuarioDto usuario = BusinessDelegate.getInstance().getUser(codigo);
+			UsuarioDto usuario = BusinessDelegate.getInstance().getUserEmpleado(codigo);
 			
 			ArrayList<OrdenDeCompraDto> ordenesCompra = BusinessDelegate.getInstance().getOrdenesCompraPendientes();
 			

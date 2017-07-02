@@ -3,7 +3,6 @@ package BusinessDelegate;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
-import java.rmi.*;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -18,9 +17,8 @@ import interfaces.*;
 public class BusinessDelegate {
 	private static BusinessDelegate instance;
 
-	@SuppressWarnings("deprecation")
 	private BusinessDelegate() {
-		System.setSecurityManager(new RMISecurityManager());
+		System.setSecurityManager(new SecurityManager());
 	}
 
 	public static BusinessDelegate getInstance() {
@@ -130,7 +128,8 @@ public class BusinessDelegate {
 	/** Administracion **/
 
 	public void AltaCliente(float limiteCredito, String formaPago, float cuentaCorriente, String cuit, String nombre,
-			String razonSocial, String telefono, String direccionEnvio, String direccionFacturacion, String cadena)
+			String razonSocial, String telefono, String direccionEnvio, String direccionFacturacion, String cadena, String usuario,
+			String password)
 			throws RemoteObjectNotFoundException, ApplicationException {
 
 		try {
@@ -144,7 +143,7 @@ public class BusinessDelegate {
 			sucursal.setNombre(cadenaNombre);
 
 			ClienteDto cliente = new ClienteDto(limiteCredito, formaPago, cuentaCorriente, cuit, nombre, razonSocial,
-					telefono, direccionEnvio, direccionFacturacion, sucursal, 0);
+					telefono, direccionEnvio, direccionFacturacion, sucursal, 0, usuario, password );
 
 			getAdministracionClientes().AltaCliente(cliente);
 
@@ -200,7 +199,7 @@ public class BusinessDelegate {
 
 	public void ModificarCliente(float limiteCredito, String formaPago, float cuentaCorriente, String cuit,
 			String nombre, String razonSocial, String telefono, String direccionEnvio, String direccionFacturacion,
-			String cadena, int legajo) throws RemoteObjectNotFoundException, ApplicationException {
+			String cadena, int legajo, String usuario, String password) throws RemoteObjectNotFoundException, ApplicationException {
 
 		try {
 
@@ -213,7 +212,7 @@ public class BusinessDelegate {
 			sucursal.setNombre(cadenaNombre);
 
 			ClienteDto cliente = new ClienteDto(limiteCredito, formaPago, cuentaCorriente, cuit, nombre, razonSocial,
-					telefono, direccionEnvio, direccionFacturacion, sucursal, 0);
+					telefono, direccionEnvio, direccionFacturacion, sucursal, 0, usuario, password);
 			cliente.setLegajo(legajo);
 
 			getAdministracionClientes().ModificarCliente(cliente);
@@ -432,12 +431,20 @@ public class BusinessDelegate {
 		return getAreaProduccionRemoto().GetPedidosADespachar();
 	}
 
-	public UsuarioDto Login(String usuario, String password) throws RemoteObjectNotFoundException, RemoteException {
-		return getAdminUsuariosRemoto().Login(usuario, password);
+	public UsuarioDto LoginCliente(String usuario, String password) throws RemoteObjectNotFoundException, RemoteException {
+		return getAdminUsuariosRemoto().LoginCliente(usuario, password);
 	}
 
-	public UsuarioDto getUser(int codigo) throws RemoteObjectNotFoundException, RemoteException, UsuarioException {
-		return getAdminUsuariosRemoto().getUsuario(codigo);
+	public UsuarioDto getUserCliente(int codigo) throws RemoteObjectNotFoundException, RemoteException, UsuarioException {
+		return getAdminUsuariosRemoto().getUsuarioCliente(codigo);
+	}
+	
+	public UsuarioDto LoginEmpleado(String usuario, String password) throws RemoteObjectNotFoundException, RemoteException {
+		return getAdminUsuariosRemoto().LoginEmpleado(usuario, password);
+	}
+	
+	public UsuarioDto getUserEmpleado(int codigo) throws RemoteObjectNotFoundException, RemoteException, UsuarioException {
+		return getAdminUsuariosRemoto().getUsuarioEmpleado(codigo);
 	}
 
 	public ArrayList<PedidoPrendasDto> getPedidosDespacho() {

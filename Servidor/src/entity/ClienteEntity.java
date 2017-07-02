@@ -33,6 +33,8 @@ public class ClienteEntity implements Serializable{
 	private String razonSocial;
 	private String telefono;
 	private String direccionEnvio;
+	private String usuario;
+	private String password;
 	
 	@Column(nullable=false)
 	private String direccionFacturacion;
@@ -43,7 +45,7 @@ public class ClienteEntity implements Serializable{
 	public ClienteEntity(){}
 	public ClienteEntity(float limiteCredito,String formaPago, float cuentaCorriente, String cuit, String nombre, String razonSocial,
 						String telefono, String direccionEnvio,String direccionFacturacion,
-						SucursalEntity sucursal ){
+						SucursalEntity sucursal, String usuario, String password ){
 		
 		this.limiteCredito=limiteCredito;
 		this.formaPago=formaPago;
@@ -55,6 +57,8 @@ public class ClienteEntity implements Serializable{
 		this.direccionEnvio=direccionEnvio;
 		this.direccionFacturacion=direccionFacturacion;
 		this.sucursal=sucursal;
+		this.usuario= usuario;
+		this.password= password;
 	}
 	
 	public ClienteEntity(Cliente cliente ){
@@ -70,6 +74,8 @@ public class ClienteEntity implements Serializable{
 		this.direccionFacturacion=cliente.getDireccionFacturacion();
 		this.legajo=cliente.getLegajo();
 		this.sucursal=new SucursalEntity(cliente.getSucursal());
+		this.usuario= cliente.getUsuario();
+		this.password= cliente.getPassword();
 	}
 	
 	
@@ -139,4 +145,17 @@ public class ClienteEntity implements Serializable{
 	public void setSucursal(SucursalEntity sucursal) {
 		this.sucursal = sucursal;
 	}
+	public String getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 }
