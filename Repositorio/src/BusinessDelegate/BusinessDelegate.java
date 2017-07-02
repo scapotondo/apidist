@@ -16,6 +16,7 @@ public class BusinessDelegate {
 	private static BusinessDelegate instance;
 
 	private BusinessDelegate() {
+
 	}
 
 	public static BusinessDelegate getInstance() {

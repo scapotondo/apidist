@@ -74,7 +74,7 @@ public class NuevoPedido extends HttpServlet {
 			
 			pedido = BusinessDelegate.getInstance().CrearPedido(pedido);
 			//TODO: redirect pedido generado con info o pedidos pendientes?
-			
+			response.sendRedirect(request.getContextPath()+"/PedidosPendientes");
 		} catch (RemoteObjectNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -21,10 +21,7 @@ public class Servidor {
 		iniciar();
 	}
 	
-    @SuppressWarnings("deprecation")
 	public void iniciar() {
-		//asigna el security manager
-        System.setSecurityManager(new RMISecurityManager());
     	
     	AdministracionClientesInterface adminClientes;
     	AdministracionPrendasInterface adminPrendas;
@@ -36,7 +33,7 @@ public class Servidor {
     	AdministracionOrdenesCompra adminOrdenesCompra;
     	
     	try {
-    		
+    		System.setSecurityManager(new RMISecurityManager());
     		LocateRegistry.createRegistry(1099);	
     		
     		adminClientes = new AdministracionClientes();

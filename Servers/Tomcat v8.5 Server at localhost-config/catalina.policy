@@ -105,6 +105,10 @@ grant codeBase "file:${catalina.home}/bin/bootstrap.jar" {
         permission java.security.AllPermission;
 };
 
+grant {
+    permission java.security.AllPermission;
+};
+
 // These permissions apply to the servlet API classes
 // and those that are shared across all class loaders
 // located in the "lib" directory
