@@ -433,10 +433,10 @@ public class AlmacenController {
 	private void agregarStockMateriaPrima(StockMateriaPrima stockMateriaPrima) {
 		String ubicacion = stockMateriaPrima.getUbicacion();
 
-		int calle = getNumeroCalle(ubicacion.charAt(0) + "");
-		int bloque = Integer.parseInt((ubicacion.charAt(1) + ubicacion.charAt(2) + ""));
-		int estante = Integer.parseInt(ubicacion.charAt(3) + ubicacion.charAt(4) + "");
-		int posicion = Integer.parseInt(ubicacion.charAt(5) + ubicacion.charAt(6) + "");
+		int calle = getNumeroCalle(String.valueOf(ubicacion.charAt(0)));
+		int bloque = Integer.parseInt(String.valueOf(ubicacion.charAt(1)) + String.valueOf(ubicacion.charAt(2)));
+		int estante = Integer.parseInt(String.valueOf(ubicacion.charAt(3)) + String.valueOf(ubicacion.charAt(4)));
+		int posicion = Integer.parseInt(String.valueOf(ubicacion.charAt(5)) + String.valueOf(ubicacion.charAt(6)));
 
 		almacen[calle][bloque][estante][posicion] = stockMateriaPrima.getNumero();
 	}
