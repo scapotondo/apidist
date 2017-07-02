@@ -3,8 +3,7 @@ package objetosRemotos;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import org.hibernate.HibernateException;
+import javax.persistence.*;
 
 import controller.Controller;
 import dto.ClienteDto;
@@ -24,7 +23,7 @@ public class AdministracionPedidos extends UnicastRemoteObject implements Admini
 	public PedidoPrendasDto CrearPedido(PedidoPrendasDto pedido) throws RemoteException, PedidoException {
 		try {
 			return Controller.getInstance().CrearPedidoPrendas(pedido);
-		} catch (HibernateException ex) {
+		} catch (PersistenceException ex) {
 			throw new PedidoException(ex.getMessage(), ex.getStackTrace());
 		}
 	}
@@ -40,7 +39,7 @@ public class AdministracionPedidos extends UnicastRemoteObject implements Admini
 	public void RechazarPedidoAdmin(PedidoPrendasDto pedidoDto, String descripcion) throws RemoteException, ApplicationException, PedidoException {
 		try{
 		Controller.getInstance().RechazarPedidoAdmin(pedidoDto,descripcion);
-		} catch (HibernateException ex) {
+		} catch (PersistenceException ex) {
 			throw new ApplicationException(ex.getMessage());
 		}
 	}
