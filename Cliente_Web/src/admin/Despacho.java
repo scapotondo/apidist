@@ -59,7 +59,7 @@ public class Despacho extends HttpServlet{
 			request.getRequestDispatcher("/admin/despacho.jsp").forward(request, response);
 			
 		} catch (RemoteObjectNotFoundException | UsuarioException e) {
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 		
 	}

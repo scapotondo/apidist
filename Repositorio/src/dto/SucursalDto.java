@@ -18,11 +18,12 @@ public class SucursalDto implements Serializable{
 	public SucursalDto(){}
 	
 	public SucursalDto(int numero, String nombre, String direccion, ArrayList<String> horarios,
-			ArrayList<EmpleadoDto> empleados){
+			ArrayList<EmpleadoDto> empleados, EmpleadoDto gerente){
 		this.numero = numero;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.horarios = horarios;
+		this.gerente = gerente;
 		
 		if(empleados !=null)
 			this.empleados = empleados;

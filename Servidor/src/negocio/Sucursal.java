@@ -23,9 +23,15 @@ public class Sucursal {
 		this.direccion = sucursal.getDireccion();
 		this.horarios = new ArrayList<>();
 		this.empleados = new ArrayList<>();
-
-		for (EmpleadoEntity empleado : sucursal.getEmpleados())
-			empleados.add(new Empleado(empleado));
+		
+		for (EmpleadoEntity empleado : sucursal.getEmpleados()) {
+			Empleado emp = new Empleado(empleado);
+			
+			if (emp.getRol() == Rol.Gerente)
+				this.gerente = emp;
+			
+			empleados.add(emp);
+		}
 		
 		for (String horario : sucursal.getHorarios())
 			horarios.add(horario);
@@ -112,7 +118,7 @@ public class Sucursal {
 			for (Empleado empleado : this.empleados) 
 				empleadosDto.add(empleado.toDto());
 		
-		return new SucursalDto(numero, nombre, direccion, horarios, empleadosDto);
+		return new SucursalDto(numero, nombre, direccion, horarios, empleadosDto, gerente.toDto());
 	}
 	
 	public void modificame() {
