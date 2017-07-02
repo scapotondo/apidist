@@ -3,6 +3,8 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import javax.persistence.PersistenceException;
+
 import org.hibernate.HibernateException;
 
 import controller.Controller;
@@ -19,8 +21,12 @@ public class AdministracionUsuarios extends UnicastRemoteObject implements Admin
 	}
 
 	@Override
-	public UsuarioDto LoginCliente(String userName, String password)throws RemoteException {
-		return Controller.getInstance().LoginCliente(userName, password);
+	public UsuarioDto LoginCliente(String userName, String password) throws RemoteException, UsuarioException {
+		try {
+			return Controller.getInstance().LoginCliente(userName, password);
+		} catch (PersistenceException e) {
+			throw new UsuarioException(e.getMessage());
+		}
 	}
 
 	@Override

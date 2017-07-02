@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import BusinessDelegate.BusinessDelegate;
 import dto.UsuarioDto;
 import exceptions.RemoteObjectNotFoundException;
+import exceptions.UsuarioException;
 
 /**
  * Servlet implementation class Login
@@ -76,7 +77,7 @@ public class Login extends HttpServlet {
 				response.addCookie(coockie);
 			
 			response.sendRedirect(page);
-		} catch (RemoteObjectNotFoundException e) {
+		} catch (RemoteObjectNotFoundException | UsuarioException e) {
 			e.printStackTrace();
 		}
 		

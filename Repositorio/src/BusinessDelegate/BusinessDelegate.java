@@ -431,7 +431,7 @@ public class BusinessDelegate {
 		return getAreaProduccionRemoto().GetPedidosADespachar();
 	}
 
-	public UsuarioDto LoginCliente(String usuario, String password) throws RemoteObjectNotFoundException, RemoteException {
+	public UsuarioDto LoginCliente(String usuario, String password) throws RemoteObjectNotFoundException, RemoteException, UsuarioException {
 		return getAdminUsuariosRemoto().LoginCliente(usuario, password);
 	}
 

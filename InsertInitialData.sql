@@ -19,13 +19,13 @@ INSERT into Cliente
 VALUES(1, 50, '20-17254359-7', 'Av.San Juan 123', 'Av.Independencia 100', 'credito', 100, 'Juan Perez','password', 'empresa 1', '4321-6543','cliente', 1);
 
 INSERT into Cliente
-VALUES(2, 60, '20-17254358-7', 'Av.San Juan 143', 'Av.Independencia 500', 'credito', 200, 'Sebastian Perez','password', 'empresa 2', '4321-6542', 'cliente', 2);
+VALUES(2, 60, '20-17254358-7', 'Av.San Juan 143', 'Av.Independencia 500', 'credito', 200, 'Sebastian Perez','password', 'empresa 2', '4321-6542', 'cliente1', 2);
 
 INSERT into Cliente
-VALUES(3, 100, '20-17254357-7', 'Av.San Juan 1444', 'Av.Independencia 1000', 'credito', 300, 'Martin Perez', 'password', 'empresa 3', '4321-6541', 'cliente',3);
+VALUES(3, 100, '20-17254357-7', 'Av.San Juan 1444', 'Av.Independencia 1000', 'credito', 300, 'Martin Perez', 'password', 'empresa 3', '4321-6541', 'cliente2',3);
 
 INSERT into Cliente
-VALUES(4, 200, '20-17254356-7', 'Av.San Juan 432', 'Av.Independencia 444', 'credito', 400, 'Carlos Perez', 'password','empresa 4', '4321-6549', 'cliente',4);
+VALUES(4, 200, '20-17254356-7', 'Av.San Juan 432', 'Av.Independencia 444', 'credito', 400, 'Carlos Perez', 'password','empresa 4', '4321-6549', 'cliente3',4);
 
 
 
