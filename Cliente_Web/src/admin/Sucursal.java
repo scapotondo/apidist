@@ -55,16 +55,14 @@ public class Sucursal extends HttpServlet{
 			String action = request.getParameter("action");
 			String nro = request.getParameter("nro");
 			
-			if(action != null && nro != null)
-				if(action.equals("aprobar") || action.equals("rechazar"))
-					doPost(request, response);
-			
-			request.getRequestDispatcher("/admin/sucursal.jsp").forward(request, response);
+			if(action != null && nro != null && (action.equals("aprobar") || action.equals("rechazar")))
+				doPost(request, response);
+			else
+				request.getRequestDispatcher("/admin/sucursal.jsp").forward(request, response);
 			
 		} catch (RemoteObjectNotFoundException | UsuarioException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	/**
@@ -81,6 +79,8 @@ public class Sucursal extends HttpServlet{
 				BusinessDelegate.getInstance().AprobarPedidoAdmin(pedido);
 			else
 				BusinessDelegate.getInstance().RechazarPedidoAdmin(pedido, "rechazado");
+			
+			response.sendRedirect(request.getContextPath()+"/Sucursal");
 			
 		} catch (RemoteObjectNotFoundException | ApplicationException | PedidoException e) {
 			// TODO Auto-generated catch block
