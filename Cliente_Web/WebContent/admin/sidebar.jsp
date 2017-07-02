@@ -32,6 +32,12 @@
 							<p>Sucursales</p>
 						</a>
 					</li>
+					<li class="">
+						<a href="${pageContext.request.contextPath}/AreasDeProduccion">
+							<i class="material-icons">store</i>
+							<p>Areas Produccion</p>
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>

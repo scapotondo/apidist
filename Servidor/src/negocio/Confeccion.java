@@ -103,7 +103,7 @@ public class Confeccion {
 			insumosDto.add(insumo.toDto());
 		}
 		
-		return new ConfeccionDto(tiempoProd, detalle, areaProduccion.toDto(), insumosDto, estado.toString());
+		return new ConfeccionDto(tiempoProd, detalle, areaProduccion.toDto(), insumosDto, estado.toString(), id);
 	}
 	
 	public void saveMe() {

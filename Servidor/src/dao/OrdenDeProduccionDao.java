@@ -31,7 +31,7 @@ public class OrdenDeProduccionDao {
 
 			@SuppressWarnings("unchecked")
 			ArrayList<OrdenDeProduccionEntity> resultados = (ArrayList<OrdenDeProduccionEntity>) session
-					.createQuery("from OrdenDeProduccionEntity op where op.estado != 3").list();
+					.createQuery("from OrdenDeProduccionEntity op where op.estado = 1").list();
 
 			session.getTransaction().commit();
 			session.close();

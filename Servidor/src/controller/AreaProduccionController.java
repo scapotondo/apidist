@@ -3,9 +3,12 @@ package controller;
 import java.util.ArrayList;
 
 import dao.AreaProduccionDao;
+import dao.ConfeccionDao;
 import dao.OrdenDeProduccionDao;
 import dto.AreaProduccionDto;
+import dto.ConfeccionDto;
 import dto.OrdenDeProduccionDto;
+import exceptions.ApplicationException;
 import exceptions.AreaProduccionException;
 import exceptions.RemoteObjectNotFoundException;
 import negocio.AreaProduccion;
@@ -44,22 +47,14 @@ public class AreaProduccionController {
 		return ordenesDto;
 	}
 
-	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto)
-			throws RemoteObjectNotFoundException, AreaProduccionException {
+	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto , ConfeccionDto confeccionDto)
+			throws RemoteObjectNotFoundException, AreaProduccionException, ApplicationException {
 		AreaProduccion area = AreaProduccionDao.getInstance().getById(areaDto);
 		OrdenDeProduccion orden = OrdenDeProduccionDao.getInstance().getBuscarOrden(ordenDto);
-
+		Confeccion confeccion = ConfeccionDao.getInstance().buscarConfeccion(confeccionDto);
+		
 		if (area.hayLineasLibres()) {
-			Confeccion confeccion = new Confeccion();
 			
-			//toma la primer confeccion con estado incompleto
-			for (Confeccion confeccionEvaluada : orden.getPrenda().getConfecciones()) {
-				if (confeccionEvaluada.getEstado().equals(EstadoConfeccion.INCOMPLETO)) {
-					confeccion = confeccionEvaluada;
-					break;
-				}
-			}
-
 			// disminuyo materia prima para la confeccion en el almacen
 			for (Insumo insumo : confeccion.getInsumos()) {
 
@@ -77,5 +72,8 @@ public class AreaProduccionController {
 		}
 
 	}
+	
+	
+	
 
 }
