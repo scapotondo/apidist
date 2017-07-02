@@ -13,6 +13,12 @@ public class MateriaPrimaDto implements Serializable{
 	private int minimo;
 	private ArrayList<StockMateriaPrimaDto> stock;
 	
+	public MateriaPrimaDto( String nombre, int codigo, int minimo){
+		this.nombre=nombre;
+		this.codigo=codigo;
+		this.minimo=minimo;
+	}
+	
 	public MateriaPrimaDto( String nombre, int codigo, int minimo,ArrayList<StockMateriaPrimaDto> stock){
 		this.stock=stock;
 		this.nombre=nombre;

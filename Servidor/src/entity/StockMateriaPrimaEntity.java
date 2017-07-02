@@ -44,14 +44,17 @@ public class StockMateriaPrimaEntity implements Serializable{
 	}
 	
 	public StockMateriaPrimaEntity(StockMateriaPrima mp){
+		this(mp, new MateriaPrimaEntity(mp.getMateriaPrima()));
+	}
+
+	public StockMateriaPrimaEntity(StockMateriaPrima mp, MateriaPrimaEntity mpEntity){
 		this.numero=mp.getNumero();
-		this.materiaPrima=new MateriaPrimaEntity(mp.getMateriaPrima());
+		this.materiaPrima=mpEntity;
 		this.fechaRecepcion=mp.getFechaRecepcion();
 		this.precioFinalCompra=mp.getPrecioFinalCompra();
 		this.cantidad=mp.getCantidad();
 		this.ubicacion=mp.getUbicacion();
 	}
-
 
 	public int getNumero() {
 		return numero;

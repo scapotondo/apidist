@@ -4,6 +4,7 @@ package negocio;
 import java.util.Date;
 
 import dao.StockMateriaPrimaDao;
+import dto.MateriaPrimaDto;
 import dto.StockMateriaPrimaDto;
 import entity.StockMateriaPrimaEntity;
 
@@ -17,13 +18,17 @@ public class StockMateriaPrima {
 	private MateriaPrima materiaPrima;
 
 	
-	public StockMateriaPrima(StockMateriaPrimaEntity stock){
+	public StockMateriaPrima(StockMateriaPrimaEntity stock, MateriaPrima materiaPrima){
 		this.numero= stock.getNumero();
 		this.fechaRecepcion=stock.getFechaRecepcion();
 		this.precioFinalCompra=stock.getPrecioFinalCompra();
 		this.cantidad=stock.getCantidad();
 		this.ubicacion=stock.getUbicacion();
-		this.materiaPrima= new MateriaPrima(stock.getMateriaPrima());
+		this.materiaPrima= materiaPrima;
+	}
+	
+	public StockMateriaPrima(StockMateriaPrimaEntity stock) {
+		this(stock, new MateriaPrima(stock.getMateriaPrima()));
 	}
 	
 	public StockMateriaPrima(int numero, Date fechaRecepcion,float precioFinalCompra,int cantidad,String ubicacion,
@@ -99,8 +104,12 @@ public class StockMateriaPrima {
 		this.cantidad= this.cantidad - cantidad;
 	}
 	
+	public StockMateriaPrimaDto toDto(MateriaPrimaDto materiaPrimaDto){
+		return new StockMateriaPrimaDto(numero, fechaRecepcion, precioFinalCompra, cantidad, ubicacion, materiaPrimaDto);
+	}
+	
 	public StockMateriaPrimaDto toDto(){
-		return new StockMateriaPrimaDto(numero, fechaRecepcion, precioFinalCompra, cantidad, ubicacion, this.materiaPrima.toDto());
+		return this.toDto(this.materiaPrima.toDto());
 	}
 	
 	public void saveMe(){

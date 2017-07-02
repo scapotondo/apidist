@@ -17,9 +17,9 @@ public class MateriaPrima {
 	
 	public MateriaPrima( MateriaPrimaEntity materia){
 		ArrayList<StockMateriaPrima> stockMateria = new ArrayList<StockMateriaPrima>();
-		for (StockMateriaPrimaEntity stockMateriaPrimaEntity : materia.getStock()) {
-			stockMateria.add(new StockMateriaPrima(stockMateriaPrimaEntity));
-		}
+		for (StockMateriaPrimaEntity stockMateriaPrimaEntity : materia.getStock()) 
+			stockMateria.add(new StockMateriaPrima(stockMateriaPrimaEntity, this));
+
 		this.stock=stockMateria;
 		this.nombre=materia.getNombre();
 		this.codigo=materia.getCodigo();
@@ -91,11 +91,14 @@ public class MateriaPrima {
 	}
 	
 	public MateriaPrimaDto toDto(){
-		
+		MateriaPrimaDto mpDto = new MateriaPrimaDto(nombre, codigo, minimo); 
+
 		ArrayList<StockMateriaPrimaDto> stockDto = new ArrayList<>();
-		for (StockMateriaPrima stockMateriaPrima : stock) {
-			stockDto.add(stockMateriaPrima.toDto());
-		}
-		return new MateriaPrimaDto(nombre, codigo, minimo, stockDto);
+		for (StockMateriaPrima stockMateriaPrima : stock)
+			stockDto.add(stockMateriaPrima.toDto(mpDto));
+		
+		mpDto.setStock(stockDto);
+		
+		return mpDto;
 	}
 }
