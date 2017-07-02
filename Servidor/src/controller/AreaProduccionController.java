@@ -11,10 +11,13 @@ import dto.ConfeccionDto;
 import dto.OrdenDeProduccionDto;
 import exceptions.ApplicationException;
 import exceptions.AreaProduccionException;
+import exceptions.ColorException;
 import exceptions.RemoteObjectNotFoundException;
 import negocio.AreaProduccion;
+import negocio.ColorPrenda;
 import negocio.Confeccion;
 import negocio.EstadoConfeccion;
+import negocio.EstadoOrdenProduccion;
 import negocio.Insumo;
 import negocio.OrdenDeProduccion;
 
@@ -49,7 +52,7 @@ public class AreaProduccionController {
 	}
 
 	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto , ConfeccionDto confeccionDto)
-			throws RemoteObjectNotFoundException, AreaProduccionException, ApplicationException {
+			throws RemoteObjectNotFoundException, AreaProduccionException, ApplicationException, ColorException {
 		
 		AreaProduccion area = AreaProduccionDao.getInstance().getById(areaDto);
 		OrdenDeProduccion orden = OrdenDeProduccionDao.getInstance().getBuscarOrden(ordenDto); 
@@ -67,6 +70,29 @@ public class AreaProduccionController {
 			area.asignarLineaProduccion(confeccion);
 
 			orden.terminarConfeccion(confeccion);
+			
+			if(!faltaTerminar(orden)){
+				orden.setEstado(EstadoOrdenProduccion.TERMINADA);
+				orden.modificame();
+				
+
+				if(orden.getClass().getName().equals("negocio.OrdenProduccionCompleta")){
+					for (String talle : orden.getPrenda().getTallesValidos()) {
+						for (ColorPrenda color : orden.getPrenda().getColoresValidos()) {
+							AlmacenController.getInstance().agregarStockPrenda(orden.getPrenda(), orden.getPrenda().getCantidadAProducir(),
+									talle, color.toString(), orden);
+						}
+					}
+					
+				}else{
+					for (String talle : orden.getTalles()) {
+						for (String color : orden.getColores()) {
+							AlmacenController.getInstance().agregarStockPrenda(orden.getPrenda(), orden.getCantidad(),talle, color, orden);
+						}
+					}
+				}
+					
+			}
 
 		} else {
 			String mensaje = "En este momento no hay lineas de produccion disponibles, por favor intente en otro momento";
@@ -83,5 +109,15 @@ public class AreaProduccionController {
 		return OrdenDeProduccionDao.getInstance().getBuscarOrden(ordenDto).toDto();
 	}
 	
-
+	private boolean faltaTerminar(OrdenDeProduccion orden){
+		boolean flag = false;
+		
+		for (Confeccion confeccion : orden.getPrenda().getConfecciones()) {
+			if(confeccion.getEstado().equals(EstadoConfeccion.INCOMPLETO))
+				flag = true;
+		}
+		
+		return flag;
+	}
+	
 }
