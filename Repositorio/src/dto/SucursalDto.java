@@ -14,22 +14,15 @@ public class SucursalDto implements Serializable{
 	private ArrayList<String> horarios;
 	private EmpleadoDto gerente;
 	private ArrayList<EmpleadoDto> empleados;
-	private ArrayList<PedidoPrendasDto> pedidos;
 	
 	public SucursalDto(){}
 	
 	public SucursalDto(int numero, String nombre, String direccion, ArrayList<String> horarios,
-			ArrayList<EmpleadoDto> empleados,ArrayList<PedidoPrendasDto> pedidos){
+			ArrayList<EmpleadoDto> empleados){
 		this.numero = numero;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.horarios = horarios;
-		//TODO:asignar gerente en base al actor rol
-		//this.gerente = gerente;
-		if(pedidos!=null)
-			this.pedidos = pedidos;
-		else
-			this.pedidos= new ArrayList<PedidoPrendasDto>();
 		
 		if(empleados !=null)
 			this.empleados = empleados;
@@ -85,14 +78,6 @@ public class SucursalDto implements Serializable{
 		this.empleados = empleados;
 	}
 
-	public ArrayList<PedidoPrendasDto> getPedidos() {
-		return pedidos;
-	}
-
-	public void setPedidos(ArrayList<PedidoPrendasDto> pedidos) {
-		this.pedidos = pedidos;
-	}
-	
 	@Override
 	public String toString() {
 		return this.nombre;

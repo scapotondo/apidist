@@ -55,7 +55,7 @@ public class SucursalEntity implements Serializable{
 		this.empleados = empleados;
 	}
 	
-	SucursalEntity(Sucursal sucursal, boolean crearPedidos) {
+	public SucursalEntity(Sucursal sucursal) {
 		this.numero = sucursal.getNumero();
 		this.nombre = sucursal.getNombre();
 		this.direccion = sucursal.getDireccion();
@@ -65,14 +65,6 @@ public class SucursalEntity implements Serializable{
 		if(sucursal.getEmpleados()!=null)
 			for (Empleado empleado : sucursal.getEmpleados()) 
 				this.empleados.add(new EmpleadoEntity(empleado));
-	}
-
-	public SucursalEntity(Sucursal sucursal) {
-		this(sucursal, true);
-	}
-	
-	public SucursalEntity(Sucursal sucursal, ClienteEntity clienteEntity) {
-		this(sucursal, false);
 	}
 	
 	public int getNumero() {

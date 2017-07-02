@@ -109,28 +109,12 @@ public class Sucursal {
 	
 	public SucursalDto toDto(){
 		ArrayList<EmpleadoDto> empleadosDto = new ArrayList<EmpleadoDto>();
-		ArrayList<PedidoPrendasDto> pedidosDto = new ArrayList<PedidoPrendasDto>();
 		
-		if(this.empleados!= null){
-			for (Empleado empleado : this.empleados) {
+		if(this.empleados!= null)
+			for (Empleado empleado : this.empleados) 
 				empleadosDto.add(empleado.toDto());
-			}
-		}
 		
-		return new SucursalDto(numero, nombre, direccion, horarios, empleadosDto, pedidosDto);
-	}
-	
-	public SucursalDto toDto(ClienteDto cliente){
-		ArrayList<EmpleadoDto> empleadosDto = new ArrayList<EmpleadoDto>();
-		ArrayList<PedidoPrendasDto> pedidosDto = new ArrayList<PedidoPrendasDto>();
-		
-		if(this.empleados!= null){
-			for (Empleado empleado : this.empleados) {
-				empleadosDto.add(empleado.toDto());
-			}
-		}
-		
-		return new SucursalDto(numero, nombre, direccion, horarios, empleadosDto, pedidosDto);
+		return new SucursalDto(numero, nombre, direccion, horarios, empleadosDto);
 	}
 	
 	public void modificame() {

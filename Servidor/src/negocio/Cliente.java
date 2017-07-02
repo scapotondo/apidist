@@ -171,14 +171,8 @@ public class Cliente {
 	}
 	
 	public ClienteDto toDto(){
-		ClienteDto cliente = new ClienteDto(limiteCredito, formaPago, cuentaCorriente, cuit, nombre, razonSocial, telefono, direccionEnvio,
-				direccionFacturacion, this.legajo);
-		
-		SucursalDto sucursalDto = this.sucursal.toDto(cliente);
-		
-		cliente.setSucursal(sucursalDto);
-		
-		return cliente;
+		return new ClienteDto(limiteCredito, formaPago, cuentaCorriente, cuit, nombre, razonSocial, telefono, direccionEnvio,
+				direccionFacturacion, this.sucursal.toDto(), this.legajo);
 	}
 
 	public void saveMe(){

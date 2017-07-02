@@ -6,7 +6,6 @@ import java.util.Hashtable;
 
 import controller.AlmacenController;
 import dao.PedidoPrendasDao;
-import dto.ClienteDto;
 import dto.ItemPrendaDto;
 import dto.OrdenDeProduccionDto;
 import dto.PedidoPrendasDto;
@@ -28,16 +27,12 @@ public class PedidoPrendas {
 	private ArrayList<ItemPrenda> items;
 
 	public PedidoPrendas(PedidoPrendasEntity pedido){
-		this(pedido, new Cliente(pedido.getCliente()));
-	}
-	
-	public PedidoPrendas(PedidoPrendasEntity pedido, Cliente cliente){
 		this.nroPedido=pedido.getNroPedido();
 		this.fechaProbableDespacho=pedido.getFechaProbableDespacho();
 		this.estado=EstadoPedidoPrenda.fromInt(pedido.getEstado());
 		this.fechaGeneracion=pedido.getFechaGeneracion();
 		this.fechaRealDespacho=pedido.getFechaRealDespacho();
-		this.cliente=cliente;
+		this.cliente=new Cliente(pedido.getCliente());
 		this.items=new ArrayList<ItemPrenda>();
 		
 		for (ItemPrendaEntity itemPrendaEntity : pedido.getItems())
@@ -142,10 +137,6 @@ public class PedidoPrendas {
 	}
 
 	public PedidoPrendasDto toDto(){
-		return toDto(cliente.toDto());
-	}
-	
-	public PedidoPrendasDto toDto(ClienteDto cliente){
 		ArrayList<ItemPrendaDto> itemsDto = new ArrayList<>();
 		if(this.items!= null){
 			for (ItemPrenda itemPrenda : this.items) 
@@ -156,7 +147,7 @@ public class PedidoPrendas {
 			orden = this.ordenProduccion.toDto();
 		
 		return new PedidoPrendasDto(nroPedido, fechaProbableDespacho, estado.toString(), fechaGeneracion, fechaRealDespacho, 
-				orden, cliente, itemsDto);
+				orden, cliente.toDto(), itemsDto);
 	}
 
 	public void modificame() {
