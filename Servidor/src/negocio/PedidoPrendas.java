@@ -36,12 +36,14 @@ public class PedidoPrendas {
 		for (ItemPrendaEntity itemPrendaEntity : pedido.getItems()) {
 			this.items.add(new ItemPrenda(itemPrendaEntity));
 		}
-
-		if(pedido.getOrdenProduccion().getClass().getName().equals("entity.OrdenDeProduccionCompletaEntity"))
-			this.ordenProduccion=new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) pedido.getOrdenProduccion());
-
-		if(pedido.getOrdenProduccion().getClass().getName().equals("entity.OrdenDeProduccionParcialEntity"))
-			this.ordenProduccion=new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) pedido.getOrdenProduccion());
+		if(pedido.getOrdenProduccion() != null){
+			if(pedido.getOrdenProduccion().getClass().getName().equals("entity.OrdenDeProduccionCompletaEntity"))
+				this.ordenProduccion=new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) pedido.getOrdenProduccion());
+	
+			if(pedido.getOrdenProduccion().getClass().getName().equals("entity.OrdenDeProduccionParcialEntity"))
+				this.ordenProduccion=new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) pedido.getOrdenProduccion());
+	
+		}
 	}
 
 	public PedidoPrendas(int nroPedido) {

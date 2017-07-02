@@ -4,7 +4,29 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import entity.*;
+import entity.AreaProduccionEntity;
+import entity.ClienteEntity;
+import entity.ConfeccionEntity;
+import entity.EmpleadoEntity;
+import entity.FacturaEntity;
+import entity.InsumoEntity;
+import entity.ItemFacturaEntity;
+import entity.ItemPrendaEntity;
+import entity.LineaProduccionEntity;
+import entity.MateriaPrimaEntity;
+import entity.MovimientoMateriaPrimaEntity;
+import entity.MovimientoPrendaEntity;
+import entity.OrdenDeCompraEntity;
+import entity.OrdenDeProduccionCompletaEntity;
+import entity.OrdenDeProduccionEntity;
+import entity.OrdenDeProduccionParcialEntity;
+import entity.PedidoPrendasEntity;
+import entity.PrendaEntity;
+import entity.ProveedorEntity;
+import entity.StockMateriaPrimaEntity;
+import entity.StockPrendaEntity;
+import entity.SucursalEntity;
+import entity.UsuarioEntity;
  
 public class HibernateUtil{
 	

@@ -2,7 +2,7 @@ package cliente;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -70,7 +70,7 @@ public class NuevoPedido extends HttpServlet {
 				itemsDto.add(new ItemPrendaDto(Integer.parseInt(values[3]), values[2], values[1], new PrendaDto(Integer.parseInt(values[0]))));
 			}
   
-			PedidoPrendasDto pedido = new PedidoPrendasDto(new Date(), usuario.getCliente(), itemsDto);
+			PedidoPrendasDto pedido = new PedidoPrendasDto(Calendar.getInstance().getTime(), usuario.getCliente(), itemsDto);
 			
 			pedido = BusinessDelegate.getInstance().CrearPedido(pedido);
 			//TODO: redirect pedido generado con info o pedidos pendientes?

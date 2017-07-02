@@ -22,7 +22,7 @@ public class PedidoPrendasEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int nroPedido;
 	
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private Date fechaProbableDespacho;
 	
 	@Column(nullable=false)
@@ -31,7 +31,7 @@ public class PedidoPrendasEntity implements Serializable{
 	@Column(nullable=false)
 	private Date fechaGeneracion;
 	
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private Date fechaRealDespacho;
 	
 	@ManyToOne(targetEntity=ClienteEntity.class)
@@ -40,7 +40,7 @@ public class PedidoPrendasEntity implements Serializable{
 	@OneToOne()
 	private OrdenDeProduccionEntity ordenProduccion;
 	
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="pedidoPrenda_id")
 	private List<ItemPrendaEntity> items;
 	

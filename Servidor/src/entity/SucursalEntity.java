@@ -48,7 +48,9 @@ public class SucursalEntity implements Serializable{
 	@JoinColumn(name="sucursal_id")
 	private List<EmpleadoEntity> empleados;
 	
-	public SucursalEntity(){}
+	public SucursalEntity(){
+		pedidos = new ArrayList<PedidoPrendasEntity>();
+	}
 	public SucursalEntity(int numero, String nombre, String direccion, List<String> horarios,
 			List<EmpleadoEntity> empleados, List<PedidoPrendasEntity> pedidos){
 		this.numero = numero;

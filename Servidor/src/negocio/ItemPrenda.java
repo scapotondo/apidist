@@ -97,7 +97,8 @@ public class ItemPrenda {
 	
 	
 	public ItemPrendaDto toDto(){
-		return new ItemPrendaDto(cantidad, talle, color, importe, prenda.toDto(), lote.toDto());
+		//TODO: arreglar lote que banque listas y null
+		return new ItemPrendaDto(cantidad, talle, color, importe, prenda.toDto(), null);
 	}
 
 	public void disminuirCantidad(int cant){
