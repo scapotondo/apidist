@@ -17,4 +17,7 @@ public interface AdministracionOrdenesProduccionInterface extends Remote{
 	
 	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto, ConfeccionDto confeccionDto)throws RemoteException, RemoteObjectNotFoundException, AreaProduccionException,ApplicationException;
 	
+	public ConfeccionDto buscarConfeccionParaOrden(ConfeccionDto confeccionDto)throws RemoteException,ApplicationException;
+	
+	public OrdenDeProduccionDto buscarOrdenProduccion(OrdenDeProduccionDto ordenDto)throws RemoteException, RemoteObjectNotFoundException;
 }

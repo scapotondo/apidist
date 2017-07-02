@@ -79,7 +79,7 @@
 	                                    </thead>
 	                                    <tbody>
 	                                    	<%
-	                                    		if(ordenes.size() >0){
+	                                    		if(ordenes != null){
 	                                    			for(OrdenDeProduccionDto orden : ordenes){
 	                                    				ConfeccionDto confeccion = new ConfeccionDto(); 
 	                                    				for(ConfeccionDto confeccionLista : orden.getPrenda().getConfecciones()){

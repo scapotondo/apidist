@@ -363,9 +363,34 @@ public class BusinessDelegate {
 		return getAdministracionOrdenesProduccionRemoto().getOrdenesAreaProduccion(area);
 	}
 
-	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto)
-			throws RemoteObjectNotFoundException, AreaProduccionException, RemoteException {
-		getAdministracionOrdenesProduccionRemoto().IniciarProduccion(ordenDto, areaDto);
+	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto, ConfeccionDto confeccionDto)
+			throws RemoteObjectNotFoundException, AreaProduccionException, RemoteException, ApplicationException {
+		getAdministracionOrdenesProduccionRemoto().IniciarProduccion(ordenDto, areaDto,confeccionDto);
+	}
+	
+	public ConfeccionDto getConfeccion(int numero) throws ApplicationException{
+		
+		try {
+			ConfeccionDto confeccion = new ConfeccionDto();
+			confeccion.setId(numero);
+			
+			return getAdministracionOrdenesProduccionRemoto().buscarConfeccionParaOrden(confeccion);
+			
+		} catch (RemoteException  | ApplicationException  | RemoteObjectNotFoundException e) {
+			throw new ApplicationException("fallo al buscar confeccion");
+		} 
+	}
+	
+	public OrdenDeProduccionDto getOrdenProduccion(int numero) throws ApplicationException{
+		
+		try {
+			OrdenDeProduccionDto orden = new OrdenDeProduccionDto();
+			orden.setNroOrden(numero);
+			return getAdministracionOrdenesProduccionRemoto().buscarOrdenProduccion(orden);
+			
+		} catch (RemoteException | RemoteObjectNotFoundException e) {
+			throw new ApplicationException("fallo al buscar orden de produccion");
+		} 
 	}
 
 	/**
@@ -476,4 +501,6 @@ public class BusinessDelegate {
 		}
 		return null;
 	}
+	
+	
 }

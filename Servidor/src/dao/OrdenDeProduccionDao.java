@@ -30,19 +30,16 @@ public class OrdenDeProduccionDao {
 			session.beginTransaction();
 
 			@SuppressWarnings("unchecked")
-			ArrayList<OrdenDeProduccionEntity> resultados = (ArrayList<OrdenDeProduccionEntity>) session
-					.createQuery("from OrdenDeProduccionEntity op where op.estado = 1").list();
+			ArrayList<OrdenDeProduccionEntity> resultados = (ArrayList<OrdenDeProduccionEntity>) session.createQuery("from OrdenDeProduccionEntity where estado = 1").list();
 
 			session.getTransaction().commit();
 			session.close();
 
 			for (OrdenDeProduccionEntity resultado : resultados) {
 				if (resultado.equals("entity.OrdenDeProduccionCompletaEntity"))
-					ordenesIncompletas.add(new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) resultado));
-
-				if (resultado.equals("entity.OrdenDeProduccionParcialEntity"))
-					ordenesIncompletas.add(new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) resultado));
-
+					ordenesIncompletas.add(new OrdenProduccionCompleta (resultado));
+				else
+					ordenesIncompletas.add(new OrdenProduccionParcial((OrdenDeProduccionParcialEntity)resultado));
 			}
 
 		} catch (Exception e) {

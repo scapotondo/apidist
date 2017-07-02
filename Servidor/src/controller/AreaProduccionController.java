@@ -1,5 +1,6 @@
 package controller;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import dao.AreaProduccionDao;
@@ -73,7 +74,13 @@ public class AreaProduccionController {
 
 	}
 	
-	
+	public ConfeccionDto buscarConfeccionParaOrden(ConfeccionDto confeccionDto) throws RemoteException, ApplicationException {
+		return ConfeccionDao.getInstance().buscarConfeccion(confeccionDto).toDto();
+	}
+
+	public OrdenDeProduccionDto buscarOrdenProduccion(OrdenDeProduccionDto ordenDto) throws RemoteException, RemoteObjectNotFoundException {
+		return OrdenDeProduccionDao.getInstance().getBuscarOrden(ordenDto).toDto();
+	}
 	
 
 }

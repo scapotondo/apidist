@@ -29,4 +29,12 @@ public class AdministracionOrdenesProduccion extends UnicastRemoteObject impleme
 		AreaProduccionController.getInstance().IniciarProduccion(ordenDto, areaDto, confeccionDto);
 	}
 
+	public ConfeccionDto buscarConfeccionParaOrden(ConfeccionDto confeccionDto) throws RemoteException, ApplicationException {
+		return AreaProduccionController.getInstance().buscarConfeccionParaOrden(confeccionDto);
+	}
+
+	public OrdenDeProduccionDto buscarOrdenProduccion(OrdenDeProduccionDto ordenDto) throws RemoteException, RemoteObjectNotFoundException {
+		return AreaProduccionController.getInstance().buscarOrdenProduccion(ordenDto);
+	}
+
 }
