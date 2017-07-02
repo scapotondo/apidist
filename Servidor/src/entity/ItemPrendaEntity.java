@@ -28,11 +28,11 @@ public class ItemPrendaEntity implements Serializable{
 	private String color;
 	private float importe;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne()
 	@JoinColumn(name="codigo")
 	private PrendaEntity prenda;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne()
 	@JoinColumn(name="nroOrden")
 	private OrdenDeProduccionEntity lote;
 	

@@ -10,6 +10,7 @@ import dto.ConfeccionDto;
 import dto.OrdenDeProduccionDto;
 import exceptions.ApplicationException;
 import exceptions.AreaProduccionException;
+import exceptions.ColorException;
 import exceptions.RemoteObjectNotFoundException;
 import interfaces.AdministracionOrdenesProduccionInterface;
 
@@ -25,7 +26,7 @@ public class AdministracionOrdenesProduccion extends UnicastRemoteObject impleme
 		return AreaProduccionController.getInstance().getOrdenesProduccion(area);
 	}
 
-	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto, ConfeccionDto confeccionDto) throws RemoteObjectNotFoundException, AreaProduccionException, ApplicationException {
+	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto, ConfeccionDto confeccionDto) throws RemoteObjectNotFoundException, AreaProduccionException, ApplicationException, ColorException {
 		AreaProduccionController.getInstance().IniciarProduccion(ordenDto, areaDto, confeccionDto);
 	}
 
