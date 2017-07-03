@@ -4,10 +4,12 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+import controller.AreaProduccionController;
 import controller.Controller;
 import controller.DespachoController;
 import dto.AreaProduccionDto;
 import dto.EmpleadoDto;
+import dto.LineaProduccionDto;
 import dto.MateriaPrimaDto;
 import dto.PedidoPrendasDto;
 import dto.SucursalDto;
@@ -39,6 +41,20 @@ public class AdministracionProduccion extends UnicastRemoteObject implements Adm
 
 	public ArrayList<PedidoPrendasDto> GetPedidosADespachar() throws RemoteException {
 		return DespachoController.getInstance().GetPedidosADespachar();
+	}
+
+	public ArrayList<LineaProduccionDto> getLineasOcupadas(AreaProduccionDto area) throws RemoteException {
+		return AreaProduccionController.getInstance().getLineasOcupadas(area);
+	}
+
+	public AreaProduccionDto getAreaProduccion(int numero) throws RemoteException {
+		AreaProduccionDto area = new AreaProduccionDto();
+		area.setCodigo(numero);
+		return AreaProduccionController.getInstance().getAreaProduccion(area);
+	}
+
+	public void liberarLinea(int numero) throws RemoteException {
+		
 	}
 	
 

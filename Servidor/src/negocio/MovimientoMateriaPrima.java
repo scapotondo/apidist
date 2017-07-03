@@ -38,7 +38,8 @@ public class MovimientoMateriaPrima {
 	}
 	
 	//constructor del alta
-	public MovimientoMateriaPrima(EstadoMovimientoMateriaPrima estado, int cantidad, Date fecha, StockMateriaPrima stocksReservados){
+	public MovimientoMateriaPrima(EstadoMovimientoMateriaPrima estado, int cantidad, Date fecha, StockMateriaPrima stocksReservados,
+			OrdenDeProduccion lote){
 		this.estado=estado;
 		this.cantidad=cantidad;
 		this.fecha=fecha;
@@ -46,6 +47,7 @@ public class MovimientoMateriaPrima {
 		ArrayList<StockMateriaPrima> stocks = new ArrayList<>();
 		stocks.add(stocksReservados);
 		this.stocksReservados=stocks;
+		this.lote = lote;
 	}
 	
 	public MovimientoMateriaPrima(MovimientoMateriaPrimaEntity movimiento){

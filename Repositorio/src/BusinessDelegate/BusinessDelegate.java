@@ -118,7 +118,6 @@ public class BusinessDelegate {
 
 		try {
 			getAdminOrdenesCompraRemoto().aceptarOrden(orden);
-			;
 
 		} catch (RemoteException e) {
 			throw new ApplicationException(e.getMessage());
@@ -298,6 +297,30 @@ public class BusinessDelegate {
 			e.printStackTrace();
 		}
 
+		return null;
+	}
+	
+	public ArrayList<LineaProduccionDto> getLineasOcupadas(AreaProduccionDto area) {
+		
+		try {
+			return getAreaProduccionRemoto().getLineasOcupadas(area);
+			
+		} catch (RemoteObjectNotFoundException | RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public AreaProduccionDto getAreaProducion(int numero) {
+		
+		try {
+			return getAreaProduccionRemoto().getAreaProduccion(numero);
+			
+		} catch (RemoteObjectNotFoundException | RemoteException e) {
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 

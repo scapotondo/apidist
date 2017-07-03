@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import dao.AreaProduccionDao;
 import dao.OrdenDeProduccionDao;
 import dto.AreaProduccionDto;
+import dto.LineaProduccionDto;
 import dto.OrdenDeProduccionDto;
 import exceptions.ApplicationException;
 import exceptions.AreaProduccionException;
@@ -15,6 +16,7 @@ import negocio.AreaProduccion;
 import negocio.EstadoOrdenProduccion;
 import negocio.EstadoProcesoProduccion;
 import negocio.Insumo;
+import negocio.LineaProduccion;
 import negocio.OrdenDeProduccion;
 import negocio.ProcesoProduccion;
 
@@ -90,4 +92,21 @@ public class AreaProduccionController {
 	public OrdenDeProduccionDto buscarOrdenProduccion(OrdenDeProduccionDto ordenDto) throws RemoteException, RemoteObjectNotFoundException {
 		return OrdenDeProduccionDao.getInstance().getBuscarOrden(ordenDto).toDto();
 	}
+
+	public AreaProduccionDto getAreaProduccion(AreaProduccionDto area){
+		return AreaProduccionDao.getInstance().getById(area).toDto();
+	}
+
+	public ArrayList<LineaProduccionDto> getLineasOcupadas(AreaProduccionDto area) throws RemoteException {
+		
+		ArrayList<LineaProduccionDto> lineasDto = new ArrayList<LineaProduccionDto>();
+		
+		ArrayList<LineaProduccion> lineas = AreaProduccionDao.getInstance().getLineasOcupadas(area);
+		for (LineaProduccion lineaProduccion : lineas) {
+			lineasDto.add(lineaProduccion.toDto());
+		}
+		
+		return lineasDto;
+	}
+	
 }

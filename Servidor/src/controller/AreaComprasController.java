@@ -25,7 +25,7 @@ public class AreaComprasController {
 		OrdenDeCompra orden = OrdenDeCompraDao.getInstance().getById(ordenDto.getId());
 		Float precio = orden.getCantidad() * orden.getPrecioUnitario();
 		
-		AlmacenController.getInstance().agregarStockMateriaPrima(orden.getMateriaPrima(), orden.getCantidad(), precio);
+		AlmacenController.getInstance().agregarStockMateriaPrima(orden.getMateriaPrima(), orden.getCantidad(), precio, orden.getOrdenProduccion());
 		
 		orden.setEstado(OrdenDeCompra.REALIZADA);
 		orden.setFechaRealDespacho(Calendar.getInstance().getTime());

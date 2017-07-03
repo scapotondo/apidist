@@ -1,10 +1,8 @@
-<%@page import="dto.ConfeccionDto"%>
+<%@page import="dto.LineaProduccionDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!doctype html>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dto.OrdenDeProduccionDto"%>
-<%@page import="dto.ProcesoProduccionDto"%>
 <%@page import="dto.UsuarioDto"%>
 <html >
 <head>
@@ -30,8 +28,7 @@
 <body>
 	<%
 		UsuarioDto usuario = (UsuarioDto) request.getAttribute("usuario");
-		Integer id = (Integer) request.getAttribute("id");
-		ArrayList<OrdenDeProduccionDto> ordenes = (ArrayList<OrdenDeProduccionDto>) request.getAttribute("ordenes");
+		ArrayList<LineaProduccionDto> lineas = (ArrayList<LineaProduccionDto>) request.getAttribute("lineas");
 	%>
 	<div class="wrapper">
 	
@@ -48,7 +45,7 @@
 	                        <span class="icon-bar"></span>
 	                    </button>
 	                </div>
-	                <a class="navbar-brand" >Area de Produccion</a>
+	                <a class="navbar-brand" >Lineas de Produccion</a>
 	                <div class="collapse navbar-collapse">
 	                    <ul class="nav navbar-nav navbar-right">
 	                        <li>
@@ -59,50 +56,38 @@
 	                        </li>
 	                    </ul>
 	                </div>
-	                <div class="col-md-3">
-	                        <a href="${pageContext.request.contextPath}/LineasProduccion?id=<%=id %>" class="btn btn-facebook " target="_blank">Ver Lineas Produccion</a>
-	                </div>
 	            </div>
 	        </nav>
-				
+	
 	        <div class="content">
 	            <div class="container-fluid">
 	                <div class="row">
 	                    <div class="col-md-12">
 	                        <div class="card">
 	                            <div class="card-header" data-background-color="red">
-	                                <h4 class="title">Ordenes de Produccion</h4>
-	                                <p class="category">Seleccione una confeccion para terminar</p>
+	                                <h4 class="title">Lineas de Produccion Ocupadas</h4>
+	                                <p class="category">Libere una linea</p>
 	                            </div>
 	                            <div class="card-content table-responsive">
 	                                <table class="table">
 	                                    <thead class="text-info">
-		                                    <th>Orden de Produccion</th>
-		                                    <th>Numero de Pedido</th>
-		                                    <th>Confeccion</th>
-		                                    <th>Realizar</th>
+		                                    <th>Numero</th>
+		                                    <th>Estado</th>
+		                                    <th>Tiempo a Liberarse</th>
+		                                    <th>Trabajo</th>
+		                                    <th>Liberar</th>
 	                                    </thead>
 	                                    <tbody>
 	                                    	<%
-	                                    		if(ordenes != null){
-	                                    			for(OrdenDeProduccionDto orden : ordenes){
-	                                    				int menor = 100;
-	                                    				ProcesoProduccionDto primerProceso = null;
-	                                    				for (ProcesoProduccionDto p : orden.getProcesos()) {
-	                                    					if (p.getNroOrden() < menor && p.getEstado().equals("Incompleto")) {
-	                                    						menor = p.getNroOrden();
-	                                    						primerProceso = p;
-	                                    					}
-	                                    				}
-	                                    				
-                                    					if(primerProceso == null || !primerProceso.getEstado().equals("Incompleto"))
-                                    						break;
+	                                    		if(lineas!= null){
+	                                    			for(LineaProduccionDto linea : lineas){
 	                                    	%>
 					                                    <tr>
-					                                        <td><%= orden.getNroOrden()%></td>
-					                                        <td><%= orden.getPedido().getNroPedido()%></td>
-					                                        <td><%= primerProceso.getConfeccion().getDetalle()%></td>
-					                                        <td><a href="AreaProduccion?area=<%= id %>&confeccionId=<%=primerProceso.getConfeccion().getId() %>&nroOrden=<%= orden.getNroOrden() %>"><i class="material-icons">done</i></a></td>
+					                                        <td><%=linea.getNumero() %></td>
+					                                        <td><%=linea.getEstado() %></td>
+					                                        <td><%=linea.getTiempoLiberarse() %></td>
+					                                        <td><%=linea.getTrabajo() %></td>
+					                                        <td><a href="LineasProduccion?lineaNro=<%= linea.getNumero() %>"><i class="material-icons">done</i></a></td>
 					                                    </tr>
 											<%		}
 	                                    		}

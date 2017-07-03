@@ -112,8 +112,8 @@ public class StockMateriaPrima {
 		return this.toDto(this.materiaPrima.toDto());
 	}
 	
-	public void saveMe(){
-		StockMateriaPrimaDao.getInstance().CrearStockMateriaPrima(this);
+	public StockMateriaPrima saveMe(){
+		return StockMateriaPrimaDao.getInstance().CrearStockMateriaPrima(this); 
 	}
 	
 	public void updateMe(){

@@ -19,7 +19,7 @@ public class StockMateriaPrimaDao {
 	
 	private StockMateriaPrimaDao(){}
 	
-	public void CrearStockMateriaPrima(StockMateriaPrima stock){
+	public StockMateriaPrima CrearStockMateriaPrima(StockMateriaPrima stock){
 		
 		StockMateriaPrimaEntity stockEntity = new StockMateriaPrimaEntity(stock);
 		
@@ -28,6 +28,9 @@ public class StockMateriaPrimaDao {
 		session.save(stockEntity);
 		session.getTransaction().commit();
 		session.close();
+		StockMateriaPrima stockMateria = new StockMateriaPrima(stockEntity); 
+		
+		return stockMateria;
 		
 	}
 	

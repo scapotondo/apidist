@@ -311,18 +311,18 @@ public class AlmacenController {
 		almacen[calle][bloque][estante][posicion] = stockPrenda.getLote().getNroOrden();
 	}
 	
-	public void agregarStockMateriaPrima(MateriaPrima materiaPrima, int cantidad, Float precio) {
+	public void agregarStockMateriaPrima(MateriaPrima materiaPrima, int cantidad, Float precio,OrdenDeProduccion lote) {
 
 		String ubicacion = getUbicacionMateriaPrimaDisponible();
 
-		StockMateriaPrima stock = new StockMateriaPrima(Calendar.getInstance().getTime(), precio, cantidad, ubicacion,
-				materiaPrima);
-		stock.saveMe();
+		StockMateriaPrima stock = new StockMateriaPrima(Calendar.getInstance().getTime(), precio, cantidad, ubicacion,materiaPrima);
+		
+		stock = stock.saveMe();
 
 		agregarStockMateriaPrima(stock);
 
 		MovimientoMateriaPrima movimiento = new MovimientoMateriaPrima(EstadoMovimientoMateriaPrima.Agregar, cantidad,
-				Calendar.getInstance().getTime(), stock);
+				Calendar.getInstance().getTime(), stock,lote);
 		movimiento.saveMe();
 	}
 

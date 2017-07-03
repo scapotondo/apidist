@@ -22,7 +22,7 @@ public class StockMateriaPrimaEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int numero;
 	
-	@ManyToOne(targetEntity=MateriaPrimaEntity.class)
+	@ManyToOne()
 	private MateriaPrimaEntity materiaPrima;
 	
 	private Date fechaRecepcion;

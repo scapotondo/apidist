@@ -44,6 +44,7 @@ public class OrdenDeCompra {
 			this.ordenProduccion=new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) oc.getOrdenProduccion());
 		
 		this.estado = oc.getEstado(); 
+		this.id = oc.getId();
 	}
 	
 	public OrdenDeCompra(Date fechaGeneracion,Date fechaProbableDespacho,Date fechaRealDespacho,int cantidad,
