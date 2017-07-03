@@ -8,6 +8,7 @@ import dto.StockPrendaDto;
 import entity.OrdenDeProduccionCompletaEntity;
 import entity.OrdenDeProduccionParcialEntity;
 import entity.StockPrendaEntity;
+import exceptions.ColorException;
 
 public class StockPrenda {
 	
@@ -23,22 +24,27 @@ public class StockPrenda {
 	private int codigo;
 	
 	public StockPrenda(StockPrendaEntity stock){
-		this.codigo=stock.getCodigo();
-		this.color=stock.getColor();
-		this.talle=stock.getTalle();
-
-		if(stock.getLote().getClass().getName().equals("entity.OrdenDeProduccionCompletaEntity"))
-			this.lote=new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) stock.getLote());
-		
-		if(stock.getLote().getClass().getName().equals("entity.OrdenDeProduccionParcialEntity"))
-			this.lote=new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) stock.getLote());
-		
-		this.fecha=stock.getFecha();
-		this.costoProduccion=stock.getCostoProduccion();
-		this.cantidad=stock.getCantidad();
-		this.ubicacion=stock.getUbicacion();
-		this.cantidadPrendasReservadas=stock.getCantidadPrendasReservadas();
-		this.prenda=new Prenda(stock.getPrenda());
+		try {
+			this.codigo=stock.getCodigo();
+			this.color=ColorPrenda.fromInt(stock.getColor());
+			this.talle=stock.getTalle();
+	
+			if(stock.getLote().getClass().getName().equals("entity.OrdenDeProduccionCompletaEntity"))
+				this.lote=new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) stock.getLote());
+			
+			if(stock.getLote().getClass().getName().equals("entity.OrdenDeProduccionParcialEntity"))
+				this.lote=new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) stock.getLote());
+			
+			this.fecha=stock.getFecha();
+			this.costoProduccion=stock.getCostoProduccion();
+			this.cantidad=stock.getCantidad();
+			this.ubicacion=stock.getUbicacion();
+			this.cantidadPrendasReservadas=stock.getCantidadPrendasReservadas();
+			this.prenda=new Prenda(stock.getPrenda());
+		} catch (ColorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public StockPrenda(ColorPrenda color, String talle, OrdenDeProduccion lote, Date fecha, float costoProduccion, int cantidad,

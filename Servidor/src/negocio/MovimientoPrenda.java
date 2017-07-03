@@ -30,6 +30,7 @@ public class MovimientoPrenda {
 		this.destino=destino;
 		this.prenda=prenda;
 		this.lotes=lotes;
+		this.tipo = tipo;
 	}
 	
 	public MovimientoPrenda(MovimientoPrendaEntity movimiento){
@@ -51,6 +52,12 @@ public class MovimientoPrenda {
 		
 		for (StockPrendaEntity stockPrendaEntity : movimiento.getLotes()) 
 			lotes.add(new StockPrenda(stockPrendaEntity));
+		
+		try {
+			this.tipo = TipoMovimientoStockPrendaEnum.fromInt(movimiento.getTipo());
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public TipoMovimientoStockPrendaEnum getTipo() {

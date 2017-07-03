@@ -3,7 +3,6 @@ package entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,10 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
-
-import negocio.ColorPrenda;
 import negocio.OrdenProduccionCompleta;
 import negocio.OrdenProduccionParcial;
 import negocio.StockPrenda;
@@ -29,16 +24,7 @@ public class StockPrendaEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int codigo;
 	
-	@Column(columnDefinition="integer", nullable = false)
-    @Type(
-        type = "negocio.ColorPrenda", 
-        parameters = { 
-        	@Parameter(name = "enumClass", value = "negocio.ColorPrenda"),
-        	@Parameter(name = "identifierMethod", value = "toInt"),
-        	@Parameter(name = "valueOfMethod", value = "fromInt")
-        }
-    )
-	private ColorPrenda color;
+	private int color;
 	
 	private String talle;
 	private Date fecha;
@@ -57,7 +43,7 @@ public class StockPrendaEntity implements Serializable{
 	
 	public StockPrendaEntity(StockPrenda sp){
 		this.codigo=sp.getCodigo();
-		this.color=sp.getColor();
+		this.color=sp.getColor().toInt();
 		this.talle=sp.getTalle();
 		this.fecha=sp.getFecha();
 		this.costoProduccion=sp.getCostoProduccion();
@@ -85,11 +71,11 @@ public class StockPrendaEntity implements Serializable{
 		this.codigo = codigo;
 	}
 
-	public ColorPrenda getColor() {
+	public int getColor() {
 		return color;
 	}
 
-	public void setColor(ColorPrenda color) {
+	public void setColor(int color) {
 		this.color = color;
 	}
 
