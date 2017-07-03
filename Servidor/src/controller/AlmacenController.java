@@ -327,7 +327,7 @@ public class AlmacenController {
 	}
 
 	public void disminuirStockMateriaPrima(MateriaPrima materiaPrima, int cantidad, OrdenDeProduccion lote) {
-		
+		int cantidadOriginal = cantidad;
 		ArrayList<StockMateriaPrima> stocksUsados = new ArrayList<StockMateriaPrima>();
 		
 		ArrayList<StockMateriaPrima> stockMateriaPrima = StockMateriaPrimaDao.getInstance().getStockMateriasPrimas();
@@ -354,7 +354,7 @@ public class AlmacenController {
 			}
 		}
 
-		MovimientoMateriaPrima movimiento = new MovimientoMateriaPrima(EstadoMovimientoMateriaPrima.Remover, cantidad,
+		MovimientoMateriaPrima movimiento = new MovimientoMateriaPrima(EstadoMovimientoMateriaPrima.Remover, cantidadOriginal,
 				Calendar.getInstance().getTime(), stocksUsados, lote);
 		movimiento.saveMe();
 	}
