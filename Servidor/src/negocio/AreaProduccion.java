@@ -99,7 +99,7 @@ public class AreaProduccion {
 				}
 			}
 
-			linea.asignarTrabajo(proceso.getConfeccion().getDetalle(), proceso.getConfeccion().getTiempoProd() , orden);
+			linea.asignarTrabajo(proceso.getConfeccion().getDetalle(), proceso.getConfeccion().getTiempoProd() , orden.getNroOrden());
 		}
 	}
 

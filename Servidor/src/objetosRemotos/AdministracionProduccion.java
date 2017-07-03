@@ -13,6 +13,7 @@ import dto.LineaProduccionDto;
 import dto.MateriaPrimaDto;
 import dto.PedidoPrendasDto;
 import dto.SucursalDto;
+import exceptions.RemoteObjectNotFoundException;
 import interfaces.AdministracionProduccionInterface;
 
 public class AdministracionProduccion extends UnicastRemoteObject implements AdministracionProduccionInterface {
@@ -54,7 +55,11 @@ public class AdministracionProduccion extends UnicastRemoteObject implements Adm
 	}
 
 	public void liberarLinea(int numero) throws RemoteException {
-		AreaProduccionController.getInstance().liberarLinea(numero);
+		try {
+			AreaProduccionController.getInstance().liberarLinea(numero);
+		} catch (RemoteObjectNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

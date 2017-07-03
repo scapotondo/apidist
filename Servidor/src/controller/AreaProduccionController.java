@@ -110,10 +110,13 @@ public class AreaProduccionController {
 		return lineasDto;
 	}
 	
-	public void liberarLinea(int numero){
+	public void liberarLinea(int numero) throws RemoteObjectNotFoundException{
 		LineaProduccion linea = AreaProduccionDao.getInstance().getLineaId(numero);
 		
-		OrdenDeProduccion orden = linea.getOrden();
+		OrdenDeProduccionDto ordenDto = new OrdenDeProduccionDto();
+		ordenDto.setNroOrden(linea.getCodigoOrden());
+		
+		OrdenDeProduccion orden = OrdenDeProduccionDao.getInstance().getBuscarOrden(ordenDto);
 		
 		ProcesoProduccion proceso = new ProcesoProduccion();
 		

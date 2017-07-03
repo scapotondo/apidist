@@ -6,12 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import negocio.LineaProduccion;
-import negocio.OrdenProduccionCompleta;
-import negocio.OrdenProduccionParcial;
 
 @Entity
 @Table(name="LineaProduccion")
@@ -25,8 +22,7 @@ public class LineaProduccionEntity implements Serializable{
 	private Float tiempoLiberarse;
 	private String trabajo;
 	
-	@ManyToOne()
-	private OrdenDeProduccionEntity orden;
+	private int codigoOrden;
 	
 	public LineaProduccionEntity(){}
 	public LineaProduccionEntity(LineaProduccion lineaProduccion){
@@ -34,14 +30,7 @@ public class LineaProduccionEntity implements Serializable{
 		this.estado = lineaProduccion.getEstado();
 		this.tiempoLiberarse = lineaProduccion.getTiempoLiberarse();
 		this.trabajo = lineaProduccion.getTrabajo();
-		
-		if(lineaProduccion.getOrden() != null){
-			if(lineaProduccion.getOrden().getClass().getName().equals("negocio.OrdenProduccionCompleta"))
-				this.orden = new OrdenDeProduccionCompletaEntity( (OrdenProduccionCompleta) lineaProduccion.getOrden());
-				
-			else
-				this.orden = new OrdenDeProduccionParcialEntity((OrdenProduccionParcial) lineaProduccion.getOrden());
-		}
+		this.codigoOrden = lineaProduccion.getCodigoOrden();
 	}
 	
 	public int getNumero() {
@@ -68,11 +57,12 @@ public class LineaProduccionEntity implements Serializable{
 	public void setTrabajo(String trabajo) {
 		this.trabajo = trabajo;
 	}
-	public OrdenDeProduccionEntity getOrden() {
-		return orden;
+	public int getCodigoOrden() {
+		return codigoOrden;
 	}
-	public void setOrden(OrdenDeProduccionEntity orden) {
-		this.orden = orden;
+	public void setCodigoOrden(int codigoOrden) {
+		this.codigoOrden = codigoOrden;
 	}
+	
 	
 }

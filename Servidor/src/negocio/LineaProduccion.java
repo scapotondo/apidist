@@ -3,8 +3,6 @@ package negocio;
 import dao.LineaProduccionDao;
 import dto.LineaProduccionDto;
 import entity.LineaProduccionEntity;
-import entity.OrdenDeProduccionCompletaEntity;
-import entity.OrdenDeProduccionParcialEntity;
 
 public class LineaProduccion {
 	public static final String OCUPADO = "Ocupado";
@@ -14,7 +12,7 @@ public class LineaProduccion {
 	private String estado;
 	private Float tiempoLiberarse;
 	private String trabajo;
-	private OrdenDeProduccion orden;
+	private int codigoOrden;
 	
 	public LineaProduccion(){}
 	
@@ -24,21 +22,14 @@ public class LineaProduccion {
 		this.tiempoLiberarse=linea.getTiempoLiberarse();
 		this.trabajo=linea.getTrabajo();
 		
-		if(linea.getOrden() != null){
-			if(linea.getOrden().getClass().getName().equals("entity.OrdenDeProduccionCompletaEntity"))
-				this.orden=new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) linea.getOrden());
-			
-			else
-				this.orden=new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) linea.getOrden());
-		}
 	}
 	
-	public LineaProduccion(int numero, String estado, Float tiempoLiberarse, String trabajo,OrdenDeProduccion orden){
+	public LineaProduccion(int numero, String estado, Float tiempoLiberarse, String trabajo,int codigoOrden){
 		this.numero=numero;
 		this.estado= estado;
 		this.tiempoLiberarse=tiempoLiberarse;
 		this.trabajo=trabajo;
-		this.orden = orden;
+		this.codigoOrden = codigoOrden;
 	}
 	
 	public int getNumero() {
@@ -73,19 +64,21 @@ public class LineaProduccion {
 		this.trabajo = trabajo;
 	}
 	
-	public OrdenDeProduccion getOrden() {
-		return orden;
+	
+
+	public int getCodigoOrden() {
+		return codigoOrden;
 	}
 
-	public void setOrden(OrdenDeProduccion orden) {
-		this.orden = orden;
+	public void setCodigoOrden(int codigoOrden) {
+		this.codigoOrden = codigoOrden;
 	}
 
-	public void asignarTrabajo(String trabajo, Float tiempo, OrdenDeProduccion orden){
+	public void asignarTrabajo(String trabajo, Float tiempo, int codigoOrden ){
 		this.setTiempoLiberarse(tiempo);
 		this.setTrabajo(trabajo);
 		this.setEstado(OCUPADO);
-		this.orden = orden;
+		this.codigoOrden = codigoOrden;
 		modificar();
 	}
 	
@@ -93,7 +86,7 @@ public class LineaProduccion {
 		this.setTiempoLiberarse(null);
 		this.setTrabajo(null);
 		this.setEstado(LIBRE);
-		this.setOrden(null);
+		this.setCodigoOrden(0);
 		modificar();
 	}
 	
