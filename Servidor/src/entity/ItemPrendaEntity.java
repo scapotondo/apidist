@@ -17,8 +17,8 @@ import negocio.ItemPrenda;
 @Embeddable
 @Table(name="ItemPrenda")
 public class ItemPrendaEntity implements Serializable{
-	
 	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
@@ -37,15 +37,6 @@ public class ItemPrendaEntity implements Serializable{
 	
 	public ItemPrendaEntity(){}
 	
-	public ItemPrendaEntity(int cantidad, String talle, String color,float importe, PrendaEntity prenda, OrdenDeProduccionEntity lote ){
-		this.cantidad=cantidad;
-		this.talle=talle;
-		this.color=color;
-		this.importe=importe;
-		this.prenda=prenda;
-		this.lote = lote;
-	}
-	
 	public ItemPrendaEntity(ItemPrenda itemPrenda){
 		this.id = itemPrenda.getId();
 		this.cantidad = itemPrenda.getCantidad();
@@ -56,6 +47,7 @@ public class ItemPrendaEntity implements Serializable{
 		//TODO shevisar aca tambien
 		//this.lote = new ordendeproducc
 	}
+	
 	public int getId() {
 		return id;
 	}
@@ -98,6 +90,4 @@ public class ItemPrendaEntity implements Serializable{
 	public void setLote(OrdenDeProduccionEntity lote) {
 		this.lote = lote;
 	}
-	
-	
 }

@@ -14,8 +14,8 @@ import negocio.Insumo;
 @Entity
 @Table(name="Insumo")
 public class InsumoEntity implements Serializable{
-	
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
@@ -26,7 +26,9 @@ public class InsumoEntity implements Serializable{
 	private MateriaPrimaEntity materiaPrima;
 	
 	public InsumoEntity(){}
+	
 	public InsumoEntity(Insumo insumo){
+		this.id = insumo.getId();
 		this.cantidad = insumo.getCantidad();
 		this.desperdicio = insumo.getDesperdicio();
 		this.materiaPrima = new MateriaPrimaEntity(insumo.getMateriaPrima());
@@ -63,5 +65,4 @@ public class InsumoEntity implements Serializable{
 	public void setMateriaPrima(MateriaPrimaEntity materiaPrima) {
 		this.materiaPrima = materiaPrima;
 	}
-	
 }

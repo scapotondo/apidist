@@ -55,38 +55,6 @@ public class PrendaEntity implements Serializable{
 		this.stock = new ArrayList<>();
 	}
 	
-	public PrendaEntity(int codigo, boolean esDiscontinuo, int cantidadAProducir, String nombre, String descripcion, 
-			float porsentajeGanancia, ArrayList<String>tallesValidos, ArrayList<Integer>coloresValidos,
-			ArrayList<ConfeccionEntity> confecciones, ArrayList<StockPrendaEntity> stock){
-		
-		this.codigo=codigo;
-		this.esDiscontinuo=esDiscontinuo;
-		this.cantidadAProducir=cantidadAProducir;
-		this.nombre=nombre;
-		this.descripcion=descripcion;
-		this.porsentajeGanancia=porsentajeGanancia;
-		
-		if(tallesValidos!=null)
-			this.tallesValidos=tallesValidos;
-		else
-			this.tallesValidos= new ArrayList<>();
-		
-		if(coloresValidos!=null)
-			this.coloresValidos=coloresValidos;
-		else
-			this.coloresValidos=new ArrayList<>();
-		
-		if(confecciones!=null)
-			this.confecciones=confecciones;
-		else
-			this.confecciones= new ArrayList<>();
-		
-		if(stock!=null)
-			this.stock=stock;
-		else
-			this.stock=new ArrayList<>();
-	}
-
 	public PrendaEntity(Prenda prenda){
 		this.codigo=prenda.getCodigo();
 		this.esDiscontinuo=prenda.getEsDiscontinuo();

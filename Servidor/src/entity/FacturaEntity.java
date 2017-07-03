@@ -25,21 +25,16 @@ public class FacturaEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int nroComprobante;
 	
-	
 	private String razonSocialVendedor;
 	private String domicilioVendedor;
 	private String telefonoVendedor;
 	private String datosIvaVendedor;
 	private String cuitVendedor;
-	
 	private Date fecha;
-	
 	private String nombreComprador;
 	private String domicilioComprador;
 	private String cuitComprador;
-	
 	private String condicionesVenta; //efectivo, cheque, cuenta corriente
-	
 	private float precio;
 	
 	@OneToMany(cascade=CascadeType.ALL)
@@ -47,27 +42,7 @@ public class FacturaEntity implements Serializable{
 	
 	public FacturaEntity(){}
 	
-	public FacturaEntity(int nroComprobante, Date fecha, String nombreComprador, String domicilioComprador, String cuit,
-			String comprador, String condicionesVenta, List<ItemFacturaEntity> items, float precio, String razonSocialVendedor,
-			String domicilioVendedor,String telefonoVendedor, String datosIvaVendedor, String cuitVendedor){
-		
-		this.razonSocialVendedor = razonSocialVendedor;
-		this.domicilioVendedor = domicilioVendedor;
-		this.telefonoVendedor = telefonoVendedor;
-		this.datosIvaVendedor = datosIvaVendedor;
-		this.cuitVendedor = cuitVendedor;
-		this.nroComprobante = nroComprobante;
-		this.fecha = fecha;
-		this.nombreComprador = nombreComprador;
-		this.domicilioComprador = domicilioComprador;
-		this.cuitComprador = cuit;
-		this.condicionesVenta = condicionesVenta;
-		this.items = items;
-		this.precio = precio;
-	}
-	
 	public FacturaEntity(Factura factura){
-		
 		this.razonSocialVendedor = factura.getRazonSocialVendedor();
 		this.domicilioVendedor = factura.getDomicilioVendedor();
 		this.telefonoVendedor = factura.getTelefonoVendedor();
@@ -172,7 +147,6 @@ public class FacturaEntity implements Serializable{
 		this.condicionesVenta = condicionesVenta;
 	}
 
-
 	public List<ItemFacturaEntity> getItems() {
 		return items;
 	}
@@ -192,7 +166,4 @@ public class FacturaEntity implements Serializable{
 	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
-	
-	
-	
 }

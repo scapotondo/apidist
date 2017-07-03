@@ -19,7 +19,6 @@ import negocio.OrdenProduccionParcial;
 @Entity
 @Table(name="OrdenDeCompra")
 public class OrdenDeCompraEntity implements Serializable{
-	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -47,22 +46,6 @@ public class OrdenDeCompraEntity implements Serializable{
 	private ProveedorEntity proveedor;
 
 	public OrdenDeCompraEntity(){}
-	
-	public OrdenDeCompraEntity(int id,MateriaPrimaEntity materiaPrima,Date fechaGeneracion,Date fechaProbableDespacho,
-			Date fechaRealDespacho,int cantidad,float precioUnitario,OrdenDeProduccionEntity ordenProduccion,ProveedorEntity proveedor, String estado){
-		this.id=id;
-		this.materiaPrima= materiaPrima;
-		this.fechaGeneracion=fechaGeneracion;
-		this.fechaProbableDespacho=fechaProbableDespacho;
-		this.fechaRealDespacho=fechaRealDespacho;
-		this.cantidad=cantidad;
-		this.precioUnitario=precioUnitario;
-		this.ordenProduccion=ordenProduccion;
-		this.proveedor=proveedor;
-		this.estado = estado;
-	}
-	
-
 	
 	public OrdenDeCompraEntity(OrdenDeCompra orden){
 		this.id=orden.getId();

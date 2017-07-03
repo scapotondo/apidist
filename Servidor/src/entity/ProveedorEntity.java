@@ -28,15 +28,6 @@ public class ProveedorEntity implements Serializable{
 	
 	public ProveedorEntity(){}
 	
-	public ProveedorEntity(int id,String telefono,String nombre,String domicilio, String cuit, String cbu){
-		this.id=id;
-		this.telefono=telefono;
-		this.nombre=nombre;
-		this.domicilio=domicilio;
-		this.cuit=cuit;
-		this.cbu=cbu;
-	}
-	
 	public ProveedorEntity(Proveedor proveedor){
 		this.id=proveedor.getId();
 		this.telefono=proveedor.getTelefono();
