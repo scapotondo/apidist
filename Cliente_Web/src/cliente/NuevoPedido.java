@@ -62,7 +62,7 @@ public class NuevoPedido extends HttpServlet {
 			String[] items = request.getParameterValues("items[]");
 			
 			for (Cookie cookie : request.getCookies()) {
-				if(cookie.getName().equals("usuario"))
+				if(cookie.getName().equals("usuarioCliente"))
 					codigo = Integer.parseInt(cookie.getValue());
 			}  
 

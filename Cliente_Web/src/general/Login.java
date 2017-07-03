@@ -65,12 +65,12 @@ public class Login extends HttpServlet {
 					}
 				}
 				
-				coockie = new Cookie("usuario", usuarioEmpleado.getCodigo()+"");
+				coockie = new Cookie("usuarioEmpleado", usuarioEmpleado.getCodigo()+"");
 				
 			}else{
 				page = request.getContextPath()+"/PedidosPendientes";
 				
-				coockie = new Cookie("usuario", usuarioCliente.getCodigo()+"");
+				coockie = new Cookie("usuarioCliente", usuarioCliente.getCodigo()+"");
 			}
 			
 			if(coockie != null)

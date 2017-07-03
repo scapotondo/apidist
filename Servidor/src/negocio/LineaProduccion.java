@@ -3,6 +3,8 @@ package negocio;
 import dao.LineaProduccionDao;
 import dto.LineaProduccionDto;
 import entity.LineaProduccionEntity;
+import entity.OrdenDeProduccionCompletaEntity;
+import entity.OrdenDeProduccionParcialEntity;
 
 public class LineaProduccion {
 	public static final String OCUPADO = "Ocupado";
@@ -12,6 +14,7 @@ public class LineaProduccion {
 	private String estado;
 	private Float tiempoLiberarse;
 	private String trabajo;
+	private OrdenDeProduccion orden;
 	
 	public LineaProduccion(){}
 	
@@ -20,13 +23,22 @@ public class LineaProduccion {
 		this.estado= linea.getEstado();
 		this.tiempoLiberarse=linea.getTiempoLiberarse();
 		this.trabajo=linea.getTrabajo();
+		
+		if(linea.getOrden() != null){
+			if(linea.getOrden().getClass().getName().equals("entity.OrdenDeProduccionCompletaEntity"))
+				this.orden=new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) linea.getOrden());
+			
+			else
+				this.orden=new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) linea.getOrden());
+		}
 	}
 	
-	public LineaProduccion(int numero, String estado, Float tiempoLiberarse, String trabajo){
+	public LineaProduccion(int numero, String estado, Float tiempoLiberarse, String trabajo,OrdenDeProduccion orden){
 		this.numero=numero;
 		this.estado= estado;
 		this.tiempoLiberarse=tiempoLiberarse;
 		this.trabajo=trabajo;
+		this.orden = orden;
 	}
 	
 	public int getNumero() {
@@ -60,20 +72,28 @@ public class LineaProduccion {
 	public void setTrabajo(String trabajo) {
 		this.trabajo = trabajo;
 	}
-
 	
-	public void asignarTrabajo(String trabajo, Float tiempo){
+	public OrdenDeProduccion getOrden() {
+		return orden;
+	}
+
+	public void setOrden(OrdenDeProduccion orden) {
+		this.orden = orden;
+	}
+
+	public void asignarTrabajo(String trabajo, Float tiempo, OrdenDeProduccion orden){
 		this.setTiempoLiberarse(tiempo);
 		this.setTrabajo(trabajo);
 		this.setEstado(OCUPADO);
+		this.orden = orden;
 		modificar();
 	}
 	
-	//TODO: checkear si el trabajo y tiempo cuando esta vacio lo dejamos en null o ponemos un valor pro defecto.
 	public void Liberar(){
 		this.setTiempoLiberarse(null);
 		this.setTrabajo(null);
 		this.setEstado(LIBRE);
+		this.setOrden(null);
 		modificar();
 	}
 	

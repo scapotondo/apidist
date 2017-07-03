@@ -64,7 +64,10 @@ public class AreaProduccionDao {
 		session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		ArrayList<LineaProduccionEntity> lineasEntity = (ArrayList<LineaProduccionEntity>) session
-		.createQuery("from LineaProduccionEntity WHERE estado = Ocupado AND areaProduccion_id = ?").setParameter(0, area.getCodigo()).list();
+		.createQuery("from LineaProduccionEntity WHERE estado=? AND areaProduccion_id = ?").setParameter(0, LineaProduccion.OCUPADO)
+																							.setParameter(1, area.getCodigo())
+																							.list();
+		session.getTransaction().commit();
 		session.close();
 		
 		if (lineasEntity == null)
@@ -77,6 +80,19 @@ public class AreaProduccionDao {
 		}
 		
 		return lineas;
+	}
+	
+	public LineaProduccion getLineaId(int numero) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		session.beginTransaction();
+		LineaProduccionEntity lineaEntity = session.get(LineaProduccionEntity.class, numero);
+		session.close();
+		
+		if (lineaEntity == null)
+			return null;
+		
+		return new LineaProduccion(lineaEntity);
 	}
 	
 	

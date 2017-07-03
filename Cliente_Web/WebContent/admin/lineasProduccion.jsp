@@ -79,7 +79,7 @@
 	                                    </thead>
 	                                    <tbody>
 	                                    	<%
-	                                    		if(lineas!= null){
+	                                    		if(lineas != null){
 	                                    			for(LineaProduccionDto linea : lineas){
 	                                    	%>
 					                                    <tr>

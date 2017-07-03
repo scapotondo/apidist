@@ -42,7 +42,7 @@ public class Sucursal extends HttpServlet{
 		try {
 			int codigo = 0;
 			for (Cookie cookie : request.getCookies()) {
-				if(cookie.getName().equals("usuario"))
+				if(cookie.getName().equals("usuarioEmpleado"))
 					codigo = Integer.parseInt(cookie.getValue());
 			}
 		

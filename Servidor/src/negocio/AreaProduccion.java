@@ -89,7 +89,7 @@ public class AreaProduccion {
 		this.ordenesProduccion = ordenesProduccion;
 	}
 
-	public void asignarLineaProduccion(ProcesoProduccion proceso) {
+	public void asignarLineaProduccion(ProcesoProduccion proceso, OrdenDeProduccion orden) {
 		if (hayLineasLibres()) {
 			LineaProduccion linea = new LineaProduccion();
 			for (LineaProduccion lineaProduccion : lineasProduccion) {
@@ -99,7 +99,7 @@ public class AreaProduccion {
 				}
 			}
 
-			linea.asignarTrabajo(proceso.getConfeccion().getDetalle(), proceso.getConfeccion().getTiempoProd());
+			linea.asignarTrabajo(proceso.getConfeccion().getDetalle(), proceso.getConfeccion().getTiempoProd() , orden);
 		}
 	}
 

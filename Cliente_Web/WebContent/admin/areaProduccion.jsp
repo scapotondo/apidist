@@ -60,7 +60,7 @@
 	                    </ul>
 	                </div>
 	                <div class="col-md-3">
-	                        <a href="${pageContext.request.contextPath}/LineasProduccion?id=<%=id %>" class="btn btn-facebook " target="_blank">Ver Lineas Produccion</a>
+	                        <a href="${pageContext.request.contextPath}/LineasProduccion?id=<%=id%>" class="btn btn-facebook " target="_blank">Ver Lineas Produccion</a>
 	                </div>
 	            </div>
 	        </nav>

@@ -10,6 +10,8 @@ public class ProcesoProduccion {
 	Confeccion confeccion;
 	EstadoProcesoProduccion estado;
 	
+	public ProcesoProduccion(){}
+	
 	public ProcesoProduccion(int orden, Confeccion confeccion, EstadoProcesoProduccion estado) {
 		nroOrden = orden;
 		this.confeccion = confeccion;

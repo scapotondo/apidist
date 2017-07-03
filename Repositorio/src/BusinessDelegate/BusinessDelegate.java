@@ -323,6 +323,17 @@ public class BusinessDelegate {
 		
 		return null;
 	}
+	
+	public void liberarLinea(int numero) {
+		
+		try {
+			getAreaProduccionRemoto().liberarLinea(numero);
+			
+		} catch (RemoteObjectNotFoundException | RemoteException e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 	public ArrayList<MateriaPrimaDto> GetMateriasPrimas() {
 

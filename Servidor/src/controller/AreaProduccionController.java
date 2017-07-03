@@ -14,6 +14,7 @@ import exceptions.ColorException;
 import exceptions.RemoteObjectNotFoundException;
 import negocio.AreaProduccion;
 import negocio.EstadoOrdenProduccion;
+import negocio.EstadoPedidoPrenda;
 import negocio.EstadoProcesoProduccion;
 import negocio.Insumo;
 import negocio.LineaProduccion;
@@ -60,7 +61,7 @@ public class AreaProduccionController {
 							insumo.getCantidad(), orden);
 				}
 
-				area.asignarLineaProduccion(primerProceso);
+				area.asignarLineaProduccion(primerProceso, orden);
 				
 				primerProceso.setEstado(EstadoProcesoProduccion.PRODUCCION);
 				primerProceso.modificar();
@@ -107,6 +108,38 @@ public class AreaProduccionController {
 		}
 		
 		return lineasDto;
+	}
+	
+	public void liberarLinea(int numero){
+		LineaProduccion linea = AreaProduccionDao.getInstance().getLineaId(numero);
+		
+		OrdenDeProduccion orden = linea.getOrden();
+		
+		ProcesoProduccion proceso = new ProcesoProduccion();
+		
+		boolean procesosPendientes = false;
+		
+		for (ProcesoProduccion procesoProd : orden.getProcesos()) {
+			if(procesoProd.getEstado().equals(EstadoProcesoProduccion.PRODUCCION))
+				proceso = procesoProd;
+				
+			else if (procesoProd.getEstado().equals(EstadoProcesoProduccion.INCOMPLETO))
+				procesosPendientes = true;
+		}
+		
+		proceso.setEstado(EstadoProcesoProduccion.COMPLETO);
+		proceso.modificar();
+		
+		linea.Liberar();
+		
+		if(procesosPendientes == false){
+			orden.setEstado(EstadoOrdenProduccion.TERMINADA);
+			orden.modificame();
+			
+			orden.getPedido().setEstado(EstadoPedidoPrenda.Despacho);
+			orden.getPedido().modificame();
+		}
+		
 	}
 	
 }

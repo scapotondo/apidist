@@ -41,13 +41,13 @@ public class LineasProduccion extends HttpServlet{
 		try {
 			int codigo = 0;
 			for (Cookie cookie : request.getCookies()) {
-				if(cookie.getName().equals("usuario"))
+				if(cookie.getName().equals("usuarioEmpleado"))
 					codigo = Integer.parseInt(cookie.getValue());
 			}
 		
 			UsuarioDto usuario = BusinessDelegate.getInstance().getUserEmpleado(codigo);
 			
-			String id = (String) request.getAttribute("id");
+			String id = (String) request.getParameter("id");
 			
 			AreaProduccionDto area = BusinessDelegate.getInstance().getAreaProducion(Integer.parseInt(id));
 			
@@ -56,7 +56,10 @@ public class LineasProduccion extends HttpServlet{
 			request.setAttribute("usuario", usuario);
 			request.setAttribute("lineas", lineas);
 			
-			request.getRequestDispatcher("/admin/areasDeProduccion.jsp").forward(request, response);
+			if(request.getParameter("lineaNro") != null)
+				doPost(request,response);
+			else
+				request.getRequestDispatcher("/admin/lineasProduccion.jsp").forward(request, response);
 			
 		} catch (RemoteObjectNotFoundException | UsuarioException e) {
 			e.printStackTrace();
@@ -68,6 +71,11 @@ public class LineasProduccion extends HttpServlet{
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		int lineaNro= Integer.parseInt(request.getParameter("lineaNro"));
+		
+		BusinessDelegate.getInstance().liberarLinea(lineaNro);
+		
+		request.getRequestDispatcher("/admin/areasDeProduccion.jsp").forward(request, response);
 	}
 }
+
