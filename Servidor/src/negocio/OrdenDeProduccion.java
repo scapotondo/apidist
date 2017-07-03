@@ -5,6 +5,8 @@ import java.util.List;
 
 import dao.OrdenDeProduccionDao;
 import dto.OrdenDeProduccionDto;
+import dto.PedidoPrendasDto;
+import dto.PrendaDto;
 import dto.ProcesoProduccionDto;
 import entity.OrdenDeProduccionEntity;
 import entity.ProcesoProduccionEntity;
@@ -21,12 +23,46 @@ public abstract class OrdenDeProduccion {
 
 	public OrdenDeProduccion(){}
 	
+	public OrdenDeProduccion(OrdenDeProduccionEntity op, Prenda prenda){
+		try {
+			this.nroOrden = op.getNroOrden();
+			this.estado=EstadoOrdenProduccion.fromInt(op.getEstado());
+			this.confeccionesTerminadas=op.getConfeccionesTerminadas();
+			this.pedido=new PedidoPrendas(op.getPedidoPrenda(), prenda, this);
+			this.prenda=prenda;
+			this.procesos=new ArrayList<>();
+			
+			for(ProcesoProduccionEntity pe : op.getProcesos())
+				procesos.add(new ProcesoProduccion(pe));
+			
+		} catch (ColorException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public OrdenDeProduccion(OrdenDeProduccionEntity op){
 		try {
 			this.nroOrden = op.getNroOrden();
 			this.estado=EstadoOrdenProduccion.fromInt(op.getEstado());
 			this.confeccionesTerminadas=op.getConfeccionesTerminadas();
 			this.pedido=new PedidoPrendas(op.getPedidoPrenda());
+			this.prenda=new Prenda(op.getPrenda());
+			this.procesos=new ArrayList<>();
+			
+			for(ProcesoProduccionEntity pe : op.getProcesos())
+				procesos.add(new ProcesoProduccion(pe));
+			
+		} catch (ColorException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public OrdenDeProduccion(OrdenDeProduccionEntity op, PedidoPrendas pedido){
+		try {
+			this.nroOrden = op.getNroOrden();
+			this.estado=EstadoOrdenProduccion.fromInt(op.getEstado());
+			this.confeccionesTerminadas=op.getConfeccionesTerminadas();
+			this.pedido=pedido;
 			this.prenda=new Prenda(op.getPrenda());
 			this.procesos=new ArrayList<>();
 			
@@ -101,6 +137,28 @@ public abstract class OrdenDeProduccion {
 		
 		return new OrdenDeProduccionDto(nroOrden, estado.toString(), pedido.toDto(), prenda.toDto(), procDtos);
 	}
+	
+	public OrdenDeProduccionDto toDto(PedidoPrendasDto pedido){
+		ArrayList<ProcesoProduccionDto> procDtos = new ArrayList<>();
+		for (ProcesoProduccion proc : procesos)
+			procDtos.add(proc.toDto());
+		
+		return new OrdenDeProduccionDto(nroOrden, estado.toString(), pedido, prenda.toDto(), procDtos);
+	}
+	
+	public OrdenDeProduccionDto toDto(PrendaDto prenda){
+		ArrayList<ProcesoProduccionDto> procDtos = new ArrayList<>();
+		for (ProcesoProduccion proc : procesos)
+			procDtos.add(proc.toDto());
+		
+		OrdenDeProduccionDto orden = new OrdenDeProduccionDto(nroOrden, estado.toString(), prenda, procDtos);
+		
+		PedidoPrendasDto ped = pedido.toDto(prenda, orden);
+		orden.setPedido(ped);
+		
+		return orden;
+	}
+	
 	public abstract List<String> getTalles();
 	public abstract List<String> getColores();
 	

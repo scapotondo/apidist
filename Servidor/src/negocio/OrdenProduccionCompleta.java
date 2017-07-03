@@ -12,6 +12,14 @@ public class OrdenProduccionCompleta extends OrdenDeProduccion{
 		super(estado,pedido,prenda, procesos);
 	}
 	
+	public OrdenProduccionCompleta(OrdenDeProduccionCompletaEntity lote, Prenda prenda) {
+		super(lote, prenda);
+	}
+	
+	public OrdenProduccionCompleta(OrdenDeProduccionCompletaEntity lote, PedidoPrendas pedido) {
+		super(lote, pedido);
+	}
+	
 	public OrdenProduccionCompleta(OrdenDeProduccionCompletaEntity lote) {
 		super(lote);
 	}
@@ -26,8 +34,7 @@ public class OrdenProduccionCompleta extends OrdenDeProduccion{
 	
 	@Override
 	public int getCantidad() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getPrenda().getCantidadAProducir()*getPrenda().getTallesValidos().size()*getPrenda().getColoresValidos().size();
 	}
 
 	@Override

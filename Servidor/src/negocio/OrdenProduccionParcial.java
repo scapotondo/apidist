@@ -18,6 +18,34 @@ public class OrdenProduccionParcial extends OrdenDeProduccion {
 		this.colores=colores;
 	}
 	
+	public OrdenProduccionParcial(OrdenDeProduccionParcialEntity lote, Prenda prenda) {
+		super(lote, prenda);
+		this.talles=new ArrayList<String>();
+		this.colores = new ArrayList<String>();
+		
+		for (String talle : lote.getTallesValidos()) {
+			this.talles.add(talle);
+		}
+		
+		for (String color : lote.getColoresValidos()) {
+			this.colores.add(color);
+		}
+	}
+	
+	public OrdenProduccionParcial(OrdenDeProduccionParcialEntity lote, PedidoPrendas pedido) {
+		super(lote, pedido);
+		this.talles=new ArrayList<String>();
+		this.colores = new ArrayList<String>();
+		
+		for (String talle : lote.getTallesValidos()) {
+			this.talles.add(talle);
+		}
+		
+		for (String color : lote.getColoresValidos()) {
+			this.colores.add(color);
+		}
+	}
+	
 	public OrdenProduccionParcial(OrdenDeProduccionParcialEntity lote) {
 		super(lote);
 		this.talles=new ArrayList<String>();
@@ -41,8 +69,7 @@ public class OrdenProduccionParcial extends OrdenDeProduccion {
 	
 	@Override
 	public int getCantidad() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getPrenda().getCantidadAProducir()*getTalles().size()*getColores().size();
 	}
 
 	public ArrayList<String> getTalles() {

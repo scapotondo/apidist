@@ -51,10 +51,10 @@ public class StockPrendaEntity implements Serializable{
 		this.ubicacion=sp.getUbicacion();
 		this.cantidadPrendasReservadas=sp.getCantidadPrendasReservadas();
 		if(sp.getLote().getClass().getName().equals("negocio.OrdenProduccionCompleta"))
-			this.lote = new OrdenDeProduccionCompletaEntity( (OrdenProduccionCompleta) sp.getLote());
+			this.lote = new OrdenDeProduccionCompletaEntity( (OrdenProduccionCompleta) sp.getLote(), prenda);
 			
 		if(sp.getLote().getClass().getName().equals("negocio.OrdenProduccionParcial"))
-			this.lote = new OrdenDeProduccionParcialEntity((OrdenProduccionParcial) sp.getLote());
+			this.lote = new OrdenDeProduccionParcialEntity((OrdenProduccionParcial) sp.getLote(), prenda);
 		
 		this.prenda=prenda;
 	}

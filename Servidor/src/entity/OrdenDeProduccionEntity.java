@@ -23,7 +23,6 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	private int nroOrden;
 	
 	private int estado;
-	
 	private int confeccionesTerminadas;
 	
 	@ManyToOne()
@@ -37,11 +36,41 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	
 	public OrdenDeProduccionEntity(){}
 
+	public OrdenDeProduccionEntity(OrdenDeProduccion op, PrendaEntity prenda){
+		this.estado=op.getEstado().toInt();
+		this.confeccionesTerminadas=op.getConfeccionesTerminadas();
+		this.nroOrden = op.getNroOrden();
+		this.pedidoPrenda=new PedidoPrendasEntity(op.getPedido(), prenda, this);
+		this.procesos = new ArrayList<>();
+		this.prenda=prenda;
+		
+		if (op.getProcesos() != null) 
+			for (ProcesoProduccion p : op.getProcesos()) 
+				procesos.add(new ProcesoProduccionEntity(p));
+	}
+	
 	public OrdenDeProduccionEntity(OrdenDeProduccion op){
 		this.estado=op.getEstado().toInt();
 		this.confeccionesTerminadas=op.getConfeccionesTerminadas();
 		this.nroOrden = op.getNroOrden();
 		this.pedidoPrenda=new PedidoPrendasEntity(op.getPedido());
+		this.procesos = new ArrayList<>();
+		
+		if(op.getPrenda()!=null)
+			this.prenda=new PrendaEntity(op.getPrenda());
+		else
+			this.prenda=new PrendaEntity();
+		
+		if (op.getProcesos() != null) 
+			for (ProcesoProduccion p : op.getProcesos()) 
+				procesos.add(new ProcesoProduccionEntity(p));
+	}
+	
+	public OrdenDeProduccionEntity(OrdenDeProduccion op, PedidoPrendasEntity pedido){
+		this.estado=op.getEstado().toInt();
+		this.confeccionesTerminadas=op.getConfeccionesTerminadas();
+		this.nroOrden = op.getNroOrden();
+		this.pedidoPrenda=pedido;
 		this.procesos = new ArrayList<>();
 		
 		if(op.getPrenda()!=null)

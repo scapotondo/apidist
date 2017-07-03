@@ -174,7 +174,8 @@ public class AlmacenController {
 	}
 
 	public void disminuirStockPrendaDespacho(Prenda prenda, int cantidad, String talle, String color, String encargado) {
-		ArrayList<StockPrenda> stockPrendas = StockPrendaDao.getInstance().getStockPrendasReservadas(prenda.getCodigo());
+//		ArrayList<StockPrenda> stockPrendas = StockPrendaDao.getInstance().getStockPrendasReservadas(prenda.getCodigo());
+		ArrayList<StockPrenda> stockPrendas = StockPrendaDao.getInstance().getStockPrendas();
 		
 		disminuirStockPrenda(prenda, cantidad, talle, color, encargado, "sistema", stockPrendas, TipoMovimientoStockPrendaEnum.Sistema);
 	}
@@ -386,6 +387,7 @@ public class AlmacenController {
 			movimientoMateriaPrimaReservada.saveMe();
 			
 			pedido.setEstado(EstadoPedidoPrenda.EnProduccion);
+			pedido.setOrdenProduccion(lote);
 			pedido.modificame();
 			
 		}else{
@@ -403,6 +405,7 @@ public class AlmacenController {
 			lote.modificame();
 			
 			pedido.setEstado(EstadoPedidoPrenda.EsperandoMateriaPrima);
+			pedido.setOrdenProduccion(lote);
 			pedido.modificame();
 		}
 	}

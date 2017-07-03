@@ -55,10 +55,10 @@ public class PedidoPrendasEntity implements Serializable{
 		
 		if (pedido.getOrdenProduccion() != null) {
 			if(pedido.getOrdenProduccion().getClass().getName().equals("negocio.OrdenProduccionCompleta"))
-				this.ordenProduccion = new OrdenDeProduccionCompletaEntity( (OrdenProduccionCompleta) pedido.getOrdenProduccion());
+				this.ordenProduccion = new OrdenDeProduccionCompletaEntity( (OrdenProduccionCompleta) pedido.getOrdenProduccion(), this);
 				
 			if(pedido.getOrdenProduccion().getClass().getName().equals("negocio.OrdenProduccionParcial"))
-				this.ordenProduccion = new OrdenDeProduccionParcialEntity((OrdenProduccionParcial) pedido.getOrdenProduccion());
+				this.ordenProduccion = new OrdenDeProduccionParcialEntity((OrdenProduccionParcial) pedido.getOrdenProduccion(), this);
 		}
 		
 		ArrayList<ItemPrendaEntity> items = new ArrayList<>();
@@ -70,6 +70,22 @@ public class PedidoPrendasEntity implements Serializable{
 	
 	public PedidoPrendasEntity(PedidoPrendas pedido){
 		this(pedido, new ClienteEntity(pedido.getCliente()));
+	}
+	
+	public PedidoPrendasEntity(PedidoPrendas pedido, PrendaEntity prenda, OrdenDeProduccionEntity orden){
+		this.nroPedido=pedido.getNroPedido();
+		this.fechaProbableDespacho=pedido.getFechaProbableDespacho();
+		this.estado=pedido.getEstado().toInt();
+		this.fechaGeneracion=pedido.getFechaGeneracion();
+		this.fechaRealDespacho=pedido.getFechaProbableDespacho();
+		this.cliente=new ClienteEntity(pedido.getCliente());
+		this.ordenProduccion = orden;
+		
+		ArrayList<ItemPrendaEntity> items = new ArrayList<>();
+		for (ItemPrenda itemPrenda : pedido.getItems()) 
+			items.add(new ItemPrendaEntity(itemPrenda, prenda));
+		
+		this.items=items;
 	}
 	
 	public int getNroPedido() {

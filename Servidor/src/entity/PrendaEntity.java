@@ -76,7 +76,7 @@ public class PrendaEntity implements Serializable{
 		
 		if(prenda.getConfecciones()!=null)
 			for (Confeccion confeccion : prenda.getConfecciones())
-				this.confecciones.add(new ConfeccionEntity(confeccion));
+				this.confecciones.add(new ConfeccionEntity(confeccion, this));
 	
 		if(stock!=null)
 			for (StockPrenda stock : prenda.getStock())

@@ -74,7 +74,7 @@ public class LineasProduccion extends HttpServlet{
 		
 		BusinessDelegate.getInstance().liberarLinea(lineaNro);
 		
-		request.getRequestDispatcher("/admin/areasDeProduccion.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath()+"/AreasDeProduccion");
 	}
 }
 

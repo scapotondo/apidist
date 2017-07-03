@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dto.AreaProduccionDto;
 import dto.LineaProduccionDto;
 import dto.OrdenDeProduccionDto;
+import dto.PrendaDto;
 import entity.AreaProduccionEntity;
 import entity.LineaProduccionEntity;
 import entity.OrdenDeProduccionCompletaEntity;
@@ -18,6 +19,30 @@ public class AreaProduccion {
 	private ArrayList<OrdenDeProduccion> ordenesProduccion;
 	private int codigo;
 
+	public AreaProduccion(AreaProduccionEntity area, Prenda prenda) {
+		this.codigo = area.getCodigo();
+		this.nombre = area.getNombre();
+		this.lineasProduccion = new ArrayList<>();
+		for (LineaProduccionEntity lineaProduccionEntity : area.getLineasProduccion()) {
+			this.lineasProduccion.add(new LineaProduccion(lineaProduccionEntity));
+		}
+		this.ordenesProduccion = new ArrayList<>();
+
+		OrdenDeProduccion orden = null;
+
+		for (OrdenDeProduccionEntity OrdenDeProduccionEntity : area.getOrdenesProduccion()) {
+			if (OrdenDeProduccionEntity != null) {
+				if (OrdenDeProduccionEntity.getClass().getName().equals("entity.OrdenDeProduccionCompletaEntity"))
+					orden = new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) OrdenDeProduccionEntity, prenda);
+
+				if (OrdenDeProduccionEntity.getClass().getName().equals("entity.OrdenDeProduccionParcialEntity"))
+					orden = new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) OrdenDeProduccionEntity, prenda);
+
+				this.ordenesProduccion.add(orden);
+			}
+		}
+	}
+	
 	public AreaProduccion(AreaProduccionEntity area) {
 		this.codigo = area.getCodigo();
 		this.nombre = area.getNombre();
@@ -128,6 +153,19 @@ public class AreaProduccion {
 		}
 		for (OrdenDeProduccion ordenDeProduccion : ordenesProduccion) {
 			ordenesProduccionDto.add(ordenDeProduccion.toDto());
+		}
+		return new AreaProduccionDto(this.codigo, nombre, lineasProduccionDto, ordenesProduccionDto);
+	}
+	
+	public AreaProduccionDto toDto(PrendaDto prenda) {
+		ArrayList<LineaProduccionDto> lineasProduccionDto = new ArrayList<>();
+		ArrayList<OrdenDeProduccionDto> ordenesProduccionDto = new ArrayList<>();
+
+		for (LineaProduccion lineaDeProduccion : lineasProduccion) {
+			lineasProduccionDto.add(lineaDeProduccion.toDto());
+		}
+		for (OrdenDeProduccion ordenDeProduccion : ordenesProduccion) {
+			ordenesProduccionDto.add(ordenDeProduccion.toDto(prenda));
 		}
 		return new AreaProduccionDto(this.codigo, nombre, lineasProduccionDto, ordenesProduccionDto);
 	}

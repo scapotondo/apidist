@@ -17,4 +17,11 @@ public class OrdenDeProduccionCompletaEntity extends OrdenDeProduccionEntity {
 		super(orden);
 	}
 	
+	public OrdenDeProduccionCompletaEntity(OrdenDeProduccion orden, PedidoPrendasEntity pedido){
+		super(orden, pedido);
+	}
+	
+	public OrdenDeProduccionCompletaEntity(OrdenDeProduccion orden, PrendaEntity prenda){
+		super(orden, prenda);
+	}
 }

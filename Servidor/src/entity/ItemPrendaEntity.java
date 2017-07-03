@@ -37,6 +37,17 @@ public class ItemPrendaEntity implements Serializable{
 	
 	public ItemPrendaEntity(){}
 	
+	public ItemPrendaEntity(ItemPrenda itemPrenda, PrendaEntity prenda){
+		this.id = itemPrenda.getId();
+		this.cantidad = itemPrenda.getCantidad();
+		this.talle = itemPrenda.getTalle();
+		this.color = itemPrenda.getColor();
+		this.importe = itemPrenda.getImporte();
+		this.prenda = prenda;
+		//TODO shevisar aca tambien
+		//this.lote = new ordendeproducc
+	}
+	
 	public ItemPrendaEntity(ItemPrenda itemPrenda){
 		this.id = itemPrenda.getId();
 		this.cantidad = itemPrenda.getCantidad();

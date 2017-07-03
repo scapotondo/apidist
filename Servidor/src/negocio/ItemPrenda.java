@@ -1,6 +1,7 @@
 package negocio;
 
 import dto.ItemPrendaDto;
+import dto.PrendaDto;
 import entity.ItemPrendaEntity;
 
 public class ItemPrenda {
@@ -13,6 +14,15 @@ public class ItemPrenda {
 	private OrdenDeProduccion lote;
 	private int id;
 	
+	public ItemPrenda(ItemPrendaEntity item, Prenda prenda){
+		this.cantidad=item.getCantidad();
+		this.talle=item.getTalle();
+		this.color=item.getColor();
+		this.importe=item.getImporte();
+		this.prenda=prenda;
+		//TODO: ver como manejar por ser clase abstracta
+		//this.lote = new OrdenDeProduccion(item.getLote());
+	}
 	
 	public ItemPrenda(ItemPrendaEntity item){
 		this.cantidad=item.getCantidad();
@@ -99,6 +109,11 @@ public class ItemPrenda {
 	public ItemPrendaDto toDto(){
 		//TODO: arreglar lote que banque listas y null
 		return new ItemPrendaDto(cantidad, talle, color, importe, prenda.toDto(), null);
+	}
+	
+	public ItemPrendaDto toDto(PrendaDto prenda){
+		//TODO: arreglar lote que banque listas y null
+		return new ItemPrendaDto(cantidad, talle, color, importe, prenda, null);
 	}
 
 	public void disminuirCantidad(int cant){

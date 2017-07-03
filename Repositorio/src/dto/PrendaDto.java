@@ -56,6 +56,20 @@ public class PrendaDto implements Serializable{
 		this.stock = stock;
 		this.precio = precio;
 	}
+	
+	public PrendaDto(ArrayList<String> tallesValidos, ArrayList<String> coloresValidos, int codigo, boolean esDiscontinuo,
+			int cantidadAProducir, String nombre, String descripcion, float porsentajeGanancia, float precio){
+		this(codigo);
+		
+		this.tallesValidos = tallesValidos;
+		this.coloresValidos = coloresValidos;
+		this.esDiscontinuo = esDiscontinuo;
+		this.cantidadAProducir = cantidadAProducir;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.porcentajeGanancia = porsentajeGanancia;
+		this.precio = precio;
+	}
 
 	public float getPrecio() {
 		return precio;

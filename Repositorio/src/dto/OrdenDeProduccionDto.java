@@ -25,6 +25,14 @@ public class OrdenDeProduccionDto implements Serializable{
 		this.prenda=prenda;
 		this.procesos=procesos;
 	}
+	
+	public OrdenDeProduccionDto(int nroOrden, String estado, PrendaDto prenda, ArrayList<ProcesoProduccionDto> procesos){
+		this.nroOrden = nroOrden;
+		this.estado=estado;
+		this.confeccionesTerminadas=0;
+		this.prenda=prenda;
+		this.procesos=procesos;
+	}
 
 	public ArrayList<ProcesoProduccionDto> getProcesos() {
 		return procesos;

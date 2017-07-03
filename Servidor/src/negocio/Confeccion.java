@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dao.ConfeccionDao;
 import dto.ConfeccionDto;
 import dto.InsumoDto;
+import dto.PrendaDto;
 import entity.ConfeccionEntity;
 import entity.InsumoEntity;
 
@@ -17,6 +18,18 @@ public class Confeccion {
 	private ArrayList<Insumo> insumos;
 	
 	public Confeccion(){}
+	
+	public Confeccion(ConfeccionEntity confeccion, Prenda prenda){
+		this.id=confeccion.getId();
+		this.tiempoProd=confeccion.getTiempoProd();
+		this.detalle=confeccion.getDetalle();
+		this.areaProduccion=new AreaProduccion(confeccion.getAreaProduccion(), prenda);
+		this.insumos=new ArrayList<>();
+		
+		for (InsumoEntity insumoEntity : confeccion.getInsumos()) {
+			this.insumos.add(new Insumo(insumoEntity));
+		}
+	}
 	
 	public Confeccion(ConfeccionEntity confeccion){
 		this.id=confeccion.getId();
@@ -92,6 +105,15 @@ public class Confeccion {
 		}
 		
 		return new ConfeccionDto(tiempoProd, detalle, areaProduccion.toDto(), insumosDto, id);
+	}
+	
+	public ConfeccionDto toDto(PrendaDto prenda){
+		ArrayList<InsumoDto> insumosDto= new ArrayList<>();
+		for (Insumo insumo : this.insumos) {
+			insumosDto.add(insumo.toDto());
+		}
+		
+		return new ConfeccionDto(tiempoProd, detalle, areaProduccion.toDto(prenda), insumosDto, id);
 	}
 	
 	public void saveMe() {

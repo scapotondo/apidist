@@ -34,6 +34,27 @@ public class AreaProduccionEntity implements Serializable{
 
 	public AreaProduccionEntity(){}
 	
+	public AreaProduccionEntity(AreaProduccion areaProduccion, PrendaEntity prenda){
+		this.codigo = areaProduccion.getCodigo();
+		this.nombre = areaProduccion.getNombre();
+		
+		this.lineasProduccion = new ArrayList<LineaProduccionEntity>();
+		if(areaProduccion.getLineasProduccion() != null){
+			for (LineaProduccion lineaProduccion : areaProduccion.getLineasProduccion()) {
+				this.lineasProduccion.add(new LineaProduccionEntity(lineaProduccion));
+			}
+		}
+		this.ordenesProduccion = new ArrayList<OrdenDeProduccionEntity>();
+		for (OrdenDeProduccion orden : areaProduccion.getOrdenesProduccion()) {
+			
+			if(orden.getClass().getName().equals("negocio.OrdenProduccionCompleta"))
+				this.ordenesProduccion.add(new OrdenDeProduccionCompletaEntity( (OrdenProduccionCompleta) orden, prenda));
+			
+			if(orden.getClass().getName().equals("negocio.OrdenProduccionParcial"))
+				this.ordenesProduccion.add(new OrdenDeProduccionParcialEntity((OrdenProduccionParcial) orden, prenda));
+		}
+	}
+	
 	public AreaProduccionEntity(AreaProduccion areaProduccion){
 		this.codigo = areaProduccion.getCodigo();
 		this.nombre = areaProduccion.getNombre();

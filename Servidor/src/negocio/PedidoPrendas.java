@@ -9,6 +9,7 @@ import dao.PedidoPrendasDao;
 import dto.ItemPrendaDto;
 import dto.OrdenDeProduccionDto;
 import dto.PedidoPrendasDto;
+import dto.PrendaDto;
 import entity.ItemPrendaEntity;
 import entity.OrdenDeProduccionCompletaEntity;
 import entity.OrdenDeProduccionParcialEntity;
@@ -26,6 +27,20 @@ public class PedidoPrendas {
 	private Cliente cliente;
 	private ArrayList<ItemPrenda> items;
 
+	public PedidoPrendas(PedidoPrendasEntity pedido, Prenda prenda, OrdenDeProduccion orden){
+		this.nroPedido=pedido.getNroPedido();
+		this.fechaProbableDespacho=pedido.getFechaProbableDespacho();
+		this.estado=EstadoPedidoPrenda.fromInt(pedido.getEstado());
+		this.fechaGeneracion=pedido.getFechaGeneracion();
+		this.fechaRealDespacho=pedido.getFechaRealDespacho();
+		this.cliente=new Cliente(pedido.getCliente());
+		this.items=new ArrayList<ItemPrenda>();
+		this.ordenProduccion=orden;
+		
+		for (ItemPrendaEntity itemPrendaEntity : pedido.getItems())
+			this.items.add(new ItemPrenda(itemPrendaEntity, prenda));
+	}
+	
 	public PedidoPrendas(PedidoPrendasEntity pedido){
 		this.nroPedido=pedido.getNroPedido();
 		this.fechaProbableDespacho=pedido.getFechaProbableDespacho();
@@ -40,10 +55,10 @@ public class PedidoPrendas {
 
 		if(pedido.getOrdenProduccion() != null){
 			if(pedido.getOrdenProduccion().getClass().getName().equals("entity.OrdenDeProduccionCompletaEntity"))
-				this.ordenProduccion=new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) pedido.getOrdenProduccion());
+				this.ordenProduccion=new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) pedido.getOrdenProduccion(), this);
 	
 			if(pedido.getOrdenProduccion().getClass().getName().equals("entity.OrdenDeProduccionParcialEntity"))
-				this.ordenProduccion=new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) pedido.getOrdenProduccion());
+				this.ordenProduccion=new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) pedido.getOrdenProduccion(), this);
 		}
 	}
 
@@ -142,9 +157,25 @@ public class PedidoPrendas {
 			for (ItemPrenda itemPrenda : this.items) 
 				itemsDto.add(itemPrenda.toDto());
 		}
+		
+		PedidoPrendasDto pedido = new PedidoPrendasDto(nroPedido, fechaProbableDespacho, estado.toString(), fechaGeneracion, fechaRealDespacho, 
+				cliente.toDto(), itemsDto);
+		
 		OrdenDeProduccionDto orden = new OrdenDeProduccionDto();
 		if(this.ordenProduccion != null)
-			orden = this.ordenProduccion.toDto();
+			orden = this.ordenProduccion.toDto(pedido);
+		
+		pedido.setOrdenProduccion(orden);
+		
+		return pedido;
+	}
+	
+	public PedidoPrendasDto toDto(PrendaDto prenda, OrdenDeProduccionDto orden){
+		ArrayList<ItemPrendaDto> itemsDto = new ArrayList<>();
+		if(this.items!= null){
+			for (ItemPrenda itemPrenda : this.items) 
+				itemsDto.add(itemPrenda.toDto(prenda));
+		}
 		
 		return new PedidoPrendasDto(nroPedido, fechaProbableDespacho, estado.toString(), fechaGeneracion, fechaRealDespacho, 
 				orden, cliente.toDto(), itemsDto);

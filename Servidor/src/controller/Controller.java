@@ -207,7 +207,6 @@ public class Controller {
 					for (MateriaPrima mp : mps.keySet()) {
 						AlmacenController.getInstance().reservarMateriaPrima(mp, cantidad, opc);
 					}
-					
 				} else {
 					
 					OrdenDeProduccion opp = new OrdenProduccionParcial(cantTalles, cantColores, EstadoOrdenProduccion.PENDIENTE, pedido, prenda, procesos);
@@ -218,7 +217,6 @@ public class Controller {
 					for (MateriaPrima mp : mps.keySet()) {
 						AlmacenController.getInstance().reservarMateriaPrima(mp, cantidad, opp);
 					}
-					
 				}
 			}
 			

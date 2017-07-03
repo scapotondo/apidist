@@ -31,13 +31,24 @@ public class PedidoPrendasDto implements Serializable{
 	}
 	
 	public PedidoPrendasDto(int nroPedido, Date fechaProbableDespacho, String estado, Date fechaGeneracion,
-			Date fechaRealDespacho, OrdenDeProduccionDto ordenProduccion, ClienteDto cliente, ArrayList<ItemPrendaDto> items){
+			Date fechaRealDespacho, OrdenDeProduccionDto orden, ClienteDto cliente, ArrayList<ItemPrendaDto> items){
 		this.nroPedido=nroPedido;
 		this.fechaProbableDespacho=fechaProbableDespacho;
 		this.estado=estado;
 		this.fechaGeneracion=fechaGeneracion;
 		this.fechaRealDespacho=fechaRealDespacho;
-		this.ordenProduccion=ordenProduccion;
+		this.cliente=cliente;
+		this.items=items;
+		this.ordenProduccion=orden;
+	}
+	
+	public PedidoPrendasDto(int nroPedido, Date fechaProbableDespacho, String estado, Date fechaGeneracion,
+			Date fechaRealDespacho, ClienteDto cliente, ArrayList<ItemPrendaDto> items){
+		this.nroPedido=nroPedido;
+		this.fechaProbableDespacho=fechaProbableDespacho;
+		this.estado=estado;
+		this.fechaGeneracion=fechaGeneracion;
+		this.fechaRealDespacho=fechaRealDespacho;
 		this.cliente=cliente;
 		this.items=items;
 	}

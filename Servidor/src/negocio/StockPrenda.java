@@ -4,6 +4,7 @@ package negocio;
 import java.util.Date;
 
 import dao.StockPrendaDao;
+import dto.PrendaDto;
 import dto.StockPrendaDto;
 import entity.OrdenDeProduccionCompletaEntity;
 import entity.OrdenDeProduccionParcialEntity;
@@ -30,10 +31,10 @@ public class StockPrenda {
 			this.talle=stock.getTalle();
 	
 			if(stock.getLote().getClass().getName().equals("entity.OrdenDeProduccionCompletaEntity"))
-				this.lote=new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) stock.getLote());
+				this.lote=new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) stock.getLote(), prenda);
 			
 			if(stock.getLote().getClass().getName().equals("entity.OrdenDeProduccionParcialEntity"))
-				this.lote=new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) stock.getLote());
+				this.lote=new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) stock.getLote(), prenda);
 			
 			this.fecha=stock.getFecha();
 			this.costoProduccion=stock.getCostoProduccion();
@@ -185,6 +186,11 @@ public class StockPrenda {
 		StockPrendaDao.getInstance().EliminarStockPrenda(this);
 	}
 
+	public StockPrendaDto toDto(PrendaDto prenda){
+		return new StockPrendaDto(codigo, color.toString(), talle, lote.toDto(prenda), fecha, costoProduccion, cantidad, ubicacion, cantidadPrendasReservadas,
+				prenda);
+	}
+	
 	public StockPrendaDto toDto(){
 		return new StockPrendaDto(codigo, color.toString(), talle, lote.toDto(), fecha, costoProduccion, cantidad, ubicacion, cantidadPrendasReservadas,
 				prenda.toDto());

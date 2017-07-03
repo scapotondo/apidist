@@ -27,6 +27,18 @@ public class OrdenDeProduccionParcialEntity extends OrdenDeProduccionEntity {
 		this.tallesValidos = orden.getTalles();
 		this.coloresValidos = orden.getColores();
 	}
+	
+	public OrdenDeProduccionParcialEntity(OrdenDeProduccion orden, PedidoPrendasEntity pedido){
+		super(orden, pedido);
+		this.tallesValidos = orden.getTalles();
+		this.coloresValidos = orden.getColores();
+	}
+	
+	public OrdenDeProduccionParcialEntity(OrdenDeProduccion orden, PrendaEntity prenda){
+		super(orden, prenda);
+		this.tallesValidos = orden.getTalles();
+		this.coloresValidos = orden.getColores();
+	}
 
 	public List<String> getTallesValidos() {
 		return tallesValidos;

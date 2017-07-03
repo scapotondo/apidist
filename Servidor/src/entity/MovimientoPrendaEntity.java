@@ -53,6 +53,7 @@ public class MovimientoPrendaEntity implements Serializable{
 		this.quienAutorizo=movimiento.getQuienAutorizo();
 		this.destino=movimiento.getDestino();
 		this.tipo=movimiento.getTipo().toInt();
+		this.prenda=new PrendaEntity(movimiento.getPrenda());
 	}
 	
 	public int getTipo() {
