@@ -90,7 +90,7 @@ public class AlmacenController {
 		ArrayList<StockPrenda> stockPrendas = StockPrendaDao.getInstance().getStockPrendas();
 		for (StockPrenda stockPrenda : stockPrendas) {
 
-			if (stockPrenda.getPrenda().getCodigo() == prenda.getCodigo() && stockPrenda.getColor().equals(color)
+			if (stockPrenda.getPrenda().getCodigo() == prenda.getCodigo() && stockPrenda.getColor().toString().equals(color)
 					&& stockPrenda.getTalle().equals(talle))
 
 				total = total + stockPrenda.getCantidad();
@@ -189,7 +189,7 @@ public class AlmacenController {
 			if (cantidad <= 0) {
 				break;
 			}
-			if (stockPrenda.getColor().equals(color) && stockPrenda.getTalle().equals(talle)) {
+			if (stockPrenda.getColor().toString().equals(color) && stockPrenda.getTalle().equals(talle)) {
 
 				if (stockPrenda.getCantidad() - cantidad > 0) {
 
