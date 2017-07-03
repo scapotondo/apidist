@@ -36,17 +36,6 @@ public class EmpleadoEntity implements Serializable{
 	private Rol rol;
 	
 	public EmpleadoEntity(){}
-	public EmpleadoEntity(String nombre, String domicilio, String telefono, int legajo,Rol rol, String usuario, String password, 
-			String rolUsuario){
-		this.nombre=nombre;
-		this.domicilio=domicilio;
-		this.telefono=telefono;
-		this.legajo=legajo;
-		this.rol=rol;
-		this.usuario = usuario;
-		this.password = password;
-		this.rolUsuario = rolUsuario;
-	}
 	
 	public EmpleadoEntity(Empleado empleado){
 		this.nombre = empleado.getNombre();
@@ -59,6 +48,7 @@ public class EmpleadoEntity implements Serializable{
 		this.password = empleado.getPassword();
 		this.rolUsuario = empleado.getRolUsuario().toString();
 	}
+	
 	public Rol getRol() {
 		return rol;
 	}
@@ -107,7 +97,4 @@ public class EmpleadoEntity implements Serializable{
 	public void setRolUsuario(String rolUsuario) {
 		this.rolUsuario = rolUsuario;
 	}
-	
-	
-	
 }

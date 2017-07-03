@@ -492,7 +492,7 @@ public class BusinessDelegate {
 
 	public ArrayList<PedidoPrendasDto> getPedidosDespacho() {
 		try {
-			return getAdministracionPedidosRemoto().getPedidosDespacho();
+			return getAreaProduccionRemoto().GetPedidosADespachar();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (RemoteObjectNotFoundException e) {

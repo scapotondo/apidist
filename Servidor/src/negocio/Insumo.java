@@ -6,12 +6,13 @@ import dto.InsumoDto;
 import entity.InsumoEntity;
 
 public class Insumo {
+	private int id;
 	private int cantidad;
 	private int desperdicio;
 	private MateriaPrima materiaPrima;
 	
-	
 	public Insumo(InsumoEntity insumo){
+		this.id=insumo.getId();
 		this.cantidad=insumo.getCantidad();
 		this.desperdicio=insumo.getDesperdicio();
 		this.materiaPrima=new MateriaPrima(insumo.getMateriaPrima());
@@ -21,6 +22,14 @@ public class Insumo {
 		this.cantidad=cantidad;
 		this.desperdicio=desperdicio;
 		this.materiaPrima=materiaPrima;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getCantidad() {

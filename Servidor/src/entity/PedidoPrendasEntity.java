@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
-import negocio.EstadoPedidoPrenda;
 import negocio.ItemPrenda;
 import negocio.OrdenProduccionCompleta;
 import negocio.OrdenProduccionParcial;
@@ -45,17 +44,6 @@ public class PedidoPrendasEntity implements Serializable{
 	private List<ItemPrendaEntity> items;
 	
 	public PedidoPrendasEntity(){}
-	public PedidoPrendasEntity(int nroPedido, Date fechaProbableDespacho, EstadoPedidoPrenda estado, Date fechaGeneracion,
-			Date fechaRealDespacho, OrdenDeProduccionEntity ordenProduccion, ClienteEntity cliente, List<ItemPrendaEntity> items){
-		this.nroPedido=nroPedido;
-		this.fechaProbableDespacho=fechaProbableDespacho;
-		this.estado=estado.toInt();
-		this.fechaGeneracion=fechaGeneracion;
-		this.fechaRealDespacho=fechaRealDespacho;
-		this.cliente=cliente;
-		this.ordenProduccion=ordenProduccion;
-		this.items=items;
-	}
 	
 	public PedidoPrendasEntity(PedidoPrendas pedido, ClienteEntity cliente){
 		this.nroPedido=pedido.getNroPedido();

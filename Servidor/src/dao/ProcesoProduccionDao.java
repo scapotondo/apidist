@@ -2,10 +2,8 @@ package dao;
 
 import org.hibernate.Session;
 
-import entity.FacturaEntity;
 import entity.ProcesoProduccionEntity;
 import hibernate.HibernateUtil;
-import negocio.Factura;
 import negocio.ProcesoProduccion;
 
 public class ProcesoProduccionDao {

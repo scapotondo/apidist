@@ -23,10 +23,6 @@ import negocio.StockPrenda;
 @Entity
 @Table(name="StockPrenda")
 public class StockPrendaEntity implements Serializable{
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -59,21 +55,8 @@ public class StockPrendaEntity implements Serializable{
 	
 	public StockPrendaEntity(){}
 	
-	public StockPrendaEntity(ColorPrenda color,String talle, Date fecha, float costoProduccion, int cantidad, String ubicacion,
-			int cantidadPrendasReservadas,PrendaEntity prenda,OrdenDeProduccionEntity lote){
-		
-		this.color=color;
-		this.talle=talle;
-		this.fecha=fecha;
-		this.costoProduccion=costoProduccion;
-		this.cantidad=cantidad;
-		this.ubicacion=ubicacion;
-		this.cantidadPrendasReservadas=cantidadPrendasReservadas;
-		this.prenda=prenda;
-		this.lote=lote;
-	}
-	
 	public StockPrendaEntity(StockPrenda sp){
+		this.codigo=sp.getCodigo();
 		this.color=sp.getColor();
 		this.talle=sp.getTalle();
 		this.fecha=sp.getFecha();
@@ -92,10 +75,7 @@ public class StockPrendaEntity implements Serializable{
 			
 		if(sp.getLote().getClass().getName().equals("negocio.OrdenProduccionParcial"))
 			this.lote = new OrdenDeProduccionParcialEntity((OrdenProduccionParcial) sp.getLote());
-		
 	}
-	
-	
 
 	public int getCodigo() {
 		return codigo;
@@ -176,6 +156,4 @@ public class StockPrendaEntity implements Serializable{
 	public void setLote(OrdenDeProduccionEntity lote) {
 		this.lote = lote;
 	}
-	
-	
 }
