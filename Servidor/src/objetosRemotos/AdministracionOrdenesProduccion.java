@@ -26,12 +26,8 @@ public class AdministracionOrdenesProduccion extends UnicastRemoteObject impleme
 		return AreaProduccionController.getInstance().getOrdenesProduccion(area);
 	}
 
-	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto, ConfeccionDto confeccionDto) throws RemoteObjectNotFoundException, AreaProduccionException, ApplicationException, ColorException {
-		AreaProduccionController.getInstance().IniciarProduccion(ordenDto, areaDto, confeccionDto);
-	}
-
-	public ConfeccionDto buscarConfeccionParaOrden(ConfeccionDto confeccionDto) throws RemoteException, ApplicationException {
-		return AreaProduccionController.getInstance().buscarConfeccionParaOrden(confeccionDto);
+	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto) throws RemoteObjectNotFoundException, AreaProduccionException, ApplicationException, ColorException {
+		AreaProduccionController.getInstance().IniciarProduccion(ordenDto, areaDto);
 	}
 
 	public OrdenDeProduccionDto buscarOrdenProduccion(OrdenDeProduccionDto ordenDto) throws RemoteException, RemoteObjectNotFoundException {

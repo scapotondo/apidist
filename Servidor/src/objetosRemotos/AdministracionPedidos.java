@@ -45,8 +45,11 @@ public class AdministracionPedidos extends UnicastRemoteObject implements Admini
 	}
 
 	public void AceptarPedidoCliente(int nroPedido) throws RemoteException, PedidoException {
-		Controller.getInstance().AceptarPedidoCliente(nroPedido);
-		
+		try{
+			Controller.getInstance().AceptarPedidoCliente(nroPedido);
+		} catch (PersistenceException ex) {
+			throw new PedidoException(ex.getMessage(), ex.getStackTrace());
+		}
 	}
 
 	public void RechazarPedidoCliente(int nroPedido) throws RemoteException, PedidoException {

@@ -1,10 +1,13 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
-import negocio.EstadoOrdenProduccion;
 import negocio.OrdenDeProduccion;
+import negocio.ProcesoProduccion;
 
 
 @Entity 
@@ -29,25 +32,26 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	@OneToOne()
 	private PedidoPrendasEntity pedidoPrenda;
 	
+	@OneToMany()
+	private List<ProcesoProduccionEntity> procesos;
+	
 	public OrdenDeProduccionEntity(){}
-	public OrdenDeProduccionEntity(int nroOrden, EstadoOrdenProduccion estado, PedidoPrendasEntity pedidoPrenda, PrendaEntity prenda){
-		this.estado = estado.toInt();
-		this.confeccionesTerminadas=0;
-		this.pedidoPrenda=pedidoPrenda;
-		this.prenda=prenda;
-		this.nroOrden = nroOrden;
-	}
 	
 	public OrdenDeProduccionEntity(OrdenDeProduccion op){
 		this.estado=op.getEstado().toInt();
 		this.confeccionesTerminadas=op.getConfeccionesTerminadas();
 		this.nroOrden = op.getNroOrden();
 		this.pedidoPrenda=new PedidoPrendasEntity(op.getPedido());
+		this.procesos = new ArrayList<>();
 		
 		if(op.getPrenda()!=null)
 			this.prenda=new PrendaEntity(op.getPrenda());
 		else
 			this.prenda=new PrendaEntity();
+		
+		if (op.getProcesos() != null) 
+			for (ProcesoProduccion p : op.getProcesos()) 
+				procesos.add(new ProcesoProduccionEntity(p));
 	}
 	
 	public int getNroOrden() {
@@ -84,7 +88,4 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	public void setPedidoPrenda(PedidoPrendasEntity pedidoPrenda) {
 		this.pedidoPrenda = pedidoPrenda;
 	}
-	
-	
-
 }

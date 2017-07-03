@@ -164,7 +164,7 @@ public abstract class Confeccion extends javax.swing.JFrame {
 	    	AreaProduccionDto areaProduccion = (AreaProduccionDto) comboAreas.getSelectedItem();
 	    	
 	        ConfeccionDto confeccion = new ConfeccionDto(Float.parseFloat(fieldTiempo.getText()), fieldDetalle.getText(), 
-	        		areaProduccion, insumosDto, "Incompleto");
+	        		areaProduccion, insumosDto);
 	    	
 	        this.confeccionDto=confeccion;
 	        

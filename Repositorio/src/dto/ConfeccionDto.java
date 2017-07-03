@@ -13,25 +13,22 @@ public class ConfeccionDto implements Serializable{
 	private String detalle;
 	private AreaProduccionDto areaProduccion;
 	private ArrayList<InsumoDto> insumos;
-	private String estado;
 	
 	public ConfeccionDto(){}
-	public ConfeccionDto(Float tiempoProd, String detalle, AreaProduccionDto areaProduccion, ArrayList<InsumoDto> insumos, String estado){
+	public ConfeccionDto(Float tiempoProd, String detalle, AreaProduccionDto areaProduccion, ArrayList<InsumoDto> insumos){
 		this.tiempoProd=tiempoProd;
 		this.detalle=detalle;
 		this.areaProduccion=areaProduccion;
 		this.insumos=insumos;
-		this.estado=estado;
 	}
 	
 	public ConfeccionDto(Float tiempoProd, String detalle, AreaProduccionDto areaProduccion, ArrayList<InsumoDto> insumos,
-			String estado, int id){
+			int id){
 		this.id = id;
 		this.tiempoProd=tiempoProd;
 		this.detalle=detalle;
 		this.areaProduccion=areaProduccion;
 		this.insumos=insumos;
-		this.estado=estado;
 	}
 
 	
@@ -73,18 +70,8 @@ public class ConfeccionDto implements Serializable{
 		this.insumos = insumos;
 	}
 	
-	
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
 	@Override
 	public String toString() {
 		return this.detalle;
 	}
-	
 }

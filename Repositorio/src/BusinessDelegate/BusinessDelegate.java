@@ -363,22 +363,9 @@ public class BusinessDelegate {
 		return getAdministracionOrdenesProduccionRemoto().getOrdenesAreaProduccion(area);
 	}
 
-	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto, ConfeccionDto confeccionDto)
+	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto)
 			throws RemoteObjectNotFoundException, AreaProduccionException, RemoteException, ApplicationException {
-		getAdministracionOrdenesProduccionRemoto().IniciarProduccion(ordenDto, areaDto,confeccionDto);
-	}
-	
-	public ConfeccionDto getConfeccion(int numero) throws ApplicationException{
-		
-		try {
-			ConfeccionDto confeccion = new ConfeccionDto();
-			confeccion.setId(numero);
-			
-			return getAdministracionOrdenesProduccionRemoto().buscarConfeccionParaOrden(confeccion);
-			
-		} catch (RemoteException  | ApplicationException  | RemoteObjectNotFoundException e) {
-			throw new ApplicationException("fallo al buscar confeccion");
-		} 
+		getAdministracionOrdenesProduccionRemoto().IniciarProduccion(ordenDto, areaDto);
 	}
 	
 	public OrdenDeProduccionDto getOrdenProduccion(int numero) throws ApplicationException{

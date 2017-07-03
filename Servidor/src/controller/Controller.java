@@ -30,8 +30,10 @@ import exceptions.SucursalException;
 import exceptions.UsuarioException;
 import negocio.AreaProduccion;
 import negocio.Cliente;
+import negocio.Confeccion;
 import negocio.EstadoOrdenProduccion;
 import negocio.EstadoPedidoPrenda;
+import negocio.EstadoProcesoProduccion;
 import negocio.ItemPrenda;
 import negocio.MateriaPrima;
 import negocio.OrdenDeProduccion;
@@ -39,6 +41,7 @@ import negocio.OrdenProduccionCompleta;
 import negocio.OrdenProduccionParcial;
 import negocio.PedidoPrendas;
 import negocio.Prenda;
+import negocio.ProcesoProduccion;
 import negocio.Sucursal;
 
 public class Controller {
@@ -190,9 +193,14 @@ public class Controller {
 
 				Hashtable<MateriaPrima, Integer> mps = prenda.CalcularCantidadMateriaPrimaTotal();
 				
+				ArrayList<ProcesoProduccion> procesos = new ArrayList<>();
+				for (Confeccion confeccion : prenda.getConfecciones()) {
+					procesos.add(new ProcesoProduccion(1, confeccion, EstadoProcesoProduccion.INCOMPLETO));
+				}
+				
 				if (cantColores.size() >= 3 || cantTalles.size() >= 3) {
 					
-					OrdenDeProduccion opc = new OrdenProduccionCompleta(EstadoOrdenProduccion.PENDIENTE, pedido, prenda);
+					OrdenDeProduccion opc = new OrdenProduccionCompleta(EstadoOrdenProduccion.PENDIENTE, pedido, prenda, procesos);
 					opc.saveMe();
 					
 					int cantidad = prenda.getCantidadOPC();
@@ -203,7 +211,7 @@ public class Controller {
 					
 				} else {
 					
-					OrdenDeProduccion opp = new OrdenProduccionParcial(cantTalles, cantColores, EstadoOrdenProduccion.PENDIENTE, pedido, prenda);
+					OrdenDeProduccion opp = new OrdenProduccionParcial(cantTalles, cantColores, EstadoOrdenProduccion.PENDIENTE, pedido, prenda, procesos);
 					opp = opp.saveMe();
 					
 					int cantidad = sinStock.get(prenda).size() * prenda.getCantidadAProducir();

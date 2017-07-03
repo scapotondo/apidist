@@ -19,7 +19,7 @@ import negocio.AreaProduccion;
 import negocio.Cliente;
 import negocio.ColorPrenda;
 import negocio.Confeccion;
-import negocio.EstadoConfeccion;
+import negocio.EstadoProcesoProduccion;
 import negocio.Insumo;
 import negocio.PedidoPrendas;
 import negocio.Prenda;
@@ -140,7 +140,7 @@ public class AdministracionController {
 				insumos.add(new Insumo(insumoDto.getCantidad(), insumoDto.getDesperdicio(), MateriaPrimaDao.getInstance().getById(insumoDto.getMateriaPrima())));
 			}
 			
-			Confeccion confeccion = new Confeccion(confeccionDto.getTiempoProd(), confeccionDto.getDetalle(), areaProd, insumos, EstadoConfeccion.INCOMPLETO);
+			Confeccion confeccion = new Confeccion(confeccionDto.getTiempoProd(), confeccionDto.getDetalle(), areaProd, insumos, EstadoProcesoProduccion.INCOMPLETO);
 			
 			confecciones.add(confeccion);
 		}

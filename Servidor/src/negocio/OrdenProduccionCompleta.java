@@ -1,5 +1,6 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import entity.OrdenDeProduccionCompletaEntity;
@@ -7,12 +8,8 @@ import entity.OrdenDeProduccionEntity;
 
 public class OrdenProduccionCompleta extends OrdenDeProduccion{
 
-	public OrdenProduccionCompleta(int nroOrden, EstadoOrdenProduccion estado, PedidoPrendas pedido, Prenda prenda) {
-		super(nroOrden, estado, pedido,prenda);
-	}
-	
-	public OrdenProduccionCompleta(EstadoOrdenProduccion estado, PedidoPrendas pedido, Prenda prenda) {
-		super(estado,pedido,prenda);
+	public OrdenProduccionCompleta(EstadoOrdenProduccion estado, PedidoPrendas pedido, Prenda prenda, ArrayList<ProcesoProduccion> procesos) {
+		super(estado,pedido,prenda, procesos);
 	}
 	
 	public OrdenProduccionCompleta(OrdenDeProduccionCompletaEntity lote) {

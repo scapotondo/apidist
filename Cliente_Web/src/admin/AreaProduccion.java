@@ -82,18 +82,16 @@ public class AreaProduccion extends HttpServlet{
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			Integer confeccionId = Integer.parseInt(request.getParameter("confeccionId"));
 			Integer nroOrden = Integer.parseInt(request.getParameter("nroOrden"));
 			
 			OrdenDeProduccionDto orden = BusinessDelegate.getInstance().getOrdenProduccion(nroOrden);
-			ConfeccionDto confeccion = BusinessDelegate.getInstance().getConfeccion(confeccionId);
 			
 			String id = request.getParameter("area");
 			
 			AreaProduccionDto area = new AreaProduccionDto();
 			area.setCodigo(Integer.parseInt(id));
 			
-			BusinessDelegate.getInstance().IniciarProduccion(orden, area, confeccion);
+			BusinessDelegate.getInstance().IniciarProduccion(orden, area);
 			
 		} catch (ApplicationException | RemoteObjectNotFoundException | AreaProduccionException e) {
 			e.printStackTrace();

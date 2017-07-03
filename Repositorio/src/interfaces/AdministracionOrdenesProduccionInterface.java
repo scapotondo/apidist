@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import dto.AreaProduccionDto;
-import dto.ConfeccionDto;
 import dto.OrdenDeProduccionDto;
 import exceptions.ApplicationException;
 import exceptions.AreaProduccionException;
@@ -15,9 +14,7 @@ public interface AdministracionOrdenesProduccionInterface extends Remote{
 
 	public ArrayList<OrdenDeProduccionDto> getOrdenesAreaProduccion(AreaProduccionDto area) throws RemoteException;
 	
-	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto, ConfeccionDto confeccionDto)throws RemoteException, RemoteObjectNotFoundException, AreaProduccionException,ApplicationException;
-	
-	public ConfeccionDto buscarConfeccionParaOrden(ConfeccionDto confeccionDto)throws RemoteException,ApplicationException;
+	public void IniciarProduccion(OrdenDeProduccionDto ordenDto, AreaProduccionDto areaDto)throws RemoteException, RemoteObjectNotFoundException, AreaProduccionException,ApplicationException;
 	
 	public OrdenDeProduccionDto buscarOrdenProduccion(OrdenDeProduccionDto ordenDto)throws RemoteException, RemoteObjectNotFoundException;
 }

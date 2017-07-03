@@ -187,7 +187,7 @@ VALUES (1, 'l'); -- Talle l
 
 
 INSERT INTO Confeccion
-VALUES (1, 'Tela necesaria',1 , 3.5, 1, 1); -- confeccion(id, detalle, estado , tiempoProd, areaProd_codigo, prenda_id)
+VALUES (1, 'Tela necesaria', 3.5, 1, 1); -- confeccion(id, detalle, estado , tiempoProd, areaProd_codigo, prenda_id)
 
 
 INSERT INTO Insumo
@@ -222,7 +222,7 @@ VALUES (2, 'xl'); -- Talle xl
 
 
 INSERT INTO Confeccion
-VALUES (2, 'Algodon necesario',1, 5.5, 2, 2); -- confeccion(id, detalle, estado ,tiempoProd, areaProd_codigo, prenda_id)
+VALUES (2, 'Algodon necesario', 5.5, 2, 2); -- confeccion(id, detalle, estado ,tiempoProd, areaProd_codigo, prenda_id)
 
 
 INSERT INTO Insumo
@@ -245,7 +245,7 @@ VALUES (3, 'm'); -- Talle m
 
 
 INSERT INTO Confeccion
-VALUES (3, 'Botones necesarios', 1, 5, 3, 3); -- confeccion(id, detalle, estado ,tiempoProd, areaProd_codigo, prenda_id)
+VALUES (3, 'Botones necesarios', 5, 3, 3); -- confeccion(id, detalle, estado ,tiempoProd, areaProd_codigo, prenda_id)
 
 
 INSERT INTO Insumo

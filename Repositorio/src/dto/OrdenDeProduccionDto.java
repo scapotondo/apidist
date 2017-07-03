@@ -1,6 +1,7 @@
 package dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 
 public class OrdenDeProduccionDto implements Serializable{
@@ -12,15 +13,25 @@ public class OrdenDeProduccionDto implements Serializable{
 	private int confeccionesTerminadas;
 	private PedidoPrendasDto pedido;
 	private PrendaDto prenda;
+	private ArrayList<ProcesoProduccionDto> procesos;
 	
 	public OrdenDeProduccionDto(){}
 	
-	public OrdenDeProduccionDto(int nroOrden, String estado, PedidoPrendasDto pedido, PrendaDto prenda){
+	public OrdenDeProduccionDto(int nroOrden, String estado, PedidoPrendasDto pedido, PrendaDto prenda, ArrayList<ProcesoProduccionDto> procesos){
 		this.nroOrden = nroOrden;
 		this.estado=estado;
 		this.confeccionesTerminadas=0;
 		this.pedido=pedido;
 		this.prenda=prenda;
+		this.procesos=procesos;
+	}
+
+	public ArrayList<ProcesoProduccionDto> getProcesos() {
+		return procesos;
+	}
+
+	public void setProcesos(ArrayList<ProcesoProduccionDto> procesos) {
+		this.procesos = procesos;
 	}
 
 	public int getNroOrden() {

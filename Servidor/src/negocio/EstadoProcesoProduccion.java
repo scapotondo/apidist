@@ -1,13 +1,15 @@
 package negocio;
 
 
-public enum EstadoConfeccion {
+public enum EstadoProcesoProduccion {
 	INCOMPLETO(1),		//sin terminar
-	COMPLETO(2);		//terminada
+	PRODUCCION(2),		//en produccion
+	COMPLETO(3);		//terminada
+	
 
 	private int value;
 
-	EstadoConfeccion(int value) {
+	EstadoProcesoProduccion(int value) {
 		this.value = value;
 	}
 
@@ -15,10 +17,11 @@ public enum EstadoConfeccion {
 		return value;
 	}
 
-	public  static EstadoConfeccion fromInt(int value) {   
+	public  static EstadoProcesoProduccion fromInt(int value) {   
 		switch(value) {
 		case 1: return INCOMPLETO;
-		case 2: return COMPLETO;
+		case 2: return PRODUCCION;
+		case 3: return COMPLETO;
 		default: return null;
 		}
 	}
@@ -28,6 +31,9 @@ public enum EstadoConfeccion {
 			case INCOMPLETO:
 				return "Incompleto";
 				
+			case PRODUCCION:
+				return "Produccion";
+				
 			case COMPLETO:
 				return "Completo";
 				
@@ -36,10 +42,12 @@ public enum EstadoConfeccion {
 		}
 	}
 	
-	public static EstadoConfeccion fromString(String estado) {
+	public static EstadoProcesoProduccion fromString(String estado) {
 		switch(estado.toUpperCase()) {
 			case "INCOMPLETO":
 				return INCOMPLETO;
+			case "PRODUCCION":
+				return PRODUCCION;
 			case "COMPLETO":
 				return COMPLETO;
 			

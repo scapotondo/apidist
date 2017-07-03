@@ -20,7 +20,6 @@ public class ConfeccionEntity implements Serializable{
 	
 	private Float tiempoProd;
 	private String detalle;
-	private int estado;
 	
 	@OneToOne()
 	private AreaProduccionEntity areaProduccion;
@@ -42,7 +41,6 @@ public class ConfeccionEntity implements Serializable{
 				this.insumos.add(new InsumoEntity(insumo));
 			}
 		}
-		this.estado = confeccion.getEstado().toInt();
 	}
 
 	public int getId() {
@@ -84,15 +82,4 @@ public class ConfeccionEntity implements Serializable{
 	public void setInsumos(List<InsumoEntity> insumos) {
 		this.insumos = insumos;
 	}
-
-	public int getEstado() {
-		return estado;
-	}
-
-	public void setEstado(int estado) {
-		this.estado = estado;
-	}
-	
-	
-	
 }
