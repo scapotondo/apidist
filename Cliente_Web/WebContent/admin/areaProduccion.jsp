@@ -4,6 +4,7 @@
 <!doctype html>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dto.OrdenDeProduccionDto"%>
+<%@page import="dto.ProcesoProduccionDto"%>
 <%@page import="dto.UsuarioDto"%>
 <html >
 <head>
@@ -82,19 +83,23 @@
 	                                    	<%
 	                                    		if(ordenes != null){
 	                                    			for(OrdenDeProduccionDto orden : ordenes){
-	                                    				ConfeccionDto confeccion = new ConfeccionDto(); 
-	                                    				for(ConfeccionDto confeccionLista : orden.getPrenda().getConfecciones()){
-	                                    					if(confeccionLista.getEstado().equals("Incompleto")){
-	                                    						confeccion = confeccionLista;
-	                                    						break;
+	                                    				int menor = 100;
+	                                    				ProcesoProduccionDto primerProceso = null;
+	                                    				for (ProcesoProduccionDto p : orden.getProcesos()) {
+	                                    					if (p.getNroOrden() < menor && p.getEstado().equals("Incompleto")) {
+	                                    						menor = p.getNroOrden();
+	                                    						primerProceso = p;
 	                                    					}
 	                                    				}
+	                                    				
+                                    					if(primerProceso == null || !primerProceso.getEstado().equals("Incompleto"))
+                                    						break;
 	                                    	%>
 					                                    <tr>
 					                                        <td><%= orden.getNroOrden()%></td>
 					                                        <td><%= orden.getPedido().getNroPedido()%></td>
-					                                        <td><%= confeccion.getDetalle()%></td>
-					                                        <td><a href="AreaProduccion?area=<%= id %>&confeccionId=<%=confeccion.getId() %>&nroOrden=<%= orden.getNroOrden() %>"><i class="material-icons">done</i></a></td>
+					                                        <td><%= primerProceso.getConfeccion().getDetalle()%></td>
+					                                        <td><a href="AreaProduccion?area=<%= id %>&confeccionId=<%=primerProceso.getConfeccion().getId() %>&nroOrden=<%= orden.getNroOrden() %>"><i class="material-icons">done</i></a></td>
 					                                    </tr>
 											<%		}
 	                                    		}

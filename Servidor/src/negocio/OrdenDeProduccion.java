@@ -7,6 +7,7 @@ import dao.OrdenDeProduccionDao;
 import dto.OrdenDeProduccionDto;
 import dto.ProcesoProduccionDto;
 import entity.OrdenDeProduccionEntity;
+import entity.ProcesoProduccionEntity;
 import exceptions.ColorException;
 
 public abstract class OrdenDeProduccion {
@@ -27,18 +28,14 @@ public abstract class OrdenDeProduccion {
 			this.confeccionesTerminadas=op.getConfeccionesTerminadas();
 			this.pedido=new PedidoPrendas(op.getPedidoPrenda());
 			this.prenda=new Prenda(op.getPrenda());
+			this.procesos=new ArrayList<>();
+			
+			for(ProcesoProduccionEntity pe : op.getProcesos())
+				procesos.add(new ProcesoProduccion(pe));
 			
 		} catch (ColorException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public OrdenDeProduccion(int nroOrden, EstadoOrdenProduccion estado, PedidoPrendas pedido, Prenda prenda){
-		this.nroOrden = nroOrden;
-		this.estado=estado;
-		this.confeccionesTerminadas=0;
-		this.pedido=pedido;
-		this.prenda=prenda;
 	}
 	
 	public OrdenDeProduccion(EstadoOrdenProduccion estado, PedidoPrendas pedido, Prenda prenda, ArrayList<ProcesoProduccion> procesos){

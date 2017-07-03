@@ -1,6 +1,8 @@
 package negocio;
 
+import dao.ProcesoProduccionDao;
 import dto.ProcesoProduccionDto;
+import entity.ProcesoProduccionEntity;
 
 public class ProcesoProduccion {
 	int id;
@@ -14,6 +16,13 @@ public class ProcesoProduccion {
 		this.estado = estado;
 	}
 	
+	public ProcesoProduccion(ProcesoProduccionEntity pe) {
+		this.id = pe.getId();
+		this.confeccion = new Confeccion(pe.getConfeccion());
+		this.estado = EstadoProcesoProduccion.fromInt(pe.getEstado());
+		this.nroOrden = pe.getNroOrden();
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -41,5 +50,9 @@ public class ProcesoProduccion {
 
 	public ProcesoProduccionDto toDto() {
 		return new ProcesoProduccionDto(id, nroOrden, confeccion.toDto(), estado.toString());
+	}
+
+	public void modificar() {
+		ProcesoProduccionDao.getInstance().modificarProceso(this);
 	}
 }

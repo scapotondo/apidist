@@ -65,11 +65,10 @@ public class AreaProduccion extends HttpServlet{
 				request.setAttribute("id", Integer.parseInt(id));
 			}	
 			
-			if(request.getParameter("confeccionId") != null && request.getParameter("nroOrden")!= null){
+			if(request.getParameter("confeccionId") != null && request.getParameter("nroOrden")!= null)
 				doPost(request,response);
-			}
-			
-			request.getRequestDispatcher("/admin/areaProduccion.jsp").forward(request, response);
+			else 
+				request.getRequestDispatcher("/admin/areaProduccion.jsp").forward(request, response);
 			
 		} catch (RemoteObjectNotFoundException | UsuarioException e) {
 			e.printStackTrace();
@@ -93,6 +92,7 @@ public class AreaProduccion extends HttpServlet{
 			
 			BusinessDelegate.getInstance().IniciarProduccion(orden, area);
 			
+			response.sendRedirect(request.getContextPath()+"/AreaProduccion");
 		} catch (ApplicationException | RemoteObjectNotFoundException | AreaProduccionException e) {
 			e.printStackTrace();
 		}

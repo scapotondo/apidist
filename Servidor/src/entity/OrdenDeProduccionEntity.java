@@ -32,11 +32,11 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 	@OneToOne()
 	private PedidoPrendasEntity pedidoPrenda;
 	
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<ProcesoProduccionEntity> procesos;
 	
 	public OrdenDeProduccionEntity(){}
-	
+
 	public OrdenDeProduccionEntity(OrdenDeProduccion op){
 		this.estado=op.getEstado().toInt();
 		this.confeccionesTerminadas=op.getConfeccionesTerminadas();
@@ -52,6 +52,14 @@ public abstract class OrdenDeProduccionEntity implements Serializable{
 		if (op.getProcesos() != null) 
 			for (ProcesoProduccion p : op.getProcesos()) 
 				procesos.add(new ProcesoProduccionEntity(p));
+	}
+	
+	public List<ProcesoProduccionEntity> getProcesos() {
+		return procesos;
+	}
+
+	public void setProcesos(List<ProcesoProduccionEntity> procesos) {
+		this.procesos = procesos;
 	}
 	
 	public int getNroOrden() {

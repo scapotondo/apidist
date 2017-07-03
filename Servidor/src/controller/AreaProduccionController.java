@@ -12,6 +12,7 @@ import exceptions.AreaProduccionException;
 import exceptions.ColorException;
 import exceptions.RemoteObjectNotFoundException;
 import negocio.AreaProduccion;
+import negocio.EstadoOrdenProduccion;
 import negocio.EstadoProcesoProduccion;
 import negocio.Insumo;
 import negocio.OrdenDeProduccion;
@@ -34,7 +35,7 @@ public class AreaProduccionController {
 
 		for (OrdenDeProduccion ordenIncompleta : ordenesIncompletas) {
 			ProcesoProduccion proc = buscarProcesoIncompletoMenorOrden(ordenIncompleta.getProcesos());
-			if (proc.getConfeccion().getAreaProduccion().getCodigo() == areaProduccion.getCodigo())
+			if (proc != null && proc.getConfeccion().getAreaProduccion().getCodigo() == areaProduccion.getCodigo())
 				ordenesDto.add(ordenIncompleta.toDto());
 		}
 
@@ -46,7 +47,7 @@ public class AreaProduccionController {
 
 		AreaProduccion area = AreaProduccionDao.getInstance().getById(areaDto);
 		OrdenDeProduccion orden = OrdenDeProduccionDao.getInstance().getBuscarOrden(ordenDto); 
-
+		
 		ProcesoProduccion primerProceso = buscarProcesoIncompletoMenorOrden(orden.getProcesos());
 
 		if (area.hayLineasLibres()) {
@@ -58,6 +59,14 @@ public class AreaProduccionController {
 				}
 
 				area.asignarLineaProduccion(primerProceso);
+				
+				primerProceso.setEstado(EstadoProcesoProduccion.PRODUCCION);
+				primerProceso.modificar();
+				
+				if (orden.getEstado().equals(EstadoOrdenProduccion.PENDIENTE)) {
+					orden.setEstado(EstadoOrdenProduccion.PRODUCCION);
+					orden.modificame();
+				}
 			}
 		} else {
 			String mensaje = "En este momento no hay lineas de produccion disponibles, por favor intente en otro momento";

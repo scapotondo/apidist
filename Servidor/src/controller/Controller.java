@@ -194,9 +194,8 @@ public class Controller {
 				Hashtable<MateriaPrima, Integer> mps = prenda.CalcularCantidadMateriaPrimaTotal();
 				
 				ArrayList<ProcesoProduccion> procesos = new ArrayList<>();
-				for (Confeccion confeccion : prenda.getConfecciones()) {
+				for (Confeccion confeccion : prenda.getConfecciones()) 
 					procesos.add(new ProcesoProduccion(1, confeccion, EstadoProcesoProduccion.INCOMPLETO));
-				}
 				
 				if (cantColores.size() >= 3 || cantTalles.size() >= 3) {
 					

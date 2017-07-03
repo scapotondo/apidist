@@ -31,6 +31,7 @@ public class ConfeccionEntity implements Serializable{
 	public ConfeccionEntity() { }
 	
 	public ConfeccionEntity(Confeccion confeccion){
+		this.id = confeccion.getId();
 		this.tiempoProd = confeccion.getTiempoProd();
 		this.detalle = confeccion.getDetalle();
 		this.areaProduccion = new AreaProduccionEntity(confeccion.getAreaProduccion());
