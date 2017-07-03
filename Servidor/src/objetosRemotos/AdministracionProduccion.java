@@ -40,6 +40,4 @@ public class AdministracionProduccion extends UnicastRemoteObject implements Adm
 	public ArrayList<PedidoPrendasDto> GetPedidosADespachar() throws RemoteException {
 		return DespachoController.getInstance().GetPedidosADespachar();
 	}
-	
-
 }

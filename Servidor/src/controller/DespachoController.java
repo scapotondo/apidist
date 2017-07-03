@@ -30,13 +30,14 @@ public class DespachoController {
 		return instance;
 	}
 	
-	
 	public void despacharPedido(PedidoPrendasDto pedidoDto, EmpleadoDto encargadoDto){
 		PedidoPrendas pedido = PedidoPrendasDao.getInstance().BuscarPedidoPrendas(pedidoDto.getNroPedido());
+		if (!pedido.getEstado().equals(EstadoPedidoPrenda.Despacho))
+			return;
 		
-		for (ItemPrenda item : pedido.getItems()) {
+		for (ItemPrenda item : pedido.getItems()) 
 			AlmacenController.getInstance().disminuirStockPrendaDespacho(item.getPrenda(), item.getCantidad(), item.getTalle(), item.getColor(), encargadoDto.getNombre());
-		}
+		
 		pedido.setEstado(EstadoPedidoPrenda.Terminado);
 		pedido.modificame();
 		
@@ -61,9 +62,8 @@ public class DespachoController {
 		ArrayList<PedidoPrendas> pedidos = PedidoPrendasDao.getInstance().BuscarPedidosPrendasDespacho();
 		
 		ArrayList<PedidoPrendasDto> pedidosDespacho = new ArrayList<PedidoPrendasDto>();
-		for (PedidoPrendas pedidoPrendas : pedidos) {
+		for (PedidoPrendas pedidoPrendas : pedidos)
 			pedidosDespacho.add(pedidoPrendas.toDto());
-		}
 		
 		return pedidosDespacho;
 	}

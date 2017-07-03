@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import controller.AreaProduccionController;
 import dto.AreaProduccionDto;
-import dto.ConfeccionDto;
 import dto.OrdenDeProduccionDto;
 import exceptions.ApplicationException;
 import exceptions.AreaProduccionException;

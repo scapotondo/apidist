@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import BusinessDelegate.BusinessDelegate;
 import dto.AreaProduccionDto;
-import dto.ConfeccionDto;
 import dto.OrdenDeProduccionDto;
 import dto.UsuarioDto;
 import exceptions.ApplicationException;

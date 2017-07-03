@@ -21,8 +21,6 @@ public interface AdministracionPedidoInterface extends Remote{
 	
 	public void RechazarPedidoCliente(int nroPedido) throws RemoteException, PedidoException;
 
-	public ArrayList<PedidoPrendasDto> getPedidosDespacho() throws RemoteException;
-
 	public ArrayList<PedidoPrendasDto> getPedidosAceptados(ClienteDto cliente) throws RemoteException;
 	
 	public ArrayList<PedidoPrendasDto> getPedidosPendientesAceptacionCliente(ClienteDto cliente) throws RemoteException;

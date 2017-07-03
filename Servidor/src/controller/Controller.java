@@ -362,22 +362,6 @@ public class Controller {
 		return null;
 	}
 
-	public ArrayList<PedidoPrendasDto> getPedidosDespacho() {
-		try {
-			ArrayList<PedidoPrendas> pedidos = PedidoPrendasDao.getInstance().getPedidosDespacho(); 
-			ArrayList<PedidoPrendasDto> pedidosDto = new ArrayList<PedidoPrendasDto>(); 
-			
-			for (PedidoPrendas pedido : pedidos) {
-				pedidosDto.add(pedido.toDto());
-			}
-			
-			return pedidosDto; 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
 	public ArrayList<PedidoPrendasDto> getPedidosAceptados(ClienteDto cliente) {
 		try {
 			ArrayList<PedidoPrendas> pedidos = PedidoPrendasDao.getInstance().getPedidosAceptados(cliente); 
