@@ -91,7 +91,7 @@ public class AreaProduccion extends HttpServlet{
 			
 			BusinessDelegate.getInstance().IniciarProduccion(orden, area);
 			
-			response.sendRedirect(request.getContextPath()+"/AreaProduccion");
+			response.sendRedirect(request.getContextPath()+"/AreaProduccion?id="+id);
 		} catch (ApplicationException | RemoteObjectNotFoundException | AreaProduccionException e) {
 			e.printStackTrace();
 		}

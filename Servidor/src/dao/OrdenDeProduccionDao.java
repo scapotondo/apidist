@@ -52,18 +52,24 @@ public class OrdenDeProduccionDao {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		OrdenDeProduccionEntity ordenEntity = session.get(OrdenDeProduccionEntity.class, ordenDto.getNroOrden());
+		OrdenDeProduccionEntity ordenEntity = session.get(OrdenDeProduccionParcialEntity.class, ordenDto.getNroOrden());
 		session.getTransaction().commit();
 		session.close();
+		
+		if (ordenEntity == null){
+			Session session2 = HibernateUtil.getSessionFactory().openSession();
+			session2.beginTransaction();
+			OrdenDeProduccionEntity ordenEntityCompleta = session2.get(OrdenDeProduccionCompletaEntity.class, ordenDto.getNroOrden());
+			session2.getTransaction().commit();
+			session2.close();
 
-		if (ordenEntity == null)
-			throw new RemoteObjectNotFoundException("No se encontro la orden de produccion");
-
-		if (ordenEntity.equals("entity.OrdenDeProduccionCompletaEntity"))
+			if (ordenEntityCompleta == null)
+				throw new RemoteObjectNotFoundException("No se encontro la orden de produccion");
+			
 			return new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) ordenEntity);
+		}
 
 		return new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) ordenEntity);
-
 	}
 
 	public OrdenDeProduccion crearOrden(OrdenDeProduccion orden){

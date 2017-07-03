@@ -48,18 +48,17 @@ public class LineasProduccion extends HttpServlet{
 			UsuarioDto usuario = BusinessDelegate.getInstance().getUserEmpleado(codigo);
 			
 			String id = (String) request.getParameter("id");
-			
-			AreaProduccionDto area = BusinessDelegate.getInstance().getAreaProducion(Integer.parseInt(id));
-			
-			ArrayList<LineaProduccionDto> lineas = BusinessDelegate.getInstance().getLineasOcupadas(area);
-			
-			request.setAttribute("usuario", usuario);
-			request.setAttribute("lineas", lineas);
-			
-			if(request.getParameter("lineaNro") != null)
-				doPost(request,response);
-			else
+			if(id != null){
+				AreaProduccionDto area = BusinessDelegate.getInstance().getAreaProducion(Integer.parseInt(id));
+				
+				ArrayList<LineaProduccionDto> lineas = BusinessDelegate.getInstance().getLineasOcupadas(area);
+				
+				request.setAttribute("usuario", usuario);
+				request.setAttribute("lineas", lineas);
 				request.getRequestDispatcher("/admin/lineasProduccion.jsp").forward(request, response);
+				
+			}else if(request.getParameter("lineaNro") != null)
+				doPost(request,response);
 			
 		} catch (RemoteObjectNotFoundException | UsuarioException e) {
 			e.printStackTrace();

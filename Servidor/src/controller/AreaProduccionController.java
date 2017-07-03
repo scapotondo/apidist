@@ -110,7 +110,7 @@ public class AreaProduccionController {
 		return lineasDto;
 	}
 	
-	public void liberarLinea(int numero) throws RemoteObjectNotFoundException{
+	public void liberarLinea(int numero) throws RemoteObjectNotFoundException, ColorException{
 		LineaProduccion linea = AreaProduccionDao.getInstance().getLineaId(numero);
 		
 		OrdenDeProduccionDto ordenDto = new OrdenDeProduccionDto();
@@ -138,6 +138,13 @@ public class AreaProduccionController {
 		if(procesosPendientes == false){
 			orden.setEstado(EstadoOrdenProduccion.TERMINADA);
 			orden.modificame();
+			
+			for (String talle : orden.getTalles()) {
+				for (String  color : orden.getColores()) {
+					
+					AlmacenController.getInstance().agregarStockPrenda(orden.getPrenda(), orden.getCantidad(), talle, color, orden);
+				}
+			}
 			
 			orden.getPedido().setEstado(EstadoPedidoPrenda.Despacho);
 			orden.getPedido().modificame();

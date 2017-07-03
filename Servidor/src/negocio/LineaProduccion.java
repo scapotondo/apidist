@@ -21,7 +21,7 @@ public class LineaProduccion {
 		this.estado= linea.getEstado();
 		this.tiempoLiberarse=linea.getTiempoLiberarse();
 		this.trabajo=linea.getTrabajo();
-		
+		this.codigoOrden = linea.getCodigoOrden();
 	}
 	
 	public LineaProduccion(int numero, String estado, Float tiempoLiberarse, String trabajo,int codigoOrden){
