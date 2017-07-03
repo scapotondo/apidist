@@ -73,6 +73,7 @@ public class ModificarStockPrendas extends HttpServlet{
 			quienAutorizoDto.setNombre(autoriza);
 
 			BusinessDelegate.getInstance().ModificarStockPrenda(stockDto, empleadoDto, quienAutorizoDto, modifDto);
+			response.sendRedirect(request.getContextPath()+"/Almacen");
 		} catch (RemoteObjectNotFoundException | ApplicationException | UsuarioException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

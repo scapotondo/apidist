@@ -156,7 +156,7 @@ public class AlmacenController {
 		
 		int cantidad = modifDto.getCantidad();
 		if (cantidad < 0) 
-			disminuirStockPrenda(stock.getPrenda(), cantidad, stock.getTalle(), stock.getColor().toString(), empleadoDto.getNombre(), quienAutorizoDto.getNombre(), stocks, TipoMovimientoStockPrendaEnum.fromString(modifDto.getTipo()));
+			disminuirStockPrenda(stock.getPrenda(), -cantidad, stock.getTalle(), stock.getColor().toString(), empleadoDto.getNombre(), quienAutorizoDto.getNombre(), stocks, TipoMovimientoStockPrendaEnum.fromString(modifDto.getTipo()));
 		else if (cantidad > 0) 
 			aumentarStockPrendaDiferenciaInventario(stock, cantidad, empleadoDto.getNombre(), quienAutorizoDto.getNombre());
 	}
@@ -183,6 +183,7 @@ public class AlmacenController {
 	private void disminuirStockPrenda(Prenda prenda, int cantidad, String talle, String color, String encargado, String quienAutoriza,
 			ArrayList<StockPrenda> stockPrendas, TipoMovimientoStockPrendaEnum tipo) {
 		String ubicacion = "";
+		int cantidadOriginal = cantidad;
 		ArrayList<StockPrenda> stockPrendaUsados = new ArrayList<>();
 		
 		for (StockPrenda stockPrenda : stockPrendas) {
@@ -214,7 +215,7 @@ public class AlmacenController {
 			}
 		}
 
-		MovimientoPrenda movimiento = new MovimientoPrenda(cantidad, Calendar.getInstance().getTime(), encargado,
+		MovimientoPrenda movimiento = new MovimientoPrenda(-cantidadOriginal, Calendar.getInstance().getTime(), encargado,
 				quienAutoriza, ubicacion, prenda, tipo, stockPrendaUsados);
 		movimiento.saveMe();
 	}
@@ -247,19 +248,20 @@ public class AlmacenController {
 		ArrayList<StockPrenda> stockPedidos = new ArrayList<StockPrenda>();
 		
 		for (ItemPrenda itemPrenda : items) {
+			int cantidad = itemPrenda.getCantidad();
 			stockPedidos = StockPrendaDao.getInstance().getStockPrendas(itemPrenda.getPrenda().getCodigo());
 			for (StockPrenda stockPrenda : stockPedidos) {
-				if(itemPrenda.getCantidad() == 0){
+				if(cantidad == 0){
 					break;
 				}
 				
-				if(stockPrenda.getCantidad() >= itemPrenda.getCantidad()){
+				if(stockPrenda.getCantidad() >= cantidad){
 						
-					stockPrenda.reservar(itemPrenda.getCantidad());
-					itemPrenda.setCantidad(0);
+					stockPrenda.reservar(cantidad);
+					cantidad = 0;
 					
 				}else{
-					itemPrenda.disminuirCantidad(stockPrenda.getCantidad());
+					cantidad -= stockPrenda.getCantidad();
 						
 					stockPrenda.reservar(stockPrenda.getCantidad());
 				}

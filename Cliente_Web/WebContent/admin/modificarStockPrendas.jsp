@@ -68,7 +68,7 @@
 	                            </div>
 	                            <div class="card-content">
 	                                
-	                                <form action="${pageContext.request.contextPath}/DisminuirPrendas" method="post">
+	                                <form action="${pageContext.request.contextPath}/ModificarStockPrendas" method="post">
 	                                    <div class="row">
 	                                        <div class="col-md-5">
 	                                            <div class="form-group label-floating">

@@ -54,9 +54,9 @@ public class Despacho extends HttpServlet{
 			String idPedido = request.getParameter("IdPedido");
 			if(idPedido != null){
 				doPost(request,response);
+			} else {			
+				request.getRequestDispatcher("/admin/despacho.jsp").forward(request, response);
 			}
-			
-			request.getRequestDispatcher("/admin/despacho.jsp").forward(request, response);
 			
 		} catch (RemoteObjectNotFoundException | UsuarioException e) {
 			e.printStackTrace(); 
@@ -76,6 +76,7 @@ public class Despacho extends HttpServlet{
 			empleado.setNombre(pedido.getCliente().getSucursal().getGerente().getNombre());
 			
 			BusinessDelegate.getInstance().despacharPedido(pedido, empleado);
+			response.sendRedirect(request.getContextPath()+"/Almacen");
 		} catch (RemoteObjectNotFoundException e) {
 			e.printStackTrace();
 		}
