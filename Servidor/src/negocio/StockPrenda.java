@@ -23,6 +23,30 @@ public class StockPrenda {
 	private int cantidadPrendasReservadas;
 	private int codigo;
 	
+	public StockPrenda(StockPrendaEntity stock, Prenda prenda){
+		try {
+			this.codigo=stock.getCodigo();
+			this.color=ColorPrenda.fromInt(stock.getColor());
+			this.talle=stock.getTalle();
+	
+			if(stock.getLote().getClass().getName().equals("entity.OrdenDeProduccionCompletaEntity"))
+				this.lote=new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) stock.getLote());
+			
+			if(stock.getLote().getClass().getName().equals("entity.OrdenDeProduccionParcialEntity"))
+				this.lote=new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) stock.getLote());
+			
+			this.fecha=stock.getFecha();
+			this.costoProduccion=stock.getCostoProduccion();
+			this.cantidad=stock.getCantidad();
+			this.ubicacion=stock.getUbicacion();
+			this.cantidadPrendasReservadas=stock.getCantidadPrendasReservadas();
+			this.prenda=prenda;
+		} catch (ColorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public StockPrenda(StockPrendaEntity stock){
 		try {
 			this.codigo=stock.getCodigo();

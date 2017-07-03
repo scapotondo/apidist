@@ -80,7 +80,7 @@ public class PrendaEntity implements Serializable{
 	
 		if(stock!=null)
 			for (StockPrenda stock : prenda.getStock())
-				this.stock.add(new StockPrendaEntity(stock));
+				this.stock.add(new StockPrendaEntity(stock, this));
 	}
 		
 	public int getCodigo() {

@@ -42,7 +42,7 @@ public class Prenda {
 		}
 		
 		for (StockPrendaEntity stockPrendaEntity : prenda.getStock()) {
-			this.stock.add(new StockPrenda(stockPrendaEntity));
+			this.stock.add(new StockPrenda(stockPrendaEntity, this));
 		}
 		
 		for (String talle : prenda.getTallesValidos()) {

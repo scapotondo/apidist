@@ -41,6 +41,24 @@ public class StockPrendaEntity implements Serializable{
 	
 	public StockPrendaEntity(){}
 	
+	public StockPrendaEntity(StockPrenda sp, PrendaEntity prenda){
+		this.codigo=sp.getCodigo();
+		this.color=sp.getColor().toInt();
+		this.talle=sp.getTalle();
+		this.fecha=sp.getFecha();
+		this.costoProduccion=sp.getCostoProduccion();
+		this.cantidad=sp.getCantidad();
+		this.ubicacion=sp.getUbicacion();
+		this.cantidadPrendasReservadas=sp.getCantidadPrendasReservadas();
+		if(sp.getLote().getClass().getName().equals("negocio.OrdenProduccionCompleta"))
+			this.lote = new OrdenDeProduccionCompletaEntity( (OrdenProduccionCompleta) sp.getLote());
+			
+		if(sp.getLote().getClass().getName().equals("negocio.OrdenProduccionParcial"))
+			this.lote = new OrdenDeProduccionParcialEntity((OrdenProduccionParcial) sp.getLote());
+		
+		this.prenda=prenda;
+	}
+	
 	public StockPrendaEntity(StockPrenda sp){
 		this.codigo=sp.getCodigo();
 		this.color=sp.getColor().toInt();
