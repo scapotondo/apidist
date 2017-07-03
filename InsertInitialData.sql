@@ -82,40 +82,40 @@ VALUES (4, "Area produccion 4");
 
 
 INSERT into LineaProduccion
-VALUES(1, 'Libre', 0, '',null, 1);
+VALUES(1, 0, 'Libre', 0, '', 1);
 
 INSERT into LineaProduccion
-VALUES(2, 'Libre', 0, '',null, 1);
+VALUES(2, 0,'Libre', 0, '', 1);
 
 INSERT into LineaProduccion
-VALUES(3, 'Libre', 0, '',null, 1);
+VALUES(3, 0,'Libre', 0, '', 1);
 
 INSERT into LineaProduccion
-VALUES(4, 'Libre', 0, '',null, 2);
+VALUES(4,0, 'Libre', 0, '', 2);
 
 INSERT into LineaProduccion
-VALUES(5, 'Libre', 0, '',null, 2);
+VALUES(5,0, 'Libre', 0, '', 2);
 
 INSERT into LineaProduccion
-VALUES(6, 'Libre', 0, '',null, 2);
+VALUES(6,0, 'Libre', 0, '', 2);
 
 INSERT into LineaProduccion
-VALUES(7, 'Libre', 0, '',null, 3);
+VALUES(7,0, 'Libre', 0, '', 3);
 
 INSERT into LineaProduccion
-VALUES(8, 'Libre', 0, '',null, 3);
+VALUES(8,0, 'Libre', 0, '', 3);
 
 INSERT into LineaProduccion
-VALUES(9, 'Libre', 0, '',null, 3);
+VALUES(9, 0,'Libre', 0, '', 3);
 
 INSERT into LineaProduccion
-VALUES(10, 'Libre', 0, '',null, 4);
+VALUES(10,0, 'Libre', 0, '', 4);
 
 INSERT into LineaProduccion
-VALUES(11, 'Libre', 0, '',null, 4);
+VALUES(11,0, 'Libre', 0, '', 4);
 
 INSERT into LineaProduccion
-VALUES(12, 'Libre', 0, '',null, 4);
+VALUES(12,0, 'Libre', 0, '', 4);
 
 
 INSERT INTO MateriaPrima
