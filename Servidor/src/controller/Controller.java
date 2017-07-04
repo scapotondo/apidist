@@ -173,22 +173,24 @@ public class Controller {
 		cliente.setCuentaCorriente(cliente.getCuentaCorriente() - pedido.calcularTotal());
 		cliente.modificame();
 		
-		Hashtable<Prenda, ArrayList<ItemPrenda>> sinStock = getItemsSinStock(pedido.getItems());
+		Hashtable<Integer, ArrayList<ItemPrenda>> sinStock = getItemsSinStock(pedido.getItems());
 		if(sinStock.isEmpty()) {
 			AlmacenController.getInstance().reservarPrendasPedido(pedido.getItems());
 			pedido.setEstado(EstadoPedidoPrenda.Despacho);
 			pedido.modificame();
 		} else {
-			for(Prenda prenda : sinStock.keySet()) {
+			for(Integer codigoPrenda : sinStock.keySet()) {
 				ArrayList<String> cantColores = new ArrayList<>();
 				ArrayList<String> cantTalles = new ArrayList<>();
-
-				for(ItemPrenda item : sinStock.get(prenda)) {
+				Prenda prenda = null;
+				for(ItemPrenda item : sinStock.get(codigoPrenda)) {
 					if (!cantColores.contains(item.getColor()))
 						cantColores.add(item.getColor());
 					
 					if (!cantTalles.contains(item.getTalle()))
 						cantTalles.add(item.getTalle());
+					
+					prenda = item.getPrenda();
 				}
 
 				Hashtable<MateriaPrima, Integer> mps = prenda.CalcularCantidadMateriaPrimaTotal();
@@ -200,7 +202,7 @@ public class Controller {
 				if (cantColores.size() >= 3 || cantTalles.size() >= 3) {
 					
 					OrdenDeProduccion opc = new OrdenProduccionCompleta(EstadoOrdenProduccion.PENDIENTE, pedido, prenda, procesos);
-					opc.saveMe();
+					opc = opc.saveMe();
 					
 					int cantidad = prenda.getCantidadOPC();
 					
@@ -212,7 +214,7 @@ public class Controller {
 					OrdenDeProduccion opp = new OrdenProduccionParcial(cantTalles, cantColores, EstadoOrdenProduccion.PENDIENTE, pedido, prenda, procesos);
 					opp = opp.saveMe();
 					
-					int cantidad = sinStock.get(prenda).size() * prenda.getCantidadAProducir();
+					int cantidad = sinStock.get(prenda.getCodigo()).size() * prenda.getCantidadAProducir();
 					
 					for (MateriaPrima mp : mps.keySet()) {
 						AlmacenController.getInstance().reservarMateriaPrima(mp, cantidad, opp);
@@ -255,17 +257,17 @@ public class Controller {
 		pedido.modificame();
 	}
 	
-	private Hashtable<Prenda, ArrayList<ItemPrenda>> getItemsSinStock(ArrayList<ItemPrenda>items){
-		Hashtable<Prenda, ArrayList<ItemPrenda>> sinStock = new Hashtable<>();
+	private Hashtable<Integer, ArrayList<ItemPrenda>> getItemsSinStock(ArrayList<ItemPrenda>items){
+		Hashtable<Integer, ArrayList<ItemPrenda>> sinStock = new Hashtable<>();
 		for (ItemPrenda item : items) {
 			if (!AlmacenController.getInstance().tenesStockPrenda(item.getPrenda(), item.getTalle(), item.getColor(), item.getCantidad())) {
 				ArrayList<ItemPrenda> list = new ArrayList<>();
-				if (sinStock.containsKey(item.getPrenda()))
-					list = sinStock.get(item.getPrenda());
+				if (sinStock.containsKey(item.getPrenda().getCodigo()))
+					list = sinStock.get(item.getPrenda().getCodigo());
 
 				list.add(item);
 
-				sinStock.put(item.getPrenda(), list);
+				sinStock.put(item.getPrenda().getCodigo(), list);
 			}
 		}
 		

@@ -36,7 +36,7 @@ public class OrdenDeProduccionDao {
 			session.close();
 
 			for (OrdenDeProduccionEntity resultado : resultados) {
-				if (resultado.equals("entity.OrdenDeProduccionCompletaEntity"))
+				if (resultado.getClass().getName().equals("entity.OrdenDeProduccionCompletaEntity"))
 					ordenesIncompletas.add(new OrdenProduccionCompleta (resultado));
 				else
 					ordenesIncompletas.add(new OrdenProduccionParcial((OrdenDeProduccionParcialEntity)resultado));
@@ -66,7 +66,7 @@ public class OrdenDeProduccionDao {
 			if (ordenEntityCompleta == null)
 				throw new RemoteObjectNotFoundException("No se encontro la orden de produccion");
 			
-			return new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) ordenEntity);
+			return new OrdenProduccionCompleta((OrdenDeProduccionCompletaEntity) ordenEntityCompleta);
 		}
 
 		return new OrdenProduccionParcial((OrdenDeProduccionParcialEntity) ordenEntity);
@@ -75,7 +75,7 @@ public class OrdenDeProduccionDao {
 	public OrdenDeProduccion crearOrden(OrdenDeProduccion orden){
 		OrdenDeProduccionEntity ordenEntity;
 
-		if (orden.getClass().equals("entity.OrdenProduccionCompleta"))
+		if (orden.getClass().getName().equals("negocio.OrdenProduccionCompleta"))
 			ordenEntity = new OrdenDeProduccionCompletaEntity(orden);
 		else
 			ordenEntity = new OrdenDeProduccionParcialEntity(orden);
@@ -86,7 +86,7 @@ public class OrdenDeProduccionDao {
 		session.getTransaction().commit();
 		session.close();
 
-		if (orden.getClass().equals("entity.OrdenProduccionCompleta"))
+		if (orden.getClass().getName().equals("negocio.OrdenProduccionCompleta"))
 			return  new OrdenProduccionCompleta(ordenEntity);
 		else
 			return new OrdenProduccionParcial(ordenEntity, (ArrayList<String>)orden.getTalles(), (ArrayList<String>)orden.getColores());
@@ -95,7 +95,7 @@ public class OrdenDeProduccionDao {
 	public void modificame(OrdenDeProduccion orden){
 		OrdenDeProduccionEntity ordenEntity;
 
-		if (orden.getClass().equals("entity.OrdenProduccionCompleta"))
+		if (orden.getClass().getName().equals("negocio.OrdenProduccionCompleta"))
 			ordenEntity = new OrdenDeProduccionCompletaEntity(orden);
 		else
 			ordenEntity = new OrdenDeProduccionParcialEntity(orden);

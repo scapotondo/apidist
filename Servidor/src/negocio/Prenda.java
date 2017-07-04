@@ -267,4 +267,9 @@ public class Prenda {
 	public int getCantidadOPC() {
 		return this.cantidadAProducir * this.tallesValidos.size() * this.coloresValidos.size();
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return this.codigo == ((Prenda)obj).getCodigo();
+	}
 }

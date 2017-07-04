@@ -13,6 +13,7 @@ import exceptions.AreaProduccionException;
 import exceptions.ColorException;
 import exceptions.RemoteObjectNotFoundException;
 import negocio.AreaProduccion;
+import negocio.ColorPrenda;
 import negocio.EstadoOrdenProduccion;
 import negocio.EstadoPedidoPrenda;
 import negocio.EstadoProcesoProduccion;
@@ -139,9 +140,21 @@ public class AreaProduccionController {
 			orden.setEstado(EstadoOrdenProduccion.TERMINADA);
 			orden.modificame();
 			
-			for (String talle : orden.getTalles()) {
-				for (String  color : orden.getColores()) {
-					
+			ArrayList<String> colores = new ArrayList<>();
+			ArrayList<String> talles = new ArrayList<>();
+			
+			if (orden.getClass().getName().equals("negocio.OrdenProduccionCompleta")) {
+				for (ColorPrenda color : orden.getPrenda().getColoresValidos())
+					colores.add(color.toString());
+
+				talles = orden.getPrenda().getTallesValidos();
+			} else {
+				talles = (ArrayList<String>) orden.getTalles();
+				colores = (ArrayList<String>) orden.getColores();
+			}
+			
+			for (String talle : talles) {
+				for (String  color : colores) {
 					AlmacenController.getInstance().agregarStockPrenda(orden.getPrenda(), orden.getCantidad(), talle, color, orden);
 				}
 			}

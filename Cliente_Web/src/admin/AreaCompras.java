@@ -55,9 +55,9 @@ public class AreaCompras extends HttpServlet{
 			String id = request.getParameter("id");
 			if(id != null){
 				doPost(request,response);
+			} else {
+				request.getRequestDispatcher("/admin/areaCompras.jsp").forward(request, response);
 			}
-			
-			request.getRequestDispatcher("/admin/areaCompras.jsp").forward(request, response);
 			
 		} catch (RemoteObjectNotFoundException | ApplicationException | UsuarioException e) {
 			e.printStackTrace();
@@ -76,6 +76,7 @@ public class AreaCompras extends HttpServlet{
 		
 			BusinessDelegate.getInstance().comprar(orden);
 			
+			response.sendRedirect(request.getContextPath()+"/AreaCompras");
 		} catch (RemoteObjectNotFoundException e) {
 			e.printStackTrace();
 		} catch (ApplicationException e) {

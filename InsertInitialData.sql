@@ -135,19 +135,19 @@ VALUES (5, 10, "Algodon peruano");
 
 
 INSERT into StockMateriaPrima
-VALUES(1, 1000, NOW(), 2, 'H010101', 1);
+VALUES(1, 1, NOW(), 2, 'H010101', 1);
 
 INSERT into StockMateriaPrima
-VALUES(2, 1000, NOW(), 3, 'H010102', 2);
+VALUES(2, 1, NOW(), 3, 'H010102', 2);
 
 INSERT into StockMateriaPrima
-VALUES(3, 1000, NOW(), 5, 'H010103', 3);
+VALUES(3, 1, NOW(), 5, 'H010103', 3);
 
 INSERT into StockMateriaPrima
-VALUES(4, 1000, NOW(), 1, 'H010104', 4);
+VALUES(4, 1, NOW(), 1, 'H010104', 4);
 
 INSERT into StockMateriaPrima
-VALUES(5, 1000, NOW(), 10, 'H010105', 5);
+VALUES(5, 1, NOW(), 10, 'H010105', 5);
 
 
 
